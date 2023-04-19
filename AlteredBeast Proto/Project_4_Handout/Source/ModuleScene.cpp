@@ -19,9 +19,9 @@ ModuleScene::ModuleScene()
 
 	//why is the stone wall a different size?
 	StoneWall.x = 0;
-	StoneWall.y = 129;
-	StoneWall.w = 7426;
-	StoneWall.h = 249;
+	StoneWall.y = 107;
+	StoneWall.w = 2868;
+	StoneWall.h = 93;
 
 }
 
@@ -53,7 +53,7 @@ update_status ModuleScene::Update()
 update_status ModuleScene::PostUpdate()
 {
 	// Draw everything --------------------------------------
-App->render->Blit(stone, 0, 55, &StoneWall, 0.65f);
+App->render->Blit(stone, 0, 90, &StoneWall, 0.65f);
 App->render->Blit(layer2, 0, 5, &background, 0.75f); 
 
 

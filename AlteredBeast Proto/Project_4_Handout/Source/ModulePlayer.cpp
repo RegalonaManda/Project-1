@@ -32,7 +32,8 @@ ModulePlayer::ModulePlayer()
 	forwardAnim.PushBack({ 112, 0, 54, 75 });
 	forwardAnim.PushBack({ 168, 0, 54, 75 });
 
-
+	forwardAnim.loop = true;
+	
 	forwardAnim.speed = 0.07f;
 
 
@@ -45,8 +46,10 @@ ModulePlayer::ModulePlayer()
 	punchAnim.PushBack({ 0,151,54,75 });
 	punchAnim.PushBack({ 56,151,54,75 });
 	punchAnim.PushBack({ 110,151,111,75 });//Extra large frame for extended punch
+	punchAnim.loop = false;
+	punchAnim.totalFrames = 3;
 	
-	punchAnim.Reset();
+	//punchAnim.Reset();
 	punchAnim.speed = 0.05f;
 
 }
@@ -86,17 +89,23 @@ update_status ModulePlayer::Update()
 
 	//Punch
 	if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
+		punchAnim.Reset();
 		currentAnimation = &punchAnim;
-		idle = false;
-		startTime = SDL_GetTicks();
+
 		
-    
+		idle = false;
+		
 	}
-	//after cooldown
-	Uint32 currentTime = SDL_GetTicks();
-	if (currentTime - startTime >= 800) {
+	//OUTSIDE THE IF
+	if ( punchAnim.HasFinished() == true) {
+		punchAnim.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
 		idle = true;
 	}
+	//after cooldown
+	/*Uint32 currentTime = SDL_GetTicks();
+	if (currentTime - startTime >= 800) {
+		idle = true;
+	}*/
 	
 
 	currentAnimation->Update();

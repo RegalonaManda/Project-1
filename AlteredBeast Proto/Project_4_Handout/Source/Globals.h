@@ -30,4 +30,13 @@ typedef unsigned int uint;
 #define WIN_RESIZABLE 0
 #define VSYNC 1
 
+// SDL REct == overload
+
+//bool operator == (SDL_Rect R1, SDL_Rect R2) {
+//	if (R1.x == R2.x && R1.y == R2.y && R1.w == R1.h && R1.h == R1.w) {
+//		return true;
+//	}
+//	else{ return false; }
+//}
+
 #endif // __GLOBALS_H__
