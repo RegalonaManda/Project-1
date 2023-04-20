@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 8 // 1 less than actual amount, to be used as arr index
+#define NUM_MODULES 9 // 1 less than actual amount, to be used as arr index
 
 //ALL NEW MODULES DEFINED HERE                                                                                                                                                              
 class Module;
@@ -15,6 +15,7 @@ class ModuleScene;
 class ModuleRender;
 class ModuleScene2;
 class ModuleCollisions;
+class ModuleEnemies;
 
 class Application
 {
@@ -48,7 +49,10 @@ public:
 	ModuleScene* scene = nullptr;
 	ModuleScene2* scene2 = nullptr;
 	ModuleCollisions* collisions = nullptr;
+	
+
 	ModuleRender* render = nullptr;
+	ModuleEnemies* enemies = nullptr;
 };
 
 // Global var made extern for Application ---

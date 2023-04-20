@@ -72,6 +72,7 @@ update_status ModuleRender::Update()
 		camera.x -= cameraSpeed;
 	}
 
+	//ACTIVATE CAMERASCROLL
 	bool ScreenScroll = true;
 	if (ScreenScroll) {
 		camera.x -= 1.8;

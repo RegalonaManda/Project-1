@@ -4,7 +4,7 @@
 #include "Enemy.h"
 
 class Zombie : public Enemy {
-
+public:
 	Zombie(int x, int y);
 
 	void Update() override;

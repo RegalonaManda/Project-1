@@ -9,6 +9,7 @@
 #include "ModuleRender.h"
 #include "ModuleScene2.h"
 #include "ModuleCollisions.h"
+#include "ModuleEnemies.h"
 // SHOULD INCLUDE ALL MODULE .h FILES
 
 Application::Application()
@@ -25,8 +26,9 @@ Application::Application()
 	//Exclussively for grass layer
 	modules[5] = scene2 = new ModuleScene2();
 	modules[6] = collisions = new ModuleCollisions();
+	modules[7] = enemies = new ModuleEnemies();
 	// render should always be the last module
-	modules[7] = render = new ModuleRender();
+	modules[8] = render = new ModuleRender();
 }
 
 Application::~Application()

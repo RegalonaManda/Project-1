@@ -17,6 +17,13 @@ public:
 	// Destructor
 	~ModulePlayer();
 
+	enum class Direction {
+		LEFT,
+		RIGHT
+	};
+
+	Direction dir;
+
 	// Called when the module is activated
 	// Loads the necessary textures for the player
 	bool Start() override;
@@ -45,6 +52,7 @@ public:
 
 	// The player's collider
 	Collider* Pcollider = nullptr;
+	Collider* attackCollider = nullptr;
 
 	// A flag to detect when the player has been destroyed
 	bool destroyed = false;
@@ -54,7 +62,8 @@ public:
 
 
 	// A set of animations
-	Animation idleAnim;
+	Animation idleAnimRight;
+	Animation idleAnimLeft;
 	Animation forwardAnim;
 	Animation backAnim;
 	Animation punchAnim;

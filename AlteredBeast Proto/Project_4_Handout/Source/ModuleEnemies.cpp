@@ -7,6 +7,8 @@
 
 #include "Enemy.h"
 
+#include "Zombie.h"
+
 
 #define SPAWN_MARGIN 50
 
@@ -25,7 +27,7 @@ ModuleEnemies::~ModuleEnemies()
 bool ModuleEnemies::Start()
 {
 	//CHANGE load enemy texture
-	texture = App->textures->Load("Assets/enemies.png");
+	texture = App->textures->Load("Assets/Enemies.png");
 	
 
 	return true;
@@ -136,21 +138,19 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 	// Find an empty slot in the enemies array
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		/*if (enemies[i] == nullptr)
+		if (enemies[i] == nullptr)
 		{
 			switch (info.type)
 			{
-			case ENEMY_TYPE::REDBIRD:
-				enemies[i] = new Enemy_RedBird(info.x, info.y);
+			case ENEMY_TYPE::ZOMBIE:
+				enemies[i] = new Zombie(info.x, info.y);
 				break;
-			case ENEMY_TYPE::BROWNSHIP:
-				enemies[i] = new Enemy_BrownShip(info.x, info.y);
+
+				enemies[i]->texture = texture;
+
 				break;
 			}
-			enemies[i]->texture = texture;
-			
-			break;
-		}*/
+		}
 	}
 }
 

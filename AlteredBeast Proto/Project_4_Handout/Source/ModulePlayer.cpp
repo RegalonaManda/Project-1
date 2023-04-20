@@ -17,16 +17,23 @@
 Uint32 startTime = 0;
 bool idle = true;
 
+
+
 ModulePlayer::ModulePlayer()
 {
 	position.x = 100;
 	position.y = 200;
 
+	//Default direction
+	dir = Direction::RIGHT;
+
 	// idle animation (arcade sprite sheet)
 	// x,y (top of rect in sprite sheet) , width, height of rect
-	idleAnim.PushBack({0, 0, 54, 75});
-	
-	idleAnim.speed = 0.1f;
+	idleAnimRight.PushBack({0, 0, 54, 75});
+	idleAnimRight.speed = 0.1f;
+
+	idleAnimLeft.PushBack({ 165,75, 54,75 });
+	idleAnimLeft.speed = 0.1f;
 
 	// walk forward animation (arcade sprite sheet)
 	forwardAnim.PushBack({56, 0, 54, 75});
@@ -69,37 +76,54 @@ bool ModulePlayer::Start()
 	texture = App->textures->Load("Assets/ABfullsprites.png"); // arcade version
 
 	//Initialize collider
-	Pcollider = App->collisions->AddCollider({ 100,300,54,75 }, Collider::Type::PLAYER, this);
-
+	Pcollider = App->collisions->AddCollider({ 100,300,20,68 }, Collider::Type::PLAYER, this);
+	//CHANGE listener of attack to enemy
+	attackCollider = App->collisions->AddCollider({ 100,300,33,19 }, Collider::Type::PLAYER_SHOT, this);
 	return ret;
 }
 
 update_status ModulePlayer::Update()
 {
-	//Update Collider to current player pos
-	Pcollider->SetPos(position.x, position.y);
+	//Update Collider to current player pos, change it depending on direction
+	if(dir == Direction::RIGHT){ Pcollider->SetPos(position.x + 18, position.y - 65); }
+	if (dir == Direction::LEFT) { Pcollider->SetPos(position.x + 20, position.y - 65); }
+	
+	//Pcollider->SetPos(position.x + App->render->camera.x + 15, position.y + App->render->camera.y - 65);
 
-
-	//Reset the currentAnimation back to idle before updating the logic
-	if (idle == true) { currentAnimation = &idleAnim; }
+	//Reset the currentAnimation back to idle, either left ot right before updating the logic
+	if (idle == true && dir == Direction::RIGHT)
+	{ currentAnimation = &idleAnimRight; }
+	if (idle == true && dir == Direction::LEFT) 
+	{ currentAnimation = &idleAnimLeft; }
 
 	if(App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT)
 	{
-		currentAnimation = &forwardAnim;
-		position.x += speed;
+		if (idle == true)/* Can't move if punching */ {
+			//change direction
+			dir = Direction::RIGHT;
+
+			currentAnimation = &forwardAnim;
+			position.x += speed;
+		}
 	}
 
 	
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT) {
-		currentAnimation = &backAnim;
-		position.x -= speed;
+		if (idle == true)/* Can't move if punching */ {
+			//change direction
+			dir = Direction::LEFT;
+
+			currentAnimation = &backAnim;
+			position.x -= speed;
+		}
 	}
 
 	//Punch
 	if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
 		punchAnim.Reset();
 		currentAnimation = &punchAnim;
-
+		//activate punch collider when player punches
+		attackCollider->SetPos(position.x+38, position.y-60);
 		
 		idle = false;
 		
@@ -108,6 +132,8 @@ update_status ModulePlayer::Update()
 	if ( punchAnim.HasFinished() == true) {
 		punchAnim.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
 		idle = true;
+		//deactivate punch collider
+		attackCollider->SetPos(1000, 1000);
 	}
 	
 
