@@ -51,7 +51,8 @@ public:
 		}
 	}
 
-	const SDL_Rect& GetCurrentFrame() const
+	//Changed to notconstant bc of the change in the blit function
+	 SDL_Rect& GetCurrentFrame() 
 	{
 		int actualFrame = currentFrame;
 		if (pingpongDirection == -1)

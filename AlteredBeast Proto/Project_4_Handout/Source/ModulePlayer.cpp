@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleCollisions.h"
 
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib")
@@ -49,7 +50,7 @@ ModulePlayer::ModulePlayer()
 	punchAnim.loop = false;
 	punchAnim.totalFrames = 3;
 	
-	//punchAnim.Reset();
+	
 	punchAnim.speed = 0.05f;
 
 }
@@ -67,11 +68,18 @@ bool ModulePlayer::Start()
 
 	texture = App->textures->Load("Assets/ABfullsprites.png"); // arcade version
 
+	//Initialize collider
+	Pcollider = App->collisions->AddCollider({ 100,300,54,75 }, Collider::Type::PLAYER, this);
+
 	return ret;
 }
 
 update_status ModulePlayer::Update()
 {
+	//Update Collider to current player pos
+	Pcollider->SetPos(position.x, position.y);
+
+
 	//Reset the currentAnimation back to idle before updating the logic
 	if (idle == true) { currentAnimation = &idleAnim; }
 
@@ -101,11 +109,6 @@ update_status ModulePlayer::Update()
 		punchAnim.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
 		idle = true;
 	}
-	//after cooldown
-	/*Uint32 currentTime = SDL_GetTicks();
-	if (currentTime - startTime >= 800) {
-		idle = true;
-	}*/
 	
 
 	currentAnimation->Update();
@@ -123,7 +126,7 @@ update_status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider && destroyed == false)
+	if (c1 == Pcollider && destroyed == false)
 	{
 		
 

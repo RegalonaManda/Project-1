@@ -44,7 +44,7 @@ public:
 	Animation* currentAnimation = nullptr;
 
 	// The player's collider
-	Collider* collider = nullptr;
+	Collider* Pcollider = nullptr;
 
 	// A flag to detect when the player has been destroyed
 	bool destroyed = false;

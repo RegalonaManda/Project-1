@@ -8,7 +8,8 @@
 #include "ModuleScene.h"
 #include "ModuleRender.h"
 #include "ModuleScene2.h"
-
+#include "ModuleCollisions.h"
+// SHOULD INCLUDE ALL MODULE .h FILES
 
 Application::Application()
 {
@@ -23,8 +24,9 @@ Application::Application()
 	modules[4] = player = new ModulePlayer();
 	//Exclussively for grass layer
 	modules[5] = scene2 = new ModuleScene2();
-
-	modules[6] = render = new ModuleRender();
+	modules[6] = collisions = new ModuleCollisions();
+	// render should always be the last module
+	modules[7] = render = new ModuleRender();
 }
 
 Application::~Application()
@@ -64,7 +66,6 @@ update_status Application::Update()
 
 	for (int i = 0; i < NUM_MODULES && ret == update_status::UPDATE_CONTINUE; ++i) {
 		ret = modules[i]->PostUpdate();
-		//modules[4]->PostUpdate();
 	}
 		
 
