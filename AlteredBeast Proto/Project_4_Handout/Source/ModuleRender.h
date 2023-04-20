@@ -33,6 +33,8 @@ public:
 	// Updates the screen with the rendered content
 	update_status PostUpdate() override;
 
+	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, float speed = 1.0f);
+
 	// Called on application exit.
 	// Destroys the rendering context
 	bool CleanUp() override;

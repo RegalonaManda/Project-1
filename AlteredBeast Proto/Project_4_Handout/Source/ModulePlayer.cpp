@@ -120,3 +120,13 @@ update_status ModulePlayer::PostUpdate()
 
 	return update_status::UPDATE_CONTINUE;
 }
+
+void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1 == collider && destroyed == false)
+	{
+		
+
+		destroyed = true;
+	}
+}
