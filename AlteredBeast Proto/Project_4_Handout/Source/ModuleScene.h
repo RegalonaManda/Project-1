@@ -43,6 +43,11 @@ public:
 	// The different sprite sections for the flag
 	Animation flag;
 
+	//ACTIVATE CAMERASCROLL
+	bool ScreenScroll = true;
+	
+	int ScrollSpeed;
+
 };
 
 #endif

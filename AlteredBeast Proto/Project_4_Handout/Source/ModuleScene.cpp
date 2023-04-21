@@ -44,9 +44,15 @@ bool ModuleScene::Start()
 
 update_status ModuleScene::Update()
 {
-	//flag.Update();
-	//App->render->Blit(layer1, 0, 120, &background, 0.75f);
+	
+	//SCREEN SCROLL
+	if (ScreenScroll == true) {
+		App->render->camera.x -= 1.8;
+
+	}
+
 	return update_status::UPDATE_CONTINUE;
+
 }
 
 // Update: draw background

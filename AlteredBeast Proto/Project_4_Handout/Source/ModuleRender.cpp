@@ -75,7 +75,7 @@ update_status ModuleRender::Update()
 	//ACTIVATE CAMERASCROLL
 	bool ScreenScroll = true;
 	if (ScreenScroll) {
-		camera.x -= 1.8;
+		//camera.x -= 1.8;
 	}
 	return update_status::UPDATE_CONTINUE;
 }
