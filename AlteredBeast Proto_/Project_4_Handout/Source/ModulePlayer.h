@@ -29,6 +29,7 @@ public:
 	};
 
 	Direction dir;
+	AirState airSt;
 
 	// Called when the module is activated
 	// Loads the necessary textures for the player

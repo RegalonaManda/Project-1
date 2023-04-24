@@ -26,6 +26,8 @@ ModulePlayer::ModulePlayer()
 
 	//Default direction
 	dir = Direction::RIGHT;
+	//Default airstate
+	airSt = AirState::GROUND;
 
 	// idle animation (arcade sprite sheet)
 	// x,y (top of rect in sprite sheet) , width, height of rect
@@ -147,41 +149,40 @@ update_status ModulePlayer::Update()
 
 	if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
 
+		airSt = AirState::CROUCH;
+
 		if (dir == Direction::LEFT) {
 			currentAnimation = &crouchAnimLeft;
-
 		}
 		if (dir == Direction::RIGHT) {
 			currentAnimation = &crouchAnimRight;
-
 		}
-		
-
 
 	}
 	
 	//Punch
 	if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
 		if (dir == Direction::LEFT) {
-			if (currentAnimation == &idleAnimLeft || currentAnimation == &backAnim) {
+			if (airSt == AirState::GROUND) {
 				punchAnimLeft.Reset();
 				currentAnimation = &punchAnimLeft;
 			}	
-			if (currentAnimation == &crouchAnimLeft) {
+			if (airSt == AirState::CROUCH) {
 				crouchPunchLeft.Reset();
 				currentAnimation = &crouchPunchLeft;
 			}
 			
 		}
 		if (dir == Direction::RIGHT) {
-			if (currentAnimation == &idleAnimRight || currentAnimation == &forwardAnim) {
+			if (airSt == AirState::GROUND) {
 				punchAnimRight.Reset();
 				currentAnimation = &punchAnimRight;
 			}
-			if (currentAnimation == &crouchAnimRight) {
+			if (airSt == AirState::CROUCH) {
 				crouchPunchRight.Reset();
 				currentAnimation = &crouchPunchRight;
 			}
+			
 		}
 		
 		//activate punch collider when player punches
