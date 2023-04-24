@@ -155,7 +155,7 @@ update_status ModulePlayer::Update()
 			currentAnimation = &crouchAnimRight;
 
 		}
-		idle = false;
+		
 
 
 	}

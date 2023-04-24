@@ -22,6 +22,12 @@ public:
 		RIGHT
 	};
 
+	enum class AirState {
+		CROUCH,
+		GROUND,
+		AIRBORN
+	};
+
 	Direction dir;
 
 	// Called when the module is activated
