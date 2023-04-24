@@ -6,7 +6,6 @@
 #include "ModuleCollisions.h"
 #include "Enemy.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModuleScene::ModuleScene()
 {
@@ -17,15 +16,23 @@ ModuleScene::ModuleScene()
 	background.h = 273;
 
 
-	//why is the stone wall a different size?
+	//Stone wal
 	StoneWall.x = 0;
 	StoneWall.y = 75;
 	StoneWall.w = 2868;
 	StoneWall.h = 93;
 
-	
+	// Tree layer
+	TreeLayer.x = 0;
+	TreeLayer.y = 53;
+	TreeLayer.w = 1743;
+	TreeLayer.h = 75;
 
-
+	//sky
+	SkyLayer.x = 0;
+	SkyLayer.y = 0;
+	SkyLayer.w = 1743;
+	SkyLayer.h = 273;
 
 }
 
@@ -43,6 +50,8 @@ bool ModuleScene::Start()
 
 	layer2 = App->textures->Load("Assets/Layer2.png");
 	stone = App->textures->Load("Assets/stone.png");
+	trees = App->textures->Load("Assets/trees.png");
+	sky = App->textures->Load("Assets/sky.png");
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 130);
 
 	return ret;
@@ -67,6 +76,8 @@ update_status ModuleScene::Update()
 update_status ModuleScene::PostUpdate()
 {
 	// Draw everything --------------------------------------
+App->render->Blit(sky, 0, 0, &SkyLayer, 0.4f);
+App->render->Blit(trees, 0, 58, &TreeLayer, 0.5f);
 App->render->Blit(stone, 0, 90, &StoneWall, 0.65f);
 App->render->Blit(layer2, 0, 5, &background, 0.75f); 
 

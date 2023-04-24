@@ -22,7 +22,7 @@ bool idle = true;
 ModulePlayer::ModulePlayer()
 {
 	position.x = 100;
-	position.y = 200;
+	position.y = 190;
 
 	//Default direction
 	dir = Direction::RIGHT;

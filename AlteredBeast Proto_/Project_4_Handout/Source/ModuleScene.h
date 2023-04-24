@@ -34,12 +34,15 @@ public:
 	
 	SDL_Texture* layer2 = nullptr;
 
+	SDL_Texture* trees = nullptr;
 	
-	SDL_Rect StoneWall;
+	SDL_Texture* sky = nullptr;
 
 	// The sprite section for the background
+	SDL_Rect StoneWall;
 	SDL_Rect background;
-
+	SDL_Rect TreeLayer;
+	SDL_Rect SkyLayer;
 	// The different sprite sections for the flag
 	Animation flag;
 
