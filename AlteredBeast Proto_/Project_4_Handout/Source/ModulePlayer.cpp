@@ -12,7 +12,7 @@
 
 #include "SDL/include/SDL_scancode.h"
 
-// Street Fighter reference at https://www.youtube.com/watch?v=OEhmUuehGOA
+
 
 Uint32 startTime = 0;
 bool idle = true;
@@ -59,7 +59,7 @@ ModulePlayer::ModulePlayer()
 	punchAnimRight.loop = false;
 	punchAnimRight.totalFrames = 3;
 	
-	punchAnimRight.speed = 0.05f;
+	punchAnimRight.speed = 0.08f;
 
 
 	punchAnimLeft.PushBack({ 385,227,54,75 });
@@ -67,12 +67,12 @@ ModulePlayer::ModulePlayer()
 	punchAnimLeft.PushBack({ 261,227,73,75 });//Extra large frame for extended punch
 	punchAnimLeft.loop = false;
 
-	punchAnimLeft.speed = 0.05f;
+	punchAnimLeft.speed = 0.08f;
 	punchAnimLeft.totalFrames = 3;
 
 
 	crouchAnimRight.PushBack({ 0, 226, 54, 75 });
-	crouchAnimLeft.PushBack({});
+	crouchAnimLeft.PushBack({386,303,54,75});
 
 
 	crouchAnimLeft.speed = 0.05f;
@@ -85,7 +85,11 @@ ModulePlayer::ModulePlayer()
 	crouchPunchRight.totalFrames = 2;
 	crouchPunchRight.speed = 0.05f;
 
-
+	crouchPunchLeft.PushBack({ 331, 303, 54, 75 });
+	crouchPunchLeft.PushBack({ 253, 303, 63, 75 });
+	crouchPunchLeft.loop = false;
+	crouchPunchLeft.totalFrames = 2;
+	crouchPunchLeft.speed = 0.05f;
 
 
 	deathAnim.PushBack({ 209, 378, 108, 75 });
@@ -122,9 +126,9 @@ update_status ModulePlayer::Update()
 	//Grounded
 	if(dir == Direction::RIGHT && airSt == AirState::CROUCH) { Pcollider->SetPos(position.x + 20, position.y - 40); }
 
-	//Pcollider->SetPos(position.x + App->render->camera.x + 15, position.y + App->render->camera.y - 65);
+	
 
-	//Reset the currentAnimation back to idle, either left ot right before updating the logic
+	//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 	if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
 	{
 		currentAnimation = &idleAnimRight;
@@ -132,6 +136,12 @@ update_status ModulePlayer::Update()
 	if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 	{
 		currentAnimation = &idleAnimLeft;
+	}
+	if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
+		currentAnimation = &crouchAnimRight;
+	}
+	if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
+		currentAnimation = &crouchAnimLeft;
 	}
 
 	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT)
@@ -156,7 +166,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT && airSt != AirState::CROUCH) {
+	if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT && airSt != AirState::CROUCH && idle == true) {
 
 		airSt = AirState::CROUCH;
 
@@ -175,7 +185,7 @@ update_status ModulePlayer::Update()
 				punchAnimLeft.Reset();
 				currentAnimation = &punchAnimLeft;
 				//activate punch collider when player punches
-				attackCollider->SetPos(position.x + 38, position.y - 60);
+				attackCollider->SetPos(position.x + 0, position.y - 60);
 
 				idle = false;
 
@@ -195,13 +205,13 @@ update_status ModulePlayer::Update()
 				crouchPunchLeft.Reset();
 				currentAnimation = &crouchPunchLeft;
 				//CHANGE x
-				attackCollider->SetPos(position.x + 38, position.y - 40);
+				attackCollider->SetPos(position.x + 0, position.y - 40);
 				idle = false;
 			}
 			if (dir == Direction::RIGHT) {
 				crouchPunchRight.Reset();
 				currentAnimation = &crouchPunchRight;
-				attackCollider->SetPos(position.x + 38, position.y - 40);
+				attackCollider->SetPos(position.x + 43, position.y - 40);
 				idle = false;
 			}
 		}
@@ -222,10 +232,32 @@ update_status ModulePlayer::Update()
 			attackCollider->SetPos(1000, 1000);
 		}
 
+		if (crouchPunchRight.HasFinished() == true) {
+			crouchPunchRight.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+			idle = true;
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+				airSt = AirState::CROUCH;
+			}
+			else { airSt = AirState::GROUND; }
+			//deactivate punch collider
+			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
+
+		}
+		if (crouchPunchLeft.HasFinished() == true) {
+			crouchPunchLeft.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+			idle = true;
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+				airSt = AirState::CROUCH;
+			}
+			else { airSt = AirState::GROUND; }
+			//deactivate punch collider
+			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
+
+		}
 		
 
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP /*&& idle == true*/) {
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true) {
 			/*crouchPunchLeft.loopCount--;*/   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
 			
 			airSt = AirState::GROUND;
@@ -233,18 +265,7 @@ update_status ModulePlayer::Update()
 			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
 		}
 
-		if (crouchPunchRight.HasFinished() == true) {
-			crouchPunchRight.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
-			idle = true;
-			//deactivate punch collider
-			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
-			if (airSt == AirState::CROUCH) {
-				if (dir == Direction::LEFT) { currentAnimation = &crouchAnimLeft; }
-				if (dir == Direction::RIGHT) { currentAnimation = &crouchAnimRight; }
-			}
-			
-		}
-
+		
 
 		//Player gets killed
 		if (destroyed) {
