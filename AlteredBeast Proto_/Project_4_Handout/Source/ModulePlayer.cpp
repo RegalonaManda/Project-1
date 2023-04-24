@@ -114,18 +114,22 @@ bool ModulePlayer::Start()
 update_status ModulePlayer::Update()
 {
 	//Update Collider to current player pos, change it depending on direction
-	if(dir == Direction::RIGHT){ Pcollider->SetPos(position.x + 18, position.y - 65); }
+	if (dir == Direction::RIGHT) { Pcollider->SetPos(position.x + 18, position.y - 65); }
 	if (dir == Direction::LEFT) { Pcollider->SetPos(position.x + 20, position.y - 65); }
-	
+
 	//Pcollider->SetPos(position.x + App->render->camera.x + 15, position.y + App->render->camera.y - 65);
 
 	//Reset the currentAnimation back to idle, either left ot right before updating the logic
 	if (idle == true && dir == Direction::RIGHT)
-	{ currentAnimation = &idleAnimRight; }
-	if (idle == true && dir == Direction::LEFT) 
-	{ currentAnimation = &idleAnimLeft; }
+	{
+		currentAnimation = &idleAnimRight;
+	}
+	if (idle == true && dir == Direction::LEFT)
+	{
+		currentAnimation = &idleAnimLeft;
+	}
 
-	if(App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT)
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT)
 	{
 		if (idle == true)/* Can't move if punching */ {
 			//change direction
@@ -136,7 +140,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	
+
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT) {
 		if (idle == true)/* Can't move if punching */ {
 			//change direction
@@ -159,19 +163,19 @@ update_status ModulePlayer::Update()
 		}
 
 	}
-	
+
 	//Punch
 	if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
 		if (dir == Direction::LEFT) {
 			if (airSt == AirState::GROUND) {
 				punchAnimLeft.Reset();
 				currentAnimation = &punchAnimLeft;
-			}	
+			}
 			if (airSt == AirState::CROUCH) {
 				crouchPunchLeft.Reset();
 				currentAnimation = &crouchPunchLeft;
 			}
-			
+
 		}
 		if (dir == Direction::RIGHT) {
 			if (airSt == AirState::GROUND) {
@@ -182,48 +186,48 @@ update_status ModulePlayer::Update()
 				crouchPunchRight.Reset();
 				currentAnimation = &crouchPunchRight;
 			}
-			
+
 		}
-		
+
 		//activate punch collider when player punches
-		attackCollider->SetPos(position.x+38, position.y-60);
-		
+		attackCollider->SetPos(position.x + 38, position.y - 60);
+
 		idle = false;
-		
+
 	}
 
 
 
-
+	// try with key release
 	//OUTSIDE THE IF
-	if (punchAnimLeft.HasFinished() == true) {
-		punchAnimLeft.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+	if (App->input->keys[SDL_SCANCODE_Z] == KEY_UP) {
+		/*punchAnimLeft.loopCount--; */  //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
 		idle = true;
 		//deactivate punch collider
 		attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
 	}
 
-	if (punchAnimRight.HasFinished() == true) {
-		punchAnimRight.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+	//if (punchAnimRight.HasFinished() == true) {
+	//	punchAnimRight.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+	//	idle = true;
+	//	//deactivate punch collider
+	//	attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
+	//}
+
+
+	if (App->input->keys[SDL_SCANCODE_S] == KEY_UP) {
+		/*crouchPunchLeft.loopCount--;*/   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
 		idle = true;
 		//deactivate punch collider
 		attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
 	}
 
-
-	if (crouchPunchLeft.HasFinished() == true) {
-		crouchPunchLeft.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
-		idle = true;
-		//deactivate punch collider
-		attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
-	}
-
-	if (crouchPunchRight.HasFinished() == true) {
-		crouchPunchRight.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
-		idle = true;
-		//deactivate punch collider
-		attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
-	}
+	//if (crouchPunchRight.HasFinished() == true) {
+	//	crouchPunchRight.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+	//	idle = true;
+	//	//deactivate punch collider
+	//	attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
+	//}
 
 
 	//Player gets killed
