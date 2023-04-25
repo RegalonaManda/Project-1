@@ -5,6 +5,9 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleCollisions.h"
+#include "ModuleFonts.h"
+
+#include <stdio.h>
 
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib")
@@ -149,6 +152,10 @@ bool ModulePlayer::Start()
 	Pcollider = App->collisions->AddCollider({ 100,300,20,68 }, Collider::Type::PLAYER, this);
 	//CHANGE listener of attack to enemy
 	attackCollider = App->collisions->AddCollider({ 100,300,33,19 }, Collider::Type::PLAYER_SHOT, this);
+
+	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
+	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz0123456789.,ç'?!*$%&()+-/<=>© " };
+	scoreFont = App->fonts->Load("Assets/font_spritesheet.png", lookupTable, 1);
 
 	return ret;
 }
@@ -374,6 +381,13 @@ update_status ModulePlayer::PostUpdate()
 {
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y - rect.h, &rect);
+
+	sprintf_s(scoreText, 10, "%7d", score);
+
+	App->fonts->BlitText(40, 8, scoreFont, scoreText);
+	App->fonts->BlitText(230, 8, scoreFont, "50000");
+
+
 
 	return update_status::UPDATE_CONTINUE;
 }

@@ -10,6 +10,7 @@
 #include "ModuleScene2.h"
 #include "ModuleCollisions.h"
 #include "ModuleEnemies.h"
+#include "ModuleFonts.h"
 // SHOULD INCLUDE ALL MODULE .h FILES
 
 Application::Application()
@@ -26,8 +27,9 @@ Application::Application()
 	modules[5] = player = new ModulePlayer();
 	modules[6] = scene2 = new ModuleScene2();
 	modules[7] = collisions = new ModuleCollisions();
+	modules[8] = fonts = new ModuleFonts(true);
 	// render should always be the last module
-	modules[8] = render = new ModuleRender();
+	modules[9] = render = new ModuleRender();
 }
 
 Application::~Application()
