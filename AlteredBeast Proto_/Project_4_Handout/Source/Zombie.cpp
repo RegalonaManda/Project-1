@@ -10,7 +10,8 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 
 	walkAnim.PushBack({11, 8, 27, 61 });
 	walkAnim.PushBack({55, 9, 27, 61});
-	walkAnim.loop = false;
+	walkAnim.speed = 0.008f;
+	walkAnim.loop = true;
 
 	deathAnim.PushBack({ 168, 0, 49, 74 });
 	deathAnim.loop = true;
@@ -34,10 +35,6 @@ void Zombie::Update() {
 	}
 
 	
-	
-	//if (!alive) {
-	//	delete this;
-	//}
 	currentAnim->Update();
 	Enemy::Update();
 

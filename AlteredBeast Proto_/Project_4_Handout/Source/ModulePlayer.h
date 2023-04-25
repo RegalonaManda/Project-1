@@ -28,8 +28,17 @@ public:
 		AIRBORN
 	};
 
+	enum class Transform {
+		DEFAULT,
+		POWER1,
+		POWER2,
+		WOLF
+
+	};
+
 	Direction dir;
 	AirState airSt;
+	Transform tranSt;
 
 	// Called when the module is activated
 	// Loads the necessary textures for the player
@@ -80,6 +89,8 @@ public:
 	Animation crouchAnimRight;
 	Animation crouchPunchLeft;
 	Animation crouchPunchRight;
+	Animation kickAnimRight;
+	Animation kickAnimLeft;
 	//Animation jumpAnim;
 };
 

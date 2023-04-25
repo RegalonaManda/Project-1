@@ -28,6 +28,8 @@ ModulePlayer::ModulePlayer()
 	dir = Direction::RIGHT;
 	//Default airstate
 	airSt = AirState::GROUND;
+	//Default transformation
+	tranSt = Transform::DEFAULT;
 
 	// idle animation (arcade sprite sheet)
 	// x,y (top of rect in sprite sheet) , width, height of rect
@@ -92,6 +94,26 @@ ModulePlayer::ModulePlayer()
 	crouchPunchLeft.speed = 0.05f;
 
 
+	kickAnimRight.PushBack({221, 379, 87, 75});
+	kickAnimRight.PushBack({309, 379, 87, 75 });
+	kickAnimRight.PushBack({397, 379, 87, 75 });
+	kickAnimRight.PushBack({309, 379, 87, 75 });
+
+	kickAnimRight.speed = 0.1f;
+	kickAnimRight.loop = false;
+	kickAnimRight.totalFrames = 4;
+
+
+	kickAnimLeft.PushBack({ 221, 455, 87, 75 });
+	kickAnimLeft.PushBack({ 309, 455, 87, 75 });
+	kickAnimLeft.PushBack({ 397, 455, 87, 75 });
+	kickAnimLeft.PushBack({ 309, 455, 87, 75 });
+
+	kickAnimLeft.speed = 0.1f;
+	kickAnimLeft.loop = false;
+	kickAnimLeft.totalFrames = 4;
+
+
 	deathAnim.PushBack({ 209, 378, 108, 75 });
 
 }
@@ -132,6 +154,7 @@ update_status ModulePlayer::Update()
 	if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
 	{
 		currentAnimation = &idleAnimRight;
+
 	}
 	if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 	{
@@ -217,34 +240,48 @@ update_status ModulePlayer::Update()
 		}
 	}
 
+	if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
+			kickAnimRight.Reset();
+			currentAnimation = &kickAnimRight;
+			idle = false;
+		}
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
+		{
+			kickAnimLeft.Reset();
+			currentAnimation = &kickAnimLeft;
+			idle = false;
+		}
+	}
+
 		//OUTSIDE THE IF
 		if (punchAnimRight.HasFinished() == true) {
-			punchAnimRight.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
+			punchAnimRight.loopCount--;   
 			idle = true;
 			//deactivate punch collider
 			attackCollider->SetPos(1000, 1000);
 		}
 		//OUTSIDE THE IF
 		if (punchAnimLeft.HasFinished() == true) {
-			punchAnimLeft.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
+			punchAnimLeft.loopCount--;   
 			idle = true;
 			//deactivate punch collider
 			attackCollider->SetPos(1000, 1000);
 		}
 
 		if (crouchPunchRight.HasFinished() == true) {
-			crouchPunchRight.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+			crouchPunchRight.loopCount--;  
 			idle = true;
 			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
 			//deactivate punch collider
-			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
+			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
 
 		}
 		if (crouchPunchLeft.HasFinished() == true) {
-			crouchPunchLeft.loopCount--;   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+			crouchPunchLeft.loopCount--;   
 			idle = true;
 			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
 				airSt = AirState::CROUCH;
@@ -255,6 +292,19 @@ update_status ModulePlayer::Update()
 
 		}
 		
+		if (kickAnimRight.HasFinished() == true) {
+			kickAnimRight.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
+			idle = true;
+			//deactivate kick collider
+			attackCollider->SetPos(1000, 1000);
+		}
+		//OUTSIDE THE IF
+		if (kickAnimLeft.HasFinished() == true) {
+			kickAnimLeft.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
+			idle = true;
+			//deactivate kick collider
+			attackCollider->SetPos(1000, 1000);
+		}
 
 
 		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true) {
