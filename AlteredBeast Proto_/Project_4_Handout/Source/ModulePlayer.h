@@ -91,6 +91,8 @@ public:
 	Animation crouchPunchRight;
 	Animation kickAnimRight;
 	Animation kickAnimLeft;
+	Animation kickCrouchRight;
+	Animation kickCrouchLeft;
 	//Animation jumpAnim;
 };
 

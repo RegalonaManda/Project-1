@@ -113,6 +113,20 @@ ModulePlayer::ModulePlayer()
 	kickAnimLeft.loop = false;
 	kickAnimLeft.totalFrames = 4;
 
+	kickCrouchRight.PushBack({ 1,455,72,75 });
+	kickCrouchRight.PushBack({ 74,455,72,75 });
+	kickCrouchRight.PushBack({ 1,455,72,75 });
+	kickCrouchRight.speed = 0.05f;
+	kickCrouchRight.totalFrames = 3;
+	kickCrouchRight.loop = false;
+
+	kickCrouchLeft.PushBack({ 1,531,72,75 });
+	kickCrouchLeft.PushBack({ 74,531,72,75 });
+	kickCrouchLeft.PushBack({ 1,531,72,75 });
+	kickCrouchLeft.speed = 0.05f;
+	kickCrouchLeft.totalFrames = 3;
+	kickCrouchLeft.loop = false;
+
 
 	deathAnim.PushBack({ 209, 378, 108, 75 });
 
@@ -252,6 +266,16 @@ update_status ModulePlayer::Update()
 			currentAnimation = &kickAnimLeft;
 			idle = false;
 		}
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
+			kickCrouchRight.Reset();
+			currentAnimation = &kickCrouchRight;
+			idle = false;
+		}
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
+			kickCrouchLeft.Reset();
+			currentAnimation = &kickCrouchLeft;
+			idle = false;
+		}
 	}
 
 		//OUTSIDE THE IF
@@ -306,6 +330,20 @@ update_status ModulePlayer::Update()
 			attackCollider->SetPos(1000, 1000);
 		}
 
+		if (kickCrouchLeft.HasFinished() == true) {
+			kickCrouchLeft.loopCount--;  
+			idle = true;
+			//deactivate kick collider
+			attackCollider->SetPos(1000, 1000);
+		}
+
+		if (kickCrouchRight.HasFinished() == true) {
+			kickCrouchRight.loopCount--;
+			idle = true;
+			//deactivate kick collider
+			attackCollider->SetPos(1000, 1000);
+		}
+
 
 		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true) {
 			/*crouchPunchLeft.loopCount--;*/   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
@@ -344,8 +382,6 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == Pcollider && destroyed == false)
 	{
-		
-
 		destroyed = true;
 	}
 }
