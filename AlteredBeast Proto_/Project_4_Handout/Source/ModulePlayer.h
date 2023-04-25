@@ -96,7 +96,7 @@ public:
 	//Animation jumpAnim;
 
 	// Font score index
-	uint score = 000;
+	float score = 000;
 	int scoreFont = -1;
 	char scoreText[10] = { "\0" };
 
