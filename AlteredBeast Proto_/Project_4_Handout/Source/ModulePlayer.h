@@ -53,8 +53,10 @@ public:
 	update_status PostUpdate() override;
 
 public:
+	float impulse = 0.7;
+
 	// Position of the player in the map
-	iPoint position;
+	fPoint position;
 
 	// The speed in which we move the player (pixels per frame)
 	int speed = 1;

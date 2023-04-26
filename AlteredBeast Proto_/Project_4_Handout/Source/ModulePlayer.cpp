@@ -15,7 +15,7 @@
 
 #include "SDL/include/SDL_scancode.h"
 
-
+float Gravity = 0.01f;
 
 Uint32 startTime = 0;
 bool idle = true;
@@ -26,6 +26,7 @@ ModulePlayer::ModulePlayer()
 {
 	position.x = 100;
 	position.y = 190;
+	
 
 	//Default direction
 	dir = Direction::RIGHT;
@@ -145,7 +146,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 
 	bool ret = true;
-
+	
 	texture = App->textures->Load("Assets/ABfullspritesProto.png"); // arcade version
 
 	//Initialize collider
@@ -169,7 +170,19 @@ update_status ModulePlayer::Update()
 	//Grounded
 	if(dir == Direction::RIGHT && airSt == AirState::CROUCH) { Pcollider->SetPos(position.x + 20, position.y - 40); }
 
-	
+	if (idle == true && airSt == AirState::GROUND && App->input->keys[SDL_SCANCODE_SPACE] == KEY_REPEAT) {
+		impulse = 0.7;
+		position.y += 0.1;
+		airSt = AirState::AIRBORN;
+	}
+	if (airSt == AirState::AIRBORN) {
+		impulse -= Gravity;
+		position.y -= impulse;
+	}
+	if (position.y >= 190) {
+		airSt = AirState::GROUND;
+		position.y = 190;
+	}
 
 	//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 	if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
