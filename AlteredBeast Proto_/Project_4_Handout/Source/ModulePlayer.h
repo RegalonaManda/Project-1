@@ -73,6 +73,7 @@ public:
 	// The player's collider
 	Collider* Pcollider = nullptr;
 	Collider* attackCollider = nullptr;
+	Collider* kickCollider = nullptr;
 
 	// A flag to detect when the player has been destroyed
 	bool destroyed = false;
