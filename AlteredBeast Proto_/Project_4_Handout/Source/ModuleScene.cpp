@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleCollisions.h"
+#include "ModuleAudio.h"
 #include "Enemy.h"
 
 
@@ -53,6 +54,7 @@ bool ModuleScene::Start()
 	trees = App->textures->Load("Assets/trees.png");
 	sky = App->textures->Load("Assets/sky.png");
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 130);
+	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
 
 	return ret;
 }

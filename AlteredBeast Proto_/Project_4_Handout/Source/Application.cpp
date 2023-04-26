@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModuleAudio.h"
 #include "ModulePlayer.h"
 #include "ModuleScene.h"
 #include "ModuleRender.h"
@@ -21,15 +22,16 @@ Application::Application()
 	modules[0] = window = new ModuleWindow();
 	modules[1] = input = new ModuleInput();
 	modules[2] = textures = new ModuleTextures();
-	modules[3] = scene = new ModuleScene();
-	modules[4] = enemies = new ModuleEnemies();
+	modules[3] = audio = new ModuleAudio(true);
+	modules[4] = scene = new ModuleScene();
+	modules[5] = enemies = new ModuleEnemies();
 	//Exclussively for grass layer
-	modules[5] = player = new ModulePlayer();
-	modules[6] = scene2 = new ModuleScene2();
-	modules[7] = collisions = new ModuleCollisions();
-	modules[8] = fonts = new ModuleFonts(true);
+	modules[6] = player = new ModulePlayer();
+	modules[7] = scene2 = new ModuleScene2();
+	modules[8] = collisions = new ModuleCollisions();
+	modules[9] = fonts = new ModuleFonts(true);
 	// render should always be the last module
-	modules[9] = render = new ModuleRender();
+	modules[10] = render = new ModuleRender();
 }
 
 Application::~Application()
