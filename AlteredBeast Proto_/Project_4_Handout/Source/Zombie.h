@@ -15,8 +15,14 @@ public:
 	bool alive = true;
 	bool destroyed = false;
 
+	enum class Direction {
+		LEFT,
+		RIGHT
+	};
+
 	uint destroyedCountdown = 50;
 private:
+	Direction dir;
 	Animation walkAnim;
 	Animation deathAnim;
 
