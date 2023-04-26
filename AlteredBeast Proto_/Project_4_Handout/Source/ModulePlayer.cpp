@@ -144,7 +144,8 @@ ModulePlayer::ModulePlayer()
 	deathAnim.totalFrames = 3;
 	deathAnim.loop = false;
 	
-
+	jumpAnim.PushBack({ 0,303,54,75 });
+	jumpAnim.speed = 0.05f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -208,7 +209,6 @@ update_status ModulePlayer::Update()
 	if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
 	{
 		currentAnimation = &idleAnimRight;
-
 	}
 	if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 	{
@@ -220,7 +220,9 @@ update_status ModulePlayer::Update()
 	if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
 		currentAnimation = &crouchAnimLeft;
 	}
-
+	if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN) {
+		currentAnimation = &jumpAnim;
+	}
 	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT )
 	{
 		if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
@@ -229,6 +231,7 @@ update_status ModulePlayer::Update()
 			currentAnimation = &forwardAnim;
 			position.x += speed;
 		}
+		//Air
 		if (airSt == AirState::AIRBORN) {
 			position.x += AirSpeed;
 		}
@@ -243,6 +246,7 @@ update_status ModulePlayer::Update()
 			currentAnimation = &backAnim;
 			position.x -= speed;
 		}
+		//Air
 		if (airSt == AirState::AIRBORN) {
 			position.x -= AirSpeed;
 		}

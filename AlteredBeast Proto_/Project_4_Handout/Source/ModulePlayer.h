@@ -97,7 +97,11 @@ public:
 	Animation kickAnimLeft;
 	Animation kickCrouchRight;
 	Animation kickCrouchLeft;
-	//Animation jumpAnim;
+
+	//AirBorn animations
+	Animation jumpAnim;
+	Animation jumpRight;
+	Animation jumpLeft;
 
 	// Font score index
 	float score = 000;
