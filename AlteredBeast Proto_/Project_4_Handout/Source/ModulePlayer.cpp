@@ -15,12 +15,12 @@
 
 #include "SDL/include/SDL_scancode.h"
 //the lower the higher
-#define MAX_HEIGHT 150
+#define MAX_HEIGHT 147
 #define WALKANIMSPEED 0.08f
 #define PUNCHANIMSPEED 0.1f
+#define Gravity 0.07f;
 
 
-float Gravity = 0.07f;
 //deberia estar en el .h
 Uint32 startTime = 0;
 bool idle = true;
@@ -192,6 +192,7 @@ update_status ModulePlayer::Update()
 		impulse = -2.3;
 		position.y = MAX_HEIGHT + 2;
 	}
+	//Reset state to ground when touching the ground
 	if (position.y >= 190) {
 		airSt = AirState::GROUND;
 		position.y = 190;
@@ -214,15 +215,15 @@ update_status ModulePlayer::Update()
 		currentAnimation = &crouchAnimLeft;
 	}
 
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT)
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT )
 	{
-		if (idle == true)/* Can't move if punching */ {
+		if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
 			//change direction
 			dir = Direction::RIGHT;
-
 			currentAnimation = &forwardAnim;
 			position.x += speed;
 		}
+		
 	}
 
 
