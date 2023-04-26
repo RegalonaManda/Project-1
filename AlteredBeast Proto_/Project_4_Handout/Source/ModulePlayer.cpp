@@ -14,10 +14,13 @@
 #pragma comment( lib, "SDL/libx86/SDL2main.lib")
 
 #include "SDL/include/SDL_scancode.h"
-
+//the lower the higher
 #define MAX_HEIGHT 150
+#define WALKANIMSPEED 0.08f
+#define PUNCHANIMSPEED 0.1f
 
-float Gravity = 0.08f;
+
+float Gravity = 0.07f;
 //deberia estar en el .h
 Uint32 startTime = 0;
 bool idle = true;
@@ -52,13 +55,13 @@ ModulePlayer::ModulePlayer()
 
 	forwardAnim.loop = true;
 	
-	forwardAnim.speed = 0.07f;
+	forwardAnim.speed = WALKANIMSPEED;
 
 
 	backAnim.PushBack({ 0,76,54,75 });
 	backAnim.PushBack({ 56,76,54,75 });
-	//backAnim.PushBack({ 111,76,54,75 });
-	backAnim.speed = 0.07f;
+	backAnim.PushBack({ 111,76,54,75 });
+	backAnim.speed = WALKANIMSPEED;
 
 	//Punch animation
 	punchAnimRight.PushBack({ 0,151,54,75 });
@@ -67,7 +70,7 @@ ModulePlayer::ModulePlayer()
 	punchAnimRight.loop = false;
 	punchAnimRight.totalFrames = 3;
 	
-	punchAnimRight.speed = 0.08f;
+	punchAnimRight.speed = PUNCHANIMSPEED;
 
 
 	punchAnimLeft.PushBack({ 385,227,54,75 });
@@ -75,7 +78,7 @@ ModulePlayer::ModulePlayer()
 	punchAnimLeft.PushBack({ 261,227,73,75 });//Extra large frame for extended punch
 	punchAnimLeft.loop = false;
 
-	punchAnimLeft.speed = 0.08f;
+	punchAnimLeft.speed = PUNCHANIMSPEED;
 	punchAnimLeft.totalFrames = 3;
 
 
@@ -173,9 +176,9 @@ update_status ModulePlayer::Update()
 	if(dir == Direction::RIGHT && airSt == AirState::CROUCH) { Pcollider->SetPos(position.x + 20, position.y - 40); }
 
 	//Jump function
-
+	//impulse bigger, the stronger it jumps
 	if (idle == true && airSt == AirState::GROUND && App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN) {
-		impulse = 3.5;
+		impulse = 3.2;
 		position.y += 0.5;
 		airSt = AirState::AIRBORN;
 	}
@@ -184,9 +187,9 @@ update_status ModulePlayer::Update()
 		position.y -= impulse;
 	}
 	//Put a max height that makes the player fall faster for it to dont look like its floating ( not real but like the game )
-
+	//impulse lesser, the faster it falls
 	if (airSt == AirState::AIRBORN && position.y < MAX_HEIGHT) {
-		impulse = -2.5;
+		impulse = -2.3;
 		position.y = MAX_HEIGHT + 2;
 	}
 	if (position.y >= 190) {
@@ -247,7 +250,7 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
-		if (airSt == AirState::GROUND) {
+		if (airSt == AirState::GROUND || airSt== AirState::AIRBORN) {
 			if (dir == Direction::LEFT) {
 				punchAnimLeft.Reset();
 				currentAnimation = &punchAnimLeft;
