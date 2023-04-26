@@ -144,8 +144,13 @@ ModulePlayer::ModulePlayer()
 	deathAnim.totalFrames = 3;
 	deathAnim.loop = false;
 	
-	jumpAnim.PushBack({ 0,303,54,75 });
-	jumpAnim.speed = 0.05f;
+	jumpRight.PushBack({ 0,303,54,75 });
+	jumpRight.PushBack({ 56,303,54,75 });
+	jumpRight.speed = 0.025f;
+	
+	jumpLeft.PushBack({ 0,379,54,75 });
+	jumpLeft.PushBack({ 56,379,54,75 });
+	jumpLeft.speed = 0.025f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -203,6 +208,7 @@ update_status ModulePlayer::Update()
 	if (position.y >= 190) {
 		airSt = AirState::GROUND;
 		position.y = 190;
+		//jumpRight.Reset();
 	}
 
 	//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
@@ -221,7 +227,10 @@ update_status ModulePlayer::Update()
 		currentAnimation = &crouchAnimLeft;
 	}
 	if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN) {
-		currentAnimation = &jumpAnim;
+		currentAnimation = &jumpRight;
+	}
+	if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
+		currentAnimation = &jumpLeft;
 	}
 	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT )
 	{

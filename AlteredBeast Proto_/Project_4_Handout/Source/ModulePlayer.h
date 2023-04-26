@@ -99,7 +99,6 @@ public:
 	Animation kickCrouchLeft;
 
 	//AirBorn animations
-	Animation jumpAnim;
 	Animation jumpRight;
 	Animation jumpLeft;
 
