@@ -15,8 +15,10 @@
 
 #include "SDL/include/SDL_scancode.h"
 
-float Gravity = 0.01f;
+#define MAX_HEIGHT 150
 
+float Gravity = 0.08f;
+//deberia estar en el .h
 Uint32 startTime = 0;
 bool idle = true;
 
@@ -170,14 +172,22 @@ update_status ModulePlayer::Update()
 	//Grounded
 	if(dir == Direction::RIGHT && airSt == AirState::CROUCH) { Pcollider->SetPos(position.x + 20, position.y - 40); }
 
-	if (idle == true && airSt == AirState::GROUND && App->input->keys[SDL_SCANCODE_SPACE] == KEY_REPEAT) {
-		impulse = 0.7;
-		position.y += 0.1;
+	//Jump function
+
+	if (idle == true && airSt == AirState::GROUND && App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN) {
+		impulse = 3.5;
+		position.y += 0.5;
 		airSt = AirState::AIRBORN;
 	}
 	if (airSt == AirState::AIRBORN) {
 		impulse -= Gravity;
 		position.y -= impulse;
+	}
+	//Put a max height that makes the player fall faster for it to dont look like its floating ( not real but like the game )
+
+	if (airSt == AirState::AIRBORN && position.y < MAX_HEIGHT) {
+		impulse = -2.5;
+		position.y = MAX_HEIGHT + 2;
 	}
 	if (position.y >= 190) {
 		airSt = AirState::GROUND;
