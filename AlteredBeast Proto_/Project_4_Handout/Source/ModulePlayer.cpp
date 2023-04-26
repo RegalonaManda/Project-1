@@ -108,7 +108,7 @@ ModulePlayer::ModulePlayer()
 	kickAnimRight.PushBack({397, 379, 87, 75 });
 	kickAnimRight.PushBack({309, 379, 87, 75 });
 
-	kickAnimRight.speed = 0.1f;
+	kickAnimRight.speed = 0.13f;
 	kickAnimRight.loop = false;
 	kickAnimRight.totalFrames = 4;
 
@@ -118,7 +118,7 @@ ModulePlayer::ModulePlayer()
 	kickAnimLeft.PushBack({ 397, 455, 87, 75 });
 	kickAnimLeft.PushBack({ 309, 455, 87, 75 });
 
-	kickAnimLeft.speed = 0.1f;
+	kickAnimLeft.speed = 0.13f;
 	kickAnimLeft.loop = false;
 	kickAnimLeft.totalFrames = 4;
 
@@ -170,6 +170,23 @@ ModulePlayer::ModulePlayer()
 	jumpLeft.PushBack({ 0,379,54,75 });
 	jumpLeft.PushBack({ 56,379,54,75 });
 	jumpLeft.speed = 0.025f;
+
+	airPunchLeft.PushBack({ 354,749,54,75 });
+	airPunchLeft.loop = true;
+	airPunchRight.PushBack({ 0,749,60,75 });
+	airPunchRight.loop = true;
+	
+	airKickRight.PushBack({ 70,749,68,75 });
+	airKickRight.PushBack({ 140,749,68,75 });
+	airKickRight.speed = 0.06f;
+
+	airKickLeft.PushBack({ 277,749,68,75 });
+	airKickLeft.PushBack({ 208,749,68,75 });
+	airKickLeft.speed = 0.06f;
+	airKickLeft.totalFrames = 2;
+
+	LandingLeft.PushBack({ 111,379,54,75 });
+	LandingRight.PushBack({ 111,303,54,75 });
 }
 
 ModulePlayer::~ModulePlayer()
@@ -215,9 +232,13 @@ update_status ModulePlayer::Update()
 	if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 60); }
 	if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 60); }
 
+	if (idle == true) {
+			attackCollider->SetPos(1000, 1000);
+	}
 	//Jump function
 	//impulse bigger, the stronger it jumps
 	if (idle == true && airSt == AirState::GROUND && App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN) {
+		landing = 5;
 		impulse = 3.2;
 		position.y += 0.5;
 		airSt = AirState::AIRBORN;
@@ -234,11 +255,19 @@ update_status ModulePlayer::Update()
 	}
 	//Reset state to ground when touching the ground
 	if (position.y >= 190 && airSt == AirState::AIRBORN) {
-		airSt = AirState::GROUND;
+		airSt = AirState::LANDING;
 		position.y = 190;
+		idle = true;
 		//jumpRight.Reset();
 	}
-
+	if (airSt == AirState::LANDING) {
+		if (dir == Direction::LEFT) { currentAnimation = &LandingLeft; }
+		if (dir == Direction::RIGHT) { currentAnimation = &LandingRight; }
+		landing--;
+	}
+	if (landing <= 0) {
+		airSt = AirState::GROUND;
+	}
 	//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 	if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
 	{
@@ -289,7 +318,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT && airSt != AirState::CROUCH && idle == true) {
+	if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT && airSt == AirState::GROUND && idle == true) {
 
 		airSt = AirState::CROUCH;
 
@@ -338,7 +367,21 @@ update_status ModulePlayer::Update()
 				idle = false;
 			}
 		}
+		if (airSt == AirState::AIRBORN) {
+			if (dir == Direction::LEFT) {
+				currentAnimation = &airPunchLeft;
+				
+				idle = false;
+			}
+			if (dir == Direction::RIGHT) {
+				currentAnimation = &airPunchRight;
+				
+				idle = false;
+			}
+		}
 	}
+	if(currentAnimation == &airPunchLeft){ attackCollider->SetPos(position.x + 0, position.y - 60); }
+	if (currentAnimation == &airPunchRight) { attackCollider->SetPos(position.x + 26, position.y - 60); }
 
 	if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
@@ -365,6 +408,18 @@ update_status ModulePlayer::Update()
 			currentAnimation = &kickCrouchLeft;
 			kickCollider->SetPos(position.x + 20, position.y - 60);
 			idle = false;
+		}
+		if (airSt == AirState::AIRBORN) {
+			if (dir == Direction::LEFT) {
+				currentAnimation = &airKickLeft;
+
+				idle = false;
+			}
+			if (dir == Direction::RIGHT) {
+				currentAnimation = &airKickRight;
+
+				idle = false;
+			}
 		}
 	}
 
@@ -451,10 +506,11 @@ update_status ModulePlayer::Update()
 			idle = true;
 			kickCollider->SetPos(1000, 1000);
 		}
+		
 
-
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true) {
-			/*crouchPunchLeft.loopCount--;*/   //VERY IMPORTANT, since HasFinished checks if the loop count has surpassed 0, after the animation has finished, reset loop count
+		
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true && airSt == AirState::AIRBORN) {
+			
 			
 			airSt = AirState::GROUND;
 			//deactivate punch collider

@@ -25,7 +25,8 @@ public:
 	enum class AirState {
 		CROUCH,
 		GROUND,
-		AIRBORN
+		AIRBORN,
+		LANDING
 	};
 
 	enum class Transform {
@@ -61,6 +62,9 @@ public:
 	// The speed in which we move the player (pixels per frame)
 	int speed = 2;
 
+	
+
+
 	float AirSpeed = 1.3f;
 
 	// The player spritesheet loaded into an SDL_Texture
@@ -77,6 +81,9 @@ public:
 
 	// A flag to detect when the player has been destroyed
 	bool destroyed = false;
+
+	int landing = 30;
+	bool landed = false;
 
 	void OnCollision(Collider* c1, Collider* c2) override;
 
@@ -105,6 +112,15 @@ public:
 	//AirBorn animations
 	Animation jumpRight;
 	Animation jumpLeft;
+	Animation airPunchLeft;
+	Animation airPunchRight;
+	Animation airKickLeft;
+	Animation airKickRight;
+
+	Animation LandingRight;
+	Animation LandingLeft;
+
+
 
 	// Font score index
 	float score = 000;
