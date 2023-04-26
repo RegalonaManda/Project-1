@@ -260,7 +260,7 @@ update_status ModulePlayer::Update()
 	if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
 		currentAnimation = &jumpLeft;
 	}
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT )
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT && !destroyed )
 	{
 		if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
 			//change direction
@@ -275,7 +275,7 @@ update_status ModulePlayer::Update()
 	}
 
 
-	if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT) {
+	if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT && !destroyed) {
 		if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
 			//change direction
 			dir = Direction::LEFT;
