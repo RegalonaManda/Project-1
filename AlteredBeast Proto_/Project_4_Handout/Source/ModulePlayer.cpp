@@ -137,12 +137,19 @@ ModulePlayer::ModulePlayer()
 	kickCrouchLeft.loop = false;
 
 
-	deathAnim.PushBack({ 266,531,72,75 });
-	deathAnim.PushBack({ 339,531,72,75 });
-	deathAnim.PushBack({ 412,531,72,75 });
-	deathAnim.speed = 0.05f;
-	deathAnim.totalFrames = 3;
-	deathAnim.loop = false;
+	deathAnimRight.PushBack({ 266,531,72,75 });
+	deathAnimRight.PushBack({ 339,531,72,75 });
+	deathAnimRight.PushBack({ 412,531,72,75 });
+	deathAnimRight.speed = 0.05f;
+	deathAnimRight.totalFrames = 3;
+	deathAnimRight.loop = false;
+
+	deathAnimLeft.PushBack({ 266,607,72,75 });
+	deathAnimLeft.PushBack({ 339,607,72,75 });
+	deathAnimLeft.PushBack({ 412,607,72,75 });
+	deathAnimLeft.speed = 0.05f;
+	deathAnimLeft.totalFrames = 3;
+	deathAnimLeft.loop = false;
 	
 	jumpRight.PushBack({ 0,303,54,75 });
 	jumpRight.PushBack({ 56,303,54,75 });
@@ -416,7 +423,12 @@ update_status ModulePlayer::Update()
 		//Player gets killed
 		if (destroyed) {
 			idle = false;
-			currentAnimation = &deathAnim;
+			if (dir == Direction::RIGHT) {
+				currentAnimation = &deathAnimRight;
+			}
+			else {
+				currentAnimation = &deathAnimLeft;
+			}
 			destroyedCountdown--;
 			if (destroyedCountdown <= 0) { return update_status::UPDATE_STOP; }
 		}
