@@ -189,8 +189,8 @@ bool ModulePlayer::Start()
 	Pcollider = App->collisions->AddCollider({ 100,300,20,68 }, Collider::Type::PLAYER, this);
 	//CHANGE listener of attack to enemy
 	attackCollider = App->collisions->AddCollider({ 100,300,33,19 }, Collider::Type::PLAYER_SHOT, this);
-
-	// TODO 0: Notice how a font is loaded and the meaning of all its arguments 
+	kickCollider = App->collisions->AddCollider({ 100,300,19,33 }, Collider::Type::PLAYER_SHOT, this);
+	//font table
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz0123456789.,ç'?!*$%&()+-/<=>© " };
 	scoreFont = App->fonts->Load("Assets/font_spritesheet.png", lookupTable, 1);
 
@@ -344,22 +344,26 @@ update_status ModulePlayer::Update()
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
 			kickAnimRight.Reset();
 			currentAnimation = &kickAnimRight;
+			attackCollider->SetPos(position.x + 43, position.y - 30);
 			idle = false;
 		}
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 		{
 			kickAnimLeft.Reset();
 			currentAnimation = &kickAnimLeft;
+			attackCollider->SetPos(position.x -5 , position.y - 30);
 			idle = false;
 		}
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
 			kickCrouchRight.Reset();
 			currentAnimation = &kickCrouchRight;
+			kickCollider->SetPos(position.x + 37, position.y - 60);
 			idle = false;
 		}
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
 			kickCrouchLeft.Reset();
 			currentAnimation = &kickCrouchLeft;
+			kickCollider->SetPos(position.x + 20, position.y - 60);
 			idle = false;
 		}
 	}
@@ -409,7 +413,7 @@ update_status ModulePlayer::Update()
 			}
 			else { airSt = AirState::GROUND; }
 			//deactivate punch collider
-			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
+			kickCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
 		}
 		if (kickCrouchLeft.HasFinished() == true) {
 			kickCrouchLeft.loopCount--;
@@ -419,7 +423,7 @@ update_status ModulePlayer::Update()
 			}
 			else { airSt = AirState::GROUND; }
 			//deactivate punch collider
-			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
+			kickCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
 		}
 		
 		if (kickAnimRight.HasFinished() == true) {
@@ -439,15 +443,13 @@ update_status ModulePlayer::Update()
 		if (kickCrouchLeft.HasFinished() == true) {
 			kickCrouchLeft.loopCount--;  
 			idle = true;
-			//deactivate kick collider
-			attackCollider->SetPos(1000, 1000);
+			kickCollider->SetPos(1000, 1000);
 		}
 
 		if (kickCrouchRight.HasFinished() == true) {
 			kickCrouchRight.loopCount--;
 			idle = true;
-			//deactivate kick collider
-			attackCollider->SetPos(1000, 1000);
+			kickCollider->SetPos(1000, 1000);
 		}
 
 
@@ -456,7 +458,7 @@ update_status ModulePlayer::Update()
 			
 			airSt = AirState::GROUND;
 			//deactivate punch collider
-			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
+			kickCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
 		}
 
 		
