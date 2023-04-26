@@ -53,7 +53,7 @@ public:
 	update_status PostUpdate() override;
 
 public:
-	float impulse = 0.7;
+	float impulse = 3.2f;
 
 	// Position of the player in the map
 	fPoint position;
@@ -109,6 +109,7 @@ public:
 	float score = 000;
 	int scoreFont = -1;
 	char scoreText[10] = { "\0" };
+	float deathdist = 2;
 
 };
 

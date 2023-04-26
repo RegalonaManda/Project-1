@@ -463,24 +463,34 @@ update_status ModulePlayer::Update()
 
 		//Player gets killed
 		if (destroyed) {
-			idle = false;
+
+		
+			
 			if (dir == Direction::RIGHT) {
 				currentAnimation = &deathAnimRight;
+				position.x -= 1.0f;
 				
+
 			}
 			else {
 				currentAnimation = &deathAnimLeft;
+				position.x += 1.0f;
+				
 			}
 
-			impulse = impulse = 3.2;
-			position.y += 0.5;
-			airSt = AirState::AIRBORN;
+			impulse -= Gravity;
+			position.y -= impulse;
 
-			destroyedCountdown--;
 			
-			if (destroyedCountdown <= 0) { 
+			if (position.y >= 190) {
+				position.y = 190;
+			
+			}
+			destroyedCountdown-=0.1f;
+			
+			if (destroyedCountdown <= 0 && position.y == 190) { 
 				
-				airSt = AirState::GROUND;
+				
 				return update_status::UPDATE_STOP; 
 			
 			}
