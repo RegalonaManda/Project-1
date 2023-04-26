@@ -223,17 +223,22 @@ update_status ModulePlayer::Update()
 			currentAnimation = &forwardAnim;
 			position.x += speed;
 		}
-		
+		if (airSt == AirState::AIRBORN) {
+			position.x += AirSpeed;
+		}
 	}
 
 
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT) {
-		if (idle == true)/* Can't move if punching */ {
+		if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
 			//change direction
 			dir = Direction::LEFT;
 
 			currentAnimation = &backAnim;
 			position.x -= speed;
+		}
+		if (airSt == AirState::AIRBORN) {
+			position.x -= AirSpeed;
 		}
 	}
 

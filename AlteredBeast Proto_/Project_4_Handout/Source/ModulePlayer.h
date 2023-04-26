@@ -61,7 +61,7 @@ public:
 	// The speed in which we move the player (pixels per frame)
 	int speed = 2;
 
-	float AirSpeed = 1.2f;
+	float AirSpeed = 1.3f;
 
 	// The player spritesheet loaded into an SDL_Texture
 	SDL_Texture* texture = nullptr;
