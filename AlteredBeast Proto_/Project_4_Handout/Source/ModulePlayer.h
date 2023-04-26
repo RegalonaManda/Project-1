@@ -87,6 +87,8 @@ public:
 	Animation forwardAnim;
 	Animation backAnim;
 	Animation punchAnimLeft;
+	Animation hitAnimRight;
+	Animation hitAnimLeft;
 	Animation deathAnimRight;
 	Animation deathAnimLeft;
 	Animation punchAnimRight;
