@@ -15,7 +15,7 @@
 
 #include "SDL/include/SDL_scancode.h"
 //the lower the higher
-#define MAX_HEIGHT 147
+#define MAX_HEIGHT 150
 #define WALKANIMSPEED 0.08f
 #define PUNCHANIMSPEED 0.1f
 #define Gravity 0.07f;
@@ -191,9 +191,14 @@ update_status ModulePlayer::Update()
 	if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 18, position.y - 65); }
 	if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 20, position.y - 65); }
 
-	//Grounded
-	if(dir == Direction::RIGHT && airSt == AirState::CROUCH) { Pcollider->SetPos(position.x + 20, position.y - 40); }
+	//Crouch
+	if(dir == Direction::RIGHT && airSt == AirState::CROUCH)
+	{ Pcollider->SetPos(position.x + 20, position.y - 40); }
+	if (dir == Direction::LEFT && airSt == AirState::CROUCH)
+	{ Pcollider->SetPos(position.x + 17, position.y - 40); }
 
+	if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x+20, position.y-60); }
+	if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x+ 20, position.y - 60); }
 	//Jump function
 	//impulse bigger, the stronger it jumps
 	if (idle == true && airSt == AirState::GROUND && App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN) {
@@ -212,7 +217,7 @@ update_status ModulePlayer::Update()
 		position.y = MAX_HEIGHT + 2;
 	}
 	//Reset state to ground when touching the ground
-	if (position.y >= 190) {
+	if (position.y >= 190 && airSt == AirState::AIRBORN) {
 		airSt = AirState::GROUND;
 		position.y = 190;
 		//jumpRight.Reset();
@@ -282,7 +287,7 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
-		if (airSt == AirState::GROUND || airSt== AirState::AIRBORN) {
+		if (airSt == AirState::GROUND ) {
 			if (dir == Direction::LEFT) {
 				punchAnimLeft.Reset();
 				currentAnimation = &punchAnimLeft;
@@ -380,7 +385,27 @@ update_status ModulePlayer::Update()
 			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
 
 		}
-		
+		if (kickCrouchRight.HasFinished() == true) {
+			kickCrouchRight.loopCount--;
+			idle = true;
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+				airSt = AirState::CROUCH;
+			}
+			else { airSt = AirState::GROUND; }
+			//deactivate punch collider
+			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
+		}
+		if (kickCrouchLeft.HasFinished() == true) {
+			kickCrouchLeft.loopCount--;
+			idle = true;
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+				airSt = AirState::CROUCH;
+			}
+			else { airSt = AirState::GROUND; }
+			//deactivate punch collider
+			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
+		}
+
 		if (kickAnimRight.HasFinished() == true) {
 			kickAnimRight.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
 			idle = true;
