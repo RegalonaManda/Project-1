@@ -137,7 +137,13 @@ ModulePlayer::ModulePlayer()
 	kickCrouchLeft.loop = false;
 
 
-	deathAnim.PushBack({ 209, 378, 108, 75 });
+	deathAnim.PushBack({ 266,531,72,75 });
+	deathAnim.PushBack({ 339,531,72,75 });
+	deathAnim.PushBack({ 412,531,72,75 });
+	deathAnim.speed = 0.05f;
+	deathAnim.totalFrames = 3;
+	deathAnim.loop = false;
+	
 
 }
 
