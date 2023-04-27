@@ -68,9 +68,9 @@ update_status ModuleScene::Update()
 	
 	//SCREEN SCROLL
 	if (ScreenScroll == true) {
-		int screenscrollSpeed = App->render->camera.x += 1;
+		App->render->camera.x += 1;
 		
-		backCamLimit->SetPos(screenscrollSpeed, 0);
+		backCamLimit->SetPos(App->render->camera.x * 0.325f, 0);
 		//frontCamLimit->SetPos(App->render->camera.x + SCREEN_WIDTH += 1, 0);
 	}
 
