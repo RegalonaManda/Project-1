@@ -35,8 +35,6 @@ public:
 
 	SDL_Texture* layer2 = nullptr;
 
-
-
 	// The sprite section for the background
 	SDL_Rect background;
 

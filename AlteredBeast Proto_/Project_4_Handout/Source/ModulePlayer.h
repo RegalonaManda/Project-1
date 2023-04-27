@@ -129,8 +129,8 @@ public:
 
 
 	// Font score index
-	float score = 000;
-	int scoreFont = -1;
+	uint score = 0;
+	int scoreFont = 9;
 	char scoreText[10] = { "\0" };
 	float deathdist = 2;
 
