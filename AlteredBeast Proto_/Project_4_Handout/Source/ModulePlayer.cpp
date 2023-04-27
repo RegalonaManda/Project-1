@@ -522,17 +522,17 @@ update_status ModulePlayer::Update()
 			kickCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
 		}
 
-		
+
 
 		//Player gets killed
 		if (destroyed) {
 
-			App->audio->PlayFx(playerDeathFX);
 			
+			App->audio->PlayFx(playerDeathFX, 0);
+
 			if (dir == Direction::RIGHT) {
 				currentAnimation = &deathAnimRight;
 				position.x -= 0.7f;
-				
 
 			}
 			else {
@@ -544,24 +544,21 @@ update_status ModulePlayer::Update()
 			impulse -= Gravity;
 			position.y -= impulse;
 
-			
 			if (position.y >= 190) {
+				position.x += 0;
 				position.y = 190;
-			
-			}
-			/*destroyedCountdown-=0.05f;*/
-			
-			
-			if (/*destroyedCountdown <= 0 &&*/ position.y == 190 && App->audio->PlayFx(playerDeathFX) == false) {
-
-				App->scene->ScreenScroll = false;
+				destroyedCountdown-=0.5f;
+				if (destroyedCountdown == 0) {
+					return update_status::UPDATE_STOP;
+				}
 				
 				
-				return update_status::UPDATE_STOP; 
+			} 
+				
+	
 			
-			}
+			
 		}
-
 
 		currentAnimation->Update();
 
@@ -589,6 +586,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == Pcollider && destroyed == false)
 	{
 		destroyed = true;
+		/*App->scene->ScreenScroll = false;*/
 	}
 
 	if (c1->type == Collider::Type::PLAYER_SHOT && c2->type == Collider::Type::ENEMY)

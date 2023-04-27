@@ -86,7 +86,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2) override;
 
-	uint destroyedCountdown = 200;
+	float destroyedCountdown = 120;
 
 	// A set of animations
 	Animation idleAnimRight;
