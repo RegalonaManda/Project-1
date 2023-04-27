@@ -46,6 +46,8 @@ public:
 	SDL_Rect SkyLayer;
 	Collider* backCamLimit = nullptr;
 	Collider* frontCamLimit = nullptr;
+
+	int frontlimitMargin = SCREEN_WIDTH * SCREEN_SIZE - 20;
 	// The different sprite sections for the flag
 	Animation flag;
 
