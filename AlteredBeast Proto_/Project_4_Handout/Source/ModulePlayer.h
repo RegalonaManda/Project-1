@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Animation.h"
 #include "p2Point.h"
+#include "ModuleAudio.h"
+#include "Globals.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -62,9 +64,6 @@ public:
 	// The speed in which we move the player (pixels per frame)
 	int speed = 2;
 
-	
-
-
 	float AirSpeed = 1.3f;
 
 	// The player spritesheet loaded into an SDL_Texture
@@ -87,7 +86,7 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2) override;
 
-	uint destroyedCountdown = 120;
+	uint destroyedCountdown = 200;
 
 	// A set of animations
 	Animation idleAnimRight;
@@ -127,6 +126,9 @@ public:
 	int scoreFont = -1;
 	char scoreText[10] = { "\0" };
 	float deathdist = 2;
+
+	//Sound FX
+	uint playerDeathFX;
 
 };
 

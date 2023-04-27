@@ -6,6 +6,8 @@
 #include "ModuleRender.h"
 #include "ModuleCollisions.h"
 #include "ModuleFonts.h"
+#include "ModuleAudio.h"
+#include "ModuleScene.h"
 
 #include <stdio.h>
 
@@ -210,6 +212,9 @@ bool ModulePlayer::Start()
 	//font table
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz0123456789.,ç'?!*$%&()+-/<=>© " };
 	scoreFont = App->fonts->Load("Assets/font_spritesheet.png", lookupTable, 1);
+
+	//player Sound FX
+	playerDeathFX = App->audio->LoadFx("Assets/FX/Player_Death.wav");
 
 	return ret;
 }
@@ -522,17 +527,17 @@ update_status ModulePlayer::Update()
 		//Player gets killed
 		if (destroyed) {
 
-		
+			App->audio->PlayFx(playerDeathFX);
 			
 			if (dir == Direction::RIGHT) {
 				currentAnimation = &deathAnimRight;
-				position.x -= 1.0f;
+				position.x -= 0.7f;
 				
 
 			}
 			else {
 				currentAnimation = &deathAnimLeft;
-				position.x += 1.0f;
+				position.x += 0.7f;
 				
 			}
 
@@ -544,9 +549,12 @@ update_status ModulePlayer::Update()
 				position.y = 190;
 			
 			}
-			destroyedCountdown-=0.1f;
+			/*destroyedCountdown-=0.05f;*/
 			
-			if (destroyedCountdown <= 0 && position.y == 190) { 
+			
+			if (/*destroyedCountdown <= 0 &&*/ position.y == 190 && App->audio->PlayFx(playerDeathFX) == false) {
+
+				App->scene->ScreenScroll = false;
 				
 				
 				return update_status::UPDATE_STOP; 
