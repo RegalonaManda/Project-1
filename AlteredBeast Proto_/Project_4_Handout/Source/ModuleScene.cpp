@@ -56,6 +56,10 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 130);
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
 
+
+	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 20, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
+	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-20, App->render->camera.y + SCREEN_WIDTH - 20, 20, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
+
 	return ret;
 }
 
@@ -64,9 +68,14 @@ update_status ModuleScene::Update()
 	
 	//SCREEN SCROLL
 	if (ScreenScroll == true) {
-		App->render->camera.x += 1;
-
+		int screenscrollSpeed = App->render->camera.x += 1;
+		
+		backCamLimit->SetPos(screenscrollSpeed, 0);
+		//frontCamLimit->SetPos(App->render->camera.x + SCREEN_WIDTH += 1, 0);
 	}
+
+	//backCamLimit->SetPos(0 + App->render->cameraSpeed, 0);
+	//frontCamLimit->SetPos(SCREEN_WIDTH + App->render->cameraSpeed - 20, 0);
 
 	App->enemies->Update();
 
@@ -78,10 +87,11 @@ update_status ModuleScene::Update()
 update_status ModuleScene::PostUpdate()
 {
 	// Draw everything --------------------------------------
-App->render->Blit(sky, 0, 0, &SkyLayer, 0.4f);
-App->render->Blit(trees, 0, 58, &TreeLayer, 0.5f);
-App->render->Blit(stone, 0, 90, &StoneWall, 0.65f);
-App->render->Blit(layer2, 0, 5, &background, 0.75f); 
+	App->render->Blit(sky, 0, 0, &SkyLayer, 0.4f);
+	App->render->Blit(trees, 0, 58, &TreeLayer, 0.5f);
+	App->render->Blit(stone, 0, 90, &StoneWall, 0.65f);
+	App->render->Blit(layer2, 0, 5, &background, 0.75f); 
+
 
 
 	

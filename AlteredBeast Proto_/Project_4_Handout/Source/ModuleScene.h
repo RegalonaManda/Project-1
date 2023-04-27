@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Animation.h"
+#include "Colliders.h"
 
 struct SDL_Texture;
 
@@ -43,6 +44,8 @@ public:
 	SDL_Rect background;
 	SDL_Rect TreeLayer;
 	SDL_Rect SkyLayer;
+	Collider* backCamLimit = nullptr;
+	Collider* frontCamLimit = nullptr;
 	// The different sprite sections for the flag
 	Animation flag;
 

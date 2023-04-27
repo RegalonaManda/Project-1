@@ -8,6 +8,7 @@
 #include "ModuleFonts.h"
 #include "ModuleAudio.h"
 #include "ModuleScene.h"
+#include "Colliders.h"
 
 #include <stdio.h>
 
@@ -551,12 +552,8 @@ update_status ModulePlayer::Update()
 				if (destroyedCountdown == 0) {
 					return update_status::UPDATE_STOP;
 				}
-				
-				
+
 			} 
-				
-	
-			
 			
 		}
 
@@ -583,12 +580,17 @@ update_status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == Pcollider && destroyed == false)
+	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed)
 	{
 		destroyed = true;
 		/*App->scene->ScreenScroll = false;*/
 	}
-
+	if (c1 == Pcollider &&	c2 == App->scene->backCamLimit) {
+		position.x = App->render->camera.x + 20;
+	}
+	if (c1 == Pcollider && c2 == App->scene->frontCamLimit) {
+		position.x = App->render->camera.x + SCREEN_WIDTH - 20;
+	}
 	if (c1->type == Collider::Type::PLAYER_SHOT && c2->type == Collider::Type::ENEMY)
 	{
 		score += 100;

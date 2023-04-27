@@ -10,7 +10,8 @@
 enum class ENEMY_TYPE
 {
 	NO_TYPE,
-	ZOMBIE
+	ZOMBIE,
+	WHITEWOLF
 };
 
 struct EnemySpawnpoint
