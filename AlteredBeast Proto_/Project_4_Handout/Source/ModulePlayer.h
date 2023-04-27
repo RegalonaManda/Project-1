@@ -57,7 +57,7 @@ public:
 
 	//HP And lives
 	int hp = 3;
-	int lives = 2;
+	int lives = 3;
 	bool iFrames = false;
 	int iTimer = 30;
 

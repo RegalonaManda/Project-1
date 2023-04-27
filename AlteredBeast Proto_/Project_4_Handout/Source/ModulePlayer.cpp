@@ -608,15 +608,16 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	{
 		iFrames = true;
 		hp--;
-		if (hp <= 0 && lives > 0)
+		if (hp <= 0)
 		{
 			hp = 3;
 			lives--;
 			//App->scene2->hpAnim.currentFrame+1;
 		}
 
-		if (hp <= 0 && lives <= 0)
+		if (lives <= 0)
 		{
+			hp = 0;
 			destroyed = true;
 
 		}
