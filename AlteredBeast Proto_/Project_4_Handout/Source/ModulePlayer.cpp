@@ -515,7 +515,7 @@ update_status ModulePlayer::Update()
 		
 
 		
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true && airSt == AirState::AIRBORN) {
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true) {
 			
 			
 			airSt = AirState::GROUND;
