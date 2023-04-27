@@ -41,9 +41,24 @@ public:
 	SDL_Rect background;
 
 	// The different sprite sections for the flag
-	Animation hpAnim;
-	Animation livesAnim;
 
+	Animation hpAnim0;
+	Animation hpAnim1;
+	Animation hpAnim2;
+	Animation hpAnim3;
+	Animation hpAnim4;
+	Animation hpAnim5;
+	Animation hpAnim6;
+	Animation hpAnim7;
+	Animation hpAnim8;
+	
+	Animation* hpCurrent = nullptr;
+
+	Animation livesAnim0;
+	Animation livesAnim1;
+	Animation livesAnim2;
+
+	Animation* livesCurrent = nullptr;;
 };
 
 #endif

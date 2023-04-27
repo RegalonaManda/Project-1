@@ -9,6 +9,7 @@
 #include "ModuleAudio.h"
 #include "ModuleScene.h"
 #include "Colliders.h"
+#include "ModuleScene2.h"
 
 #include <stdio.h>
 
@@ -32,6 +33,8 @@ bool idle = true;
 
 ModulePlayer::ModulePlayer()
 {
+	
+
 	position.x = 100;
 	position.y = 190;
 	
@@ -559,6 +562,23 @@ update_status ModulePlayer::Update()
 
 		currentAnimation->Update();
 
+	
+		if (iFrames == true)
+		{
+			iTimer--;
+			if (iTimer <= 0) {
+				iFrames = false;
+				iTimer = 30;
+			}
+			
+		}
+
+
+
+
+
+
+
 		return update_status::UPDATE_CONTINUE;
 	
 }
@@ -578,19 +598,39 @@ update_status ModulePlayer::PostUpdate()
 	return update_status::UPDATE_CONTINUE;
 }
 
+
+
+
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed)
+	
+	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 	{
-		destroyed = true;
+		iFrames = true;
+		hp--;
+		if (hp <= 0 && lives > 0)
+		{
+			hp = 3;
+			lives--;
+			//App->scene2->hpAnim.currentFrame+1;
+		}
+
+		if (hp <= 0 && lives <= 0)
+		{
+			destroyed = true;
+
+		}
+		
 		/*App->scene->ScreenScroll = false;*/
 	}
 	if (c1 == Pcollider &&	c2 == App->scene->backCamLimit) {
 		position.x = App->render->camera.x * 0.325f;
 	}
+
 	if (c1 == Pcollider && c2 == App->scene->frontCamLimit) {
 		//position.x = App->render->camera.x + SCREEN_WIDTH - 20;
 	}
+
 	if (c1->type == Collider::Type::PLAYER_SHOT && c2->type == Collider::Type::ENEMY)
 	{
 		score += 100;

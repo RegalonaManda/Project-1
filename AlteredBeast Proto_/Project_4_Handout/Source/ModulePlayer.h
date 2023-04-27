@@ -55,7 +55,14 @@ public:
 	// Performs the render call of the player sprite
 	update_status PostUpdate() override;
 
-public:
+	//HP And lives
+	int hp = 3;
+	int lives = 2;
+	bool iFrames = false;
+	int iTimer = 30;
+
+
+
 	float impulse = 3.2f;
 
 	// Position of the player in the map
