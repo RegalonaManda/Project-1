@@ -70,8 +70,9 @@ update_status ModuleScene::Update()
 	if (ScreenScroll == true) {
 		App->render->camera.x += 1;
 		
-		backCamLimit->SetPos(App->render->camera.x * 0.325f, 0);
-		//frontCamLimit->SetPos(App->render->camera.x + SCREEN_WIDTH += 1, 0);
+
+		backCamLimit->SetPos(App->render->camera.x * 0.3333333333f, 0);
+		frontCamLimit->SetPos((App->render->camera.x + frontlimitMargin) * 0.3333333333f, 0);
 	}
 
 	//backCamLimit->SetPos(0 + App->render->cameraSpeed, 0);
