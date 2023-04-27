@@ -31,6 +31,7 @@ public:
 
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* layer1 = nullptr;
+	SDL_Texture* uiTexture = nullptr;
 
 	SDL_Texture* layer2 = nullptr;
 
@@ -40,7 +41,8 @@ public:
 	SDL_Rect background;
 
 	// The different sprite sections for the flag
-	Animation flag;
+	Animation hpAnim;
+	Animation livesAnim;
 
 };
 
