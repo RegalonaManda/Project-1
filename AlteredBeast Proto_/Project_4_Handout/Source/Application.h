@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 11 // 1 less than actual amount, to be used as arr index
+#define NUM_MODULES 12 // 1 less than actual amount, to be used as arr index
 
 //ALL NEW MODULES DEFINED HERE                                                                                                                                                              
 class Module;
@@ -13,6 +13,7 @@ class ModuleTextures;
 class ModuleAudio;
 class ModulePlayer;
 class ModuleScene;
+class ModuleParticles;
 class ModuleRender;
 class ModuleScene2;
 class ModuleCollisions;
@@ -52,7 +53,7 @@ public:
 	ModuleScene* scene = nullptr;
 	ModuleScene2* scene2 = nullptr;
 	ModuleCollisions* collisions = nullptr;
-
+	ModuleParticles* particles = nullptr;
 	ModuleFonts* fonts = nullptr;
 
 	ModuleRender* render = nullptr;

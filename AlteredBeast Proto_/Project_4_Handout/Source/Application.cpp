@@ -12,6 +12,8 @@
 #include "ModuleCollisions.h"
 #include "ModuleEnemies.h"
 #include "ModuleFonts.h"
+#include "ModuleParticles.h"
+
 // SHOULD INCLUDE ALL MODULE .h FILES
 
 Application::Application()
@@ -25,13 +27,14 @@ Application::Application()
 	modules[3] = audio = new ModuleAudio(true);
 	modules[4] = scene = new ModuleScene();
 	modules[5] = enemies = new ModuleEnemies();
-	//Exclussively for grass layer
+	//Exclusively for grass layer
 	modules[6] = player = new ModulePlayer();
-	modules[7] = scene2 = new ModuleScene2();
-	modules[8] = collisions = new ModuleCollisions();
-	modules[9] = fonts = new ModuleFonts(true);
+	modules[7] = particles = new ModuleParticles(true);
+	modules[8] = scene2 = new ModuleScene2();
+	modules[9] = collisions = new ModuleCollisions();
+	modules[10] = fonts = new ModuleFonts(true);
 	// render should always be the last module
-	modules[10] = render = new ModuleRender();
+	modules[11] = render = new ModuleRender();
 }
 
 Application::~Application()
