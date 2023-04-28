@@ -710,15 +710,16 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		/*App->scene->ScreenScroll = false;*/
 	}
 	if (c1 == Pcollider &&	c2 == App->scene->backCamLimit) {
-		while (position.x < App->render->camera.x * 0.3333333333f) {
-			position.x = App->render->camera.x * 0.3333333333f;
+		while (position.x < (App->render->camera.x * 0.3333333333f -13.3333333333f)){
+			position.x = App->render->camera.x * 0.3333333333f - 13.3333333333f;
 		}
 		
 	}
 
 	if (c1 == Pcollider && c2 == App->scene->frontCamLimit) {
-		while (position.x > (App->render->camera.x + App->scene->frontlimitMargin) * 0.3333333333f) {
-			position.x = (App->render->camera.x + App->scene->frontlimitMargin) * 0.3333333333f;
+		
+		while (position.x > App->scene->aux-33.3333333333f) {
+			position.x = App->scene->aux-33.3333333333f;
 		}
 		
 	}
