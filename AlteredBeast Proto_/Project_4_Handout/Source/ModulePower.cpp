@@ -10,20 +10,10 @@
 
 ModulePower::ModulePower(bool startEnabled) : Module(startEnabled)
 {
-	// idle animation - just one sprite
-	idleAnim.PushBack({ 66, 1, 32, 14 });
-
-	// move upwards
-	upAnim.PushBack({ 100, 1, 32, 14 });
-	upAnim.PushBack({ 132, 0, 32, 14 });
-	upAnim.loop = false;
-	upAnim.speed = 0.1f;
-
-	// Move down
-	downAnim.PushBack({ 33, 1, 32, 14 });
-	downAnim.PushBack({ 0, 1, 32, 14 });
-	downAnim.loop = false;
-	downAnim.speed = 0.1f;
+	//Animations
+	Anim.PushBack({ 1,1,31,31 });
+	Anim.PushBack({ 33,1,31,31 });
+	Anim.PushBack({ 65,1,31,31 });
 }
 
 ModulePower::~ModulePower()
@@ -33,18 +23,18 @@ ModulePower::~ModulePower()
 
 bool ModulePower::Start()
 {
-	LOG("Loading player textures");
+	LOG("Loading power textures");
 
 	bool ret = true;
 
-	texture = App->textures->Load("Assets/Sprites/ship.png");
+	texture = App->textures->Load("Assets/PowerUpGrid.png");
 	//currentAnimation = &idleAnim;
 
-	//Load asset
+	spawnPos.x = 400;
+	spawnPos.y = 110;
 
-	position.x = 150;
-	position.y = 120;
-
+	position.x = 400;
+	position.y = 110;
 	
 
 	// Add collider
@@ -56,7 +46,10 @@ update_status ModulePower::Update()
 {
 	// Moving the power with camera scroll , posx += 1
 	
+	waveRatio += waveRatioSpeed;
 
+	position.y = spawnPos.y + (waveHeight * sinf(waveRatio));
+	position.x -= 1;
 	
 
 	//collider->SetPos(position.x, position.y);
@@ -73,6 +66,8 @@ update_status ModulePower::PostUpdate()
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &rect);
 	}*/
+	SDL_Rect PowerRec = Anim.frames[0];
+	App->render->Blit(texture, position.x, position.y, &PowerRec);
 
 	return update_status::UPDATE_CONTINUE;
 }
