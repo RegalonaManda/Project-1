@@ -333,6 +333,7 @@ update_status ModulePlayer::Update()
 	}
 	if (landing <= 0) {
 		airSt = AirState::GROUND;
+		landing = 5;
 	}
 	//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 	if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
