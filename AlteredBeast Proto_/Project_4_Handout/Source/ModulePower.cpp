@@ -39,7 +39,7 @@ bool ModulePower::Start()
 	
 
 	// Add collider
-	SDL_Rect HitBox = { 1,1,31,31 };
+	SDL_Rect HitBox = { 1,1,20,20 };
 	collider = App->collisions->AddCollider(HitBox, Collider::Type::POWER_UP, (Module*)App->player);
 	return ret;
 }
@@ -51,9 +51,10 @@ update_status ModulePower::Update()
 	waveRatio += waveRatioSpeed;
 
 	position.y = spawnPos.y + (waveHeight * sinf(waveRatio));
+	
 	position.x -= 1;
 	
-
+	collider->SetPos(position.x +6, position.y+6);
 	//collider->SetPos(position.x, position.y);
 
 	Anim.Update();
@@ -76,18 +77,13 @@ update_status ModulePower::PostUpdate()
 
 void ModulePower::OnCollision(Collider* c1, Collider* c2)
 {
-	/*if (c1 == collider && destroyed == false)
+	if (c1 == collider && gotten == false || c2 == collider)
 	{
-		App->particles->AddParticle(App->particles->explosion, position.x, position.y, Collider::Type::NONE, 9);
-		App->particles->AddParticle(App->particles->explosion, position.x + 8, position.y + 11, Collider::Type::NONE, 14);
-		App->particles->AddParticle(App->particles->explosion, position.x - 7, position.y + 12, Collider::Type::NONE, 40);
-		App->particles->AddParticle(App->particles->explosion, position.x + 5, position.y - 5, Collider::Type::NONE, 28);
-		App->particles->AddParticle(App->particles->explosion, position.x - 4, position.y - 4, Collider::Type::NONE, 21);
-
-		App->audio->PlayFx(explosionFx);
-
 		
 
-		destroyed = true;
-	}*/
+		//Kai pon aqui el power up sound
+
+		this->Disable();
+		//destroyed = true;
+	}
 }

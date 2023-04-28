@@ -25,7 +25,7 @@ ModuleCollisions::ModuleCollisions()
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY_SHOT] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::CAMLIMIT] = true;
-	matrix[Collider::Type::PLAYER][Collider::Type::POWER_UP] = false;
+	matrix[Collider::Type::PLAYER][Collider::Type::POWER_UP] = true;
 
 	matrix[Collider::Type::ENEMY][Collider::Type::WALL] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER] = false;
@@ -163,13 +163,20 @@ void ModuleCollisions::DebugDraw()
 		case Collider::Type::PLAYER_SHOT: // yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
-		case Collider::Type::ENEMY_SHOT: // magenta
+		case Collider::Type::ENEMY_SHOT: // magenta? this is fucking turquoise
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		case Collider::Type::CAMLIMIT: //black
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 0, alpha);
+			break;
+
+		case Collider::Type::POWER_UP: //violet
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
+			break;
 		}
+
 	}
+	
 }
 
 // Called before quitting

@@ -56,7 +56,7 @@ public:
 	Collider* collider = nullptr;
 
 	// A flag to detect when the player has been destroyed
-	bool destroyed = false;
+	bool gotten = false;
 
 	// Sound effects indices
 	uint laserFx = 0;
