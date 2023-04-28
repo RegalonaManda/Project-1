@@ -235,6 +235,13 @@ ModulePlayer::ModulePlayer()
 
 	LandingLeft.PushBack({ 111,379,54,75 });
 	LandingRight.PushBack({ 111,303,54,75 });
+
+	powerUp1.PushBack({221, 0, 54, 75});
+	powerUp1.PushBack({276, 0, 54, 75});
+	powerUp1.PushBack({331, 0, 54, 75});
+	powerUp1.loop = false;
+	powerUp1.totalFrames = 3;
+	powerUp1.speed = 0.05;
 }
 
 
@@ -638,7 +645,7 @@ update_status ModulePlayer::Update()
 			} 
 			
 		}
-		
+
 		currentAnimation->Update();
 
 	
@@ -754,11 +761,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1->type == Collider::Type::PLAYER_SHOT && c2->type == Collider::Type::ENEMY)
 	{
-		kickCollider->SetPos(1000, 1000);
-		attackCollider->SetPos(1000, 1000);
-		score += 100;
+		score += 1;
 	}
-	
+
 	
 
 }
