@@ -9,7 +9,7 @@
 
 
 Zombie::Zombie(int x, int y) : Enemy(x, y) {
-
+	hp = 2;
 	walkAnim.PushBack({11, 8, 27, 61 });
 	walkAnim.PushBack({55, 9, 27, 61});
 	walkAnim.speed = 0.008f;
@@ -56,8 +56,15 @@ void Zombie::Update() {
 }
 
 void Zombie::OnCollision(Collider* collider) {
-	--hp;
-	//currentAnim = &deathAnim;
-	//alive = false;
-	//
+
+	if (collider->Collider::Type::PLAYER_SHOT) {
+		--hp;
+	
+		if (hp <= 0) {
+			Ecollider->SetPos(-1000, -1000);
+			alive = false;
+		}
+	}
+
 }
+

@@ -10,20 +10,11 @@
 
 ModulePower::ModulePower(bool startEnabled) : Module(startEnabled)
 {
-	// idle animation - just one sprite
-	idleAnim.PushBack({ 66, 1, 32, 14 });
-
-	// move upwards
-	upAnim.PushBack({ 100, 1, 32, 14 });
-	upAnim.PushBack({ 132, 0, 32, 14 });
-	upAnim.loop = false;
-	upAnim.speed = 0.1f;
-
-	// Move down
-	downAnim.PushBack({ 33, 1, 32, 14 });
-	downAnim.PushBack({ 0, 1, 32, 14 });
-	downAnim.loop = false;
-	downAnim.speed = 0.1f;
+	//Animations
+	Anim.PushBack({ 1,1,31,31 });
+	Anim.PushBack({ 33,1,31,31 });
+	Anim.PushBack({ 65,1,31,31 });
+	Anim.speed = 0.1f;
 }
 
 ModulePower::~ModulePower()
@@ -33,22 +24,23 @@ ModulePower::~ModulePower()
 
 bool ModulePower::Start()
 {
-	LOG("Loading player textures");
+	LOG("Loading power textures");
 
 	bool ret = true;
 
-	texture = App->textures->Load("Assets/Sprites/ship.png");
+	texture = App->textures->Load("Assets/PowerUpGrid.png");
 	//currentAnimation = &idleAnim;
 
-	//Load asset
+	spawnPos.x = 400;
+	spawnPos.y = 110;
 
-	position.x = 150;
-	position.y = 120;
-
+	position.x = 400;
+	position.y = 110;
 	
 
 	// Add collider
-
+	SDL_Rect HitBox = { 1,1,20,20 };
+	collider = App->collisions->AddCollider(HitBox, Collider::Type::POWER_UP, (Module*)App->player);
 	return ret;
 }
 
@@ -56,12 +48,16 @@ update_status ModulePower::Update()
 {
 	// Moving the power with camera scroll , posx += 1
 	
+	waveRatio += waveRatioSpeed;
 
+	position.y = spawnPos.y + (waveHeight * sinf(waveRatio));
 	
-
+	position.x -= 1;
+	
+	collider->SetPos(position.x +6, position.y+6);
 	//collider->SetPos(position.x, position.y);
 
-	
+	Anim.Update();
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -73,24 +69,21 @@ update_status ModulePower::PostUpdate()
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &rect);
 	}*/
+	SDL_Rect PowerRec = Anim.GetCurrentFrame();
+	App->render->Blit(texture, position.x, position.y, &PowerRec);
 
 	return update_status::UPDATE_CONTINUE;
 }
 
 void ModulePower::OnCollision(Collider* c1, Collider* c2)
 {
-	/*if (c1 == collider && destroyed == false)
+	if (c1 == collider && gotten == false || c2 == collider)
 	{
-		App->particles->AddParticle(App->particles->explosion, position.x, position.y, Collider::Type::NONE, 9);
-		App->particles->AddParticle(App->particles->explosion, position.x + 8, position.y + 11, Collider::Type::NONE, 14);
-		App->particles->AddParticle(App->particles->explosion, position.x - 7, position.y + 12, Collider::Type::NONE, 40);
-		App->particles->AddParticle(App->particles->explosion, position.x + 5, position.y - 5, Collider::Type::NONE, 28);
-		App->particles->AddParticle(App->particles->explosion, position.x - 4, position.y - 4, Collider::Type::NONE, 21);
-
-		App->audio->PlayFx(explosionFx);
-
 		
 
-		destroyed = true;
-	}*/
+		//Kai pon aqui el power up sound
+
+		this->Disable();
+		//destroyed = true;
+	}
 }

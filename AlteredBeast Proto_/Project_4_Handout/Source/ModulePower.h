@@ -44,15 +44,19 @@ public:
 	
 
 	// A set of animations
-	Animation idleAnim;
-	Animation upAnim;
-	Animation downAnim;
+	Animation Anim;
 
-	// The player's collider
+	float waveRatio = 0.0f;
+	float waveRatioSpeed = 0.05f;
+	int waveHeight = 15;
+
+	int spawn_y = 0;
+	fPoint spawnPos;
+
 	Collider* collider = nullptr;
 
 	// A flag to detect when the player has been destroyed
-	bool destroyed = false;
+	bool gotten = false;
 
 	// Sound effects indices
 	uint laserFx = 0;
@@ -60,4 +64,4 @@ public:
 
 };
 
-#endif //!__MODULE_PLAYER_H__
+#endif 

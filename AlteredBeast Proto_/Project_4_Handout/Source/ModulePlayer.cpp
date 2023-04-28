@@ -638,7 +638,7 @@ update_status ModulePlayer::Update()
 			} 
 			
 		}
-
+		
 		currentAnimation->Update();
 
 	
@@ -754,9 +754,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1->type == Collider::Type::PLAYER_SHOT && c2->type == Collider::Type::ENEMY)
 	{
-		score += 1;
+		kickCollider->SetPos(1000, 1000);
+		attackCollider->SetPos(1000, 1000);
+		score += 100;
 	}
-
+	
 	
 
 }

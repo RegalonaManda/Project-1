@@ -34,6 +34,18 @@ public:
 
 	virtual void OnCollision(Collider* c1, Collider* c2);
 
+	// Switches isEnabled and calls Start() method
+	void Enable();
+
+	// Switches isEnabled and calls CleanUp() method
+	void Disable();
+
+	inline bool IsEnabled() const { return isEnabled; }
+
+private:
+	bool isEnabled = true;
+
+
 };
 
 #endif // __MODULE_H__

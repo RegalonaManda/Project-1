@@ -109,9 +109,22 @@ void ModuleEnemies::HandleEnemiesSpawn()
 
 				SpawnEnemy(spawnQueue[i]);
 				spawnQueue[i].type = ENEMY_TYPE::NO_TYPE; // Removing the newly spawned enemy from the queue
+			
 			}
 		}
 	}
+	//comprobacion 
+	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (enemies[i] == nullptr)
+		{
+			LOG("Enemy number %d does not spawn", i);
+		}
+		else {
+			LOG("Enemy number %d spawns", i);
+		}
+	}*/
+
 }
 
 void ModuleEnemies::HandleEnemiesDespawn()
@@ -143,13 +156,16 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 			switch (info.type)
 			{
 			case ENEMY_TYPE::ZOMBIE:
+				
 				enemies[i] = new Zombie(info.x, info.y);
 				
 
 				enemies[i]->texture = texture;
-
 				break;
 			}
+
+			break;
+			
 		}
 	}
 }
@@ -161,12 +177,15 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2); //Notify the enemy of a collision
-			/*if () { //if zombie hp - i dont know how to acces - = 0 then delete 
-				*/delete enemies[i];
+			if(enemies[i]->hp <= 0){
+				
+				
+				delete enemies[i];
 				enemies[i] = nullptr;
+				
 				break;
-				/*
-			}*/
+				
+			}
 		}
 	}
 }
