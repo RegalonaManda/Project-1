@@ -20,8 +20,19 @@
 #include "SDL/include/SDL_scancode.h"
 //the lower the higher
 #define MAX_HEIGHT 147
+//------- Animation Speeds ----------- //
 #define WALKANIMSPEED 0.08f
-#define PUNCHANIMSPEED 0.1f
+#define PUNCHANIMSPEED 0.13f
+#define CROUCHANIMSPEED 0.05f
+#define CROUCHPUNCHSPEED 0.1f
+#define KICKANIMSPEED 0.13f
+#define CROUCHKICKSPEED 0.1f
+#define DEATHANIMSPEED 0.05f
+#define HITANIMSPEED 0.05f
+#define JUMPANIMSPEED 0.025f
+#define AIRKICKSPEED 0.06f
+
+
 #define Gravity 0.07f;
 
 
@@ -89,10 +100,11 @@ ModulePlayer::ModulePlayer()
 
 
 	crouchAnimRight.PushBack({ 0, 226, 54, 75 });
-	crouchAnimLeft.PushBack({386,303,54,75});
+	crouchAnimRight.speed = CROUCHANIMSPEED;
+	crouchAnimRight.totalFrames = 1;
 
-
-	crouchAnimLeft.speed = 0.05f;
+	crouchAnimLeft.PushBack({ 386,303,54,75 });
+	crouchAnimLeft.speed = CROUCHANIMSPEED;
 	crouchAnimLeft.totalFrames = 1;
 
 
@@ -100,13 +112,13 @@ ModulePlayer::ModulePlayer()
 	crouchPunchRight.PushBack({110, 226, 108, 75 });
 	crouchPunchRight.loop = false;
 	crouchPunchRight.totalFrames = 2;
-	crouchPunchRight.speed = 0.05f;
+	crouchPunchRight.speed = CROUCHPUNCHSPEED;
 
 	crouchPunchLeft.PushBack({ 331, 303, 54, 75 });
 	crouchPunchLeft.PushBack({ 253, 303, 63, 75 });
 	crouchPunchLeft.loop = false;
 	crouchPunchLeft.totalFrames = 2;
-	crouchPunchLeft.speed = 0.05f;
+	crouchPunchLeft.speed = CROUCHPUNCHSPEED;
 
 
 	kickAnimRight.PushBack({221, 379, 87, 75});
@@ -114,7 +126,7 @@ ModulePlayer::ModulePlayer()
 	kickAnimRight.PushBack({397, 379, 87, 75 });
 	kickAnimRight.PushBack({309, 379, 87, 75 });
 
-	kickAnimRight.speed = 0.13f;
+	kickAnimRight.speed = KICKANIMSPEED;
 	kickAnimRight.loop = false;
 	kickAnimRight.totalFrames = 4;
 
@@ -124,21 +136,21 @@ ModulePlayer::ModulePlayer()
 	kickAnimLeft.PushBack({ 397, 455, 87, 75 });
 	kickAnimLeft.PushBack({ 309, 455, 87, 75 });
 
-	kickAnimLeft.speed = 0.13f;
+	kickAnimLeft.speed = KICKANIMSPEED;
 	kickAnimLeft.loop = false;
 	kickAnimLeft.totalFrames = 4;
 
 	kickCrouchRight.PushBack({ 1,455,72,75 });
 	kickCrouchRight.PushBack({ 74,455,72,75 });
 	kickCrouchRight.PushBack({ 1,455,72,75 });
-	kickCrouchRight.speed = 0.05f;
+	kickCrouchRight.speed = CROUCHKICKSPEED;
 	kickCrouchRight.totalFrames = 3;
 	kickCrouchRight.loop = false;
 
 	kickCrouchLeft.PushBack({ 1,531,72,75 });
 	kickCrouchLeft.PushBack({ 74,531,72,75 });
 	kickCrouchLeft.PushBack({ 1,531,72,75 });
-	kickCrouchLeft.speed = 0.05f;
+	kickCrouchLeft.speed = CROUCHKICKSPEED;
 	kickCrouchLeft.totalFrames = 3;
 	kickCrouchLeft.loop = false;
 
@@ -146,7 +158,7 @@ ModulePlayer::ModulePlayer()
 	deathAnimRight.PushBack({ 266,531,72,75 });
 	deathAnimRight.PushBack({ 339,531,72,75 });
 	deathAnimRight.PushBack({ 412,531,72,75 });
-	deathAnimRight.speed = 0.05f;
+	deathAnimRight.speed = DEATHANIMSPEED;
 	deathAnimRight.totalFrames = 3;
 	deathAnimRight.loop = false;
 
@@ -154,13 +166,13 @@ ModulePlayer::ModulePlayer()
 	hitAnimRight.PushBack({ 70,607,68,70 });
 	hitAnimRight.totalFrames = 2;
 	hitAnimRight.loop = false;
-	hitAnimRight.speed = 0.05f;
+	hitAnimRight.speed = HITANIMSPEED;
 
 	hitAnimLeft.PushBack({1,678,68,70});
 	hitAnimLeft.PushBack({70,678,68,70});
 	hitAnimLeft.totalFrames = 2;
 	hitAnimLeft.loop = false;
-	hitAnimLeft.speed = 0.05f;
+	hitAnimLeft.speed = HITANIMSPEED;
 
 	knockBackLeft.PushBack({266, 531, 72, 75});
 	knockBackLeft.totalFrames = 1;
@@ -193,17 +205,17 @@ ModulePlayer::ModulePlayer()
 	deathAnimLeft.PushBack({ 266,607,72,75 });
 	deathAnimLeft.PushBack({ 339,607,72,75 });
 	deathAnimLeft.PushBack({ 412,607,72,75 });
-	deathAnimLeft.speed = 0.05f;
+	deathAnimLeft.speed = DEATHANIMSPEED;
 	deathAnimLeft.totalFrames = 3;
 	deathAnimLeft.loop = false;
 	
 	jumpRight.PushBack({ 0,303,54,75 });
 	jumpRight.PushBack({ 56,303,54,75 });
-	jumpRight.speed = 0.025f;
+	jumpRight.speed = JUMPANIMSPEED;
 	
 	jumpLeft.PushBack({ 0,379,54,75 });
 	jumpLeft.PushBack({ 56,379,54,75 });
-	jumpLeft.speed = 0.025f;
+	jumpLeft.speed = JUMPANIMSPEED;
 
 	airPunchLeft.PushBack({ 354,749,54,75 });
 	airPunchLeft.loop = true;
@@ -212,11 +224,11 @@ ModulePlayer::ModulePlayer()
 	
 	airKickRight.PushBack({ 70,749,68,75 });
 	airKickRight.PushBack({ 140,749,68,75 });
-	airKickRight.speed = 0.06f;
+	airKickRight.speed = AIRKICKSPEED;
 
 	airKickLeft.PushBack({ 277,749,68,75 });
 	airKickLeft.PushBack({ 208,749,68,75 });
-	airKickLeft.speed = 0.06f;
+	airKickLeft.speed = AIRKICKSPEED;
 	airKickLeft.totalFrames = 2;
 
 	LandingLeft.PushBack({ 111,379,54,75 });
@@ -369,56 +381,67 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
-		if (airSt == AirState::GROUND) {
-			if (dir == Direction::LEFT) {
-				punchAnimLeft.Reset();
-				currentAnimation = &punchAnimLeft;
-				//activate punch collider when player punches
-				attackCollider->SetPos(position.x + 0, position.y - 60);
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
+			punchAnimRight.Reset();
+			currentAnimation = &punchAnimRight;
+			//activate punch collider when player punches
+			attackCollider->SetPos(position.x + 38, position.y - 60);
 
-				idle = false;
-
-			}
-			if (dir == Direction::RIGHT) {
-				punchAnimRight.Reset();
-				currentAnimation = &punchAnimRight;
-				//activate punch collider when player punches
-				attackCollider->SetPos(position.x + 38, position.y - 60);
-
-				idle = false;
-
-			}
+			idle = false;
 		}
-		if (airSt == AirState::CROUCH) {
-			if (dir == Direction::LEFT) {
-				crouchPunchLeft.Reset();
-				currentAnimation = &crouchPunchLeft;
-				//CHANGE x
-				attackCollider->SetPos(position.x + 0, position.y - 40);
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
+		{
+			punchAnimLeft.Reset();
+			currentAnimation = &punchAnimLeft;
+			//activate punch collider when player punches
+			attackCollider->SetPos(position.x + 0, position.y - 60);
+
 				idle = false;
-			}
-			if (dir == Direction::RIGHT) {
-				crouchPunchRight.Reset();
-				currentAnimation = &crouchPunchRight;
-				attackCollider->SetPos(position.x + 43, position.y - 40);
-				idle = false;
-			}
+		}
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
+			crouchPunchRight.Reset();
+			currentAnimation = &crouchPunchRight;
+			attackCollider->SetPos(position.x + 43, position.y - 40);
+			idle = false;
+		}
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
+			crouchPunchLeft.Reset();
+			currentAnimation = &crouchPunchLeft;
+			//CHANGE x
+			attackCollider->SetPos(position.x + 0, position.y - 40);
+			idle = false;
 		}
 		if (airSt == AirState::AIRBORN) {
 			if (dir == Direction::LEFT) {
 				currentAnimation = &airPunchLeft;
-				
+			
 				idle = false;
-			}
+		}
 			if (dir == Direction::RIGHT) {
 				currentAnimation = &airPunchRight;
-				
+			
 				idle = false;
-			}
 		}
+	}
+	
+
+		//if (airSt == AirState::AIRBORN) {
+		//	if (dir == Direction::LEFT) {
+		//		currentAnimation = &airPunchLeft;
+		//		
+		//		idle = false;
+		//	}
+		//	if (dir == Direction::RIGHT) {
+		//		currentAnimation = &airPunchRight;
+		//		
+		//		idle = false;
+		//	}
+		//}
 	}
 	if(currentAnimation == &airPunchLeft){ attackCollider->SetPos(position.x + 0, position.y - 60); }
 	if (currentAnimation == &airPunchRight) { attackCollider->SetPos(position.x + 26, position.y - 60); }
+	if (currentAnimation == &airKickLeft) { attackCollider->SetPos(position.x + 0, position.y - 40); }
+	if (currentAnimation == &airKickRight) { attackCollider->SetPos(position.x + 33, position.y - 40); }
 
 	if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
@@ -563,14 +586,18 @@ update_status ModulePlayer::Update()
 			App->audio->PlayFx(playerDeathFX, 0);
 
 			if (dir == Direction::RIGHT) {
+				if (destroyedCountdown > 117)
+				{
+					position.x -= 0.7f;
+				}
 				currentAnimation = &deathAnimRight;
-				position.x -= 0.7f;
 
 			}
-			else {
+			else if (dir == Direction::LEFT){
+				if (destroyedCountdown > 117) {
+					position.x += 0.7f;
+				}
 				currentAnimation = &deathAnimLeft;
-				position.x += 0.7f;
-				
 			}
 
 			impulse -= Gravity;
@@ -580,7 +607,7 @@ update_status ModulePlayer::Update()
 				position.x += 0;
 				position.y = 190;
 				destroyedCountdown-=0.5f;
-				if (destroyedCountdown == 0) {
+				if (destroyedCountdown <= 0) {
 					return update_status::UPDATE_STOP;
 				}
 
@@ -646,6 +673,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (lives <= 0)
 		{
 			hp = 0;
+
+			//DEATH
 			destroyed = true;
 
 		}
