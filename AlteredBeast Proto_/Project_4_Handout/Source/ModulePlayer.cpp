@@ -174,15 +174,15 @@ ModulePlayer::ModulePlayer()
 	hitAnimLeft.loop = false;
 	hitAnimLeft.speed = HITANIMSPEED;
 
-	knockBackLeft.PushBack({266, 531, 72, 75});
-	knockBackLeft.totalFrames = 1;
-	knockBackLeft.loop = false;
-	knockBackLeft.speed = 0.07f;
-
-	knockBackRight.PushBack({266,607,72,75});
+	knockBackRight.PushBack({266, 531, 72, 75});
 	knockBackRight.totalFrames = 1;
 	knockBackRight.loop = false;
 	knockBackRight.speed = 0.07f;
+
+	knockBackLeft.PushBack({266,607,72,75});
+	knockBackLeft.totalFrames = 1;
+	knockBackLeft.loop = false;
+	knockBackLeft.speed = 0.07f;
 
 	HitContinueRight.PushBack({ 266,531,72,75 });
 	HitContinueRight.PushBack({ 339,531,72,75 });
@@ -266,7 +266,21 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
-	if (idle == true && airSt == AirState::GROUND && iFrames == false) { position.y = 190; }
+	if (idle == true && airSt == AirState::GROUND && iFrames == false) { 
+		position.y = 190;
+		
+	}
+
+	if (knockBackLeft.HasFinished() == true) {
+		idle = true;
+		airSt == AirState::GROUND;
+		knockBackLeft.loopCount--;
+	}
+	if (knockBackRight.HasFinished() == true) {
+		idle = true;
+		airSt == AirState::GROUND;
+		knockBackRight.loopCount--;
+	}
 
 	//Update Collider to current player pos, change it depending on direction and AirState
 	if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 18, position.y - 65); }
@@ -680,6 +694,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		position.y -= 0.1f;
 		if (position.y < 190) {
 			KnockBack();
+			if(dir == Direction::LEFT){ 
+				idle = false;
+				currentAnimation = &knockBackLeft;
+			}
+			if (dir == Direction::RIGHT) {
+				currentAnimation = &knockBackRight;
+				idle = false;
+			}
 		}
 		
 		if (hp <= 0)
@@ -729,7 +751,7 @@ void ModulePlayer:: KnockBack() {
 
 	position.x--;
 	if (position.y >= 190) {
-		airSt = AirState::LANDING;
+		airSt = AirState::GROUND;
 		position.y = 190;
 		idle = true;
 		//jumpRight.Reset();
