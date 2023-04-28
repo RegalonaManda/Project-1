@@ -695,7 +695,6 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		{
 			hp = 3;
 			lives--;
-			//App->scene2->hpAnim.currentFrame+1;
 		}
 
 		if (lives <= 0)
