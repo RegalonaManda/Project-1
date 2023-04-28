@@ -704,6 +704,10 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		knockImpulse = 1.0f;
 		iFrames = true;
 		hp--;
+		if (hp > 0){
+			App->audio->PlayFx(loseHP);
+		}
+
 		position.y -= 0.1f;
 		if (position.y < 190) {
 			KnockBack();
@@ -725,9 +729,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		if (lives <= 0)
 		{
-
 			hp = 0;
-			
 			//DEATH
 			destroyed = true;
 
