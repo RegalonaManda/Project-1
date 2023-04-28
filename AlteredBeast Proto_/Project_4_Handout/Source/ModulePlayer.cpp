@@ -268,7 +268,7 @@ update_status ModulePlayer::Update()
 {
 	if (idle == true && airSt == AirState::GROUND && iFrames == false) { 
 		position.y = 190;
-		
+		knockImpulse = 0;
 	}
 
 	if (knockBackLeft.HasFinished() == true) {
@@ -356,7 +356,7 @@ update_status ModulePlayer::Update()
 	if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
 		currentAnimation = &jumpLeft;
 	}
-	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT && !destroyed )
+	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT && !destroyed && knockImpulse == 0)
 	{
 		if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
 			//change direction
@@ -371,7 +371,7 @@ update_status ModulePlayer::Update()
 	}
 
 
-	if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT && !destroyed) {
+	if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT && !destroyed && knockImpulse == 0) {
 		if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
 			//change direction
 			dir = Direction::LEFT;
@@ -646,9 +646,10 @@ update_status ModulePlayer::Update()
 		if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == false) {
 			GodMode = true;
 		}
-		/*if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == true) {
+		if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == true) {
 			GodMode = false;
-		}*/
+			lives = 3;
+		}
 		if (GodMode == true) {
 			lives++;
 		}

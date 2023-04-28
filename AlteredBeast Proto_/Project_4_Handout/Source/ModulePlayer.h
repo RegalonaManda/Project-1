@@ -63,7 +63,7 @@ public:
 
 	bool GodMode = false;
 
-	float knockImpulse = 0.8f;
+	float knockImpulse = 0;
 
 
 	float impulse = 3.2f;
