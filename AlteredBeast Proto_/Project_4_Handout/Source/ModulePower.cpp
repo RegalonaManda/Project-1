@@ -14,6 +14,7 @@ ModulePower::ModulePower(bool startEnabled) : Module(startEnabled)
 	Anim.PushBack({ 1,1,31,31 });
 	Anim.PushBack({ 33,1,31,31 });
 	Anim.PushBack({ 65,1,31,31 });
+	Anim.speed = 0.1f;
 }
 
 ModulePower::~ModulePower()
@@ -38,7 +39,8 @@ bool ModulePower::Start()
 	
 
 	// Add collider
-
+	SDL_Rect HitBox = { 1,1,31,31 };
+	collider = App->collisions->AddCollider(HitBox, Collider::Type::POWER_UP, (Module*)App->player);
 	return ret;
 }
 
@@ -54,7 +56,7 @@ update_status ModulePower::Update()
 
 	//collider->SetPos(position.x, position.y);
 
-	
+	Anim.Update();
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -66,7 +68,7 @@ update_status ModulePower::PostUpdate()
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &rect);
 	}*/
-	SDL_Rect PowerRec = Anim.frames[0];
+	SDL_Rect PowerRec = Anim.GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y, &PowerRec);
 
 	return update_status::UPDATE_CONTINUE;

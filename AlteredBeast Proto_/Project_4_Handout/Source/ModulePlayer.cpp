@@ -638,7 +638,7 @@ update_status ModulePlayer::Update()
 			} 
 			
 		}
-
+		
 		currentAnimation->Update();
 
 	
