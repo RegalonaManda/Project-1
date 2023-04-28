@@ -537,14 +537,18 @@ update_status ModulePlayer::Update()
 			App->audio->PlayFx(playerDeathFX, 0);
 
 			if (dir == Direction::RIGHT) {
+				if (destroyedCountdown > 117)
+				{
+					position.x -= 0.7f;
+				}
 				currentAnimation = &deathAnimRight;
-				position.x -= 0.7f;
 
 			}
-			else {
+			else if (dir == Direction::LEFT){
+				if (destroyedCountdown > 117) {
+					position.x += 0.7f;
+				}
 				currentAnimation = &deathAnimLeft;
-				position.x += 0.7f;
-				
 			}
 
 			impulse -= Gravity;
@@ -554,7 +558,7 @@ update_status ModulePlayer::Update()
 				position.x += 0;
 				position.y = 190;
 				destroyedCountdown-=0.5f;
-				if (destroyedCountdown == 0) {
+				if (destroyedCountdown <= 0) {
 					return update_status::UPDATE_STOP;
 				}
 
@@ -620,6 +624,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (lives <= 0)
 		{
 			hp = 0;
+
+			//DEATH
 			destroyed = true;
 
 		}
