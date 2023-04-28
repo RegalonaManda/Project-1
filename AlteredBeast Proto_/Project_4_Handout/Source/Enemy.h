@@ -41,9 +41,8 @@ public:
 
 	// Sound fx when destroyed
 	int destroyedFx = 0;
-
-	// The enemy's collider
-
+  
+	int hp;
 
 protected:
 	// A ptr to the current animation
