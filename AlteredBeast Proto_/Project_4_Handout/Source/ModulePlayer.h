@@ -61,6 +61,7 @@ public:
 	bool iFrames = false;
 	int iTimer = 30;
 
+	float knockImpulse = 0.8f;
 
 
 	float impulse = 3.2f;
@@ -92,6 +93,8 @@ public:
 	bool landed = false;
 
 	void OnCollision(Collider* c1, Collider* c2) override;
+
+	void KnockBack();
 
 	float destroyedCountdown = 120;
 

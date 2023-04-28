@@ -28,7 +28,7 @@
 //deberia estar en el .h
 Uint32 startTime = 0;
 bool idle = true;
-
+int knockPos;
 
 
 ModulePlayer::ModulePlayer()
@@ -195,6 +195,7 @@ ModulePlayer::ModulePlayer()
 	LandingRight.PushBack({ 111,303,54,75 });
 }
 
+
 ModulePlayer::~ModulePlayer()
 {
 
@@ -225,6 +226,8 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
+	if (idle == true && airSt == AirState::GROUND && iFrames == false) { position.y = 190; }
+
 	//Update Collider to current player pos, change it depending on direction and AirState
 	if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 18, position.y - 65); }
 	if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 20, position.y - 65); }
@@ -567,6 +570,16 @@ update_status ModulePlayer::Update()
 	
 		if (iFrames == true)
 		{
+			
+
+				airSt == AirState::AIRBORN;
+				knockImpulse -= Gravity;
+				position.y -= knockImpulse;
+
+				position.x--;
+
+
+			
 			iTimer--;
 			if (iTimer <= 0) {
 				iFrames = false;
@@ -608,8 +621,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	
 	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 	{
+		knockImpulse = 1.0f;
 		iFrames = true;
 		hp--;
+		position.y -= 0.1f;
+		if (position.y < 190) {
+			KnockBack();
+		}
+		
 		if (hp <= 0)
 		{
 			hp = 3;
@@ -643,6 +662,22 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == Collider::Type::PLAYER_SHOT && c2->type == Collider::Type::ENEMY)
 	{
 		score += 1;
+	}
+
+}
+
+void ModulePlayer:: KnockBack() {
+
+	airSt == AirState::AIRBORN;
+	knockImpulse -= Gravity;
+	position.y -= knockImpulse;
+
+	position.x--;
+	if (position.y >= 190) {
+		airSt = AirState::LANDING;
+		position.y = 190;
+		idle = true;
+		//jumpRight.Reset();
 	}
 
 }
