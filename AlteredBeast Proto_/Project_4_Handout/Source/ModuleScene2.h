@@ -42,6 +42,7 @@ public:
 
 	Animation hpAnim;
 	Animation livesAnim;
+	Animation iconAnim;
 };
 
 #endif
