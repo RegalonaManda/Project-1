@@ -42,6 +42,8 @@ public:
 	// Sound fx when destroyed
 	int destroyedFx = 0;
 
+	int hp;
+
 protected:
 	// A ptr to the current animation
 	Animation* currentAnim = nullptr;

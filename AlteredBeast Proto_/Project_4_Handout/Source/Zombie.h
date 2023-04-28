@@ -6,6 +6,8 @@
 
 class Zombie : public Enemy {
 public:
+
+
 	Zombie(int x, int y);
 
 	void Update() override;
@@ -20,7 +22,7 @@ public:
 		RIGHT
 	};
 
-	int hp = 10;
+
 
 	uint destroyedCountdown = 50;
 private:
