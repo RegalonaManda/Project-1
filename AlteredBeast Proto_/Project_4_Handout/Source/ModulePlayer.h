@@ -117,6 +117,8 @@ public:
 	Animation kickCrouchRight;
 	Animation kickCrouchLeft;
 
+	Animation powerUp1;
+
 	//damage animations
 	Animation knockBackLeft;
 	Animation knockBackRight;
