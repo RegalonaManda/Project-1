@@ -32,6 +32,7 @@ public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* layer1 = nullptr;
 	SDL_Texture* uiTexture = nullptr;
+	SDL_Texture* gameOverTexture = nullptr;
 
 	SDL_Texture* layer2 = nullptr;
 
@@ -43,6 +44,7 @@ public:
 	Animation hpAnim;
 	Animation livesAnim;
 	Animation iconAnim;
+	Animation gameOverAnim;
 };
 
 #endif

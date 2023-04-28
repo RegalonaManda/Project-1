@@ -589,6 +589,7 @@ update_status ModulePlayer::Update()
 			
 			App->audio->PlayFx(playerDeathFX, 0);
 
+			
 			if (dir == Direction::RIGHT) {
 				if (destroyedCountdown > 117)
 				{
@@ -699,8 +700,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		if (lives <= 0)
 		{
-			hp = 0;
 
+			hp = 0;
+			
 			//DEATH
 			destroyed = true;
 
