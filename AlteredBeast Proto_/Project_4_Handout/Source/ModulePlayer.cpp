@@ -391,6 +391,8 @@ update_status ModulePlayer::Update()
 	}
 	if(currentAnimation == &airPunchLeft){ attackCollider->SetPos(position.x + 0, position.y - 60); }
 	if (currentAnimation == &airPunchRight) { attackCollider->SetPos(position.x + 26, position.y - 60); }
+	if (currentAnimation == &airKickLeft) { attackCollider->SetPos(position.x + 0, position.y - 40); }
+	if (currentAnimation == &airKickRight) { attackCollider->SetPos(position.x + 33, position.y - 40); }
 
 	if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
