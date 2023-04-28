@@ -23,6 +23,8 @@ public:
 	int hp = 10;
 
 	uint destroyedCountdown = 50;
+	
+
 private:
 
 	Direction dir;
