@@ -140,7 +140,13 @@ public:
 	Animation LandingRight;
 	Animation LandingLeft;
 
-
+	//Power1 animations
+	Animation P1walkRight;
+	Animation P1walkLeft;
+	Animation P1punchRight;
+	Animation P1punchLeft;
+	Animation P1KickLeft;
+	Animation P1KickRight;
 
 	// Font score index
 	uint score = 0;
