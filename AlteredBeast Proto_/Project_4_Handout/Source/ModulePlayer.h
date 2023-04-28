@@ -61,6 +61,8 @@ public:
 	bool iFrames = false;
 	int iTimer = 30;
 
+	bool GodMode = false;
+
 	float knockImpulse = 0.8f;
 
 

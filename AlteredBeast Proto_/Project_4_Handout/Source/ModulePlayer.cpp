@@ -643,7 +643,15 @@ update_status ModulePlayer::Update()
 			
 		}
 
-
+		if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == false) {
+			GodMode = true;
+		}
+		/*if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == true) {
+			GodMode = false;
+		}*/
+		if (GodMode == true) {
+			lives++;
+		}
 
 
 
@@ -729,6 +737,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	{
 		score += 1;
 	}
+
+	
 
 }
 
