@@ -13,6 +13,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleFonts.h"
 #include "ModuleParticles.h"
+#include "ModulePower.h"
 
 // SHOULD INCLUDE ALL MODULE .h FILES
 
@@ -32,9 +33,10 @@ Application::Application()
 	modules[7] = particles = new ModuleParticles(true);
 	modules[8] = scene2 = new ModuleScene2();
 	modules[9] = collisions = new ModuleCollisions();
-	modules[10] = fonts = new ModuleFonts(true);
+	modules[10] = powers = new ModulePower(true);
+	modules[11] = fonts = new ModuleFonts(true);
 	// render should always be the last module
-	modules[11] = render = new ModuleRender();
+	modules[12] = render = new ModuleRender();
 }
 
 Application::~Application()
