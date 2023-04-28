@@ -57,8 +57,8 @@ bool ModuleScene::Start()
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
 
 
-	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 20, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
-	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-20, App->render->camera.y + SCREEN_WIDTH - 20, 20, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
+	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
+	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-10, App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 
 	return ret;
 }
@@ -69,10 +69,11 @@ update_status ModuleScene::Update()
 	//SCREEN SCROLL
 	if (ScreenScroll == true) {
 		App->render->camera.x += 1;
-		
+
+		aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE ) * 0.3333333333f;
 
 		backCamLimit->SetPos(App->render->camera.x * 0.3333333333f, 0);
-		frontCamLimit->SetPos((App->render->camera.x + frontlimitMargin) * 0.3333333333f, 0);
+		frontCamLimit->SetPos(aux, 0);
 	}
 
 	//backCamLimit->SetPos(0 + App->render->cameraSpeed, 0);
