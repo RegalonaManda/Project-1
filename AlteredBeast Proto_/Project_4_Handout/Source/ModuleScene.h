@@ -47,7 +47,7 @@ public:
 	Collider* backCamLimit = nullptr;
 	Collider* frontCamLimit = nullptr;
 
-	int frontlimitMargin = SCREEN_WIDTH * SCREEN_SIZE - 20;
+	float aux;
 	// The different sprite sections for the flag
 	Animation flag;
 

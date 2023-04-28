@@ -27,6 +27,10 @@ void Enemy::Update()
 
 	if (Ecollider != nullptr)
 		Ecollider->SetPos(position.x, position.y);
+	//CHANGE acticate attack collider when exploding
+	if (AttackCollider != nullptr) {
+		//AttackCollider->SetPos(position.x-10, position.y);
+	}
 }
 
 void Enemy::Draw()

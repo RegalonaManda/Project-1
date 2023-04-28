@@ -61,6 +61,9 @@ public:
 	bool iFrames = false;
 	int iTimer = 30;
 
+	bool GodMode = false;
+
+	float knockImpulse = 0.8f;
 
 
 	float impulse = 3.2f;
@@ -93,18 +96,17 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2) override;
 
+	void KnockBack();
+
 	float destroyedCountdown = 120;
 
-	// A set of animations
+	// attack animations
 	Animation idleAnimRight;
 	Animation idleAnimLeft;
 	Animation forwardAnim;
 	Animation backAnim;
 	Animation punchAnimLeft;
-	Animation hitAnimRight;
-	Animation hitAnimLeft;
-	Animation deathAnimRight;
-	Animation deathAnimLeft;
+	
 	Animation punchAnimRight;
 	Animation crouchAnimLeft;
 	Animation crouchAnimRight;
@@ -114,6 +116,16 @@ public:
 	Animation kickAnimLeft;
 	Animation kickCrouchRight;
 	Animation kickCrouchLeft;
+
+	//damage animations
+	Animation knockBackLeft;
+	Animation knockBackRight;
+	Animation hitAnimRight;
+	Animation hitAnimLeft;
+	Animation HitContinueLeft;
+	Animation HitContinueRight;
+	Animation deathAnimRight;
+	Animation deathAnimLeft;
 
 	//AirBorn animations
 	Animation jumpRight;
@@ -129,8 +141,8 @@ public:
 
 
 	// Font score index
-	float score = 000;
-	int scoreFont = -1;
+	uint score = 0;
+	int scoreFont = 9;
 	char scoreText[10] = { "\0" };
 	float deathdist = 2;
 

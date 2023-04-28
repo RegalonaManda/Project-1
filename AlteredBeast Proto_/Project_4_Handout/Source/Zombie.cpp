@@ -23,7 +23,7 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 	deathAnim.loop = true;
 
 	Ecollider = App->collisions->AddCollider({ 412, 140, 22, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
-
+	AttackCollider = App->collisions->AddCollider({ 412,140,42,60 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 }
 
 void Zombie::Update() {
@@ -33,6 +33,11 @@ void Zombie::Update() {
 	//if zombie is behind the player change the direction
 	if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
 	else { dir = Direction::LEFT; }
+	//life 
+	if (hp <= 0) {
+		currentAnim = &deathAnim;
+		alive = false;
+	}
 
 	if (alive == true) { currentAnim = &walkAnim; }
 
@@ -51,7 +56,8 @@ void Zombie::Update() {
 }
 
 void Zombie::OnCollision(Collider* collider) {
-	currentAnim = &deathAnim;
-	alive = false;
-	
+	--hp;
+	//currentAnim = &deathAnim;
+	//alive = false;
+	//
 }

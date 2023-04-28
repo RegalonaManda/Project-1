@@ -28,6 +28,11 @@ ModuleScene2::ModuleScene2()
 	livesAnim.PushBack({ 177,10,23,16 });
 	livesAnim.PushBack({ 201,10,23,16 });
 	livesAnim.PushBack({ 225,10,23,16 });
+
+	iconAnim.PushBack({ 142,10,17,15 });
+	iconAnim.PushBack({ 160,10,17,15 });
+
+	gameOverAnim.PushBack({ 0,0,140,20 });
 }
 
 ModuleScene2::~ModuleScene2()
@@ -44,7 +49,7 @@ bool ModuleScene2::Start()
 
 	layer1 = App->textures->Load("Assets/Layer1.png");
 	uiTexture = App->textures->Load("Assets/UiElements.png");
-	
+	gameOverTexture = App->textures->Load("Assets/gameOver.png");
 
 	return ret;
 }
@@ -64,6 +69,8 @@ update_status ModuleScene2::PostUpdate()
 {
 	SDL_Rect rec;
 	SDL_Rect rac;
+	SDL_Rect ric;
+	SDL_Rect reckt = {0,0,140,20};
 
 	if (App->player->hp == 3)
 	{
@@ -90,12 +97,20 @@ update_status ModuleScene2::PostUpdate()
 	{
 		rac = livesAnim.frames[2];
 	}//se necessita investigar mas como funcionan las vidas i la hp
+
+	ric = iconAnim.frames[0]; // 0 or 1
+
 	
 	
 	App->render->Blit(layer1, 0, 145, &background, 1.2);
 
-	App->render->Blit(uiTexture, 30, 200, &rec, 0);
-	App->render->Blit(uiTexture, 40, 10, &rac, 0);
+	App->render->Blit(uiTexture, 30, 200, &rec, 0); // blue hp dots
+	App->render->Blit(uiTexture, 40, 10, &rac, 0);// golden lives
+	App->render->Blit(uiTexture, 10, 10, &ric, 0);//human-wolf icon
+	if (App->player->lives == 0) {
+		App->render->Blit(gameOverTexture, 10, 10, &reckt, 0);//Game over text
+	}
+	
 
 	
 
