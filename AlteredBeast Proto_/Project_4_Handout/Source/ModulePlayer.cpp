@@ -162,6 +162,34 @@ ModulePlayer::ModulePlayer()
 	hitAnimLeft.loop = false;
 	hitAnimLeft.speed = 0.05f;
 
+	knockBackLeft.PushBack({266, 531, 72, 75});
+	knockBackLeft.totalFrames = 1;
+	knockBackLeft.loop = false;
+	knockBackLeft.speed = 0.07f;
+
+	knockBackRight.PushBack({266,607,72,75});
+	knockBackRight.totalFrames = 1;
+	knockBackRight.loop = false;
+	knockBackRight.speed = 0.07f;
+
+	HitContinueRight.PushBack({ 266,531,72,75 });
+	HitContinueRight.PushBack({ 339,531,72,75 });
+	HitContinueRight.PushBack({ 412,531,72,75 });
+	HitContinueRight.PushBack({139, 607, 72, 75});
+	HitContinueRight.PushBack({208, 607, 72, 75});
+	HitContinueRight.totalFrames = 5;
+	HitContinueRight.loop = false;
+	HitContinueRight.speed = 0.07f;
+
+	HitContinueLeft.PushBack({ 266,531,72,75 });
+	HitContinueLeft.PushBack({ 339,531,72,75 });
+	HitContinueLeft.PushBack({ 412,531,72,75 });
+	HitContinueLeft.PushBack({ 139, 678, 72, 75 });
+	HitContinueLeft.PushBack({ 208, 678, 72, 75 });
+	HitContinueLeft.totalFrames = 5;
+	HitContinueLeft.loop = false;
+	HitContinueLeft.speed = 0.07f;
+
 	deathAnimLeft.PushBack({ 266,607,72,75 });
 	deathAnimLeft.PushBack({ 339,607,72,75 });
 	deathAnimLeft.PushBack({ 412,607,72,75 });
