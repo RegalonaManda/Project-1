@@ -395,20 +395,6 @@ update_status ModulePlayer::Update()
 				idle = false;
 		}
 	}
-	
-
-		//if (airSt == AirState::AIRBORN) {
-		//	if (dir == Direction::LEFT) {
-		//		currentAnimation = &airPunchLeft;
-		//		
-		//		idle = false;
-		//	}
-		//	if (dir == Direction::RIGHT) {
-		//		currentAnimation = &airPunchRight;
-		//		
-		//		idle = false;
-		//	}
-		//}
 	}
 	if(currentAnimation == &airPunchLeft){ attackCollider->SetPos(position.x + 0, position.y - 60); }
 	if (currentAnimation == &airPunchRight) { attackCollider->SetPos(position.x + 26, position.y - 60); }
