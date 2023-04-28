@@ -23,7 +23,7 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 	deathAnim.loop = true;
 
 	Ecollider = App->collisions->AddCollider({ 412, 140, 22, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
-
+	AttackCollider = App->collisions->AddCollider({ 412,140,42,60 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 }
 
 void Zombie::Update() {

@@ -48,7 +48,7 @@ protected:
 
 	// The enemy's collider
 	Collider* Ecollider = nullptr;
-
+	Collider* AttackCollider = nullptr;
 	// Original spawn position. Stored for movement calculations
 	fPoint spawnPos;
 };
