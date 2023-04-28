@@ -146,8 +146,14 @@ public:
 	char scoreText[10] = { "\0" };
 	float deathdist = 2;
 
+	bool hitEnemy = false;
+
 	//Sound FX
 	uint playerDeathFX;
+	uint nonLethalAtt;
+	uint lethalAtt;
+	uint loseHP;
+	uint powerUp;
 
 };
 

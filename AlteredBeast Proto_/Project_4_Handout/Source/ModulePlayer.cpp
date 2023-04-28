@@ -10,6 +10,8 @@
 #include "ModuleScene.h"
 #include "Colliders.h"
 #include "ModuleScene2.h"
+#include "ModuleEnemies.h"
+#include "Enemy.h"
 
 #include <stdio.h>
 
@@ -260,6 +262,10 @@ bool ModulePlayer::Start()
 
 	//player Sound FX
 	playerDeathFX = App->audio->LoadFx("Assets/FX/Player_Death.wav");
+	nonLethalAtt = App->audio->LoadFx("Assets/FX/Non-Lethal_Punch.wav");
+	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch.wav");
+	loseHP = App->audio->LoadFx("Assets/FX/lose_1_hp.wav");
+	powerUp = App->audio->LoadFx("Assets/FX/Power_Up.wav");
 
 	return ret;
 }
@@ -399,9 +405,17 @@ update_status ModulePlayer::Update()
 	}
 
 	if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
+
+		if (hitEnemy == false) {
+			App->audio->PlayFx(nonLethalAtt);
+		}
+
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
 			punchAnimRight.Reset();
 			currentAnimation = &punchAnimRight;
+
+			
+			
 			//activate punch collider when player punches
 			attackCollider->SetPos(position.x + 38, position.y - 60);
 
@@ -448,6 +462,11 @@ update_status ModulePlayer::Update()
 	if (currentAnimation == &airKickRight) { attackCollider->SetPos(position.x + 33, position.y - 40); }
 
 	if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
+
+		if (hitEnemy == false) {
+			App->audio->PlayFx(nonLethalAtt);
+		}
+
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
 			kickAnimRight.Reset();
 			currentAnimation = &kickAnimRight;
@@ -626,15 +645,12 @@ update_status ModulePlayer::Update()
 		if (iFrames == true)
 		{
 			
+			airSt == AirState::AIRBORN;
+			knockImpulse -= Gravity;
+			position.y -= knockImpulse;
 
-				airSt == AirState::AIRBORN;
-				knockImpulse -= Gravity;
-				position.y -= knockImpulse;
+			position.x--;
 
-				position.x--;
-
-
-			
 			iTimer--;
 			if (iTimer <= 0) {
 				iFrames = false;
@@ -653,10 +669,6 @@ update_status ModulePlayer::Update()
 		if (GodMode == true) {
 			lives++;
 		}
-
-
-
-
 
 		return update_status::UPDATE_CONTINUE;
 	
@@ -682,7 +694,11 @@ update_status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
-	
+	if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
+		hitEnemy = true;
+		App->audio->PlayFx(lethalAtt);
+		hitEnemy = false;
+	} 
 	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 	{
 		knockImpulse = 1.0f;

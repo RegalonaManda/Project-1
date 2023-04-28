@@ -54,7 +54,7 @@ bool ModuleScene::Start()
 	trees = App->textures->Load("Assets/trees.png");
 	sky = App->textures->Load("Assets/sky.png");
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 130);
-	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
+	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f, 50);
 
 
 	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);

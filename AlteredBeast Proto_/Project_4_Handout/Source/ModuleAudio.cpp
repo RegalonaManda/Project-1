@@ -32,6 +32,7 @@ bool ModuleAudio::Init()
 	//Load support for OGG format
 	int flags = MIX_INIT_OGG;
 	int init = Mix_Init(flags);
+	
 
 	if ((init & flags) != flags)
 	{
@@ -72,9 +73,16 @@ bool ModuleAudio::CleanUp()
 	return true;
 }
 
-bool ModuleAudio::PlayMusic(const char* path, float fade_time)
+bool ModuleAudio::PlayMusic(const char* path, float fade_time, int volume)
 {
 	bool ret = true;
+
+	if (volume == MIX_MAX_VOLUME || volume == -1) {
+		Mix_Volume(-1, MIX_MAX_VOLUME);
+	}
+	else {
+		Mix_Volume(-1, volume);
+	}
 
 	if (music != NULL)
 	{
