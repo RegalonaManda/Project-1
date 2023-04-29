@@ -27,22 +27,22 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 	headXplode.PushBack({132,1,41,68});
 	headXplode.PushBack({127,1,41,68});
 	headXplode.PushBack({132,1,41,68});
-	headXplode.loopCount = 1;
-	headXplode.totalFrames;
+	headXplode.loop = false;
+	headXplode.totalFrames = 4;
 	headXplode.speed = 0.03f;
 
 	headlessWalk.PushBack({ 127,1,41,68 });
 	headlessWalk.PushBack({ 85,121,41,68 });
 	headlessWalk.loop = true;
-	headlessWalk.totalFrames;
+	headlessWalk.totalFrames = 2;
 	headlessWalk.speed = 0.008f;
 
 	deathAnim.PushBack({ 127,1,41,68 });
 	deathAnim.PushBack({ 132,1,41,68 });
 	deathAnim.PushBack({ 127,1,41,68 });
 	deathAnim.PushBack({ 132,1,41,68 });
-	deathAnim.loop = true;
-	deathAnim.totalFrames;
+	deathAnim.loop = false;
+	deathAnim.totalFrames = 4;
 	deathAnim.speed = 0.03f;
 	
 
@@ -51,8 +51,7 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 	bodyXplode.PushBack({ 169,0,41,68 });
 	bodyXplode.PushBack({ 127,0,41,68 });
 	bodyXplode.loop = false;
-	
-	bodyXplode.totalFrames;
+	bodyXplode.totalFrames = 4;
 	bodyXplode.speed = 0.05f;
 
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
@@ -66,15 +65,10 @@ void Zombie::Update() {
 	//if zombie is behind the player change the direction
 	if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
 	else { dir = Direction::LEFT; }
-	//life 
-	/*if (hp <= 0) {
-		currentAnim = &deathAnim;
-		alive = false;
-	}*/
+
 
 	if (alive) 
 	{ 
-		/*destroyedCountdown = 20;*/
 
 		if(hp == 2)
 		{ currentAnim = &walkAnim; }
@@ -84,29 +78,23 @@ void Zombie::Update() {
 			hitCountdown--;
 			if (hitCountdown <= 0) {
 				currentAnim = &headXplode;
-				if (headXplode.HasFinished()) {
-					currentAnim = &headlessWalk;
-					hitByPlayer = false;
-					
-				}
+				
 			}
-		}
 
-		
-		
-		
+			if (headXplode.HasFinished()) {
+				currentAnim = &headlessWalk;
+				hitByPlayer = false;
+
+			}
+			
+		}
 		
 	}
 
 	if (!alive) 
 	{ 
-		destroyedCountdown--;
-		if (destroyedCountdown <= 0) 
-		{ 
-			currentAnim = &deathAnim; 
-			destroyed = true; 
-		}
-	
+		currentAnim = &deathAnim; 
+		if(deathAnim.HasFinished()){ destroyed = true; }
 	}
 
 	
