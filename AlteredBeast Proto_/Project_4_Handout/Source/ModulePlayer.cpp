@@ -97,6 +97,7 @@ update_status ModulePlayer::Update()
 	//Transforming Animations, middleground between two Power stages
 	if (transforming == true && tranSt == Transform::DEFAULT) {
 		currentAnimation = &AllAnimations.powerUp1;
+		App->audio->PlayFx(powerUp);
 	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;

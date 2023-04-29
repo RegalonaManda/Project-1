@@ -25,7 +25,7 @@ public:
 
 	
 
-
+	uint hitCountdown = 10;
 	uint destroyedCountdown = 10;
 	
 
