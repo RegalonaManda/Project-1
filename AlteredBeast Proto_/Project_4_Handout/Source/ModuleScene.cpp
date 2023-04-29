@@ -6,6 +6,8 @@
 #include "ModuleCollisions.h"
 #include "ModuleAudio.h"
 #include "Enemy.h"
+#include "Zombie.h"
+#include "EnemyDeath.h"
 
 
 ModuleScene::ModuleScene()
@@ -76,8 +78,7 @@ update_status ModuleScene::Update()
 		frontCamLimit->SetPos(aux, 0);
 	}
 
-	//backCamLimit->SetPos(0 + App->render->cameraSpeed, 0);
-	//frontCamLimit->SetPos(SCREEN_WIDTH + App->render->cameraSpeed - 20, 0);
+	
 
 	App->enemies->Update();
 
