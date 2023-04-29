@@ -80,7 +80,7 @@ void Wolf::Update() {
 		{ 
 			currentAnim = &idleAnimRight;
 
-			if (idleAnimRight.HasFinished()) {
+			/*if (idleAnimRight.HasFinished()) {
 				
 				currentAnim = &jumpAnimRight;
 
@@ -92,12 +92,12 @@ void Wolf::Update() {
 					position.y = 140;
 					
 				}
-			}
+			}*/
 		}
 		if (dir == Direction::LEFT) 
 		{ 
 			currentAnim = &idleAnimLeft; 
-			if (idleAnimLeft.HasFinished()) {
+			/*if (idleAnimLeft.HasFinished()) {
 				
 				currentAnim = &jumpAnimLeft;
 
@@ -109,7 +109,7 @@ void Wolf::Update() {
 					position.y = 140;
 					
 				}
-			}
+			}*/
 		}
 	}
 
@@ -134,9 +134,26 @@ void Wolf::OnCollision(Collider* collider) {
 
 	if (collider->Collider::Type::PLAYER_SHOT) {
 
+
+		//destroyedCountdown--;
+		//if (destroyedCountdown <= 0) {
+		//	hp -= App->player->attack;
+		//	hitByPlayer = true;
+		//	destroyedCountdown = 20;
+		//}
+
+		//if (hp <= 0) {
 			Ecollider->SetPos(-1000, -1000);
 			alive = false;
+
+			App->scene->HasEnemyDied = true;
+			App->scene->enemyX = position.x;
+			App->scene->enemyY = position.y;
+
+
 		
+
+
 	}
 
 }
