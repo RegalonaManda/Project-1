@@ -12,6 +12,7 @@
 #include "ModuleScene2.h"
 #include "ModuleEnemies.h"
 #include "Enemy.h"
+#include "ModulePower.h"
 
 #include <stdio.h>
 
@@ -46,19 +47,15 @@ int knockPos;
 
 ModulePlayer::ModulePlayer()
 {
-	
-
 	position.x = 100;
 	position.y = 190;
 	
-
 	//Default direction
 	dir = Direction::RIGHT;
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
 	tranSt = Transform::DEFAULT;
-
 	
 }
 
@@ -97,7 +94,16 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
-	if (tranSt == Transform::DEFAULT) {
+	//Transforming Animations, middleground between two Power stages
+	if (transforming == true && tranSt == Transform::DEFAULT) {
+		currentAnimation = &AllAnimations.powerUp1;
+	}
+	if (AllAnimations.powerUp1.HasFinished() == true) {
+		tranSt = Transform::POWER1;
+	}
+
+
+	if (tranSt == Transform::DEFAULT && transforming == false) {
 		if (idle == true && airSt == AirState::GROUND && iFrames == false) {
 			position.y = 190;
 			knockImpulse = 0;
@@ -519,11 +525,11 @@ update_status ModulePlayer::Update()
 		//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
 		{
-			currentAnimation = &AllAnimations.idleAnimRight;
+			currentAnimation = &AllAnimations.P1IdleRight;
 		}
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 		{
-			currentAnimation = &AllAnimations.idleAnimLeft;
+			currentAnimation = &AllAnimations.P1IdleRight;
 		}
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
 			currentAnimation = &AllAnimations.crouchAnimRight;
@@ -739,15 +745,15 @@ update_status ModulePlayer::Update()
 			kickCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
 		}
 
-		if (AllAnimations.kickAnimRight.HasFinished() == true) {
-			AllAnimations.kickAnimRight.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
+		if (AllAnimations.P1KickRight.HasFinished() == true) {
+			AllAnimations.P1KickRight.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
 			idle = true;
 			//deactivate kick collider
 			attackCollider->SetPos(1000, 1000);
 		}
 		//OUTSIDE THE IF
-		if (AllAnimations.kickAnimLeft.HasFinished() == true) {
-			AllAnimations.kickAnimLeft.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
+		if (AllAnimations.P1KickLeft.HasFinished() == true) {
+			AllAnimations.P1KickLeft.loopCount--;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
 			idle = true;
 			//deactivate kick collider
 			attackCollider->SetPos(1000, 1000);
@@ -935,7 +941,18 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		score += 1;
 	}
 
-	
+	if (c1 == Pcollider && c2->type == Collider::Type::POWER_UP && transforming == false) {
+
+		transforming = true;
+		// Kai pon aqui el Power Up sound
+
+		//El disable no funciona de momento, voy a esconderlo
+		//App->powers->Disable();
+
+		App->powers->gotten = true;
+
+
+	}
 
 }
 

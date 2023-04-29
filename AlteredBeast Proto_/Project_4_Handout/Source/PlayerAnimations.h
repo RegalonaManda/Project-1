@@ -95,6 +95,9 @@ public:
 	Animation LandingLeft;
 
 	//Power1 animations
+	Animation P1IdleRight;
+	Animation P1IdleLeft;
+
 	Animation P1walkRight;
 	Animation P1walkLeft;
 	Animation P1punchRight;
@@ -283,11 +286,17 @@ public:
 		//Time for power1 animations ;)
 
 		powerUp1.PushBack({ 221, 0, 54, 75 });
+		powerUp1.PushBack({ 221, 0, 54, 75 });
 		powerUp1.PushBack({ 276, 0, 54, 75 });
 		powerUp1.PushBack({ 331, 0, 54, 75 });
+		powerUp1.PushBack({ 331, 0, 54, 75 });
 		powerUp1.loop = false;
-		powerUp1.totalFrames = 3;
-		powerUp1.speed = 0.05;
+		powerUp1.totalFrames = 5;
+		powerUp1.speed = 0.07;
+
+		P1IdleRight.PushBack({ 743,5,88,69 });
+		
+		P1IdleLeft.PushBack({ 832,5,88,69 });
 
 		P1walkRight.PushBack({ 476,5,88,69 });
 		P1walkRight.PushBack({ 565,5,88,69 });
@@ -316,10 +325,16 @@ public:
 		P1KickRight.PushBack({ 476,155,88,69 });
 		P1KickRight.PushBack({ 565,155,88,69 });
 		P1KickRight.PushBack({ 654,155,88,69 });
+		P1KickRight.totalFrames = 3;
+		P1KickRight.speed = KICKANIMSPEED;
+		P1KickRight.loop = false;
 
 		P1KickLeft.PushBack({ 663,365,88,69 });
 		P1KickLeft.PushBack({ 574,365,88,69 });
 		P1KickLeft.PushBack({ 485,365,88,69 });
+		P1KickLeft.totalFrames = 3;
+		P1KickLeft.speed = KICKANIMSPEED;
+		P1KickLeft.loop = false;
 
 	}
 

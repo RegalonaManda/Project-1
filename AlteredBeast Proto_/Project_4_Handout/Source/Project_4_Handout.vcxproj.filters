@@ -14,10 +14,10 @@
     <Filter Include="Source Files\Utils">
       <UniqueIdentifier>{f2908f2d-9354-4a4d-89bd-382e70ece47b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gameplay">
+    <Filter Include="Source Files\Modules\Gameplay">
       <UniqueIdentifier>{27874cd3-8ee4-4f11-8cb6-f61b185feeff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Gameplay\Player">
+    <Filter Include="Source Files\Modules\Gameplay\Player">
       <UniqueIdentifier>{c29b03c3-c0fa-46b7-9ddb-0ecfa27e27f7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -86,19 +86,19 @@
       <Filter>Source Files\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleEnemies.h">
-      <Filter>Source Files\Gameplay</Filter>
+      <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="ModuleScene2.h">
-      <Filter>Source Files\Gameplay</Filter>
+      <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="ModuleScene.h">
-      <Filter>Source Files\Gameplay</Filter>
+      <Filter>Source Files\Modules\Gameplay</Filter>
     </ClInclude>
     <ClInclude Include="ModulePlayer.h">
-      <Filter>Source Files\Gameplay\Player</Filter>
+      <Filter>Source Files\Modules\Gameplay\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerAnimations.h">
-      <Filter>Source Files\Gameplay\Player</Filter>
+      <Filter>Source Files\Modules\Gameplay\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -160,19 +160,16 @@
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleEnemies.cpp">
-      <Filter>Source Files\Gameplay</Filter>
+      <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
     <ClCompile Include="ModuleScene2.cpp">
-      <Filter>Source Files\Gameplay</Filter>
+      <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
     <ClCompile Include="ModuleScene.cpp">
-      <Filter>Source Files\Gameplay</Filter>
+      <Filter>Source Files\Modules\Gameplay</Filter>
     </ClCompile>
     <ClCompile Include="ModulePlayer.cpp">
-      <Filter>Source Files\Gameplay\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAnimations.cpp">
-      <Filter>Source Files\Gameplay\Player</Filter>
+      <Filter>Source Files\Modules\Gameplay\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

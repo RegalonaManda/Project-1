@@ -15,6 +15,8 @@ ModulePower::ModulePower(bool startEnabled) : Module(startEnabled)
 	Anim.PushBack({ 33,1,31,31 });
 	Anim.PushBack({ 65,1,31,31 });
 	Anim.speed = 0.1f;
+
+	DissapearAnim.PushBack({ 91,1,1,1 });
 }
 
 ModulePower::~ModulePower()
@@ -47,6 +49,13 @@ bool ModulePower::Start()
 update_status ModulePower::Update()
 {
 	// Moving the power with camera scroll , posx += 1
+
+	if (gotten == false) {
+		currentAnim = &Anim;
+	}
+	else {
+		currentAnim = &DissapearAnim;
+	}
 	
 	waveRatio += waveRatioSpeed;
 
@@ -57,7 +66,7 @@ update_status ModulePower::Update()
 	collider->SetPos(position.x +6, position.y+6);
 	//collider->SetPos(position.x, position.y);
 
-	Anim.Update();
+	currentAnim->Update();
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -69,7 +78,10 @@ update_status ModulePower::PostUpdate()
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &rect);
 	}*/
-	SDL_Rect PowerRec = Anim.GetCurrentFrame();
+
+
+
+	SDL_Rect PowerRec = currentAnim->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y, &PowerRec);
 
 	return update_status::UPDATE_CONTINUE;
@@ -81,7 +93,6 @@ void ModulePower::OnCollision(Collider* c1, Collider* c2)
 	{
 		
 
-		//Kai pon aqui el power up sound
 
 		this->Disable();
 		//destroyed = true;

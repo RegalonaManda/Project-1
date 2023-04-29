@@ -124,7 +124,6 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="ModulePower.cpp" />
-    <ClCompile Include="PlayerAnimations.cpp" />
     <ClCompile Include="Wolf.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>

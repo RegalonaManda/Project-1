@@ -42,9 +42,11 @@ public:
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
 	
-
-	// A set of animations
+	Animation* currentAnim;
+	
 	Animation Anim;
+
+	Animation DissapearAnim;
 
 	float waveRatio = 0.0f;
 	float waveRatioSpeed = 0.05f;
