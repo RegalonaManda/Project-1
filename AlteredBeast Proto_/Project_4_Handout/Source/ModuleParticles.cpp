@@ -25,20 +25,20 @@ bool ModuleParticles::Start()
 	texture = App->textures->Load("Assets/Sprites/particles.png");
 
 	// Explosion particle
-	explosion.anim.PushBack({ 274, 296, 33, 30 });
-	explosion.anim.PushBack({ 313, 296, 33, 30 });
-	explosion.anim.PushBack({ 346, 296, 33, 30 });
-	explosion.anim.PushBack({ 382, 296, 33, 30 });
-	explosion.anim.PushBack({ 419, 296, 33, 30 });
-	explosion.anim.PushBack({ 457, 296, 33, 30 });
-	explosion.anim.loop = false;
-	explosion.anim.speed = 0.3f;
+	zombieExpl.anim.PushBack({ 274, 296, 33, 30 });
+	zombieExpl.anim.PushBack({ 313, 296, 33, 30 });
+	zombieExpl.anim.PushBack({ 346, 296, 33, 30 });
+	zombieExpl.anim.PushBack({ 382, 296, 33, 30 });
+	zombieExpl.anim.PushBack({ 419, 296, 33, 30 });
+	zombieExpl.anim.PushBack({ 457, 296, 33, 30 });
+	zombieExpl.anim.loop = false;
+	zombieExpl.anim.speed = 0.3f;
 
-	laser.anim.PushBack({ 232, 103, 16, 12 });
-	laser.anim.PushBack({ 249, 103, 16, 12 });
-	laser.speed.x = 5;
-	laser.lifetime = 180;
-	laser.anim.speed = 0.2f;
+	//laser.anim.PushBack({ 232, 103, 16, 12 });
+	//laser.anim.PushBack({ 249, 103, 16, 12 });
+	//laser.speed.x = 5;
+	//laser.lifetime = 180;
+	//laser.anim.speed = 0.2f;
 
 	return true;
 }
