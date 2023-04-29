@@ -14,9 +14,7 @@ public:
 
 	void OnCollision(Collider* collider) override;
 
-	bool alive = true;
-	bool destroyed = false;
-	bool hitByPlayer = false;
+
 
 	enum class Direction {
 		LEFT,

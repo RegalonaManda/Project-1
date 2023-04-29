@@ -66,19 +66,14 @@ void Zombie::Update() {
 	if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
 	else { dir = Direction::LEFT; }
 
-
 	if (alive) 
 	{ 
-
-		if(hp == 2)
-		{ currentAnim = &walkAnim; }
+		if(hp == 2){ currentAnim = &walkAnim; }
 		if (hp == 1 && hitByPlayer)
 		{
-			
 			hitCountdown--;
 			if (hitCountdown <= 0) {
 				currentAnim = &headXplode;
-				
 			}
 
 			if (headXplode.HasFinished()) {
@@ -86,21 +81,19 @@ void Zombie::Update() {
 				hitByPlayer = false;
 
 			}
-			
 		}
-		
 	}
 
-	if (!alive) 
-	{ 
-		currentAnim = &deathAnim; 
-		if(deathAnim.HasFinished()){ destroyed = true; }
+	if (!alive) {
+		currentAnim = &deathAnim;
+		if (currentAnim->HasFinished()) {
+			destroyed = true;
+		}
 	}
 
-	
+
 	currentAnim->Update();
 	Enemy::Update();
-
 }
 
 void Zombie::OnCollision(Collider* collider) {
@@ -115,15 +108,12 @@ void Zombie::OnCollision(Collider* collider) {
 			destroyedCountdown = 20;
 		}
 	
-		
-	
 		if (hp <= 0) {
 			Ecollider->SetPos(-1000, -1000);
 			alive = false;
+				
 		}
-		
-		
-		/*hitByPlayer = false;*/
+
 		
 	}
 

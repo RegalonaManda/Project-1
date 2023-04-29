@@ -32,6 +32,8 @@ public:
 		currentFrame = 0;
 	}
 
+
+
 	bool HasFinished()
 	{
 		return !loop && !pingpong && loopCount > 0;
@@ -51,6 +53,8 @@ public:
 		}
 	}
 
+	
+
 	//Changed to notconstant bc of the change in the blit function
 	 SDL_Rect& GetCurrentFrame() 
 	{
@@ -63,5 +67,6 @@ public:
 
 
 };
+
 
 #endif

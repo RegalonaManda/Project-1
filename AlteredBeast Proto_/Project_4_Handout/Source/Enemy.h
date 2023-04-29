@@ -41,15 +41,14 @@ public:
 
 	// Sound fx when destroyed
 	int destroyedFx = 0;
-  
+	bool destroyed = false;
+	bool alive = true;
+	bool hitByPlayer = false;
 	int hp;
 
 protected:
 	// A ptr to the current animation
 	Animation* currentAnim = nullptr;
-
-
-
 	Collider* Ecollider = nullptr;
 	Collider* AttackCollider = nullptr;
 	// Original spawn position. Stored for movement calculations
