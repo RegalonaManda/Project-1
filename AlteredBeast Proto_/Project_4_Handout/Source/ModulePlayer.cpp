@@ -663,14 +663,14 @@ update_status ModulePlayer::Update()
 				idle = false;
 			}
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
-				AllAnimations.kickCrouchRight.Reset();
-				currentAnimation = &AllAnimations.kickCrouchRight;
+				AllAnimations.P1CrouchKickR.Reset();
+				currentAnimation = &AllAnimations.P1CrouchKickR;
 				kickCollider->SetPos(position.x + 37, position.y - 60);
 				idle = false;
 			}
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
-				AllAnimations.kickCrouchLeft.Reset();
-				currentAnimation = &AllAnimations.kickCrouchLeft;
+				AllAnimations.P1CrouchKickL.Reset();
+				currentAnimation = &AllAnimations.P1CrouchKickL;
 				kickCollider->SetPos(position.x + 20, position.y - 60);
 				idle = false;
 			}
@@ -760,14 +760,14 @@ update_status ModulePlayer::Update()
 			attackCollider->SetPos(1000, 1000);
 		}
 
-		if (AllAnimations.kickCrouchLeft.HasFinished() == true) {
-			AllAnimations.kickCrouchLeft.loopCount--;
+		if (AllAnimations.P1CrouchKickL.HasFinished() == true) {
+			AllAnimations.P1CrouchKickL.loopCount--;
 			idle = true;
 			kickCollider->SetPos(1000, 1000);
 		}
 
-		if (AllAnimations.kickCrouchRight.HasFinished() == true) {
-			AllAnimations.kickCrouchRight.loopCount--;
+		if (AllAnimations.P1CrouchKickR.HasFinished() == true) {
+			AllAnimations.P1CrouchKickR.loopCount--;
 			idle = true;
 			kickCollider->SetPos(1000, 1000);
 		}

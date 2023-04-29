@@ -111,6 +111,9 @@ public:
 	Animation P1CrouchPunchR;
 	Animation P1CrouchPunchL;
 
+	Animation P1CrouchKickR;
+	Animation P1CrouchKickL;
+
 	PlayerAnim::PlayerAnim() {
 
 
@@ -358,7 +361,17 @@ public:
 		P1CrouchPunchL.speed = CROUCHPUNCHSPEED;
 		P1CrouchPunchL.loop = false;
 
+		P1CrouchKickR.PushBack({ 752, 435 ,88,69});
+		P1CrouchKickR.PushBack({ 841,435, 88 , 69 });
+		P1CrouchKickR.totalFrames = 2;
+		P1CrouchKickR.speed = CROUCHKICKSPEED;
+		P1CrouchKickR.loop = false;
 
+		P1CrouchKickL.PushBack({ 841, 505 ,88,69 });
+		P1CrouchKickL.PushBack({ 752,505, 88 , 69 });
+		P1CrouchKickL.totalFrames = 2;
+		P1CrouchKickL.speed = CROUCHKICKSPEED;
+		P1CrouchKickL.loop = false;
 	}
 
 
