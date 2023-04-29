@@ -7,6 +7,7 @@
 Enemy::Enemy(int x, int y) : position(x, y)
 {
 	spawnPos = position;
+	
 }
 
 Enemy::~Enemy()
@@ -26,7 +27,7 @@ void Enemy::Update()
 		currentAnim->Update();
 
 	if (Ecollider != nullptr)
-		Ecollider->SetPos(position.x, position.y);
+		Ecollider->SetPos(position.x+7, position.y+7);
 	//CHANGE acticate attack collider when exploding
 	if (AttackCollider != nullptr) {
 		//AttackCollider->SetPos(position.x-10, position.y);

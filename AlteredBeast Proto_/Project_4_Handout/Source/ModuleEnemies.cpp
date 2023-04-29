@@ -27,7 +27,7 @@ ModuleEnemies::~ModuleEnemies()
 bool ModuleEnemies::Start()
 {
 	//CHANGE load enemy texture
-	texture = App->textures->Load("Assets/Enemies.png");
+	texture = App->textures->Load("Assets/Enemies Proto.png");
 	
 
 	return true;
