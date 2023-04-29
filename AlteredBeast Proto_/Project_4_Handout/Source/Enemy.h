@@ -40,9 +40,9 @@ public:
 	SDL_Texture* texture = nullptr;
 
 	// Sound fx when destroyed
-	int destroyedFx = 0;
+	/*int destroyedFx = 0;*/
 	bool destroyed = false;
-	bool alive = true;
+	bool alive= true;
 	bool hitByPlayer = false;
 	int hp;
 

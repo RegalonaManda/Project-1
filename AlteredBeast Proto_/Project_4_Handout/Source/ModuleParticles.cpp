@@ -34,11 +34,7 @@ bool ModuleParticles::Start()
 	zombieExpl.anim.loop = false;
 	zombieExpl.anim.speed = 0.3f;
 
-	//laser.anim.PushBack({ 232, 103, 16, 12 });
-	//laser.anim.PushBack({ 249, 103, 16, 12 });
-	//laser.speed.x = 5;
-	//laser.lifetime = 180;
-	//laser.anim.speed = 0.2f;
+
 
 	return true;
 }

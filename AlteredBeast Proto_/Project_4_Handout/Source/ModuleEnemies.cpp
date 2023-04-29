@@ -4,10 +4,12 @@
 
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
+#include "ModuleAudio.h"
 
 #include "Enemy.h"
 
 #include "Zombie.h"
+#include "Wolf.h"
 
 
 #define SPAWN_MARGIN 50
@@ -28,6 +30,9 @@ bool ModuleEnemies::Start()
 {
 	//CHANGE load enemy texture
 	texture = App->textures->Load("Assets/Enemies Proto.png");
+
+	//Load Enemy Death Sound FX
+	enemyDeath = App->audio->LoadFx("Assets/FX/NPC_Death.wav");
 	
 
 	return true;
@@ -179,7 +184,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			enemies[i]->OnCollision(c2); //Notify the enemy of a collision
 			if(enemies[i]->hp <= 0 && enemies[i]->destroyed){
 				
-				
+				App->audio->PlayFx(enemyDeath, 1);
 				delete enemies[i];
 				enemies[i] = nullptr;
 				

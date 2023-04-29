@@ -4,9 +4,9 @@
 #include "Enemy.h"
 #include "Path.h"
 
-class Zombie : public Enemy {
+class Wolf : public Enemy {
 public:
-	Zombie(int x, int y);
+	Wolf(int x, int y);
 
 	void Update() override;
 

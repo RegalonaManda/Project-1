@@ -76,6 +76,8 @@ public:
 	// The enemies sprite sheet
 	SDL_Texture* texture = nullptr;
 
+	uint enemyDeath;
+
 
 };
 

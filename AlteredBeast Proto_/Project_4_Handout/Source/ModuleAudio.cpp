@@ -152,13 +152,13 @@ uint ModuleAudio::LoadFx(const char* path)
 	return ret;
 }
 
-bool ModuleAudio::PlayFx(uint index, int repeat)
+bool ModuleAudio::PlayFx(uint index, int channel, int repeat)
 {
 	bool ret = false;
 
 	if (soundFx[index] != nullptr)
 	{
-		Mix_PlayChannel(-1, soundFx[index], repeat);
+		Mix_PlayChannel(channel, soundFx[index], repeat);
 		ret = true;
 	}
 
