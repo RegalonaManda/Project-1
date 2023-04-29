@@ -530,13 +530,13 @@ update_status ModulePlayer::Update()
 		}
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 		{
-			currentAnimation = &AllAnimations.P1IdleRight;
+			currentAnimation = &AllAnimations.P1IdleLeft;
 		}
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
-			currentAnimation = &AllAnimations.crouchAnimRight;
+			currentAnimation = &AllAnimations.P1CrouchRight;
 		}
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
-			currentAnimation = &AllAnimations.crouchAnimLeft;
+			currentAnimation = &AllAnimations.P1CrouchLeft;
 		}
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN) {
 			currentAnimation = &AllAnimations.jumpRight;
@@ -578,10 +578,10 @@ update_status ModulePlayer::Update()
 			airSt = AirState::CROUCH;
 
 			if (dir == Direction::LEFT) {
-				currentAnimation = &AllAnimations.crouchAnimLeft;
+				currentAnimation = &AllAnimations.P1CrouchLeft;
 			}
 			if (dir == Direction::RIGHT) {
-				currentAnimation = &AllAnimations.crouchAnimRight;
+				currentAnimation = &AllAnimations.P1CrouchRight;
 			}
 
 		}
@@ -613,14 +613,14 @@ update_status ModulePlayer::Update()
 				idle = false;
 			}
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
-				AllAnimations.crouchPunchRight.Reset();
-				currentAnimation = &AllAnimations.crouchPunchRight;
+				AllAnimations.P1CrouchPunchR.Reset();
+				currentAnimation = &AllAnimations.P1CrouchPunchR;
 				attackCollider->SetPos(position.x + 43, position.y - 40);
 				idle = false;
 			}
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
-				AllAnimations.crouchPunchLeft.Reset();
-				currentAnimation = &AllAnimations.crouchPunchLeft;
+				AllAnimations.P1CrouchPunchL.Reset();
+				currentAnimation = &AllAnimations.P1CrouchPunchL;
 				//CHANGE x
 				attackCollider->SetPos(position.x + 0, position.y - 40);
 				idle = false;
@@ -703,8 +703,8 @@ update_status ModulePlayer::Update()
 			attackCollider->SetPos(1000, 1000);
 		}
 
-		if (AllAnimations.crouchPunchRight.HasFinished() == true) {
-			AllAnimations.crouchPunchRight.loopCount--;
+		if (AllAnimations.P1CrouchPunchR.HasFinished() == true) {
+			AllAnimations.P1CrouchPunchR.loopCount--;
 			idle = true;
 			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
 				airSt = AirState::CROUCH;
@@ -714,8 +714,8 @@ update_status ModulePlayer::Update()
 			attackCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANG
 
 		}
-		if (AllAnimations.crouchPunchLeft.HasFinished() == true) {
-			AllAnimations.crouchPunchLeft.loopCount--;
+		if (AllAnimations.P1CrouchPunchL.HasFinished() == true) {
+			AllAnimations.P1CrouchPunchL.loopCount--;
 			idle = true;
 			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
 				airSt = AirState::CROUCH;
