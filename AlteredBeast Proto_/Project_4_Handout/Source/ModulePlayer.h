@@ -111,7 +111,7 @@ public:
 	uint score = 0;
 	int scoreFont = 9;
 	char scoreText[10] = { "\0" };
-	float deathdist = 2;
+	
 
 	bool hitEnemy = false;
 

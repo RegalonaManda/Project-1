@@ -96,8 +96,9 @@ update_status ModulePlayer::Update()
 {
 	//Transforming Animations, middleground between two Power stages
 	if (transforming == true && tranSt == Transform::DEFAULT) {
+		App->audio->PlayFx(powerUp, -1);
 		currentAnimation = &AllAnimations.powerUp1;
-		App->audio->PlayFx(powerUp);
+		
 	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;
@@ -240,7 +241,7 @@ update_status ModulePlayer::Update()
 		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
 
 			if (hitEnemy == false) {
-				App->audio->PlayFx(nonLethalAtt);
+				App->audio->PlayFx(nonLethalAtt, 3);
 			}
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
@@ -297,7 +298,7 @@ update_status ModulePlayer::Update()
 		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
 
 			if (hitEnemy == false) {
-				App->audio->PlayFx(nonLethalAtt);
+				App->audio->PlayFx(nonLethalAtt, 3);
 			}
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
@@ -439,7 +440,7 @@ update_status ModulePlayer::Update()
 		if (destroyed) {
 
 
-			App->audio->PlayFx(playerDeathFX, 0);
+			App->audio->PlayFx(playerDeathFX, 4, 0);
 
 
 			if (dir == Direction::RIGHT) {
@@ -611,7 +612,7 @@ update_status ModulePlayer::Update()
 		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
 
 			if (hitEnemy == false) {
-				App->audio->PlayFx(nonLethalAtt);
+				App->audio->PlayFx(nonLethalAtt, 3);
 			}
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
@@ -669,7 +670,7 @@ update_status ModulePlayer::Update()
 		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
 
 			if (hitEnemy == false) {
-				App->audio->PlayFx(nonLethalAtt);
+				App->audio->PlayFx(nonLethalAtt, 3);
 			}
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
@@ -787,7 +788,7 @@ update_status ModulePlayer::Update()
 		if (destroyed) {
 
 
-			App->audio->PlayFx(playerDeathFX, 0);
+			App->audio->PlayFx(playerDeathFX, 4, 0);
 
 
 			if (dir == Direction::RIGHT) {
@@ -880,7 +881,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
 		hitEnemy = true;
-		App->audio->PlayFx(lethalAtt);
+		App->audio->PlayFx(lethalAtt, 5);
 		hitEnemy = false;
 	} 
 	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
@@ -889,7 +890,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		iFrames = true;
 		hp--;
 		if (hp > 0){
-			App->audio->PlayFx(loseHP);
+			App->audio->PlayFx(loseHP, 6);
 		}
 
 		position.y -= 0.1f;

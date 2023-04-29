@@ -43,7 +43,7 @@ public:
 
 	// Plays a previously loaded WAV
 	// Receives an index from the sound fx array
-	bool PlayFx(uint index, int repeat = 0);
+	bool PlayFx(uint index, int channel, int repeat = 0);
 
 private:
 	// The current playing music
