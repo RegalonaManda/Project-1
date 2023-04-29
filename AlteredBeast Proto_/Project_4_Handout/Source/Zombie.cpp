@@ -113,7 +113,11 @@ void Zombie::OnCollision(Collider* collider) {
 			Ecollider->SetPos(-1000, -1000);
 			alive = false;
 
-			Death->KillZombie(position.x, position.y);
+			App->scene->HasEnemyDied = true;
+			App->scene->enemyX = position.x;
+			App->scene->enemyY = position.y;
+			
+			
 		}
 
 		

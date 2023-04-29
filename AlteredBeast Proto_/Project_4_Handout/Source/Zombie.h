@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Path.h"
 #include "EnemyDeath.h"
+#include "ModuleScene.h"
 
 class Zombie : public Enemy {
 public:
@@ -27,7 +28,7 @@ public:
 	uint hitCountdown = 10;
 	uint destroyedCountdown = 10;
 	
-	ZombieDeath* Death = new ZombieDeath;
+	
 
 
 	Direction dir;

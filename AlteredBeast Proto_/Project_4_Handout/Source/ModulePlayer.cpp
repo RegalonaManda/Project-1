@@ -102,7 +102,7 @@ update_status ModulePlayer::Update()
 	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;
-		attack += 2;
+		attack += 1;
 		AllAnimations.powerUp1.loopCount = 0;
 	}
 
