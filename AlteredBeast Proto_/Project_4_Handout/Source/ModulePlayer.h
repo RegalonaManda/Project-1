@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "ModuleAudio.h"
 #include "Globals.h"
+#include "PlayerAnimations.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -99,54 +100,58 @@ public:
 	void KnockBack();
 
 	float destroyedCountdown = 120;
+public:
 
-	// attack animations
-	Animation idleAnimRight;
-	Animation idleAnimLeft;
-	Animation forwardAnim;
-	Animation backAnim;
-	Animation punchAnimLeft;
-	
-	Animation punchAnimRight;
-	Animation crouchAnimLeft;
-	Animation crouchAnimRight;
-	Animation crouchPunchLeft;
-	Animation crouchPunchRight;
-	Animation kickAnimRight;
-	Animation kickAnimLeft;
-	Animation kickCrouchRight;
-	Animation kickCrouchLeft;
 
-	Animation powerUp1;
+	PlayerAnim AllAnimations;
 
-	//damage animations
-	Animation knockBackLeft;
-	Animation knockBackRight;
-	Animation hitAnimRight;
-	Animation hitAnimLeft;
-	Animation HitContinueLeft;
-	Animation HitContinueRight;
-	Animation deathAnimRight;
-	Animation deathAnimLeft;
+	//// attack animations
+	//Animation idleAnimRight;
+	//Animation idleAnimLeft;
+	//Animation forwardAnim;
+	//Animation backAnim;
+	//Animation punchAnimLeft;
+	//
+	//Animation punchAnimRight;
+	//Animation crouchAnimLeft;
+	//Animation crouchAnimRight;
+	//Animation crouchPunchLeft;
+	//Animation crouchPunchRight;
+	//Animation kickAnimRight;
+	//Animation kickAnimLeft;
+	//Animation kickCrouchRight;
+	//Animation kickCrouchLeft;
 
-	//AirBorn animations
-	Animation jumpRight;
-	Animation jumpLeft;
-	Animation airPunchLeft;
-	Animation airPunchRight;
-	Animation airKickLeft;
-	Animation airKickRight;
+	//Animation powerUp1;
 
-	Animation LandingRight;
-	Animation LandingLeft;
+	////damage animations
+	//Animation knockBackLeft;
+	//Animation knockBackRight;
+	//Animation hitAnimRight;
+	//Animation hitAnimLeft;
+	//Animation HitContinueLeft;
+	//Animation HitContinueRight;
+	//Animation deathAnimRight;
+	//Animation deathAnimLeft;
 
-	//Power1 animations
-	Animation P1walkRight;
-	Animation P1walkLeft;
-	Animation P1punchRight;
-	Animation P1punchLeft;
-	Animation P1KickLeft;
-	Animation P1KickRight;
+	////AirBorn animations
+	//Animation jumpRight;
+	//Animation jumpLeft;
+	//Animation airPunchLeft;
+	//Animation airPunchRight;
+	//Animation airKickLeft;
+	//Animation airKickRight;
+
+	//Animation LandingRight;
+	//Animation LandingLeft;
+
+	////Power1 animations
+	//Animation P1walkRight;
+	//Animation P1walkLeft;
+	//Animation P1punchRight;
+	//Animation P1punchLeft;
+	//Animation P1KickLeft;
+	//Animation P1KickRight;
 
 	// Font score index
 	uint score = 0;
@@ -163,6 +168,9 @@ public:
 	uint loseHP;
 	uint powerUp;
 
+	friend class PlayerAnim; 
+
 };
+
 
 #endif //!__MODULE_PLAYER_H__
