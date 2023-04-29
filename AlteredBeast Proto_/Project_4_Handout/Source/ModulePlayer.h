@@ -8,6 +8,9 @@
 #include "Globals.h"
 #include "PlayerAnimations.h"
 
+
+#define Gravity 0.07f;
+
 struct SDL_Texture;
 struct Collider;
 

@@ -36,7 +36,6 @@
 #define AIRKICKSPEED 0.06f
 
 
-#define Gravity 0.07f;
 
 
 //deberia estar en el .h

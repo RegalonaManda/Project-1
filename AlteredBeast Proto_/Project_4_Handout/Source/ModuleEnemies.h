@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define MAX_ENEMIES 3
+#define MAX_ENEMIES 10
 
 
 

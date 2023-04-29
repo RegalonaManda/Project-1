@@ -167,11 +167,21 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 
 				enemies[i]->texture = texture;
 				break;
-			}
-
-			break;
 			
+			case ENEMY_TYPE::WHITEWOLF:
+
+				enemies[i] = new Wolf(info.x, info.y);
+
+
+				enemies[i]->texture = texture;
+				break;
+			}
+			break;
 		}
+
+			
+			
+		
 	}
 }
 
@@ -182,7 +192,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2); //Notify the enemy of a collision
-			if(enemies[i]->hp <= 0 && enemies[i]->destroyed){
+			if(enemies[i]->destroyed){
 				
 				App->audio->PlayFx(enemyDeath, 1);
 				delete enemies[i];

@@ -22,17 +22,17 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	texture = App->textures->Load("Assets/Sprites/particles.png");
+	texture = App->textures->Load("Assets/Enemy Proto.png");
 
 	// Explosion particle
-	zombieExpl.anim.PushBack({ 274, 296, 33, 30 });
+	/*zombieExpl.anim.PushBack({ 274, 296, 33, 30 });
 	zombieExpl.anim.PushBack({ 313, 296, 33, 30 });
 	zombieExpl.anim.PushBack({ 346, 296, 33, 30 });
 	zombieExpl.anim.PushBack({ 382, 296, 33, 30 });
 	zombieExpl.anim.PushBack({ 419, 296, 33, 30 });
 	zombieExpl.anim.PushBack({ 457, 296, 33, 30 });
 	zombieExpl.anim.loop = false;
-	zombieExpl.anim.speed = 0.3f;
+	zombieExpl.anim.speed = 0.3f;*/
 
 
 

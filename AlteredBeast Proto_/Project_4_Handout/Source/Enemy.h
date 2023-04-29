@@ -3,7 +3,7 @@
 
 #include "p2Point.h"
 #include "Animation.h"
-
+#include "ModulePlayer.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -33,18 +33,26 @@ public:
 	virtual void OnCollision(Collider* collider);
 
 public:
+
+	enum class Direction {
+		LEFT,
+		RIGHT
+	};
+	Direction dir;
+
 	// The current position in the world
 	fPoint position;
 
 	// The enemy's texture
 	SDL_Texture* texture = nullptr;
 
-	// Sound fx when destroyed
-	/*int destroyedFx = 0;*/
+
 	bool destroyed = false;
-	bool alive= true;
+	bool alive = true;
 	bool hitByPlayer = false;
 	int hp;
+	uint hitCountdown;
+	uint destroyedCountdown;
 
 protected:
 	// A ptr to the current animation
@@ -53,6 +61,8 @@ protected:
 	Collider* AttackCollider = nullptr;
 	// Original spawn position. Stored for movement calculations
 	fPoint spawnPos;
+	
+	
 };
 
 #endif // __ENEMY_H__

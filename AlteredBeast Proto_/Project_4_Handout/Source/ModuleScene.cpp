@@ -54,6 +54,7 @@ bool ModuleScene::Start()
 	trees = App->textures->Load("Assets/trees.png");
 	sky = App->textures->Load("Assets/sky.png");
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f, 50);
 
 

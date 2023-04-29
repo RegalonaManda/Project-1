@@ -14,22 +14,8 @@ public:
 
 	void OnCollision(Collider* collider) override;
 
-
-
-	enum class Direction {
-		LEFT,
-		RIGHT
-	};
-
-	
-
-	uint hitCountdown = 10;
-	uint destroyedCountdown = 10;
-	
-
 private:
-
-	Direction dir;
+	
 	Animation walkAnim;
 	Animation headXplode;
 	Animation headlessWalk;

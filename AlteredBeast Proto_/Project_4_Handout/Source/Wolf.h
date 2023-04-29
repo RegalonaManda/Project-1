@@ -12,24 +12,19 @@ public:
 
 	void OnCollision(Collider* collider) override;
 
-	bool alive = true;
-	bool destroyed = false;
 
-	enum class Direction {
-		LEFT,
-		RIGHT
-	};
-
-	int hp = 10;
-
-	uint destroyedCountdown = 50;
-
+	float wolfImpulse = 3.2f;
+	
 
 private:
 
-	Direction dir;
-	Animation walkAnim;
-	Animation deathAnim;
+	
+	Animation idleAnimRight;
+	Animation idleAnimLeft;
+	Animation jumpAnimRight;
+	Animation jumpAnimLeft;
+	Animation deathAnimRight;
+	Animation deathAnimLeft;
 
 
 };
