@@ -192,7 +192,9 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2); //Notify the enemy of a collision
-			if(enemies[i]->destroyed){
+
+			if(enemies[i]->hp <= 0){
+
 				
 				App->audio->PlayFx(enemyDeath, 1);
 				delete enemies[i];

@@ -22,6 +22,7 @@ public:
 
 	// Destructor
 	~ModulePlayer();
+	int attack = 1;
 
 	enum class Direction {
 		LEFT,

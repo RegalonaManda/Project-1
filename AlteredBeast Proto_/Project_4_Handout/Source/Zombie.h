@@ -3,6 +3,8 @@
 
 #include "Enemy.h"
 #include "Path.h"
+#include "EnemyDeath.h"
+#include "ModuleScene.h"
 
 class Zombie : public Enemy {
 public:
@@ -14,8 +16,24 @@ public:
 
 	void OnCollision(Collider* collider) override;
 
-private:
+
+
+
+	enum class Direction {
+		LEFT,
+		RIGHT
+	};
+
 	
+
+	uint hitCountdown = 10;
+	uint destroyedCountdown = 10;
+	
+	
+
+
+	Direction dir;
+
 	Animation walkAnim;
 	Animation headXplode;
 	Animation headlessWalk;

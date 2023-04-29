@@ -43,6 +43,8 @@ public:
 	// The current position in the world
 	fPoint position;
 
+	
+
 	// The enemy's texture
 	SDL_Texture* texture = nullptr;
 

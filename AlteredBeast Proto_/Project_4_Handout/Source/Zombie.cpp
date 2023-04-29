@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
+#include "EnemyDeath.h"
 
 //Calls the constructor of enemy class to save spawn position
 
@@ -84,12 +85,12 @@ void Zombie::Update() {
 		}
 	}
 
-	if (!alive) {
+	/*if (!alive) {
 		currentAnim = &deathAnim;
 		if (currentAnim->HasFinished()) {
 			destroyed = true;
 		}
-	}
+	}*/
 
 
 	currentAnim->Update();
@@ -103,7 +104,7 @@ void Zombie::OnCollision(Collider* collider) {
 		
 		destroyedCountdown--;
 		if (destroyedCountdown <= 0) {
-			--hp;
+			hp-= App->player->attack;
 			hitByPlayer = true;
 			destroyedCountdown = 20;
 		}
@@ -111,7 +112,12 @@ void Zombie::OnCollision(Collider* collider) {
 		if (hp <= 0) {
 			Ecollider->SetPos(-1000, -1000);
 			alive = false;
-				
+
+			App->scene->HasEnemyDied = true;
+			App->scene->enemyX = position.x;
+			App->scene->enemyY = position.y;
+			
+			
 		}
 
 		

@@ -403,7 +403,7 @@ public:
 		P1JumpKickR.PushBack({ 663,715, 91,69 });
 		
 		
-		P1JumpKickL.PushBack({ 572,785,91,69 });
+		P1JumpKickL.PushBack({ 481,785,94,69 });
 
 		P1LandingR.PushBack({ 663, 575, 88, 69 });
 

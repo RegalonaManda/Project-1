@@ -6,6 +6,8 @@
 #include "ModuleCollisions.h"
 #include "ModuleAudio.h"
 #include "Enemy.h"
+#include "Zombie.h"
+#include "EnemyDeath.h"
 
 
 ModuleScene::ModuleScene()
@@ -35,6 +37,15 @@ ModuleScene::ModuleScene()
 	SkyLayer.w = 1743;
 	SkyLayer.h = 273;
 
+	deathAnim.PushBack({ 127,1,41,68 });
+	deathAnim.PushBack({ 132,1,41,68 });
+	deathAnim.PushBack({ 127,1,41,68 });
+	deathAnim.PushBack({ 132,1,41,68 });
+	deathAnim.PushBack({ 351,547,1,1 });
+	deathAnim.loop = false;
+	deathAnim.totalFrames = 4;
+	deathAnim.speed = 0.1f;
+
 }
 
 ModuleScene::~ModuleScene()
@@ -53,6 +64,8 @@ bool ModuleScene::Start()
 	stone = App->textures->Load("Assets/stone.png");
 	trees = App->textures->Load("Assets/trees.png");
 	sky = App->textures->Load("Assets/sky.png");
+	EnemyTexture = App->textures->Load("Assets/Enemies Proto.png");
+
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f, 50);
@@ -77,10 +90,30 @@ update_status ModuleScene::Update()
 		frontCamLimit->SetPos(aux, 0);
 	}
 
-	//backCamLimit->SetPos(0 + App->render->cameraSpeed, 0);
-	//frontCamLimit->SetPos(SCREEN_WIDTH + App->render->cameraSpeed - 20, 0);
+	
 
 	App->enemies->Update();
+
+	//for (int i = 0; i < MAX_ENEMIES; i++) {
+	//	if (App->enemies->enemies[i] != nullptr) {
+
+	//		
+	//		if (App->enemies->enemies[i]->hp <= 0 && App->enemies->enemies[i]->destroyed == false) {
+	//			//App->enemies->enemies[i]->Death(App->enemies->enemies[i]->position.x)
+	//			Death->KillZombie(App->enemies->enemies[i]->position.x, App->enemies->enemies[i]->position.y);
+	//		}
+
+	//	}
+	//}
+
+	if (HasEnemyDied == true) {
+		//Death->KillZombie(enemyX, enemyY);
+		current = &deathAnim;
+		current->Update();
+	}
+
+
+
 
 	return update_status::UPDATE_CONTINUE;
 
@@ -95,9 +128,16 @@ update_status ModuleScene::PostUpdate()
 	App->render->Blit(stone, 0, 90, &StoneWall, 0.65f);
 	App->render->Blit(layer2, 0, 5, &background, 0.75f); 
 
-
-
 	
+
+	if (HasEnemyDied == true) {
+		SDL_Rect DeathFrame = current->GetCurrentFrame();
+		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
+	}
+
+	if (deathAnim.HasFinished() == true) {
+		HasEnemyDied = false;
+	}
 
 	return update_status::UPDATE_CONTINUE;
 }

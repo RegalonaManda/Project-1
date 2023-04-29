@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Colliders.h"
+#include "EnemyDeath.h"
 
 struct SDL_Texture;
 
@@ -39,11 +40,15 @@ public:
 	
 	SDL_Texture* sky = nullptr;
 
+	SDL_Texture* EnemyTexture = nullptr;
+
+
 	// The sprite section for the background
 	SDL_Rect StoneWall;
 	SDL_Rect background;
 	SDL_Rect TreeLayer;
 	SDL_Rect SkyLayer;
+	SDL_Rect Enemy;
 	Collider* backCamLimit = nullptr;
 	Collider* frontCamLimit = nullptr;
 
@@ -55,6 +60,15 @@ public:
 	bool ScreenScroll = true;
 	
 	int ScrollSpeed;
+
+	bool HasEnemyDied = false;
+	float enemyX = 0;
+	float enemyY = 0;
+
+	Animation deathAnim;
+	Animation* current;
+
+	
 
 };
 
