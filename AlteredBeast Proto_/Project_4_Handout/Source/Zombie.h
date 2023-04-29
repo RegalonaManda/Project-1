@@ -16,21 +16,26 @@ public:
 
 	bool alive = true;
 	bool destroyed = false;
+	bool hitByPlayer = false;
 
 	enum class Direction {
 		LEFT,
 		RIGHT
 	};
 
+	
 
 
-	uint destroyedCountdown = 50;
+	uint destroyedCountdown = 10;
 	
 
 private:
 
 	Direction dir;
 	Animation walkAnim;
+	Animation headXplode;
+	Animation headlessWalk;
+	Animation bodyXplode;
 	Animation deathAnim;
 
 	
