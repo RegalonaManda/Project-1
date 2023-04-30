@@ -77,6 +77,7 @@ bool ModuleScene::Start()
 	EnemyTexture = App->textures->Load("Assets/Enemies Proto.png");
 	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
 
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f, 50);
@@ -151,6 +152,7 @@ update_status ModuleScene::PostUpdate()
 	}
 	if (deathAnim.HasFinished() == true) {
 		HasEnemyDied = false;
+		deathAnim.loopCount--;
 	}
 
 	if (EnemyAttacking == true) {
@@ -161,8 +163,11 @@ update_status ModuleScene::PostUpdate()
 		SDL_Rect explosion = Xcurrent->GetCurrentFrame();
 		App->render->Blit(ExplosionText, enemyX-25, enemyY, &explosion);
 	}
-	if (explode.HasFinished() == true) {
+	if (explode.HasFinished() == true && explosionCnt <= 0) {
+		explode.Reset();
+		explode.loopCount--;
 		EnemyAttacking = false;
+		explosionCnt = 40;
 	}
 
 	return update_status::UPDATE_CONTINUE;
