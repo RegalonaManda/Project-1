@@ -191,11 +191,11 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
-			enemies[i]->OnCollision(c2); //Notify the enemy of a collision
+			enemies[i]->OnCollision(c2); //Notify the enemy of a collision to subtract it's health
 
 			if(enemies[i]->hp <= 0){
 
-				
+				App->enemies->enemies[i]->AttackCollider->SetPos(1000, 1000);
 				App->audio->PlayFx(enemyDeath, 1);
 				delete enemies[i];
 				enemies[i] = nullptr;
@@ -203,6 +203,13 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				break;
 				
 			}
+		}
+		//In case player steps into attack Range
+		if (enemies[i] != nullptr && enemies[i]->GetRangeCollider() == c1 && c2->type == Collider::Type::PLAYER) {
+
+			enemies[i]->Attack();
+			//Might have to create attack state
+
 		}
 	}
 }

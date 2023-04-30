@@ -33,7 +33,7 @@ ModuleCollisions::ModuleCollisions()
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_SHOT] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SHOT] = false;
+	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SHOT] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::CAMLIMIT] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::POWER_UP] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::ATTACK_RANGE] = false;
@@ -50,7 +50,7 @@ ModuleCollisions::ModuleCollisions()
 
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WALL] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::CAMLIMIT] = false;
@@ -186,6 +186,9 @@ void ModuleCollisions::DebugDraw()
 		case Collider::Type::POWER_UP: //violet
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
+
+		case Collider::Type::ATTACK_RANGE: //orange
+			App->render->DrawQuad(colliders[i]->rect, 255, 165, 0, alpha);
 		}
 
 	}

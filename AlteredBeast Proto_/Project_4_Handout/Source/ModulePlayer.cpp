@@ -885,11 +885,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		App->audio->PlayFx(lethalAtt, 5);
 		hitEnemy = false;
 	} 
+	//Bumping into enemy
 	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 	{
 		knockImpulse = 1.0f;
 		iFrames = true;
-		hp--;
+		
 		if (hp > 0){
 			App->audio->PlayFx(loseHP, 6);
 		}
@@ -921,6 +922,47 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		}
 		
+		/*App->scene->ScreenScroll = false;*/
+	}
+
+	//Getting hit by enemy attack
+	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
+	{
+		knockImpulse = 1.0f;
+		iFrames = true;
+		hp--;
+		if (hp > 0) {
+			App->audio->PlayFx(loseHP, 6);
+		}
+
+		position.y -= 0.1f;
+		if (position.y < 190) {
+			//shoudl call a different knockbackfunction
+			KnockBack();
+			if (dir == Direction::LEFT) {
+				idle = false;
+				currentAnimation = &AllAnimations.knockBackLeft;
+			}
+			if (dir == Direction::RIGHT) {
+				currentAnimation = &AllAnimations.knockBackRight;
+				idle = false;
+			}
+		}
+
+		if (hp <= 0)
+		{
+			hp = 3;
+			lives--;
+		}
+
+		if (lives <= 0)
+		{
+			hp = 0;
+			//DEATH
+			destroyed = true;
+
+		}
+
 		/*App->scene->ScreenScroll = false;*/
 	}
 	if (c1 == Pcollider &&	c2 == App->scene->backCamLimit) {

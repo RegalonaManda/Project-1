@@ -51,12 +51,18 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 	bodyXplode.PushBack({ 127,0,41,68 });
 	bodyXplode.PushBack({ 169,0,41,68 });
 	bodyXplode.PushBack({ 127,0,41,68 });
-	bodyXplode.loop = false;
+	bodyXplode.loop = true;
 	bodyXplode.totalFrames = 4;
 	bodyXplode.speed = 0.05f;
 
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
-	AttackCollider = App->collisions->AddCollider({ 412,140,42,60 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
+	AttackCollider = App->collisions->AddCollider({ 412,140,50,60 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
+	Range = App->collisions->AddCollider({ 450,150,60,60 }, Collider::ATTACK_RANGE, (Module*)App->enemies);
+
+
+	//attack starts oob
+	AttackCollider->SetPos(-1000, -1000);
+
 }
 
 void Zombie::Update() {
@@ -69,7 +75,7 @@ void Zombie::Update() {
 
 	if (alive) 
 	{ 
-		if(hp == 2){ currentAnim = &walkAnim; }
+		if(hp == 2 && attacking == false){ currentAnim = &walkAnim; }
 		if (hp == 1 && hitByPlayer)
 		{
 			hitCountdown--;
@@ -91,7 +97,10 @@ void Zombie::Update() {
 			destroyed = true;
 		}
 	}*/
+	//remove
+	Ecollider->SetPos(2000, 2000);
 
+	Range->SetPos(position.x-10, position.y);
 
 	currentAnim->Update();
 	Enemy::Update();
@@ -108,25 +117,43 @@ void Zombie::OnCollision(Collider* collider) {
 			hitByPlayer = true;
 			destroyedCountdown = 20;
 		}
-	
-		if (hp <= 0) {
-			Ecollider->SetPos(-1000, -1000);
-			alive = false;
-
-			App->scene->HasEnemyDied = true;
-			App->scene->enemyX = position.x;
-			App->scene->enemyY = position.y;
-			
-			
-		}	
 	}
+	if (hp <= 0) {
+		Ecollider->SetPos(-1000, -1000);
+		alive = false;
+
+		App->scene->HasEnemyDied = true; 
+		App->scene->enemyX = position.x;
+		App->scene->enemyY = position.y;
+	}
+
+	//make the explosion kill the zombie
+	
+	
+	
+
 }
 
 void Zombie::Attack() {
 
-	
+	attackCnt--;
+	if (attackCnt <= 0) {
 
+		//when player is in range for 50 frames
+		currentAnim = &bodyXplode;
 
+			attacking = true;
+			App->scene->EnemyAttacking = true;
+			App->scene->enemyX = position.x;
+			App->scene->enemyY = position.y;
+			XplodeCnt--;
+			//IMPORTANT the explosionCnt of the collider must be in sync with that of the explosion found in scene.cpp
+			if (XplodeCnt <= 0) {
+				hp = 0;
+				AttackCollider->SetPos(position.x-10, position.y);
+			}
+		
+	}
 
 }
 

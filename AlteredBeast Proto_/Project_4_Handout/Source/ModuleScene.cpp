@@ -46,6 +46,20 @@ ModuleScene::ModuleScene()
 	deathAnim.totalFrames = 4;
 	deathAnim.speed = 0.1f;
 
+	//Zombie explosion
+	explode.PushBack({ 1,1,93,93 });
+	explode.PushBack({ 95,1,93,93 });
+	explode.PushBack({ 189,1,93,93 });
+	explode.PushBack({ 1,1,93,93 });
+	explode.PushBack({ 95,1,93,93 });
+	explode.PushBack({ 189,1,93,93 });
+	explode.PushBack({ 1,1,93,93 });
+	explode.PushBack({ 95,1,93,93 });
+	explode.PushBack({ 189,1,93,93 });
+	explode.loop = false;
+	explode.totalFrames = 9;
+	explode.speed = 0.2f;
+
 }
 
 ModuleScene::~ModuleScene()
@@ -65,6 +79,7 @@ bool ModuleScene::Start()
 	trees = App->textures->Load("Assets/trees.png");
 	sky = App->textures->Load("Assets/sky.png");
 	EnemyTexture = App->textures->Load("Assets/Enemies Proto.png");
+	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
 
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
@@ -108,11 +123,15 @@ update_status ModuleScene::Update()
 
 	if (HasEnemyDied == true) {
 		//Death->KillZombie(enemyX, enemyY);
-		current = &deathAnim;
-		current->Update();
+		Ecurrent = &deathAnim;
+		Ecurrent->Update();
 	}
 
-
+	if (EnemyAttacking == true) {
+		//Kai Kaboom sound pls
+		Xcurrent = &explode;
+		Xcurrent->Update();
+	}
 
 
 	return update_status::UPDATE_CONTINUE;
@@ -131,12 +150,23 @@ update_status ModuleScene::PostUpdate()
 	
 
 	if (HasEnemyDied == true) {
-		SDL_Rect DeathFrame = current->GetCurrentFrame();
+		SDL_Rect DeathFrame = Ecurrent->GetCurrentFrame();
 		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
 	}
-
 	if (deathAnim.HasFinished() == true) {
 		HasEnemyDied = false;
+	}
+
+	if (EnemyAttacking == true) {
+		explosionCnt--;
+	}
+
+	if (EnemyAttacking == true && explosionCnt <= 0) {
+		SDL_Rect explosion = Xcurrent->GetCurrentFrame();
+		App->render->Blit(ExplosionText, enemyX-25, enemyY, &explosion);
+	}
+	if (explode.HasFinished() == true) {
+		EnemyAttacking = false;
 	}
 
 	return update_status::UPDATE_CONTINUE;
