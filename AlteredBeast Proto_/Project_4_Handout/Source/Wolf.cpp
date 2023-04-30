@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
+#include "ModulePower.h"
 
 //Calls the constructor of enemy class to save spawn position
 
@@ -114,7 +115,9 @@ void Wolf::Update() {
 	}
 
 	if (!alive) {
-
+		App->powers->Enable();
+		App->powers->position.x = position.x;
+		App->powers->position.y = position.y;
 		destroyed = true;
 
 		if (dir == Direction::RIGHT) { currentAnim = &deathAnimRight; }
@@ -150,7 +153,11 @@ void Wolf::OnCollision(Collider* collider) {
 			App->scene->enemyX = position.x;
 			App->scene->enemyY = position.y;
 
-
+			App->powers->Enable();
+			App->powers->position.x = position.x;
+			App->powers->position.y = position.y;
+			App->powers->spawnPos.x = position.x;
+			App->powers->spawnPos.y = position.y;
 		
 
 			App->player->score += 1000;
