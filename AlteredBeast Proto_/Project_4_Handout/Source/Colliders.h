@@ -17,6 +17,7 @@ struct Collider
 		ENEMY_SHOT,
 		CAMLIMIT,
 		POWER_UP,
+		ATTACK_RANGE,
 
 		MAX
 	};

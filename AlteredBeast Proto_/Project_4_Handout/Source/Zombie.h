@@ -30,7 +30,7 @@ public:
 	uint destroyedCountdown = 10;
 	
 	
-
+	Collider* Range = nullptr;
 
 	Direction dir;
 
@@ -39,6 +39,8 @@ public:
 	Animation headlessWalk;
 	Animation bodyXplode;
 	Animation deathAnim;
+
+	void Attack();
 
 	
 };

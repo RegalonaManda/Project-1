@@ -118,10 +118,15 @@ void Zombie::OnCollision(Collider* collider) {
 			App->scene->enemyY = position.y;
 			
 			
-		}
-
-		
+		}	
 	}
+}
+
+void Zombie::Attack() {
+
+	
+
+
 
 }
 
