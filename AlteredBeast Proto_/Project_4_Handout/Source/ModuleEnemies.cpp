@@ -195,9 +195,9 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
 			if(enemies[i]->hp <= 0){
 
-				App->enemies->enemies[i]->AttackCollider->SetPos(1000, 1000);
-				enemies[i]->SelfDestruct->SetPos(-2000, -2000);
-				enemies[i]->Range->SetPos(-2000, -2000);
+				if (enemies[i]->AttackCollider != nullptr) { enemies[i]->AttackCollider->SetPos(1000, 1000); }
+				if (enemies[i]->SelfDestruct != nullptr) { enemies[i]->SelfDestruct->SetPos(-2000, -2000); }
+				if (enemies[i]->Range != nullptr) { enemies[i]->Range->SetPos(-2000, -2000); }
 				App->audio->PlayFx(enemyDeath, 1);
 				delete enemies[i];
 				enemies[i] = nullptr;

@@ -30,16 +30,16 @@ Application::Application()
 	modules[2] =	textures =		new ModuleTextures(true);
 	modules[3] =	audio =			new ModuleAudio(true);
 
-	modules[4] =	sceneIntro =	new SceneIntro(false);
-	modules[5] =	scene =			new ModuleScene(true);
-	modules[6] =	player =		new ModulePlayer(true);
-	modules[7] =	enemies =		new ModuleEnemies(true);
-	//Exclusively for grass layer
+	modules[6] =	sceneIntro =	new SceneIntro(true);
+	modules[5] =	scene =			new ModuleScene(false);
+	modules[4] =	player =		new ModulePlayer(true);
+	modules[7] =	enemies =		new ModuleEnemies(false);
+	
 	modules[8] =	particles =		new ModuleParticles(true);
-	modules[9] =	scene2 =		new ModuleScene2(true);
+	modules[9] =	scene2 =		new ModuleScene2(false);
 	modules[10] =	collisions =	new ModuleCollisions(true);
 	modules[11] =	fade =			new ModuleFadeToBlack(true);
-	modules[12] =	powers =		new ModulePower(true);
+	modules[12] =	powers =		new ModulePower(false);
 	modules[13] =	fonts =			new ModuleFonts(true);
 	// render should always be the last module
 	modules[14] =	render =		new ModuleRender(true);

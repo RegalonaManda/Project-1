@@ -143,7 +143,7 @@ void Wolf::OnCollision(Collider* collider) {
 		//}
 
 		//if (hp <= 0) {
-			Ecollider->SetPos(-1000, -1000);
+			Ecollider->SetPos(-3000, -3000);
 			alive = false;
 
 			App->scene->HasEnemyDied = true;

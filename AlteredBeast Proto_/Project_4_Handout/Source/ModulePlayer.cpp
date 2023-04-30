@@ -46,7 +46,7 @@ int knockPos;
 
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
-	position.x = 100;
+	position.x = 101;
 	position.y = 190;
 	
 	//Default direction
