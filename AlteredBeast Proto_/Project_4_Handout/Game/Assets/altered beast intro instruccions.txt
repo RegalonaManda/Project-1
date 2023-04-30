@@ -1,0 +1,14 @@
+durant tot el que pasa a continuacio, "insert coin" apareix i desapareix de forma intermitent
+
+en el instant que el joc s'obra, esta el mural (introScreen1)
+poc despres el logo de sega apareix desde la dreta a una velocitat constant cap al centre de la pantalla
+entre la transicio del mural i el titol, la pantalla esta totalment blava (introScreen2)
+quan el logo sega esta arrivant al centre, apareix "altered beast" en blau amb el fons llis (introScreen3)
+al el logo arribar al centre, el fons s'esquerda (introScreen4)
+poc despres, altered beast fa rapids canvis entre blanc i vermell (introScreen5 i introScreen6)
+
+comença un video (jo crec que per ara no fa falta)
+
+
+
+
