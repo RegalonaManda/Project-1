@@ -980,10 +980,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		
 	}
 
-	if (c1->type == Collider::Type::PLAYER_SHOT && c2->type == Collider::Type::ENEMY)
-	{
-		score += 1;
-	}
+
 
 	if (c1 == Pcollider && c2->type == Collider::Type::POWER_UP && transforming == false) {
 

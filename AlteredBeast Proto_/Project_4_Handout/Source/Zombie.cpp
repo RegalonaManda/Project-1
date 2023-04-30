@@ -117,6 +117,7 @@ void Zombie::OnCollision(Collider* collider) {
 			hitByPlayer = true;
 			destroyedCountdown = 20;
 		}
+
 	}
 	if (hp <= 0) {
 		Ecollider->SetPos(-1000, -1000);
