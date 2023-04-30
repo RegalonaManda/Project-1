@@ -857,11 +857,14 @@ update_status ModulePlayer::Update()
 
 		if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == false) {
 			GodMode = true;
+
 		}
-		if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == true) {
+		else if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == true) {
 			GodMode = false;
 			lives = 3;
 		}
+
+
 		if (GodMode == true) {
 			lives++;
 		}
@@ -893,6 +896,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
 		hitEnemy = true;
+
 		App->audio->PlayFx(lethalAtt, 5);
 		hitEnemy = false;
 	} 
