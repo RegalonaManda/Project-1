@@ -18,7 +18,7 @@ class ModulePlayer : public Module
 {
 public:
 	// Constructor
-	ModulePlayer();
+	ModulePlayer(bool startEnabled);
 
 	// Destructor
 	~ModulePlayer();
@@ -105,11 +105,10 @@ public:
 	void KnockBack();
 
 	float destroyedCountdown = 120;
+
 public:
 
-
 	PlayerAnim AllAnimations;
-
 
 	// Font score index
 	uint score = 0;
