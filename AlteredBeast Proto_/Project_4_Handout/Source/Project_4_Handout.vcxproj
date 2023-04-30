@@ -83,6 +83,7 @@
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleCollisions.h" />
     <ClInclude Include="ModuleEnemies.h" />
+    <ClInclude Include="ModuleFadeToBlack.h" />
     <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModuleScene.h" />
@@ -100,6 +101,7 @@
     <ClInclude Include="Path.h" />
     <ClInclude Include="ModulePower.h" />
     <ClInclude Include="PlayerAnimations.h" />
+    <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="Wolf.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
@@ -111,6 +113,7 @@
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollisions.cpp" />
     <ClCompile Include="ModuleEnemies.cpp" />
+    <ClCompile Include="ModuleFadeToBlack.cpp" />
     <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
@@ -125,6 +128,7 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Path.cpp" />
     <ClCompile Include="ModulePower.cpp" />
+    <ClCompile Include="SceneIntro.cpp" />
     <ClCompile Include="Wolf.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>

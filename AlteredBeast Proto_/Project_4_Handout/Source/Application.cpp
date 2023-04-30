@@ -6,14 +6,17 @@
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 #include "ModulePlayer.h"
+#include "SceneIntro.h"
 #include "ModuleScene.h"
 #include "ModuleRender.h"
 #include "ModuleScene2.h"
 #include "ModuleCollisions.h"
+#include "ModuleFadeToBlack.h"
 #include "ModuleEnemies.h"
 #include "ModuleFonts.h"
 #include "ModuleParticles.h"
 #include "ModulePower.h"
+
 
 // SHOULD INCLUDE ALL MODULE .h FILES
 
@@ -26,17 +29,20 @@ Application::Application()
 	modules[1] = input = new ModuleInput(true);
 	modules[2] = textures = new ModuleTextures(true);
 	modules[3] = audio = new ModuleAudio(true);
-	modules[4] = scene = new ModuleScene(true);
-	modules[5] = enemies = new ModuleEnemies(true);
+
+	modules[4] = sceneIntro = new SceneIntro(true);
+	modules[5] = scene = new ModuleScene(true);
+	modules[6] = enemies = new ModuleEnemies(true);
 	//Exclusively for grass layer
-	modules[6] = player = new ModulePlayer(true);
-	modules[7] = particles = new ModuleParticles(true);
-	modules[8] = scene2 = new ModuleScene2(true);
-	modules[9] = collisions = new ModuleCollisions(true);
-	modules[10] = powers = new ModulePower(true);
-	modules[11] = fonts = new ModuleFonts(true);
+	modules[7] = player = new ModulePlayer(true);
+	modules[8] = particles = new ModuleParticles(true);
+	modules[9] = scene2 = new ModuleScene2(true);
+	modules[10] = collisions = new ModuleCollisions(true);
+	modules[11] = fade = new ModuleFadeToBlack(true);
+	modules[12] = powers = new ModulePower(true);
+	modules[13] = fonts = new ModuleFonts(true);
 	// render should always be the last module
-	modules[12] = render = new ModuleRender(true);
+	modules[14] = render = new ModuleRender(true);
 }
 
 Application::~Application()
