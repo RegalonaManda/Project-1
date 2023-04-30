@@ -30,6 +30,14 @@ public:
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bgTexture = nullptr;
+	SDL_Texture* lettersTex = nullptr;
+
+	Animation letterFlash;
+	Animation* currentAnim = nullptr;
+
+	SDL_Rect whiteLetters;
+	SDL_Rect redLetters;
+	SDL_Rect blueLetters;  
 };
 
 #endif

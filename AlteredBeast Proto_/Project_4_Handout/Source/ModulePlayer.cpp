@@ -55,6 +55,8 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	airSt = AirState::GROUND;
 	//Default transformation
 	tranSt = Transform::DEFAULT;
+
+	/*startEnabled = true;*/
 	
 }
 
@@ -69,6 +71,8 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 
 	bool ret = true;
+
+	destroyed = false;
 	
 	texture = App->textures->Load("Assets/ABfullspritesProto.png"); // arcade version
 

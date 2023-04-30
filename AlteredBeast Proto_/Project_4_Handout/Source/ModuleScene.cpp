@@ -1,5 +1,6 @@
 #include "ModuleScene.h"
 #include "ModuleEnemies.h"
+#include "ModulePower.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
@@ -12,6 +13,8 @@
 
 ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 {
+
+	/*startEnabled = true;*/
 	//Background
 	background.x = 0;
 	background.y = 17;
@@ -80,11 +83,16 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
-	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f, 50);
+	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
 
 
 	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-10, App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
+
+	App->player->Enable();
+	App->enemies->Enable();
+	App->scene2->Enable();
+	App->powers->Enable();
 
 	return ret;
 }
@@ -171,4 +179,21 @@ update_status ModuleScene::PostUpdate()
 	}
 
 	return update_status::UPDATE_CONTINUE;
+}
+
+bool ModuleScene::CleanUp() {
+
+	App->textures->Unload(layer2);
+	App->textures->Unload(stone);
+	App->textures->Unload(trees);
+	App->textures->Unload(sky);
+	App->textures->Unload(EnemyTexture);
+	App->textures->Unload(ExplosionText);
+
+	App->player->Disable();
+	App->enemies->Disable();
+	App->scene2->Disable();
+	App->powers->Disable();
+
+	return true;
 }

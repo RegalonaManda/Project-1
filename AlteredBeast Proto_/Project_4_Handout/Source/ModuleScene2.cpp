@@ -8,6 +8,7 @@
 
 ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 {
+	/*startEnabled = true;*/
 
 	// Background / sky
 	background.x = 0;

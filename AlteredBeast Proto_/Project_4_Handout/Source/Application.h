@@ -11,17 +11,17 @@ class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleAudio;
-class ModulePlayer;
 class SceneIntro;
 class ModuleScene;
+class ModulePlayer;
 class ModuleParticles;
-class ModuleRender;
+class ModuleEnemies;
 class ModuleScene2;
 class ModuleCollisions;
 class ModuleFadeToBlack;
-class ModuleEnemies;
 class ModuleFonts;
 class ModulePower;
+class ModuleRender;
 
 class Application
 {
@@ -61,8 +61,8 @@ public:
 	ModuleParticles* particles = nullptr;
 	ModuleFonts* fonts = nullptr;
 	ModulePower* powers = nullptr;
-	ModuleRender* render = nullptr;
 	ModuleEnemies* enemies = nullptr;
+	ModuleRender* render = nullptr;
 };
 
 // Global var made extern for Application ---

@@ -25,24 +25,24 @@ Application::Application()
 	// The order in which the modules are added is very important.
 	// It will define the order in which Pre/Update/Post will be called
 	// Render should always be last, as our last action should be updating the screen
-	modules[0] = window = new ModuleWindow(true);
-	modules[1] = input = new ModuleInput(true);
-	modules[2] = textures = new ModuleTextures(true);
-	modules[3] = audio = new ModuleAudio(true);
+	modules[0] =	window =		new ModuleWindow(true);
+	modules[1] =	input =			new ModuleInput(true);
+	modules[2] =	textures =		new ModuleTextures(true);
+	modules[3] =	audio =			new ModuleAudio(true);
 
-	modules[4] = sceneIntro = new SceneIntro(true);
-	modules[5] = scene = new ModuleScene(true);
-	modules[6] = enemies = new ModuleEnemies(true);
+	modules[4] =	sceneIntro =	new SceneIntro(false);
+	modules[5] =	scene =			new ModuleScene(true);
+	modules[6] =	player =		new ModulePlayer(true);
+	modules[7] =	enemies =		new ModuleEnemies(true);
 	//Exclusively for grass layer
-	modules[7] = player = new ModulePlayer(true);
-	modules[8] = particles = new ModuleParticles(true);
-	modules[9] = scene2 = new ModuleScene2(true);
-	modules[10] = collisions = new ModuleCollisions(true);
-	modules[11] = fade = new ModuleFadeToBlack(true);
-	modules[12] = powers = new ModulePower(true);
-	modules[13] = fonts = new ModuleFonts(true);
+	modules[8] =	particles =		new ModuleParticles(true);
+	modules[9] =	scene2 =		new ModuleScene2(true);
+	modules[10] =	collisions =	new ModuleCollisions(true);
+	modules[11] =	fade =			new ModuleFadeToBlack(true);
+	modules[12] =	powers =		new ModulePower(true);
+	modules[13] =	fonts =			new ModuleFonts(true);
 	// render should always be the last module
-	modules[14] = render = new ModuleRender(true);
+	modules[14] =	render =		new ModuleRender(true);
 }
 
 Application::~Application()
@@ -60,12 +60,13 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	// All modules (active and disabled) will be initialized
 	for (int i = 0; i < NUM_MODULES && ret; ++i)
 		ret = modules[i]->Init();
 
-	//By now we will consider that all modules are always active
+	// Only active modules will be 'started'
 	for (int i = 0; i < NUM_MODULES && ret; ++i)
-		ret = modules[i]->Start();
+		ret = modules[i]->IsEnabled() ? modules[i]->Start() : true;
 
 	return ret;
 }
@@ -75,17 +76,16 @@ update_status Application::Update()
 	update_status ret = update_status::UPDATE_CONTINUE;
 
 	for (int i = 0; i < NUM_MODULES && ret == update_status::UPDATE_CONTINUE; ++i)
-		ret = modules[i]->PreUpdate();
+		ret = modules[i]->IsEnabled() ? modules[i]->PreUpdate() : update_status::UPDATE_CONTINUE;
 
 	for (int i = 0; i < NUM_MODULES && ret == update_status::UPDATE_CONTINUE; ++i)
-		ret = modules[i]->Update();
+		ret = modules[i]->IsEnabled() ? modules[i]->Update() : update_status::UPDATE_CONTINUE;
 
-	for (int i = 0; i < NUM_MODULES && ret == update_status::UPDATE_CONTINUE; ++i) {
-		ret = modules[i]->PostUpdate();
-	}
-		
+	for (int i = 0; i < NUM_MODULES && ret == update_status::UPDATE_CONTINUE; ++i)
+		ret = modules[i]->IsEnabled() ? modules[i]->PostUpdate() : update_status::UPDATE_CONTINUE;
 
 	return ret;
+		
 }
  
 bool Application::CleanUp()
@@ -93,7 +93,7 @@ bool Application::CleanUp()
 	bool ret = true;
 
 	for (int i = NUM_MODULES - 1; i >= 0 && ret; --i)
-		ret = modules[i]->CleanUp();
+		ret = modules[i]->IsEnabled() ? modules[i]->CleanUp() : true;
 
 	return ret;
 }

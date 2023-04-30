@@ -10,7 +10,17 @@
 
 SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 {
+	whiteLetters = { 321,225,320,224 };
+	redLetters = { 642,225,320,224 };
+	blueLetters = { 0,225,320,224 };
 
+	letterFlash.PushBack(whiteLetters);
+	letterFlash.PushBack(redLetters);
+	letterFlash.PushBack(whiteLetters);
+	letterFlash.PushBack(redLetters);
+	letterFlash.totalFrames = 4;
+	letterFlash.speed = 0.05f;
+	letterFlash.loop = false;
 }
 
 SceneIntro::~SceneIntro()
@@ -25,22 +35,25 @@ bool SceneIntro::Start()
 
 	bool ret = true;
 
-	bgTexture = App->textures->Load("Assets/startScreen.png");
-
+	bgTexture = App->textures->Load("Assets/Intro/introScreen6.png");
+	lettersTex = App->textures->Load("Assets/Intro/introScreenUnited.png");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
 	return ret;
+
 }
 
 update_status SceneIntro::Update()
 {
-	if (App->input->keys[SDL_SCANCODE_RETURN] == KEY_STATE::KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		App->fade->FadeToBlack(this, (Module*)App->scene, 90);
+		App->fade->FadeToBlack(this, (Module*)App->scene, 60.0f);
 	}
-
+	else {
+		currentAnim = &letterFlash;
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -48,7 +61,7 @@ update_status SceneIntro::Update()
 update_status SceneIntro::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	App->render->Blit(bgTexture, 0, 0, NULL);
+	App->render->Blit(lettersTex, 0, 0, &currentAnim->GetCurrentFrame());
 
 	return update_status::UPDATE_CONTINUE;
 }
