@@ -21,12 +21,21 @@ const Collider* Enemy::GetCollider() const
 	return Ecollider;
 }
 
+const Collider* Enemy::GetRangeCollider() const {
+	return Range;
+}
+
+const Collider* Enemy::GetDestructCollider() const {
+	return SelfDestruct;
+}
+
 void Enemy::Update()
 {
 	if (currentAnim != nullptr)
 		currentAnim->Update();
 
 	if (Ecollider != nullptr)
+		//CHANGE
 		Ecollider->SetPos(position.x+7, position.y+7);
 	//CHANGE acticate attack collider when exploding
 	if (AttackCollider != nullptr) {
@@ -47,4 +56,8 @@ void Enemy::OnCollision(Collider* collider)
 {
 	/*App->particles->AddParticle(App->particles->explosion, position.x, position.y);
 	App->audio->PlayFx(destroyedFx);*/
+}
+
+void Enemy::Attack() {
+	//This function will be overwritten
 }

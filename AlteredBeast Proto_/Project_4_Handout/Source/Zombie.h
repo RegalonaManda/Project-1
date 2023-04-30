@@ -16,7 +16,9 @@ public:
 
 	void OnCollision(Collider* collider) override;
 
-
+	int XplodeCnt = 40;
+	int attackCnt = 50;
+	int attackCnt2 = 30;
 
 
 	enum class Direction {
@@ -29,8 +31,6 @@ public:
 	uint hitCountdown = 10;
 	uint destroyedCountdown = 10;
 	
-	
-	Collider* Range = nullptr;
 
 	Direction dir;
 
@@ -40,7 +40,9 @@ public:
 	Animation bodyXplode;
 	Animation deathAnim;
 
-	void Attack();
+	
+
+	void Attack() override;
 
 	
 };

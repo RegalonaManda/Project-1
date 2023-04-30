@@ -21,6 +21,10 @@ public:
 	// Returns the enemy's collider
 	const Collider* GetCollider() const;
 
+	const Collider* GetRangeCollider() const;
+
+	const Collider* GetDestructCollider() const;
+
 	// Called from inhering enemies' Udpate
 	// Updates animation and collider position
 	virtual void Update();
@@ -31,6 +35,8 @@ public:
 	// Collision response
 	// Triggers an animation and a sound fx
 	virtual void OnCollision(Collider* collider);
+
+	virtual void Attack();
 
 public:
 
@@ -48,7 +54,7 @@ public:
 	// The enemy's texture
 	SDL_Texture* texture = nullptr;
 
-
+	bool attacking = false;
 	bool destroyed = false;
 	bool alive = true;
 	bool hitByPlayer = false;
@@ -56,11 +62,15 @@ public:
 	uint hitCountdown;
 	uint destroyedCountdown;
 
+	Collider* AttackCollider = nullptr;
+
 protected:
 	// A ptr to the current animation
 	Animation* currentAnim = nullptr;
 	Collider* Ecollider = nullptr;
-	Collider* AttackCollider = nullptr;
+	
+	Collider* Range = nullptr;
+	Collider* SelfDestruct = nullptr;
 	// Original spawn position. Stored for movement calculations
 	fPoint spawnPos;
 	

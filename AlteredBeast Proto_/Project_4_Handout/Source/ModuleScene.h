@@ -42,6 +42,8 @@ public:
 
 	SDL_Texture* EnemyTexture = nullptr;
 
+	SDL_Texture* ExplosionText = nullptr;
+
 
 	// The sprite section for the background
 	SDL_Rect StoneWall;
@@ -49,6 +51,7 @@ public:
 	SDL_Rect TreeLayer;
 	SDL_Rect SkyLayer;
 	SDL_Rect Enemy;
+	SDL_Rect explosion;
 	Collider* backCamLimit = nullptr;
 	Collider* frontCamLimit = nullptr;
 
@@ -62,11 +65,15 @@ public:
 	int ScrollSpeed;
 
 	bool HasEnemyDied = false;
+	bool EnemyAttacking = false;
 	float enemyX = 0;
 	float enemyY = 0;
+	int explosionCnt = 40;
 
 	Animation deathAnim;
-	Animation* current;
+	Animation explode;
+	Animation* Ecurrent;
+	Animation* Xcurrent;
 
 	
 
