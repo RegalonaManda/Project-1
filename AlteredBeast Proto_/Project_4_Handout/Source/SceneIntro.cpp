@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "SDL/include/SDL.h"
+#include "ModulePlayer.h"
 
 SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 {
@@ -49,7 +50,9 @@ update_status SceneIntro::Update()
 {
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
+		
 		App->fade->FadeToBlack(this, (Module*)App->scene, 60.0f);
+		
 	}
 	else {
 		currentAnim = &letterFlash;

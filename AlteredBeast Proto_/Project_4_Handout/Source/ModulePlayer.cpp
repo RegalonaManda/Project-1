@@ -46,8 +46,8 @@ int knockPos;
 
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
-	position.x = 101;
-	position.y = 190;
+	
+	
 	
 	//Default direction
 	dir = Direction::RIGHT;
@@ -97,6 +97,12 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN && start == false) {
+		position.x = 50;
+		position.y = 190;
+		start = true;
+	}
+
 	//Transforming Animations, middleground between two Power stages
 	if (transforming == true && tranSt == Transform::DEFAULT) {
 		App->audio->PlayFx(powerUp, -1);
@@ -859,6 +865,7 @@ update_status ModulePlayer::Update()
 		if (GodMode == true) {
 			lives++;
 		}
+
 
 		return update_status::UPDATE_CONTINUE;
 	

@@ -68,7 +68,7 @@ public:
 	int iTimer = 30;
 
 	bool GodMode = false;
-
+	int start = false;
 	float knockImpulse = 0;
 
 

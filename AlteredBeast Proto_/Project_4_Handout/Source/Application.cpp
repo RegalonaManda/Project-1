@@ -31,8 +31,8 @@ Application::Application()
 	modules[3] =	audio =			new ModuleAudio(true);
 
 	modules[6] =	sceneIntro =	new SceneIntro(true);
-	modules[5] =	scene =			new ModuleScene(false);
-	modules[4] =	player =		new ModulePlayer(true);
+	modules[4] =	scene =			new ModuleScene(false);
+	modules[5] =	player =		new ModulePlayer(true);
 	modules[7] =	enemies =		new ModuleEnemies(false);
 	
 	modules[8] =	particles =		new ModuleParticles(true);
