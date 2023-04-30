@@ -946,7 +946,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		// Kai pon aqui el Power Up sound
 
 		//El disable no funciona de momento, voy a esconderlo
-		//App->powers->Disable();
+		App->powers->Disable();
 
 		App->powers->gotten = true;
 
