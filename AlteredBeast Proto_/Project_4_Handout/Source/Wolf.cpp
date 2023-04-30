@@ -153,7 +153,7 @@ void Wolf::OnCollision(Collider* collider) {
 
 		
 
-
+			App->player->score += 1000;
 	}
 
 }
