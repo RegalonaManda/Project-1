@@ -18,7 +18,7 @@ class ModulePlayer : public Module
 {
 public:
 	// Constructor
-	ModulePlayer(bool startEnabled);
+	ModulePlayer(/*bool startEnabled esto da error*/);
 
 	// Destructor
 	~ModulePlayer();
