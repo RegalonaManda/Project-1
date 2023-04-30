@@ -11,10 +11,10 @@ class ModuleCollisions : public Module
 public:
 	// Constructor
 	// Fills all collision matrix data
-	ModuleCollisions();
+	ModuleCollisions(bool startEnabled);
 
 	// Destructor
-	~ModuleCollisions();
+	~ModuleCollisions() {}
 
 	// Called at the beginning of the application loop
 	// Removes all colliders pending to delete

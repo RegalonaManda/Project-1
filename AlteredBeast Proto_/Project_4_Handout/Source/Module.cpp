@@ -1,5 +1,10 @@
 #include "Module.h"
 
+Module::Module(bool startEnabled) : isEnabled(startEnabled) 
+{
+
+}
+
 bool Module::Init()
 {
 	return true;
