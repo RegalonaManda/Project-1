@@ -211,5 +211,11 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			//Might have to create attack state
 
 		}
+		// If enemy self destructs (Zombie)
+		if (enemies[i] != nullptr && enemies[i]->GetDestructCollider() == c1 && c2 == enemies[i]->GetCollider()) {
+
+			enemies[i]->hp = 0;
+
+		}
 	}
 }

@@ -23,6 +23,8 @@ public:
 
 	const Collider* GetRangeCollider() const;
 
+	const Collider* GetDestructCollider() const;
+
 	// Called from inhering enemies' Udpate
 	// Updates animation and collider position
 	virtual void Update();
@@ -68,6 +70,7 @@ protected:
 	Collider* Ecollider = nullptr;
 	
 	Collider* Range = nullptr;
+	Collider* SelfDestruct = nullptr;
 	// Original spawn position. Stored for movement calculations
 	fPoint spawnPos;
 	

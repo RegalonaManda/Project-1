@@ -58,10 +58,11 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	AttackCollider = App->collisions->AddCollider({ 412,140,50,60 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 	Range = App->collisions->AddCollider({ 450,150,60,60 }, Collider::ATTACK_RANGE, (Module*)App->enemies);
-
+	SelfDestruct = App->collisions->AddCollider({ 5,5,5,5 }, Collider::ENEMY_SELF_DESTRUCT, (Module*)App->enemies);
 
 	//attack starts oob
 	AttackCollider->SetPos(-1000, -1000);
+	SelfDestruct->SetPos(-1000, -1000);
 
 }
 
@@ -126,6 +127,8 @@ void Zombie::OnCollision(Collider* collider) {
 		App->scene->HasEnemyDied = true; 
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
+
+		App->player->score += 100;
 	}
 
 	//make the explosion kill the zombie
@@ -152,6 +155,7 @@ void Zombie::Attack() {
 			if (XplodeCnt <= 0) {
 				hp = 0;
 				AttackCollider->SetPos(position.x-10, position.y);
+				SelfDestruct->SetPos(position.x +2, position.y +5);
 			}
 		
 	}

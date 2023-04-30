@@ -19,6 +19,7 @@ ModuleCollisions::ModuleCollisions()
 	matrix[Collider::Type::WALL][Collider::Type::CAMLIMIT] = false;
 	matrix[Collider::Type::WALL][Collider::Type::POWER_UP] = false;
 	matrix[Collider::Type::WALL][Collider::Type::ATTACK_RANGE] = false;
+	matrix[Collider::Type::WALL][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 
 	matrix[Collider::Type::PLAYER][Collider::Type::WALL] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLAYER] = false;
@@ -28,15 +29,17 @@ ModuleCollisions::ModuleCollisions()
 	matrix[Collider::Type::PLAYER][Collider::Type::CAMLIMIT] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::POWER_UP] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::ATTACK_RANGE] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 
 	matrix[Collider::Type::ENEMY][Collider::Type::WALL] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLAYER_SHOT] = true;
-	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SHOT] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::CAMLIMIT] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::POWER_UP] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::ATTACK_RANGE] = false;
+	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SELF_DESTRUCT] = true;
 
 
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::WALL] = true;
@@ -47,15 +50,17 @@ ModuleCollisions::ModuleCollisions()
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::CAMLIMIT] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::POWER_UP] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ATTACK_RANGE] = false;
+	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WALL] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER] = true;
-	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::CAMLIMIT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::POWER_UP] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ATTACK_RANGE] = false;
+	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::WALL] = false;
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::PLAYER] = true;
@@ -65,6 +70,7 @@ ModuleCollisions::ModuleCollisions()
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::CAMLIMIT] = false;
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::POWER_UP] = false;
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::ATTACK_RANGE] = false;
+	matrix[Collider::Type::CAMLIMIT][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 
 	matrix[Collider::Type::POWER_UP][Collider::Type::WALL] = false;
 	matrix[Collider::Type::POWER_UP][Collider::Type::PLAYER] = true;
@@ -73,6 +79,7 @@ ModuleCollisions::ModuleCollisions()
 	matrix[Collider::Type::POWER_UP][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::POWER_UP][Collider::Type::CAMLIMIT] = false;
 	matrix[Collider::Type::POWER_UP][Collider::Type::ATTACK_RANGE] = false;
+	matrix[Collider::Type::POWER_UP][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 						  
 	matrix[Collider::Type::ATTACK_RANGE][Collider::Type::WALL] = false;
 	matrix[Collider::Type::ATTACK_RANGE][Collider::Type::PLAYER] = true;
@@ -80,6 +87,17 @@ ModuleCollisions::ModuleCollisions()
 	matrix[Collider::Type::ATTACK_RANGE][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::ATTACK_RANGE][Collider::Type::ENEMY_SHOT] = false;
 	matrix[Collider::Type::ATTACK_RANGE][Collider::Type::CAMLIMIT] = false;
+	matrix[Collider::Type::ATTACK_RANGE][Collider::Type::POWER_UP] = false;
+	matrix[Collider::Type::ATTACK_RANGE][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
+
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::WALL] = false;
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::PLAYER] = false;
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::PLAYER_SHOT] = false;
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::POWER_UP] = false;
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::ENEMY_SHOT] = false;
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::CAMLIMIT] = false;
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::ATTACK_RANGE] = false;
 
 }
 
@@ -189,6 +207,11 @@ void ModuleCollisions::DebugDraw()
 
 		case Collider::Type::ATTACK_RANGE: //orange
 			App->render->DrawQuad(colliders[i]->rect, 255, 165, 0, alpha);
+			break;
+
+		case Collider::Type::ENEMY_SELF_DESTRUCT: //white
+			App->render->DrawQuad(colliders[i]->rect, 165, 42, 42, alpha);
+			break;
 		}
 
 	}

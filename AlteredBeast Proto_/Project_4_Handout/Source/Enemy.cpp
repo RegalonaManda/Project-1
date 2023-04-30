@@ -25,6 +25,10 @@ const Collider* Enemy::GetRangeCollider() const {
 	return Range;
 }
 
+const Collider* Enemy::GetDestructCollider() const {
+	return SelfDestruct;
+}
+
 void Enemy::Update()
 {
 	if (currentAnim != nullptr)

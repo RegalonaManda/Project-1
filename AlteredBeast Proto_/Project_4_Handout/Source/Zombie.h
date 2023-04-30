@@ -40,6 +40,8 @@ public:
 	Animation bodyXplode;
 	Animation deathAnim;
 
+	
+
 	void Attack() override;
 
 	
