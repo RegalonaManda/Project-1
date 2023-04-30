@@ -196,6 +196,8 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			if(enemies[i]->hp <= 0){
 
 				App->enemies->enemies[i]->AttackCollider->SetPos(1000, 1000);
+				enemies[i]->SelfDestruct->SetPos(-2000, -2000);
+				enemies[i]->Range->SetPos(-2000, -2000);
 				App->audio->PlayFx(enemyDeath, 1);
 				delete enemies[i];
 				enemies[i] = nullptr;
@@ -207,13 +209,14 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		//In case player steps into attack Range
 		if (enemies[i] != nullptr && enemies[i]->GetRangeCollider() == c1 && c2->type == Collider::Type::PLAYER) {
 
-			enemies[i]->Attack();
-			//Might have to create attack state
+			enemies[i]->attacking = true;
+			//This will call from the enemy's update their Attack() method
 
 		}
 		// If enemy self destructs (Zombie)
 		if (enemies[i] != nullptr && enemies[i]->GetDestructCollider() == c1 && c2 == enemies[i]->GetCollider()) {
-
+			enemies[i]->SelfDestruct->SetPos(-2000, -2000);
+			enemies[i]->Range->SetPos(-2000, -2000);
 			enemies[i]->hp = 0;
 
 		}

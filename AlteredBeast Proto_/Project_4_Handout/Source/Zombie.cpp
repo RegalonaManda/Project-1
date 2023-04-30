@@ -99,6 +99,12 @@ void Zombie::Update() {
 		}
 	}*/
 	//remove
+
+	if (attacking == true) { Attack(); }
+	
+
+
+
 	Ecollider->SetPos(2000, 2000);
 
 	Range->SetPos(position.x-10, position.y);
@@ -134,17 +140,16 @@ void Zombie::OnCollision(Collider* collider) {
 	//make the explosion kill the zombie
 	
 	
-	
-
 }
 
 void Zombie::Attack() {
 
-	attackCnt--;
-	if (attackCnt <= 0) {
+	
+		attackCnt--;
+		if (attackCnt <= 0) {
 
-		//when player is in range for 50 frames
-		currentAnim = &bodyXplode;
+			//when player is in range for 50 frames
+			currentAnim = &bodyXplode;
 
 			attacking = true;
 			App->scene->EnemyAttacking = true;
@@ -153,12 +158,17 @@ void Zombie::Attack() {
 			XplodeCnt--;
 			//IMPORTANT the explosionCnt of the collider must be in sync with that of the explosion found in scene.cpp
 			if (XplodeCnt <= 0) {
-				hp = 0;
-				AttackCollider->SetPos(position.x-10, position.y);
-				SelfDestruct->SetPos(position.x +2, position.y +5);
+				if (exploded == false) {
+					hp = 0;
+					AttackCollider->SetPos(position.x - 10, position.y);
+					SelfDestruct->SetPos(position.x + 2, position.y + 5);
+					exploded = true;
+				}
+
 			}
-		
-	}
+
+		}
+	
 
 }
 

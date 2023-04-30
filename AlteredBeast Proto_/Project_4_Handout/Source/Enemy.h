@@ -64,7 +64,7 @@ public:
 
 	Collider* AttackCollider = nullptr;
 
-protected:
+public:
 	// A ptr to the current animation
 	Animation* currentAnim = nullptr;
 	Collider* Ecollider = nullptr;

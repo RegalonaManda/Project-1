@@ -58,7 +58,7 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 	explode.PushBack({ 189,1,93,93 });
 	explode.loop = false;
 	explode.totalFrames = 9;
-	explode.speed = 0.2f;
+	explode.speed = 0.18f;
 
 }
 
@@ -117,7 +117,7 @@ update_status ModuleScene::Update()
 	//	}
 	//}
 
-	if (HasEnemyDied == true) {
+	if (HasEnemyDied == true && EnemyAttacking == false) {
 		//Death->KillZombie(enemyX, enemyY);
 		Ecurrent = &deathAnim;
 		Ecurrent->Update();
@@ -145,7 +145,7 @@ update_status ModuleScene::PostUpdate()
 
 	
 
-	if (HasEnemyDied == true) {
+	if (HasEnemyDied == true && EnemyAttacking==false) {
 		SDL_Rect DeathFrame = Ecurrent->GetCurrentFrame();
 		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
 	}

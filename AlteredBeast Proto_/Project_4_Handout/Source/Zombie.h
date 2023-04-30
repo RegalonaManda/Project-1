@@ -20,6 +20,8 @@ public:
 	int attackCnt = 50;
 	int attackCnt2 = 30;
 
+	
+	bool exploded = false;
 
 	enum class Direction {
 		LEFT,
