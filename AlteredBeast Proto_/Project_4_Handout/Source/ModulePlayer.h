@@ -93,7 +93,7 @@ public:
 	Collider* Pcollider = nullptr;
 	Collider* attackCollider = nullptr;
 	Collider* kickCollider = nullptr;
-
+	Collider* Deathcollider = nullptr;
 	// A flag to detect when the player has been destroyed
 	bool destroyed = false;
 

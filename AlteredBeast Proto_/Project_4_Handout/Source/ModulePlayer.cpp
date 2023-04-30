@@ -81,6 +81,8 @@ bool ModulePlayer::Start()
 	//CHANGE listener of attack to enemy
 	attackCollider = App->collisions->AddCollider({ 100,300,33,19 }, Collider::Type::PLAYER_SHOT, this);
 	kickCollider = App->collisions->AddCollider({ 100,300,19,33 }, Collider::Type::PLAYER_SHOT, this);
+	Deathcollider = App->collisions->AddCollider({ 100,300,19,33 }, Collider::Type::ENEMY_SHOT, this);
+	Deathcollider->SetPos(1300, 1200);
 	//font table
 	char lookupTable[] = { "abcdefghijklmnopqrstuvwxyz0123456789.,ç'?!*$%&()+-/<=>© " };
 	scoreFont = App->fonts->Load("Assets/font_spritesheet.png", lookupTable, 1);
@@ -864,6 +866,17 @@ update_status ModulePlayer::Update()
 			lives = 3;
 		}
 
+		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
+			score = 9999;
+
+		}
+
+		if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN) {
+			
+			lives = 0;
+			Deathcollider->SetPos(position.x, position.y);
+
+		}
 
 		if (GodMode == true) {
 			lives++;
