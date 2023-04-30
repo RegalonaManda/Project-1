@@ -9,10 +9,9 @@ struct Collider;
 class Module
 {
 public:
-	Module(){}
-	Module(bool startEnabled) {
-		startEnabled = true;
-	}
+	
+	Module(bool startEnabled);
+
 	//Called at the beginning of the application execution
 	virtual bool Init();
 

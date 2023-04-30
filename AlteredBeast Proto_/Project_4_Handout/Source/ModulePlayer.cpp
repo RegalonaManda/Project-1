@@ -44,7 +44,7 @@ bool idle = true;
 int knockPos;
 
 
-ModulePlayer::ModulePlayer()
+ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
 	position.x = 100;
 	position.y = 190;

@@ -12,10 +12,10 @@ class ModuleScene : public Module
 {
 public:
 	//Constructor
-	ModuleScene();
+	ModuleScene(bool startEnabled);
 
 	//Destructor
-	~ModuleScene();
+	~ModuleScene() {}
 
 	// Called when the module is activated
 	// Loads the necessary textures for the map background

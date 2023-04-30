@@ -10,7 +10,7 @@
 #include "EnemyDeath.h"
 
 
-ModuleScene::ModuleScene()
+ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 {
 	//Background
 	background.x = 0;
@@ -48,10 +48,6 @@ ModuleScene::ModuleScene()
 
 }
 
-ModuleScene::~ModuleScene()
-{
-
-}
 
 // Load assets
 bool ModuleScene::Start()

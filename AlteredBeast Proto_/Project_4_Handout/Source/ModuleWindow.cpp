@@ -6,10 +6,7 @@
 #include "SDL/include/SDL.h"
 
 
-ModuleWindow::ModuleWindow() : Module()
-{}
-
-ModuleWindow::~ModuleWindow()
+ModuleWindow::ModuleWindow(bool startEnabled) : Module(startEnabled)
 {}
 
 bool ModuleWindow::Init()

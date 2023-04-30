@@ -6,7 +6,7 @@
 #include "ModulePlayer.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
-ModuleScene2::ModuleScene2()
+ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 {
 
 	// Background / sky

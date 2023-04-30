@@ -22,21 +22,21 @@ Application::Application()
 	// The order in which the modules are added is very important.
 	// It will define the order in which Pre/Update/Post will be called
 	// Render should always be last, as our last action should be updating the screen
-	modules[0] = window = new ModuleWindow();
-	modules[1] = input = new ModuleInput();
-	modules[2] = textures = new ModuleTextures();
+	modules[0] = window = new ModuleWindow(true);
+	modules[1] = input = new ModuleInput(true);
+	modules[2] = textures = new ModuleTextures(true);
 	modules[3] = audio = new ModuleAudio(true);
-	modules[4] = scene = new ModuleScene();
-	modules[5] = enemies = new ModuleEnemies();
+	modules[4] = scene = new ModuleScene(true);
+	modules[5] = enemies = new ModuleEnemies(true);
 	//Exclusively for grass layer
-	modules[6] = player = new ModulePlayer();
+	modules[6] = player = new ModulePlayer(true);
 	modules[7] = particles = new ModuleParticles(true);
-	modules[8] = scene2 = new ModuleScene2();
-	modules[9] = collisions = new ModuleCollisions();
+	modules[8] = scene2 = new ModuleScene2(true);
+	modules[9] = collisions = new ModuleCollisions(true);
 	modules[10] = powers = new ModulePower(true);
 	modules[11] = fonts = new ModuleFonts(true);
 	// render should always be the last module
-	modules[12] = render = new ModuleRender();
+	modules[12] = render = new ModuleRender(true);
 }
 
 Application::~Application()
