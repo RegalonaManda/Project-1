@@ -12,7 +12,7 @@
 Wolf::Wolf(int x, int y) : Enemy(x, y) {
 
 	destroyedCountdown = 10;
-	/*hp = 1;*/
+	hp = 1;
 
 	//Default Direction
 	dir = Direction::RIGHT;
@@ -67,7 +67,6 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 
 void Wolf::Update() {
 
-	
 
 	//if wolf is behind the player change the direction
 	if (position.x < App->player->position.x) 
@@ -80,21 +79,33 @@ void Wolf::Update() {
 		if (dir == Direction::RIGHT ) 
 		{ 
 			currentAnim = &idleAnimRight;
+			
 
-			/*if (idleAnimRight.HasFinished()) {
+			if (idleAnimRight.HasFinished() && idle == true) {
 				
 				currentAnim = &jumpAnimRight;
+				
+				idle = false;
+				
+			}
+			
 
-				position.x += 0.7f;
-				wolfImpulse -= Gravity;
-				position.y -= wolfImpulse;
-
-				if (position.y >= 140) {
-					position.y = 140;
-					
-				}
-			}*/
 		}
+		
+
+		/*if (idle == false) {
+			position.x += 0.7f;
+			wolfImpulse -= Gravity;
+			position.y -= wolfImpulse;
+			if (position.y >= 140) {
+				position.y = 140;
+
+			}
+		}*/
+		
+		
+		
+
 		if (dir == Direction::LEFT) 
 		{ 
 			currentAnim = &idleAnimLeft; 
@@ -112,6 +123,10 @@ void Wolf::Update() {
 				}
 			}*/
 		}
+
+		Enemy::Update();
+		/*Enemy::Draw();*/
+
 	}
 
 	if (!alive) {
@@ -129,8 +144,7 @@ void Wolf::Update() {
 	}
 
 
-	currentAnim->Update();
-	Enemy::Update();
+	
 }
 
 void Wolf::OnCollision(Collider* collider) {

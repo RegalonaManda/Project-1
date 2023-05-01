@@ -12,8 +12,10 @@ public:
 
 	void OnCollision(Collider* collider) override;
 
+	bool idle = true;
 
 	float wolfImpulse = 3.2f;
+
 	
 
 private:
