@@ -94,7 +94,8 @@ bool ModuleScene::Start()
 	App->player->Enable();
 	App->enemies->Enable();
 	App->scene2->Enable();
-	App->powers->Enable();
+	App->collisions->Enable();
+	//App->powers->Enable();
 
 	return ret;
 }
@@ -196,6 +197,7 @@ bool ModuleScene::CleanUp() {
 	App->enemies->Disable();
 	App->scene2->Disable();
 	App->powers->Disable();
+	App->collisions->Disable();
 
 	return true;
 }

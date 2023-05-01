@@ -13,7 +13,7 @@
 #include "ModuleEnemies.h"
 #include "Enemy.h"
 #include "ModulePower.h"
-
+#include "ModuleFadeToBlack.h"
 #include <stdio.h>
 
 #include "SDL/include/SDL.h"
@@ -117,6 +117,7 @@ update_status ModulePlayer::Update()
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;
 		attack += 1;
+		idle = true;
 		AllAnimations.powerUp1.loopCount = 0;
 	}
 
@@ -483,8 +484,8 @@ update_status ModulePlayer::Update()
 				position.y = 190;
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
-					
-					return update_status::UPDATE_STOP;
+					//return update_status::UPDATE_STOP;
+					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
 				}
 
 			}
@@ -682,9 +683,10 @@ update_status ModulePlayer::Update()
 		}
 		//CHANGE
 		if (currentAnimation == &AllAnimations.P1JumpPunchL) { attackCollider->SetPos(position.x + 0, position.y - 60); }
-		if (currentAnimation == &AllAnimations.P1JumpPunchR) { attackCollider->SetPos(position.x + 26, position.y - 60); }
-		if (currentAnimation == &AllAnimations.airKickLeft) { attackCollider->SetPos(position.x + 0, position.y - 40); }
-		if (currentAnimation == &AllAnimations.airKickRight) { attackCollider->SetPos(position.x + 33, position.y - 40); }
+		if (currentAnimation == &AllAnimations.P1JumpPunchR) { attackCollider->SetPos(position.x + 59, position.y - 60); }
+		if (currentAnimation == &AllAnimations.P1JumpKickL) { attackCollider->SetPos(position.x + 0, position.y - 40); }
+		if (currentAnimation == &AllAnimations.P1JumpKickR) { attackCollider->SetPos(position.x + 55, position.y - 40); }
+
 
 		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
 
@@ -833,7 +835,7 @@ update_status ModulePlayer::Update()
 				position.y = 190;
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
-					return update_status::UPDATE_STOP;
+					//return update_status::UPDATE_STOP;
 				}
 
 			}
@@ -952,7 +954,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			hp = 0;
 			//DEATH
 			destroyed = true;
-
+			//App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
 		}
 		
 		/*App->scene->ScreenScroll = false;*/

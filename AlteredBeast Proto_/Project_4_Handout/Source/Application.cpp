@@ -37,7 +37,7 @@ Application::Application()
 	
 	modules[8] =	particles =		new ModuleParticles(true);
 	modules[9] =	scene2 =		new ModuleScene2(false);
-	modules[10] =	collisions =	new ModuleCollisions(true);
+	modules[10] =	collisions =	new ModuleCollisions(false);
 	modules[11] =	fade =			new ModuleFadeToBlack(true);
 	modules[12] =	powers =		new ModulePower(false);
 	modules[13] =	fonts =			new ModuleFonts(true);
