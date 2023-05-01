@@ -924,127 +924,130 @@ update_status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
+	if (GodMode == false) {
+		if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
+			hitEnemy = true;
 
-	if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
-		hitEnemy = true;
-		
-		hitEnemy = false;
-	} 
-	//Bumping into enemy
-	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
-	{
-		knockImpulse = 1.0f;
-		iFrames = true;
-		
-		if (hp > 0){
-			App->audio->PlayFx(loseHP, 6);
+			hitEnemy = false;
 		}
-
-		position.y -= 0.1f;
-		if (position.y < 190) {
-			KnockBack();
-			if(dir == Direction::LEFT){ 
-				idle = false;
-				currentAnimation = &AllAnimations.knockBackLeft;
-			}
-			if (dir == Direction::RIGHT) {
-				currentAnimation = &AllAnimations.knockBackRight;
-				idle = false;
-			}
-		}
-		
-		if (hp <= 0)
+		//Bumping into enemy
+		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 		{
-			hp = 3;
-			lives--;
-		}
+			knockImpulse = 1.0f;
+			iFrames = true;
 
-		if (lives <= 0)
-		{
-			hp = 0;
-			//DEATH
-			destroyed = true;
-			
-			start = false;
-		}
-		
-		/*App->scene->ScreenScroll = false;*/
-	}
-
-	//Getting hit by enemy attack
-	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
-	{
-		Deathcollider->SetPos(1300, 1200);
-		firstHit = true;
-
-		knockImpulse = 1.0f;
-		iFrames = true;
-		hp--;
-		if (hp > 0) {
-			App->audio->PlayFx(loseHP, 6);
-		}
-
-		position.y -= 0.1f;
-		if (position.y < 190) {
-			//shoudl call a different knockbackfunction
-			KnockBack();
-			if (dir == Direction::LEFT) {
-				idle = false;
-				currentAnimation = &AllAnimations.knockBackLeft;
+			if (hp > 0) {
+				App->audio->PlayFx(loseHP, 6);
 			}
-			if (dir == Direction::RIGHT) {
-				currentAnimation = &AllAnimations.knockBackRight;
-				idle = false;
+
+			position.y -= 0.1f;
+			if (position.y < 190) {
+				KnockBack();
+
+				if (dir == Direction::LEFT) {
+					idle = false;
+					currentAnimation = &AllAnimations.knockBackLeft;
+				}
+				if (dir == Direction::RIGHT) {
+					currentAnimation = &AllAnimations.knockBackRight;
+					idle = false;
+				}
 			}
+
+			if (hp <= 0)
+			{
+				hp = 3;
+				lives--;
+			}
+
+			if (lives <= 0)
+			{
+				hp = 0;
+				//DEATH
+				destroyed = true;
+
+				start = false;
+			}
+
+			/*App->scene->ScreenScroll = false;*/
 		}
 
-		if (hp <= 0)
+		//Getting hit by enemy attack
+		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
 		{
-			hp = 3;
-			lives--;
+			Deathcollider->SetPos(1300, 1200);
+			firstHit = true;
+
+			knockImpulse = 1.0f;
+			iFrames = true;
+			hp--;
+			if (hp > 0) {
+				App->audio->PlayFx(loseHP, 6);
+			}
+
+			position.y -= 0.1f;
+			if (position.y < 190) {
+				//shoudl call a different knockbackfunction
+				if (c2 != Deathcollider) {
+					KnockBack();
+					if (dir == Direction::LEFT) {
+						idle = false;
+						currentAnimation = &AllAnimations.knockBackLeft;
+					}
+					if (dir == Direction::RIGHT) {
+						currentAnimation = &AllAnimations.knockBackRight;
+						idle = false;
+					}
+				}
+			}
+
+			if (hp <= 0)
+			{
+				hp = 3;
+				lives--;
+			}
+
+			if (lives <= 0)
+			{
+				hp = 0;
+				//DEATH
+				App->audio->PlayFx(playerDeathFX, 4);
+				destroyed = true;
+
+			}
+
+			/*App->scene->ScreenScroll = false;*/
+		}
+		if (c1 == Pcollider && c2 == App->scene->backCamLimit) {
+			while (position.x < (App->render->camera.x * 0.3333333333f - 13.3333333333f)) {
+				position.x = App->render->camera.x * 0.3333333333f - 13.3333333333f;
+			}
+
 		}
 
-		if (lives <= 0)
-		{
-			hp = 0;
-			//DEATH
-			App->audio->PlayFx(playerDeathFX, 4);
-			destroyed = true;
+		if (c1 == Pcollider && c2 == App->scene->frontCamLimit) {
+
+			while (position.x > App->scene->aux - 33.3333333333f) {
+				position.x = App->scene->aux - 33.3333333333f;
+			}
 
 		}
 
-		/*App->scene->ScreenScroll = false;*/
-	}
-	if (c1 == Pcollider &&	c2 == App->scene->backCamLimit) {
-		while (position.x < (App->render->camera.x * 0.3333333333f -13.3333333333f)){
-			position.x = App->render->camera.x * 0.3333333333f - 13.3333333333f;
+
+
+		if (c1 == Pcollider && c2->type == Collider::Type::POWER_UP && transforming == false) {
+
+			transforming = true;
+			// Kai pon aqui el Power Up sound
+
+			//El disable no funciona de momento, voy a esconderlo
+			App->powers->gotten = true;
+			App->powers->collider->SetPos(-3000, -3000);
+			App->powers->Disable();
+
+
 		}
-		
 	}
-
-	if (c1 == Pcollider && c2 == App->scene->frontCamLimit) {
-		
-		while (position.x > App->scene->aux-33.3333333333f) {
-			position.x = App->scene->aux-33.3333333333f;
-		}
-		
-	}
-
-
-
-	if (c1 == Pcollider && c2->type == Collider::Type::POWER_UP && transforming == false) {
-
-		transforming = true;
-		// Kai pon aqui el Power Up sound
-
-		//El disable no funciona de momento, voy a esconderlo
-		App->powers->gotten = true;
-		App->powers->collider->SetPos(-3000, -3000);
-		App->powers->Disable();
-
-
-	}
-
 }
 
 void ModulePlayer:: KnockBack() {

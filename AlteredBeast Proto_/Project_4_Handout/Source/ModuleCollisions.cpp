@@ -245,5 +245,5 @@ Collider* ModuleCollisions::AddCollider(SDL_Rect rect, Collider::Type type, Modu
 		}
 	}
 
-	return ret;
+ 	return ret;
 }

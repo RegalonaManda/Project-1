@@ -10,6 +10,7 @@
 
 #include "Zombie.h"
 #include "Wolf.h"
+#include "Neff.h"
 
 
 #define SPAWN_MARGIN 50
@@ -175,6 +176,16 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 
 				enemies[i]->texture = texture;
 				break;
+			
+			case ENEMY_TYPE::NEFF:
+				enemies[i] = new Neff(info.x, info.y);
+
+
+				//I think here yu could put a separate Boss sprite sheet as the texture
+				enemies[i]->texture = texture;
+
+				break;
+			
 			}
 			break;
 		}

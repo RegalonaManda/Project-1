@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define MAX_ENEMIES 10
+#define MAX_ENEMIES 20
 
 
 
@@ -11,7 +11,8 @@ enum class ENEMY_TYPE
 {
 	NO_TYPE,
 	ZOMBIE,
-	WHITEWOLF
+	WHITEWOLF,
+	NEFF
 };
 
 struct EnemySpawnpoint

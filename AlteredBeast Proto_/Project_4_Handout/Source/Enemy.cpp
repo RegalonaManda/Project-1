@@ -45,6 +45,7 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
+	
 	if (currentAnim != nullptr)
 		App->render->Blit(App->enemies->texture, position.x, position.y, &(currentAnim->GetCurrentFrame()));
 
