@@ -134,6 +134,8 @@ void Zombie::OnCollision(Collider* collider) {
 		Ecollider->SetPos(-1000, -1000);
 		alive = false;
 
+
+		App->scene->EnemyCN = 1;
 		App->scene->HasEnemyDied = true; 
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
@@ -159,6 +161,7 @@ void Zombie::Attack() {
 			App->scene->EnemyAttacking = true;
 			App->scene->enemyX = position.x;
 			App->scene->enemyY = position.y;
+			App->scene->EnemyCN = 1;
 			XplodeCnt--;
 			//IMPORTANT the explosionCnt of the collider must be in sync with that of the explosion found in scene.cpp
 			if (XplodeCnt <= 0) {

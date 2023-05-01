@@ -72,12 +72,16 @@ public:
 	float enemyY = 0;
 	int explosionCnt = 40;
 
+	int EnemyCN = 0;
+	
 	Animation deathAnim;
 	Animation explode;
 	Animation* Ecurrent;
 	Animation* Xcurrent;
 
-	
+	Animation WDeathRight;
+	Animation WDeathLeft;
+	Animation* Wcurrent;
 
 };
 

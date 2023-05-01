@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "Zombie.h"
 #include "EnemyDeath.h"
+#include "Wolf.h"
 
 
 ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
@@ -62,6 +63,18 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 	explode.loop = false;
 	explode.totalFrames = 9;
 	explode.speed = 0.18f;
+
+	WDeathRight.PushBack({ 1,121,33,50 });
+	WDeathRight.PushBack({ 34,121,33,50 });
+	WDeathRight.speed = 0.008f;
+	WDeathRight.loop = false;
+	WDeathRight.totalFrames = 2;
+
+	WDeathLeft.PushBack({ 446,121,33,50 });
+	WDeathLeft.PushBack({ 413,121,33,50 });
+	WDeathLeft.speed = 0.008f;
+	WDeathLeft.loop = false;
+	WDeathLeft.totalFrames = 2;
 
 }
 
@@ -124,30 +137,29 @@ update_status ModuleScene::Update()
 
 	App->enemies->Update();
 
-	//for (int i = 0; i < MAX_ENEMIES; i++) {
-	//	if (App->enemies->enemies[i] != nullptr) {
+	if (EnemyCN == 1) {
+		if (HasEnemyDied == true && EnemyAttacking == false) {
+			//Death->KillZombie(enemyX, enemyY);
+			Ecurrent = &deathAnim;
+			Ecurrent->Update();
+		}
 
-	//		
-	//		if (App->enemies->enemies[i]->hp <= 0 && App->enemies->enemies[i]->destroyed == false) {
-	//			//App->enemies->enemies[i]->Death(App->enemies->enemies[i]->position.x)
-	//			Death->KillZombie(App->enemies->enemies[i]->position.x, App->enemies->enemies[i]->position.y);
-	//		}
-
-	//	}
-	//}
-
-	if (HasEnemyDied == true && EnemyAttacking == false) {
-		//Death->KillZombie(enemyX, enemyY);
-		Ecurrent = &deathAnim;
-		Ecurrent->Update();
+		if (EnemyAttacking == true) {
+			//Kai Kaboom sound pls
+			Xcurrent = &explode;
+			Xcurrent->Update();
+		}
 	}
-
-	if (EnemyAttacking == true) {
-		//Kai Kaboom sound pls
-		Xcurrent = &explode;
-		Xcurrent->Update();
+	else if (EnemyCN == 2) {
+		if (HasEnemyDied && (bool)Wolf::Direction::RIGHT) {
+			Wcurrent = &WDeathRight;
+			Wcurrent->Update();
+		}
+		else if (HasEnemyDied && (bool)Wolf::Direction::LEFT) {
+			Wcurrent = &WDeathLeft;
+			Wcurrent->Update();
+		}
 	}
-
 
 	return update_status::UPDATE_CONTINUE;
 
@@ -164,24 +176,34 @@ update_status ModuleScene::PostUpdate()
 
 	
 
-	if (HasEnemyDied == true && EnemyAttacking==false) {
-		SDL_Rect DeathFrame = Ecurrent->GetCurrentFrame();
+	SDL_Rect DeathFrame;
+	if (HasEnemyDied == true && EnemyAttacking == false && EnemyCN == 1) {
+		DeathFrame = Ecurrent->GetCurrentFrame();
 		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
 	}
 	if (deathAnim.HasFinished() == true) {
 		HasEnemyDied = false;
 		deathAnim.loopCount--;
 	}
+	if (HasEnemyDied && EnemyCN == 2) {
+		DeathFrame = Wcurrent->GetCurrentFrame();
+		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
+	}
+
+	if (WDeathRight.HasFinished()) {
+		HasEnemyDied = false;
+		WDeathRight.loopCount--;
+	}
 
 	if (EnemyAttacking == true) {
 		explosionCnt--;
 	}
 
-	if (EnemyAttacking == true && explosionCnt <= 0) {
+	if (EnemyAttacking == true && explosionCnt <= 0 && EnemyCN == 1) {
 		SDL_Rect explosion = Xcurrent->GetCurrentFrame();
 		App->render->Blit(ExplosionText, enemyX-25, enemyY, &explosion);
 	}
-	if (explode.HasFinished() == true && explosionCnt <= 0) {
+	if (explode.HasFinished() == true && explosionCnt <= 0 && EnemyCN == 1) {
 		explode.Reset();
 		explode.loopCount--;
 		EnemyAttacking = false;

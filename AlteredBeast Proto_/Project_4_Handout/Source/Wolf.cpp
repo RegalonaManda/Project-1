@@ -5,6 +5,7 @@
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
 #include "ModulePower.h"
+#include "ModuleScene.h"
 
 //Calls the constructor of enemy class to save spawn position
 
@@ -142,24 +143,34 @@ void Wolf::Update() {
 
 		if (dir == Direction::LEFT) 
 		{ 
-			currentAnim = &idleAnimLeft; 
-			/*if (idleAnimLeft.HasFinished()) {
-				
-				currentAnim = &jumpAnimLeft;
+			if (idle == true) {
+				currentAnim = &idleAnimLeft;
+				JumpCnt--;
+				AttackCollider->SetPos(-2000, -2000);
+			}
 
-				position.x -= 0.7f;
+			if (JumpCnt <= 0) {
+				idle = false;
+				JumpCnt = 100;
+
+			}
+			if (idle == false) {
+				AttackCollider->SetPos(position.x + 5, position.y + 2);
+				position.x += 1.0f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
-
-				if (position.y >= 140) {
+				
+				if (position.y > 140) {
 					position.y = 140;
-					
+					idle = true;
+					wolfImpulse = 2.0f;
 				}
-			}*/
+			}
 		}
+		
 
 		Enemy::Update();
-		/*Enemy::Draw();*/
+		
 
 	}
 
@@ -185,33 +196,24 @@ void Wolf::OnCollision(Collider* collider) {
 
 	if (collider->Collider::Type::PLAYER_SHOT) {
 
+		hp--;
 
-		//destroyedCountdown--;
-		//if (destroyedCountdown <= 0) {
-		//	hp -= App->player->attack;
-		//	hitByPlayer = true;
-		//	destroyedCountdown = 20;
-		//}
+		Ecollider->SetPos(-3000, -3000);
+		alive = false;
 
-		//if (hp <= 0) {
+		App->scene->HasEnemyDied = true;
+		App->scene->enemyX = position.x;
+		App->scene->enemyY = position.y;
+		App->scene->EnemyCN = 1;
 
-		    hp--;
-
-			Ecollider->SetPos(-3000, -3000);
-			alive = false;
-
-			App->scene->HasEnemyDied = true;
-			App->scene->enemyX = position.x;
-			App->scene->enemyY = position.y;
-
-			App->powers->Enable();
-			App->powers->position.x = position.x;
-			App->powers->position.y = position.y;
-			App->powers->spawnPos.x = position.x;
-			App->powers->spawnPos.y = position.y;
+		App->powers->Enable();
+		App->powers->position.x = position.x;
+		App->powers->position.y = position.y;
+		App->powers->spawnPos.x = position.x;
+		App->powers->spawnPos.y = position.y;
 		
 
-			App->player->score += 1000;
+		App->player->score += 1000;
 	}
 
 }

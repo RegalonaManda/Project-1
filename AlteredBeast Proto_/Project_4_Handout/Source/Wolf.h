@@ -5,6 +5,7 @@
 #include "Path.h"
 #include "ModuleEnemies.h"
 
+
 class Wolf : public Enemy {
 public:
 	Wolf(int x, int y);
