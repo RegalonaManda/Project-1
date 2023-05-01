@@ -64,6 +64,8 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 	AttackCollider->SetPos(-1000, -1000);
 	SelfDestruct->SetPos(-1000, -1000);
 
+	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
+
 }
 
 void Zombie::Update() {
@@ -82,6 +84,7 @@ void Zombie::Update() {
 			hitCountdown--;
 			if (hitCountdown <= 0) {
 				currentAnim = &headXplode;
+				App->audio->PlayFx(lethalAtt, 3);
 			}
 
 			if (headXplode.HasFinished()) {
@@ -121,6 +124,7 @@ void Zombie::OnCollision(Collider* collider) {
 		destroyedCountdown--;
 		if (destroyedCountdown <= 0) {
 			hp-= App->player->attack;
+			App->audio->PlayFx(lethalAtt, 5);
 			hitByPlayer = true;
 			destroyedCountdown = 20;
 		}
