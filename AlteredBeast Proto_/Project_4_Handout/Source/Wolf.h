@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "Path.h"
+#include "ModuleEnemies.h"
 
 class Wolf : public Enemy {
 public:
@@ -15,6 +16,10 @@ public:
 	bool idle = true;
 
 	float wolfImpulse = 3.2f;
+
+	int CodeN = 2;
+
+	int JumpCnt = 90;
 
 	
 

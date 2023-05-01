@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "Animation.h"
 #include "ModulePlayer.h"
+#include "ModuleEnemies.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -24,6 +25,8 @@ public:
 	const Collider* GetRangeCollider() const;
 
 	const Collider* GetDestructCollider() const;
+
+	int CodeN = 0;
 
 	// Called from inhering enemies' Udpate
 	// Updates animation and collider position

@@ -192,7 +192,11 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2); //Notify the enemy of a collision to subtract it's health
+			
+			if (enemies[i]->CodeN == 2) {
 
+			}
+				
 			if(enemies[i]->hp <= 0){
 
 				if (enemies[i]->AttackCollider != nullptr) { enemies[i]->AttackCollider->SetPos(1000, 1000); }

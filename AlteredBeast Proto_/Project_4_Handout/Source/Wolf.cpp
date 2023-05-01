@@ -69,19 +69,23 @@ void Wolf::Update() {
 	{
 		
 		if (dir == Direction::RIGHT ) 
-		{ 
-			currentAnim = &idleAnimRight;
+		{
+			if (idle == true) { currentAnim = &idleAnimRight; }
 			
 
-			if (idleAnimRight.HasFinished() && idle == true) {
-				
-				currentAnim = &jumpAnimRight;
-				
+			JumpCnt--;
+			if (JumpCnt <= 0) {
+
 				idle = false;
-				
+				currentAnim = &jumpAnimRight;
+				JumpCnt = 90;
 			}
-			
+		}
 
+		if (jumpAnimRight.HasFinished() == true && idle == false) {
+			jumpAnimRight.Reset();
+			jumpAnimRight.loopCount = 0;
+			idle = true;
 		}
 		
 
@@ -122,10 +126,10 @@ void Wolf::Update() {
 	}
 
 	if (!alive) {
-		App->powers->Enable();
+		/*App->powers->Enable();
 		App->powers->position.x = position.x;
 		App->powers->position.y = position.y;
-		destroyed = true;
+		destroyed = true;*/
 
 		if (dir == Direction::RIGHT) { currentAnim = &deathAnimRight; }
 		if (dir == Direction::LEFT) { currentAnim = &deathAnimLeft; }
@@ -152,6 +156,9 @@ void Wolf::OnCollision(Collider* collider) {
 		//}
 
 		//if (hp <= 0) {
+
+		    hp--;
+
 			Ecollider->SetPos(-3000, -3000);
 			alive = false;
 
