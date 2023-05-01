@@ -88,11 +88,14 @@ bool ModulePlayer::Start()
 	scoreFont = App->fonts->Load("Assets/font_spritesheet.png", lookupTable, 1);
 
 	//player Sound FX
-	playerDeathFX = App->audio->LoadFx("Assets/FX/Player_Death.wav");
+	
 	nonLethalAtt = App->audio->LoadFx("Assets/FX/Non-Lethal_Punch.wav");
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch.wav");
 	loseHP = App->audio->LoadFx("Assets/FX/lose_1_hp.wav");
 	powerUp = App->audio->LoadFx("Assets/FX/Power_Up.wav");
+	playerDeathFX = App->audio->LoadFx("Assets/FX/Player_Death.wav");
+
+	lives = 1;
 
 	return ret;
 }
@@ -450,10 +453,11 @@ update_status ModulePlayer::Update()
 
 
 		//Player gets killed
-		if (destroyed) {
+		if (destroyed && idle == true) {
 
 
-			App->audio->PlayFx(playerDeathFX, 4, 0);
+			App->audio->PlayFx(playerDeathFX, 4);
+			idle = false;
 
 
 			if (dir == Direction::RIGHT) {
@@ -479,10 +483,12 @@ update_status ModulePlayer::Update()
 				position.y = 190;
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
+					
 					return update_status::UPDATE_STOP;
 				}
 
 			}
+			
 
 		}
 	}
@@ -801,7 +807,7 @@ update_status ModulePlayer::Update()
 		if (destroyed) {
 
 
-			App->audio->PlayFx(playerDeathFX, 4, 0);
+			App->audio->PlayFx(playerDeathFX, -1);
 
 
 			if (dir == Direction::RIGHT) {
@@ -909,8 +915,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
 		hitEnemy = true;
-
-		App->audio->PlayFx(lethalAtt, 5);
+		
 		hitEnemy = false;
 	} 
 	//Bumping into enemy

@@ -32,6 +32,8 @@ public:
 
 	uint hitCountdown = 10;
 	uint destroyedCountdown = 10;
+
+	uint lethalAtt;
 	
 
 	Direction dir;
