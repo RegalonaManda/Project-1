@@ -66,13 +66,13 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 
 	WDeathRight.PushBack({ 1,121,33,50 });
 	WDeathRight.PushBack({ 34,121,33,50 });
-	WDeathRight.speed = 0.008f;
+	WDeathRight.speed = 0.08f;
 	WDeathRight.loop = false;
 	WDeathRight.totalFrames = 2;
 
 	WDeathLeft.PushBack({ 446,121,33,50 });
 	WDeathLeft.PushBack({ 413,121,33,50 });
-	WDeathLeft.speed = 0.008f;
+	WDeathLeft.speed = 0.08f;
 	WDeathLeft.loop = false;
 	WDeathLeft.totalFrames = 2;
 

@@ -204,7 +204,7 @@ void Wolf::OnCollision(Collider* collider) {
 		App->scene->HasEnemyDied = true;
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
-		App->scene->EnemyCN = 1;
+		App->scene->EnemyCN = 2;
 
 		App->powers->Enable();
 		App->powers->position.x = position.x;
