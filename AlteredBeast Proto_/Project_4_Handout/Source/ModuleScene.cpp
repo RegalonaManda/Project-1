@@ -85,7 +85,7 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 800, 110);
+	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161+250, 110);
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
 
 
@@ -105,9 +105,10 @@ update_status ModuleScene::Update()
 {
 	
 	//This is so camera stops when reaching boss
-	if (App->render->camera.x > 1600) { ScreenScroll = false; }
+	if (App->render->camera.x > 1161*3) { ScreenScroll = false; }
 	if (ScreenScroll == false) {
-		App->render->camera.x -=1;
+		App->render->camera.x = 1161*3;
+		//WHY does it slightly move backwards???
 	}
 	//SCREEN SCROLL
 	if (ScreenScroll == true) {
