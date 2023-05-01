@@ -96,8 +96,8 @@ bool ModulePlayer::Start()
 	powerUp = App->audio->LoadFx("Assets/FX/Power_Up.wav");
 	playerDeathFX = App->audio->LoadFx("Assets/FX/Player_Death.wav");
 
-	lives = 3;
-	hp = 3;
+	lives = 1;
+	hp = 4;
 	start = false;
 	
 
@@ -459,11 +459,11 @@ update_status ModulePlayer::Update()
 
 
 		//Player gets killed
-		if (destroyed && idle == true) {
+		if (destroyed) {
 
-
-			App->audio->PlayFx(playerDeathFX, 4);
-			idle = false;
+			
+			
+		
 
 
 			if (dir == Direction::RIGHT) {
@@ -490,8 +490,9 @@ update_status ModulePlayer::Update()
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
 					//return update_status::UPDATE_STOP;
-					this->CleanUp();
+					
 					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+					this->CleanUp();
 				}
 
 			}
@@ -815,7 +816,7 @@ update_status ModulePlayer::Update()
 		if (destroyed) {
 
 
-			App->audio->PlayFx(playerDeathFX, -1);
+			
 
 
 			if (dir == Direction::RIGHT) {
@@ -963,7 +964,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			hp = 0;
 			//DEATH
 			destroyed = true;
-			App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+			
 			start = false;
 		}
 		
@@ -1007,6 +1008,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		{
 			hp = 0;
 			//DEATH
+			App->audio->PlayFx(playerDeathFX, 4);
 			destroyed = true;
 
 		}
