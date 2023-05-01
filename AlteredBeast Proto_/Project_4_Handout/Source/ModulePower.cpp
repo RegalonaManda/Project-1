@@ -91,7 +91,8 @@ void ModulePower::OnCollision(Collider* c1, Collider* c2)
 {
 	if (c1 == collider && gotten == false || c2 == collider)
 	{
-		this->Disable();
+		
+
 		//destroyed = true;
 	}
 }

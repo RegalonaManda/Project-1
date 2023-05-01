@@ -15,7 +15,9 @@ public:
 
 	bool idle = true;
 
-	float wolfImpulse = 3.2f;
+	bool jump = false;
+
+	float wolfImpulse = 2.0f;
 
 	int CodeN = 2;
 

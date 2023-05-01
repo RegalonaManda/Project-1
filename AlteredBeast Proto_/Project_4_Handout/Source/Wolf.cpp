@@ -54,7 +54,7 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 	deathAnimLeft.totalFrames = 2;
 
 	Ecollider = App->collisions->AddCollider({ 600, 190, 68, 70 }, Collider::Type::ENEMY, (Module*)App->enemies);
-	/*AttackCollider = App->collisions->AddCollider({ 600, 200, 34, 70 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);*/
+	AttackCollider = App->collisions->AddCollider({ 600, 200, 34, 30 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 }
 
 void Wolf::Update() {
@@ -70,23 +70,61 @@ void Wolf::Update() {
 		
 		if (dir == Direction::RIGHT ) 
 		{
-			if (idle == true) { currentAnim = &idleAnimRight; }
+			if (idle == true) { 
+				currentAnim = &idleAnimRight;
+			    JumpCnt--;
+				AttackCollider->SetPos(-2000, -2000);
+			}
 			
-
-			JumpCnt--;
 			if (JumpCnt <= 0) {
+				idle = false;
+				JumpCnt = 100;
+			}
+
+			if (idle == false) {
+				AttackCollider->SetPos(position.x-5, position.y+10);
+				currentAnim = &jumpAnimRight;
+				position.x -= 1.0f;
+				wolfImpulse -= Gravity;
+				position.y -= wolfImpulse;
+
+				if (position.y > 140) {
+					position.y = 140;
+					idle = true;
+					wolfImpulse = 2.0f;
+				}
+			}
+			
+			/*if (JumpCnt <= 0) {
 
 				idle = false;
 				currentAnim = &jumpAnimRight;
-				JumpCnt = 90;
+				jump = true;
+				JumpCnt = 300;
 			}
+
+			if (jumpAnimRight.HasFinished() == true && idle == false) {
+				jumpAnimRight.Reset();
+				jump = false;
+				jumpAnimRight.loopCount = 0;
+				idle = true;
+			}
+
+			if (jump == true) {
+				wolfImpulse -= Gravity;
+				position.y -= wolfImpulse;
+
+			}
+
+			if (position.y > 140 && jump == true) {
+				position.y = 140;
+				wolfImpulse = 3.2f;
+				idle = true;
+				jump = false;
+			}*/
 		}
 
-		if (jumpAnimRight.HasFinished() == true && idle == false) {
-			jumpAnimRight.Reset();
-			jumpAnimRight.loopCount = 0;
-			idle = true;
-		}
+		
 		
 
 		/*if (idle == false) {
