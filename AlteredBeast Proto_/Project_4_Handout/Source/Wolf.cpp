@@ -19,26 +19,18 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 
 	//Animations
 	idleAnimRight.PushBack({ 1,70,66,50 });
-	idleAnimRight.PushBack({ 1,70,66,50 });
-	idleAnimRight.PushBack({ 1,70,66,50 });
-	idleAnimRight.PushBack({ 1,70,66,50 });
-	idleAnimRight.PushBack({ 1,70,66,50 });
 	idleAnimRight.speed = 0.08f;
-	idleAnimRight.loop = false;
-	idleAnimRight.totalFrames = 5;
+	idleAnimRight.loop = true;
+	idleAnimRight.totalFrames = 1;
 
 	idleAnimLeft.PushBack({ 547,70,66,50 });
-	idleAnimLeft.PushBack({ 547,70,66,50 });
-	idleAnimLeft.PushBack({ 547,70,66,50 });
-	idleAnimLeft.PushBack({ 547,70,66,50 });
-	idleAnimLeft.PushBack({ 547,70,66,50 });
 	idleAnimLeft.speed = 0.08f;
-	idleAnimLeft.loop = false;
-	idleAnimLeft.totalFrames = 5;
+	idleAnimLeft.loop = true;
+	idleAnimLeft.totalFrames = 1;
 
 	jumpAnimRight.PushBack({ 68,70,66,50 });
 	jumpAnimRight.PushBack({ 135,70,67,50 });
-	jumpAnimRight.speed = 0.008f;
+	jumpAnimRight.speed = 0.05f;
 	jumpAnimRight.loop = false;
 	jumpAnimRight.totalFrames = 2;
 
@@ -102,7 +94,7 @@ void Wolf::Update() {
 
 			}
 		}*/
-		
+		 
 		
 		
 
