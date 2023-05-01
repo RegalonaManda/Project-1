@@ -50,7 +50,7 @@ update_status SceneIntro::Update()
 {
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		
+		App->player->Enable();
 		App->fade->FadeToBlack(this, (Module*)App->scene, 60.0f);
 		
 	}

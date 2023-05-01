@@ -68,7 +68,7 @@ public:
 	int iTimer = 30;
 
 	bool GodMode = false;
-	int start = false;
+	bool start = false;
 	float knockImpulse = 0;
 
 
@@ -127,6 +127,7 @@ public:
 
 	friend class PlayerAnim; 
 
+	bool firstHit = false;
 };
 
 

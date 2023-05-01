@@ -15,6 +15,7 @@
 #include "ModulePower.h"
 #include "ModuleFadeToBlack.h"
 #include <stdio.h>
+#include "SceneIntro.h"
 
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib")
@@ -94,16 +95,20 @@ bool ModulePlayer::Start()
 	loseHP = App->audio->LoadFx("Assets/FX/lose_1_hp.wav");
 	powerUp = App->audio->LoadFx("Assets/FX/Power_Up.wav");
 
-	lives = 1;
+	lives = 3;
+	hp = 3;
+	start = false;
+	
 
 	return ret;
 }
 
 update_status ModulePlayer::Update()
 {
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN && start == false) {
+	if (App->sceneIntro->IsEnabled() == false && start == false) {
 		position.x = 50;
 		position.y = 190;
+		Deathcollider->SetPos(position.x, position.y);
 		start = true;
 	}
 
@@ -483,6 +488,7 @@ update_status ModulePlayer::Update()
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
 					//return update_status::UPDATE_STOP;
+					this->CleanUp();
 					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
 				}
 
@@ -894,6 +900,8 @@ update_status ModulePlayer::Update()
 
 update_status ModulePlayer::PostUpdate()
 {
+
+
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y - rect.h, &rect);
 
@@ -912,6 +920,7 @@ update_status ModulePlayer::PostUpdate()
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
+
 	if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
 		hitEnemy = true;
 
@@ -952,7 +961,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			hp = 0;
 			//DEATH
 			destroyed = true;
-			//App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+			App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+			start = false;
 		}
 		
 		/*App->scene->ScreenScroll = false;*/
@@ -961,6 +971,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	//Getting hit by enemy attack
 	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
 	{
+		Deathcollider->SetPos(1300, 1200);
+		firstHit = true;
+
 		knockImpulse = 1.0f;
 		iFrames = true;
 		hp--;
@@ -1031,17 +1044,17 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 }
 
 void ModulePlayer:: KnockBack() {
+	
+		airSt == AirState::AIRBORN;
+		knockImpulse -= Gravity;
+		position.y -= knockImpulse;
 
-	airSt == AirState::AIRBORN;
-	knockImpulse -= Gravity;
-	position.y -= knockImpulse;
-
-	position.x--;
-	if (position.y >= 190) {
-		airSt = AirState::GROUND;
-		position.y = 190;
-		idle = true;
-		//jumpRight.Reset();
-	}
-
+		position.x--;
+		if (position.y >= 190) {
+			airSt = AirState::GROUND;
+			position.y = 190;
+			idle = true;
+			//jumpRight.Reset();
+		}
+	
 }
