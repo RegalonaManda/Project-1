@@ -109,7 +109,7 @@ update_status ModuleScene2::PostUpdate()
 	App->render->Blit(uiTexture, 40, 10, &rac, 0);// golden lives
 	App->render->Blit(uiTexture, 10, 10, &ric, 0);//human-wolf icon
 	if (App->player->lives == 0) {
-		App->render->Blit(gameOverTexture, 10, 10, &reckt, 0);//Game over text
+		App->render->Blit(gameOverTexture, SCREEN_WIDTH/2-70 , SCREEN_HEIGHT/2-10, &reckt, 0);//Game over text
 	}
 	
 
