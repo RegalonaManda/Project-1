@@ -129,10 +129,14 @@ void Zombie::OnCollision(Collider* collider) {
 			App->audio->PlayFx(lethalAtt, 5);
 			hitByPlayer = true;
 			destroyedCountdown = 20;
+			if (hp <= 0) {
+				App->player->score += 100;
+			}
+
 		}
 
 	}
-	if (hp <= 0) {
+	if (hp <= 0 && attacking == false) {
 		Ecollider->SetPos(-1000, -1000);
 		alive = false;
 
@@ -141,8 +145,6 @@ void Zombie::OnCollision(Collider* collider) {
 		App->scene->HasEnemyDied = true; 
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
-
-		App->player->score += 100;
 	}
 
 	//make the explosion kill the zombie

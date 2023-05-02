@@ -5,6 +5,7 @@
 #include "ModulePlayer.h"
 #include "EnemyDeath.h"
 #include "Neff.h"
+#include "ModuleScene2.h"
 
 //Calls the constructor of enemy class to save spawn position
 
@@ -62,10 +63,11 @@ void Neff::OnCollision(Collider* collider) {
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
 
-		App->player->score += 100;
+		App->scene2->killedBoss = true;
+		App->player->KilledBoss = true;
 	}
 
-	//make the explosion kill the zombie
+	
 	
 	
 }

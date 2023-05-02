@@ -4,6 +4,8 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModuleFadeToBlack.h"
+#include "ModuleFonts.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
@@ -59,8 +61,7 @@ update_status ModuleScene2::Update()
 {
 
 	
-	/*flag.Update();
-	App->render->Blit(layer1, 0, 120, &background, 0.75f);*/
+	
 	return update_status::UPDATE_CONTINUE;
 	
 }
@@ -112,7 +113,11 @@ update_status ModuleScene2::PostUpdate()
 		App->render->Blit(gameOverTexture, SCREEN_WIDTH/2-70 , SCREEN_HEIGHT/2-10, &reckt, 0);//Game over text
 	}
 	
-
+	if (killedBoss == true) {
+		SDL_Rect ClearRec = { 0,0,225,10 };
+		App->render->Blit(uiTexture, 48, 72, &ClearRec, 0);
+		
+	}
 	
 
 	

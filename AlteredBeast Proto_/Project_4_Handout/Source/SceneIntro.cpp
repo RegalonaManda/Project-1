@@ -80,7 +80,10 @@ bool SceneIntro::Start()
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
-
+	App->scene2->Disable();
+	App->enemies->Disable();
+	App->scene->Disable();
+	
 	return ret;
 
 }

@@ -109,6 +109,9 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
+
+	
+
 	if (App->sceneIntro->IsEnabled() == false && start == false) {
 		position.x = 50;
 		position.y = 190;
@@ -891,11 +894,6 @@ update_status ModulePlayer::Update()
 			lives = 3;
 		}
 
-		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
-			score = 9999;
-
-		}
-
 		if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN) {
 			
 			lives = 0;
@@ -903,10 +901,33 @@ update_status ModulePlayer::Update()
 
 		}
 
+		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
+		
+			App->player->KilledBoss = true;
+			App->scene2->killedBoss = true;
+		}
+
+
 		if (GodMode == true) {
 			lives++;
 		}
 
+		if (KilledBoss == true) {
+			if (FadeCnt == 120) { App->player->score += 20000; }
+			FadeCnt--;
+			if (FadeCnt <= 0) {
+				KilledBoss = false;
+				App->scene2->killedBoss = false;
+				App->render->camera.x = 0;
+				FadeCnt = 120;
+				tranSt = Transform::DEFAULT;
+				transforming = false;
+				idle = true;
+				airSt = AirState::GROUND;
+				App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+				this->CleanUp();
+			}
+		}
 
 		return update_status::UPDATE_CONTINUE;
 	
@@ -994,15 +1015,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			knockImpulse = 1.0f;
 			iFrames = true;
 			hp--;
-			if (hp > 0) {
-				App->audio->PlayFx(loseHP, 6);
-			}
+			
 
 			position.y -= 0.1f;
 			if (position.y < 190) {
 				//shoudl call a different knockbackfunction
 				if (c2 != Deathcollider) {
 					KnockBack();
+					if (hp > 0) { App->audio->PlayFx(loseHP, 6); }
 					if (dir == Direction::LEFT) {
 						idle = false;
 						currentAnimation = &AllAnimations.knockBackLeft;

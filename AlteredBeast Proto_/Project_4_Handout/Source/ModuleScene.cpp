@@ -103,6 +103,15 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 705, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 740, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 800, 140);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 900, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 905, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 910, 140);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1000, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1100, 140);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110);
 	
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
@@ -112,10 +121,12 @@ bool ModuleScene::Start()
 	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-10, App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 
 	App->player->Enable();
+	
 	App->enemies->Enable();
 	App->scene2->Enable();
 	App->collisions->Enable();
 	//App->powers->Enable();
+	ScreenScroll = true;
 
 	return ret;
 }
@@ -150,7 +161,7 @@ update_status ModuleScene::Update()
 			Ecurrent->Update();
 		}
 
-		if (EnemyAttacking == true) {
+		if (EnemyAttacking == true ) {
 			//Kai Kaboom sound pls
 			Xcurrent = &explode;
 			Xcurrent->Update();
