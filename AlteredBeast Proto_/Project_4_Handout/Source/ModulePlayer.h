@@ -17,6 +17,7 @@ struct Collider;
 class ModulePlayer : public Module
 {
 public:
+
 	// Constructor
 	ModulePlayer(bool startEnabled);
 
@@ -130,6 +131,8 @@ public:
 	friend class PlayerAnim; 
 
 	bool firstHit = false;
+	bool KilledBoss = false;
+	int FadeCnt = 120;
 };
 
 
