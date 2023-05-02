@@ -98,6 +98,8 @@ bool ModulePlayer::Start()
 
 	lives = 1;
 	hp = 4;
+	idle = true;
+	dir = Direction::RIGHT;
 	start = false;
 	
 
