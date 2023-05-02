@@ -35,6 +35,7 @@ public:
 
 	SDL_Texture* muralTex = nullptr;
 	SDL_Texture* blueTitleTex = nullptr;
+	SDL_Texture* crackAndFlashTex = nullptr;
 	SDL_Texture* muralFadeTex = nullptr;
 	SDL_Texture* assetsTex = nullptr;
 	SDL_Texture** currentTex = nullptr;

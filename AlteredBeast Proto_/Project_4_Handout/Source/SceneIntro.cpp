@@ -70,6 +70,7 @@ SceneIntro::~SceneIntro()
 {
 	App->textures->Unload(assetsTex);
 	App->textures->Unload(blueTitleTex);
+	App->textures->Unload(crackAndFlashTex);
 	App->textures->Unload(muralFadeTex);
 
 }
@@ -82,6 +83,7 @@ bool SceneIntro::Start()
 	bool ret = true;
 	
 	blueTitleTex = App->textures->Load("Assets/Intro/blueTitleUnited.png");
+	crackAndFlashTex = App->textures->Load("Assets/Intro/crackAndFlashUnited.png");
 	muralFadeTex = App->textures->Load("Assets/Intro/muralScreenUnited.png");
 	assetsTex = App->textures->Load("Assets/Intro/introScreenUnited.png");
 
