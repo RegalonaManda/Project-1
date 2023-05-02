@@ -62,3 +62,23 @@ void Enemy::OnCollision(Collider* collider)
 void Enemy::Attack() {
 	//This function will be overwritten
 }
+
+void Enemy::KnockBack() {
+
+	/*if (knocked == false) {
+		knocked = true;
+		initialH;
+		idle = false;
+	}
+	
+		knockH -= Gravity;
+		position.y -= knockH;
+
+		
+		if (position.y >= initialH) {
+			position.y = initialH;
+			idle = true;
+			
+		}*/
+	
+}

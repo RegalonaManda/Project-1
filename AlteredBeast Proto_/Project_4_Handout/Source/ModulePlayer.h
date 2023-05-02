@@ -7,7 +7,7 @@
 #include "ModuleAudio.h"
 #include "Globals.h"
 #include "PlayerAnimations.h"
-
+#include "Enemy.h"
 
 #define Gravity 0.07f;
 
@@ -105,6 +105,8 @@ public:
 	void KnockBack();
 
 	float destroyedCountdown = 120;
+
+	Enemy* knocked = nullptr;
 
 public:
 

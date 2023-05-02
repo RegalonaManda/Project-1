@@ -65,14 +65,14 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 }
 
 void Wolf::Update() {
-
+	if(knocked == true){ knockH = position.y - 150; }
 
 	//if wolf is behind the player change the direction
 	if (position.x < App->player->position.x) 
 	{ dir = Direction::LEFT; }
 	else { dir = Direction::RIGHT; }
 
-	if (alive)
+	if (alive && knocked == false)
 	{
 		
 		if (dir == Direction::RIGHT ) 
@@ -85,13 +85,13 @@ void Wolf::Update() {
 			
 			if (JumpCnt <= 0) {
 				idle = false;
-				JumpCnt = 100;
+				JumpCnt = 150;
 			}
 
 			if (idle == false) {
 				AttackCollider->SetPos(position.x-5, position.y+10);
 				currentAnim = &jumpAnimRight;
-				position.x -= 1.0f;
+				position.x -= 1.2f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
 
@@ -116,13 +116,13 @@ void Wolf::Update() {
 
 			if (JumpCnt <= 0) {
 				idle = false;
-				JumpCnt = 100;
+				JumpCnt = 150;
 
 			}
 			if (idle == false) {
 				AttackCollider->SetPos(position.x + 5, position.y + 2);
 				currentAnim = &jumpAnimLeft;
-				position.x += 1.0f;
+				position.x += 1.2f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
 				
@@ -139,7 +139,26 @@ void Wolf::Update() {
 		
 
 	}
+	//Kocked
+	if (knocked == true) {
+		if (stunt == true) {
+			stunt = false;
+			knockH = position.y;
+		}
+		knockImpulse -= Gravity;
+		position.y -= knockImpulse;
 
+
+		if (position.y >= 140) {
+			position.y = 140;
+			idle = true;
+			knocked = false;
+			stunt = true;
+			knockImpulse = 3.0f;
+		}
+
+
+	}
 	if (!alive) {
 		/*App->powers->Enable();
 		App->powers->position.x = position.x;
@@ -160,7 +179,7 @@ void Wolf::Update() {
 
 void Wolf::OnCollision(Collider* collider) {
 
-	if (collider->Collider::Type::PLAYER_SHOT) {
+	if (collider->type == Collider::Type::PLAYER_SHOT) {
 
 		hp--;
 
@@ -180,6 +199,11 @@ void Wolf::OnCollision(Collider* collider) {
 		
 
 		App->player->score += 1000;
+	}
+
+	if (collider->type == Collider::Type::PLAYER) {
+		knocked = true;
+
 	}
 
 }
