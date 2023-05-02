@@ -13,14 +13,21 @@
 
 SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 {
+	
 
+	//Rects
 	mural = { 0,0,320,224 };
 	blueScreen = { 321,0,320,224 };
 	whiteLetters = { 321,225,320,224 };
 	redLetters = { 642,225,320,224 };
 	blueLetters = { 0,225,320,224 };
 	SEGA = {1, 449, 80, 28};
+	InsertCoin = { 82,450,86,8 };
 
+	//variables 
+	CoinX = (float)(SCREEN_WIDTH / 2.0f) - (InsertCoin.w / 2.0f);
+	
+	//Animations
 	muralFade.PushBack({ 1,1,320,224 });
 	muralFade.PushBack({ 322,1,320,224 });
 	muralFade.PushBack({ 643,1,320,224 });
@@ -90,12 +97,18 @@ bool SceneIntro::Start()
 
 update_status SceneIntro::Update()
 {
-	if (SegaPosX - 1.0f < (SCREEN_WIDTH / 2 - SEGA.w / 2)) {
+	if (SegaPosX - SegaSpeed < (SCREEN_WIDTH / 2 - SEGA.w / 2)) {
 		SegaPosX = SCREEN_WIDTH / 2 - SEGA.w / 2;
 		
 	}
 	else {
-		SegaPosX -= 1.0f;
+		SegaPosX -= SegaSpeed;
+	}
+
+	CoinInterval--;
+	if (CoinInterval <= 0) {
+		CoinVisible = !CoinVisible;
+		CoinInterval = 25;
 	}
 
 	changeCountdown--;
@@ -142,6 +155,11 @@ update_status SceneIntro::PostUpdate()
 
 	}
 	App->render->Blit(assetsTex, SegaPosX, 157, &SEGA);
+
+	if (CoinVisible) {
+		App->render->Blit(assetsTex, CoinX, 193, &InsertCoin);
+	}
+	
 
 	return update_status::UPDATE_CONTINUE;
 }

@@ -53,8 +53,13 @@ public:
 	SDL_Rect redLetters;
 	SDL_Rect blueLetters; 
 	SDL_Rect SEGA;
-	float SegaPosX = 320;
-	
+	float SegaPosX = 320.0f;
+	float SegaSpeed = 1.0f;
+
+	SDL_Rect InsertCoin;
+	float CoinX; 
+	int CoinInterval = 25;
+	bool CoinVisible = false;
 	
 };
 
