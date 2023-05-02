@@ -10,6 +10,8 @@ class Wolf : public Enemy {
 public:
 	Wolf(int x, int y);
 
+	float Y0 = 0;
+
 	void Update() override;
 
 	void OnCollision(Collider* collider) override;

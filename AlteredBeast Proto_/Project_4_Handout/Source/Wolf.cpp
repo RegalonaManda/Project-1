@@ -67,6 +67,10 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 void Wolf::Update() {
 	if(knocked == true){ knockH = position.y - 150; }
 
+	if (Y0 == 0) {
+		Y0 = position.y;
+	}
+
 	//if wolf is behind the player change the direction
 	if (position.x < App->player->position.x) 
 	{ dir = Direction::LEFT; }
@@ -95,8 +99,8 @@ void Wolf::Update() {
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
 
-				if (position.y > 140) {
-					position.y = 140;
+				if (position.y > Y0) {
+					position.y = Y0;
 					idle = true;
 					wolfImpulse = 2.0f;
 				}
