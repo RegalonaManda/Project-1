@@ -29,15 +29,30 @@ public:
 
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
-	SDL_Texture* bgTexture = nullptr;
-	SDL_Texture* lettersTex = nullptr;
 
+	int changeCountdown = 10;
+
+	SDL_Texture* muralTex = nullptr;
+	SDL_Texture* blueTitleTex = nullptr;
+	SDL_Texture* muralFadeTex = nullptr;
+	SDL_Texture* assetsTex = nullptr;
+	SDL_Texture** currentTex = nullptr;
+	
+	bool screenChange1 = false;
+	bool screenChange2 = false;
+
+	Animation muralFade;
+	Animation titleFade;
 	Animation letterFlash;
 	Animation* currentAnim = nullptr;
 
+	/*SDL_Rect redTitle;*/
+	SDL_Rect blueScreen;
+	SDL_Rect mural;
 	SDL_Rect whiteLetters;
 	SDL_Rect redLetters;
 	SDL_Rect blueLetters;  
+	SDL_Rect SEGA;
 };
 
 #endif

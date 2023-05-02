@@ -19,7 +19,7 @@ controls:
 - x = punch
 - z = kick
 Mind the combinations! While mid-jump or couching you can perform actions like punch or kick.
-Colect Power ups to become stronger and reach the end of the level.
+Collect Power Ups to become stronger and reach the end of the level.
 
 Additional comments for the teacher:
 	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
