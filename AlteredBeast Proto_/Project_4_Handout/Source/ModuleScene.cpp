@@ -97,7 +97,12 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 120);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161+250, 110);
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
 
@@ -209,7 +214,12 @@ update_status ModuleScene::PostUpdate()
 		EnemyAttacking = false;
 		explosionCnt = 40;
 	}
+	if (App->input->keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN) {
 
+		return update_status::UPDATE_STOP;
+		
+
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 

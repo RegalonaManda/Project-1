@@ -20,8 +20,10 @@ public:
 	int attackCnt = 50;
 	int attackCnt2 = 30;
 
-	int CodeN = 1;
+	bool IsExploding;
 
+	int CodeN = 1;
+	float Zspeed = 0.12f;
 	bool exploded = false;
 
 	enum class Direction {

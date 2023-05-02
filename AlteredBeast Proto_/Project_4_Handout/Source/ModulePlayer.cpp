@@ -929,12 +929,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	if (GodMode == false) {
 		if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
 			hitEnemy = true;
-
+			
 			hitEnemy = false;
 		}
 		//Bumping into enemy
 		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 		{
+			
 			knockImpulse = 1.0f;
 			iFrames = true;
 
@@ -969,6 +970,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 				destroyed = true;
 
 				start = false;
+				App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);
 			}
 
 			/*App->scene->ScreenScroll = false;*/
