@@ -97,7 +97,7 @@ bool ModulePlayer::Start()
 	powerUp = App->audio->LoadFx("Assets/FX/Power_Up.wav");
 	playerDeathFX = App->audio->LoadFx("Assets/FX/Player_Death.wav");
 
-	lives = 1;
+	lives = 3;
 	hp = 4;
 	idle = true;
 	dir = Direction::RIGHT;
@@ -109,9 +109,6 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
-
-	
-
 	if (App->sceneIntro->IsEnabled() == false && start == false) {
 		position.x = 50;
 		position.y = 190;
@@ -987,21 +984,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 
-			if (hp <= 0)
-			{
-				hp = 3;
-				lives--;
-			}
-
-			if (lives <= 0)
-			{
-				hp = 0;
-				//DEATH
-				destroyed = true;
-
-				start = false;
-				App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);
-			}
+			playerDamaged();
 
 			/*App->scene->ScreenScroll = false;*/
 		}
@@ -1034,20 +1017,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 
-			if (hp <= 0)
-			{
-				hp = 3;
-				lives--;
-			}
-
-			if (lives <= 0)
-			{
-				hp = 0;
-				//DEATH
-				App->audio->PlayFx(playerDeathFX, 4);
-				destroyed = true;
-
-			}
+			playerDamaged();
 
 			/*App->scene->ScreenScroll = false;*/
 		}
@@ -1097,4 +1067,22 @@ void ModulePlayer:: KnockBack() {
 			//jumpRight.Reset();
 		}
 	
+}
+
+void ModulePlayer::playerDamaged() {
+	if (hp <= 0)
+	{
+		hp = 3;
+		lives--;
+	}
+
+	if (lives <= 0)
+	{
+		hp = 0;
+		//DEATH
+		App->audio->PlayFx(playerDeathFX, 4);
+		destroyed = true;
+		start = false;
+		App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);
+	}
 }
