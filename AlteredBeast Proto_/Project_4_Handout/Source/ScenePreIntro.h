@@ -1,5 +1,5 @@
-#ifndef __SCENE_INTRO_H__
-#define __SCENE_INTRO_H__
+#ifndef __SCENE_PREINTRO_H__
+#define __SCENE_PREINTRO_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -27,17 +27,12 @@ public:
 	// Performs the render call of all the parts of the scene's background
 	update_status PostUpdate() override;
 
+	uint timer;
+
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* bgTexture = nullptr;
-	SDL_Texture* lettersTex = nullptr;
-
-	Animation letterFlash;
-	Animation* currentAnim = nullptr;
-
-	SDL_Rect whiteLetters;
-	SDL_Rect redLetters;
-	SDL_Rect blueLetters;  
+	
 };
 
 #endif

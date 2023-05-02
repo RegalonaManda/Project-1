@@ -30,10 +30,10 @@ Application::Application()
 	modules[2] =	textures =		new ModuleTextures(true);
 	modules[3] =	audio =			new ModuleAudio(true);
 
-	//modules[6] =	ScenePreIntro =	new ScenePreIntro(true);
+	modules[6] =	scenePreIntro =	new ScenePreIntro(true);
 	modules[7] =	sceneIntro =	new SceneIntro(false);
 	modules[4] =	scene =			new ModuleScene(false);
-	modules[5] =	player =		new ModulePlayer(true);
+	modules[5] =	player =		new ModulePlayer(false);
 	modules[8] =	enemies =		new ModuleEnemies(false);
 	
 	modules[9] =	particles =		new ModuleParticles(true);

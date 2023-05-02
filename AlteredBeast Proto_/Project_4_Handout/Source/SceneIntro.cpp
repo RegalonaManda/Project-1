@@ -50,8 +50,10 @@ update_status SceneIntro::Update()
 {
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		/*App->player->Enable();*/
+		
 		App->fade->FadeToBlack(this, (Module*)App->scene, 60.0f);
+		App->player->Enable();
+		
 		
 	}
 	else {
@@ -64,7 +66,7 @@ update_status SceneIntro::Update()
 update_status SceneIntro::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	App->render->Blit(lettersTex, 0, 0, &currentAnim->GetCurrentFrame());
+	App->render->Blit(lettersTex, 0, 0 /*&currentAnim->GetCurrentFrame()*/);
 
 	return update_status::UPDATE_CONTINUE;
 }

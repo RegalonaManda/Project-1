@@ -11,17 +11,7 @@
 
 ScenePreIntro::ScenePreIntro(bool startEnabled) : Module(startEnabled)
 {
-	whiteLetters = { 321,225,320,224 };
-	redLetters = { 642,225,320,224 };
-	blueLetters = { 0,225,320,224 };
 
-	letterFlash.PushBack(whiteLetters);
-	letterFlash.PushBack(redLetters);
-	letterFlash.PushBack(whiteLetters);
-	letterFlash.PushBack(redLetters);
-	letterFlash.totalFrames = 4;
-	letterFlash.speed = 0.05f;
-	letterFlash.loop = false;
 }
 
 ScenePreIntro::~ScenePreIntro()
@@ -33,11 +23,10 @@ ScenePreIntro::~ScenePreIntro()
 bool ScenePreIntro::Start()
 {
 	LOG("Loading background assets");
-
+	timer = 0;
 	bool ret = true;
 
-	bgTexture = App->textures->Load("Assets/Intro/introScreen6.png");
-	lettersTex = App->textures->Load("Assets/Intro/introScreenUnited.png");
+	bgTexture = App->textures->Load("Assets/IntroScene.png");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -48,23 +37,25 @@ bool ScenePreIntro::Start()
 
 update_status ScenePreIntro::Update()
 {
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN && timer >= 400)
 	{
-		/*App->player->Enable();*/
-		App->fade->FadeToBlack(this, (Module*)App->scene, 60.0f);
+		
+		App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);
 		
 	}
-	else {
-		currentAnim = &letterFlash;
-	}
+	
+	++timer;
+
 	return update_status::UPDATE_CONTINUE;
 }
+
 
 // Update: draw background
 update_status ScenePreIntro::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	App->render->Blit(lettersTex, 0, 0, &currentAnim->GetCurrentFrame());
+	App->render->Blit(bgTexture, 0, -1*timer);
 
 	return update_status::UPDATE_CONTINUE;
 }

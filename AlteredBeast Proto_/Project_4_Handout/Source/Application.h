@@ -55,7 +55,7 @@ public:
 	ModuleTextures* textures = nullptr;
 	ModuleAudio* audio = nullptr;
 	ModulePlayer* player = nullptr;
-	ScenePreIntro* ScenePreIntro = nullptr;
+	ScenePreIntro* scenePreIntro = nullptr;
 	SceneIntro* sceneIntro = nullptr;
 	ModuleScene* scene = nullptr;
 	ModuleScene2* scene2 = nullptr;
