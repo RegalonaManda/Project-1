@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 
+
 struct SDL_Texture;
 
 class SceneIntro : public Module
@@ -30,7 +31,7 @@ public:
 public:
 	// The scene sprite sheet loaded into an SDL_Texture
 
-	int changeCountdown = 10;
+	int changeCountdown = 50;
 
 	SDL_Texture* muralTex = nullptr;
 	SDL_Texture* blueTitleTex = nullptr;
@@ -46,13 +47,15 @@ public:
 	Animation letterFlash;
 	Animation* currentAnim = nullptr;
 
-	/*SDL_Rect redTitle;*/
 	SDL_Rect blueScreen;
 	SDL_Rect mural;
 	SDL_Rect whiteLetters;
 	SDL_Rect redLetters;
-	SDL_Rect blueLetters;  
+	SDL_Rect blueLetters; 
 	SDL_Rect SEGA;
+	float SegaPosX = 320;
+	
+	
 };
 
 #endif

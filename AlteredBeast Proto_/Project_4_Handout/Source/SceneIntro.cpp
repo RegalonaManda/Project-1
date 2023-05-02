@@ -1,5 +1,5 @@
 #include "SceneIntro.h"
-
+#include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
@@ -13,12 +13,13 @@
 
 SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 {
+
 	mural = { 0,0,320,224 };
 	blueScreen = { 321,0,320,224 };
 	whiteLetters = { 321,225,320,224 };
 	redLetters = { 642,225,320,224 };
 	blueLetters = { 0,225,320,224 };
-	SEGA = {3, 451, 77, 24};
+	SEGA = {1, 449, 80, 28};
 
 	muralFade.PushBack({ 1,1,320,224 });
 	muralFade.PushBack({ 322,1,320,224 });
@@ -32,7 +33,7 @@ SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 	muralFade.PushBack({ 1285,226,320,224 });
 	muralFade.totalFrames = 10;
 	muralFade.loop = false;
-	muralFade.speed = 0.05f;
+	muralFade.speed = 0.15f;
 
 	titleFade.PushBack({ 1,1,320,224 });
 	titleFade.PushBack({ 322,1,320,224 });
@@ -46,7 +47,7 @@ SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 	titleFade.PushBack({ 1285,226,320,224 });
 	titleFade.totalFrames = 10;
 	titleFade.loop = false;
-	titleFade.speed = 0.05f;
+	titleFade.speed = 0.15f;
 
 	letterFlash.PushBack(whiteLetters);
 	letterFlash.PushBack(redLetters);
@@ -54,7 +55,7 @@ SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 	letterFlash.PushBack(redLetters);
 	/*letterFlash.PushBack(redTitle);*/
 	letterFlash.totalFrames = 5;
-	letterFlash.speed = 0.1f;
+	letterFlash.speed = 0.25f;
 	letterFlash.loop = false;
 }
 
@@ -72,6 +73,7 @@ bool SceneIntro::Start()
 	LOG("Loading background assets");
 
 	bool ret = true;
+	
 	blueTitleTex = App->textures->Load("Assets/Intro/blueTitleUnited.png");
 	muralFadeTex = App->textures->Load("Assets/Intro/muralScreenUnited.png");
 	assetsTex = App->textures->Load("Assets/Intro/introScreenUnited.png");
@@ -85,6 +87,14 @@ bool SceneIntro::Start()
 
 update_status SceneIntro::Update()
 {
+	if (SegaPosX - 1.0f < (SCREEN_WIDTH / 2 - SEGA.w / 2)) {
+		SegaPosX = SCREEN_WIDTH / 2 - SEGA.w / 2;
+		
+	}
+	else {
+		SegaPosX -= 1.0f;
+	}
+
 	changeCountdown--;
 	if (changeCountdown <= 0) { screenChange1 = true; }
 
@@ -128,7 +138,7 @@ update_status SceneIntro::PostUpdate()
 		App->render->Blit(*currentTex, 0, 0, &currentAnim->GetCurrentFrame());
 
 	}
-	
+	App->render->Blit(assetsTex, SegaPosX, 157, &SEGA);
 
 	return update_status::UPDATE_CONTINUE;
 }
