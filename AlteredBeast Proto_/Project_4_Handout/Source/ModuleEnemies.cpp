@@ -30,8 +30,8 @@ ModuleEnemies::~ModuleEnemies()
 bool ModuleEnemies::Start()
 {
 	//CHANGE load enemy texture
-	texture = App->textures->Load("Assets/Enemies Proto.png");
-	//BossText = App->textures->Load("Assets/Boss Grid.png");
+	texture = App->textures->Load("Assets/EnemiesProto.png");
+	//BossText = App->textures->Load("Assets/BossGrid.png");
 	//Load Enemy Death Sound FX
 	enemyDeath = App->audio->LoadFx("Assets/FX/NPC_Death.wav");
 	
