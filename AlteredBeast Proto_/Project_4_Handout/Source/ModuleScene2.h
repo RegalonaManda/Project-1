@@ -45,6 +45,9 @@ public:
 	Animation livesAnim;
 	Animation iconAnim;
 	Animation gameOverAnim;
+
+	bool killedBoss = false;
+	int FadeCnt = 120;
 };
 
 #endif

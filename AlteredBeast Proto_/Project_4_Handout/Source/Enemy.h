@@ -78,6 +78,11 @@ public:
 	fPoint spawnPos;
 	
 	
+	bool idle = true;
+
+	
+
+	void KnockBack();
 };
 
 #endif // __ENEMY_H__

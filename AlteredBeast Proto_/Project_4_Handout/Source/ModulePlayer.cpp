@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include "SceneIntro.h"
 
+
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib")
 #pragma comment( lib, "SDL/libx86/SDL2main.lib")
@@ -127,6 +128,7 @@ update_status ModulePlayer::Update()
 		attack += 1;
 		idle = true;
 		AllAnimations.powerUp1.loopCount = 0;
+		transforming = false;
 	}
 
 
@@ -846,6 +848,12 @@ update_status ModulePlayer::Update()
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
 					//return update_status::UPDATE_STOP;
+					
+					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+					idle = true;
+					airSt = AirState::GROUND;
+					tranSt = Transform::DEFAULT;
+					this->CleanUp();
 				}
 
 			}
@@ -884,11 +892,6 @@ update_status ModulePlayer::Update()
 			lives = 3;
 		}
 
-		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
-			score = 9999;
-
-		}
-
 		if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN) {
 			
 			lives = 0;
@@ -896,10 +899,33 @@ update_status ModulePlayer::Update()
 
 		}
 
+		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
+		
+			App->player->KilledBoss = true;
+			App->scene2->killedBoss = true;
+		}
+
+
 		if (GodMode == true) {
 			lives++;
 		}
 
+		if (KilledBoss == true) {
+			if (FadeCnt == 120) { App->player->score += 20000; }
+			FadeCnt--;
+			if (FadeCnt <= 0) {
+				KilledBoss = false;
+				App->scene2->killedBoss = false;
+				App->render->camera.x = 0;
+				FadeCnt = 120;
+				tranSt = Transform::DEFAULT;
+				transforming = false;
+				idle = true;
+				airSt = AirState::GROUND;
+				App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+				this->CleanUp();
+			}
+		}
 
 		return update_status::UPDATE_CONTINUE;
 	
@@ -914,7 +940,7 @@ update_status ModulePlayer::PostUpdate()
 
 	sprintf_s(scoreText, 10, "%7d", score);
 
-	App->fonts->BlitText(40, 8, scoreFont, scoreText);
+	App->fonts->BlitText(60, 8, scoreFont, scoreText);
 	App->fonts->BlitText(230, 8, scoreFont, "50000");
 
 
@@ -937,6 +963,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 		{
 			
+
 			knockImpulse = 1.0f;
 			iFrames = true;
 
@@ -958,21 +985,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 
-			if (hp <= 0)
-			{
-				hp = 3;
-				lives--;
-			}
-
-			if (lives <= 0)
-			{
-				hp = 0;
-				//DEATH
-				destroyed = true;
-
-				start = false;
-				App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);
-			}
+			playerDamaged();
 
 			/*App->scene->ScreenScroll = false;*/
 		}
@@ -986,15 +999,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			knockImpulse = 1.0f;
 			iFrames = true;
 			hp--;
-			if (hp > 0) {
-				App->audio->PlayFx(loseHP, 6);
-			}
+			
 
 			position.y -= 0.1f;
 			if (position.y < 190) {
 				//shoudl call a different knockbackfunction
 				if (c2 != Deathcollider) {
 					KnockBack();
+					if (hp > 0) { App->audio->PlayFx(loseHP, 6); }
 					if (dir == Direction::LEFT) {
 						idle = false;
 						currentAnimation = &AllAnimations.knockBackLeft;
@@ -1006,20 +1018,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 				}
 			}
 
-			if (hp <= 0)
-			{
-				hp = 3;
-				lives--;
-			}
-
-			if (lives <= 0)
-			{
-				hp = 0;
-				//DEATH
-				App->audio->PlayFx(playerDeathFX, 4);
-				destroyed = true;
-
-			}
+			playerDamaged();
 
 			/*App->scene->ScreenScroll = false;*/
 		}
@@ -1069,4 +1068,22 @@ void ModulePlayer:: KnockBack() {
 			//jumpRight.Reset();
 		}
 	
+}
+
+void ModulePlayer::playerDamaged() {
+	if (hp <= 0)
+	{
+		hp = 3;
+		lives--;
+	}
+
+	if (lives <= 0)
+	{
+		hp = 0;
+		//DEATH
+		App->audio->PlayFx(playerDeathFX, 4);
+		destroyed = true;
+		start = false;
+		App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);
+	}
 }

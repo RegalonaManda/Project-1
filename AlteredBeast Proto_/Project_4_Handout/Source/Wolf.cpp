@@ -20,14 +20,20 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 
 	//Animations
 	idleAnimRight.PushBack({ 1,70,66,50 });
-	idleAnimRight.speed = 0.08f;
+	idleAnimRight.PushBack({ 1,241,66,50 });
+	idleAnimRight.PushBack({ 135,241,66,50 });
+	idleAnimRight.PushBack({ 1,241,66,50 });
+	idleAnimRight.speed = 0.02f;
 	idleAnimRight.loop = true;
-	idleAnimRight.totalFrames = 1;
+	idleAnimRight.totalFrames = 4;
 
 	idleAnimLeft.PushBack({ 547,70,66,50 });
-	idleAnimLeft.speed = 0.08f;
+	idleAnimLeft.PushBack({ 68,241,66,50 });
+	idleAnimLeft.PushBack({ 1,292,66,50 });
+	idleAnimLeft.PushBack({ 68,241,66,50 });
+	idleAnimLeft.speed = 0.02f;
 	idleAnimLeft.loop = true;
-	idleAnimLeft.totalFrames = 1;
+	idleAnimLeft.totalFrames = 4;
 
 	jumpAnimRight.PushBack({ 68,70,66,50 });
 	jumpAnimRight.PushBack({ 135,70,67,50 });
@@ -37,7 +43,7 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 
 	jumpAnimLeft.PushBack({ 480,70,66,50 });
 	jumpAnimLeft.PushBack({ 412,70,67,50 });
-	jumpAnimLeft.speed = 0.008f;
+	jumpAnimLeft.speed = 0.05f;
 	jumpAnimLeft.loop = false;
 	jumpAnimLeft.totalFrames = 2;
 
@@ -59,14 +65,18 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 }
 
 void Wolf::Update() {
+	if(knocked == true){ knockH = position.y - 150; }
 
+	if (Y0 == 0) {
+		Y0 = position.y;
+	}
 
 	//if wolf is behind the player change the direction
 	if (position.x < App->player->position.x) 
 	{ dir = Direction::LEFT; }
 	else { dir = Direction::RIGHT; }
 
-	if (alive)
+	if (alive && knocked == false)
 	{
 		
 		if (dir == Direction::RIGHT ) 
@@ -79,68 +89,27 @@ void Wolf::Update() {
 			
 			if (JumpCnt <= 0) {
 				idle = false;
-				JumpCnt = 100;
+				JumpCnt = 150;
 			}
 
 			if (idle == false) {
 				AttackCollider->SetPos(position.x-5, position.y+10);
 				currentAnim = &jumpAnimRight;
-				position.x -= 1.0f;
+				position.x -= 1.2f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
 
-				if (position.y > 140) {
-					position.y = 140;
+				if (position.y > Y0) {
+					position.y = Y0;
 					idle = true;
 					wolfImpulse = 2.0f;
 				}
 			}
 			
-			/*if (JumpCnt <= 0) {
-
-				idle = false;
-				currentAnim = &jumpAnimRight;
-				jump = true;
-				JumpCnt = 300;
-			}
-
-			if (jumpAnimRight.HasFinished() == true && idle == false) {
-				jumpAnimRight.Reset();
-				jump = false;
-				jumpAnimRight.loopCount = 0;
-				idle = true;
-			}
-
-			if (jump == true) {
-				wolfImpulse -= Gravity;
-				position.y -= wolfImpulse;
-
-			}
-
-			if (position.y > 140 && jump == true) {
-				position.y = 140;
-				wolfImpulse = 3.2f;
-				idle = true;
-				jump = false;
-			}*/
+			
 		}
 
 		
-		
-
-		/*if (idle == false) {
-			position.x += 0.7f;
-			wolfImpulse -= Gravity;
-			position.y -= wolfImpulse;
-			if (position.y >= 140) {
-				position.y = 140;
-
-			}
-		}*/
-		 
-		
-		
-
 		if (dir == Direction::LEFT) 
 		{ 
 			if (idle == true) {
@@ -151,12 +120,13 @@ void Wolf::Update() {
 
 			if (JumpCnt <= 0) {
 				idle = false;
-				JumpCnt = 100;
+				JumpCnt = 150;
 
 			}
 			if (idle == false) {
 				AttackCollider->SetPos(position.x + 5, position.y + 2);
-				position.x += 1.0f;
+				currentAnim = &jumpAnimLeft;
+				position.x += 1.2f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
 				
@@ -173,7 +143,26 @@ void Wolf::Update() {
 		
 
 	}
+	//Kocked
+	if (knocked == true) {
+		if (stunt == true) {
+			stunt = false;
+			knockH = position.y;
+		}
+		knockImpulse -= Gravity;
+		position.y -= knockImpulse;
 
+
+		if (position.y >= 140) {
+			position.y = 140;
+			idle = true;
+			knocked = false;
+			stunt = true;
+			knockImpulse = 3.0f;
+		}
+
+
+	}
 	if (!alive) {
 		/*App->powers->Enable();
 		App->powers->position.x = position.x;
@@ -194,7 +183,7 @@ void Wolf::Update() {
 
 void Wolf::OnCollision(Collider* collider) {
 
-	if (collider->Collider::Type::PLAYER_SHOT) {
+	if (collider->type == Collider::Type::PLAYER_SHOT) {
 
 		hp--;
 
@@ -214,6 +203,11 @@ void Wolf::OnCollision(Collider* collider) {
 		
 
 		App->player->score += 1000;
+	}
+
+	if (collider->type == Collider::Type::PLAYER) {
+		knocked = true;
+
 	}
 
 }

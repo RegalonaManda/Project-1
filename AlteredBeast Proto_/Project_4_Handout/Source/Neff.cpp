@@ -5,6 +5,7 @@
 #include "ModulePlayer.h"
 #include "EnemyDeath.h"
 #include "Neff.h"
+#include "ModuleScene2.h"
 
 //Calls the constructor of enemy class to save spawn position
 
@@ -22,9 +23,9 @@ Neff::Neff(int x, int y) : Enemy(x, y) {
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 
-	CapeAnimation.PushBack({ 1,552,57,83 });
-	CapeAnimation.PushBack({ 59,552,57,83 });
-	CapeAnimation.PushBack({ 117,552,57,83 });
+	CapeAnimation.PushBack({ 1,600,57,83 });
+	CapeAnimation.PushBack({ 59,600,57,83 });
+	CapeAnimation.PushBack({ 117,600,57,83 });
 	CapeAnimation.speed = 0.01;
 	CapeAnimation.loop = true;
 
@@ -62,10 +63,11 @@ void Neff::OnCollision(Collider* collider) {
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
 
-		App->player->score += 100;
+		App->scene2->killedBoss = true;
+		App->player->KilledBoss = true;
 	}
 
-	//make the explosion kill the zombie
+	
 	
 	
 }

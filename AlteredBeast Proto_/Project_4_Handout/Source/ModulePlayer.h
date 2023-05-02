@@ -7,7 +7,7 @@
 #include "ModuleAudio.h"
 #include "Globals.h"
 #include "PlayerAnimations.h"
-
+#include "Enemy.h"
 
 #define Gravity 0.07f;
 
@@ -17,6 +17,7 @@ struct Collider;
 class ModulePlayer : public Module
 {
 public:
+
 	// Constructor
 	ModulePlayer(bool startEnabled);
 
@@ -104,7 +105,11 @@ public:
 
 	void KnockBack();
 
+	void playerDamaged();
+
 	float destroyedCountdown = 120;
+
+	Enemy* knocked = nullptr;
 
 public:
 
@@ -128,6 +133,8 @@ public:
 	friend class PlayerAnim; 
 
 	bool firstHit = false;
+	bool KilledBoss = false;
+	int FadeCnt = 120;
 };
 
 
