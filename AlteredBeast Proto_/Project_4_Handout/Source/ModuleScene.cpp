@@ -103,7 +103,8 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161+250, 110);
+	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110);
+	
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
 
 
