@@ -145,7 +145,7 @@ update_status SceneIntro::Update()
 update_status SceneIntro::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	if (!screenChange1) {
+	if (!screenChange) {
 		App->render->Blit(assetsTex, 0, 0, &mural);
 	} 
 	else {
