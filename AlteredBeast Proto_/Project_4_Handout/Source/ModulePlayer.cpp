@@ -894,17 +894,19 @@ update_status ModulePlayer::Update()
 			lives = 3;
 		}
 
-		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
-			score = 9999;
-
-		}
-
 		if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN) {
 			
 			lives = 0;
 			Deathcollider->SetPos(position.x, position.y);
 
 		}
+
+		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
+		
+			App->player->KilledBoss = true;
+			App->scene2->killedBoss = true;
+		}
+
 
 		if (GodMode == true) {
 			lives++;
