@@ -1013,15 +1013,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			knockImpulse = 1.0f;
 			iFrames = true;
 			hp--;
-			if (hp > 0) {
-				App->audio->PlayFx(loseHP, 6);
-			}
+			
 
 			position.y -= 0.1f;
 			if (position.y < 190) {
 				//shoudl call a different knockbackfunction
 				if (c2 != Deathcollider) {
 					KnockBack();
+					if (hp > 0) { App->audio->PlayFx(loseHP, 6); }
 					if (dir == Direction::LEFT) {
 						idle = false;
 						currentAnimation = &AllAnimations.knockBackLeft;

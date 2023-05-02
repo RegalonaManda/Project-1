@@ -161,7 +161,7 @@ update_status ModuleScene::Update()
 			Ecurrent->Update();
 		}
 
-		if (EnemyAttacking == true) {
+		if (EnemyAttacking == true ) {
 			//Kai Kaboom sound pls
 			Xcurrent = &explode;
 			Xcurrent->Update();

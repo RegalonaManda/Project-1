@@ -136,7 +136,7 @@ void Zombie::OnCollision(Collider* collider) {
 		}
 
 	}
-	if (hp <= 0) {
+	if (hp <= 0 && attacking == false) {
 		Ecollider->SetPos(-1000, -1000);
 		alive = false;
 
