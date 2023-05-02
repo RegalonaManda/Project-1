@@ -21,15 +21,19 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 	//Animations
 	idleAnimRight.PushBack({ 1,70,66,50 });
 	idleAnimRight.PushBack({ 1,241,66,50 });
+	idleAnimRight.PushBack({ 135,241,66,50 });
+	idleAnimRight.PushBack({ 1,241,66,50 });
 	idleAnimRight.speed = 0.02f;
 	idleAnimRight.loop = true;
-	idleAnimRight.totalFrames = 2;
+	idleAnimRight.totalFrames = 4;
 
 	idleAnimLeft.PushBack({ 547,70,66,50 });
 	idleAnimLeft.PushBack({ 68,241,66,50 });
+	idleAnimLeft.PushBack({ 1,292,66,50 });
+	idleAnimLeft.PushBack({ 68,241,66,50 });
 	idleAnimLeft.speed = 0.02f;
 	idleAnimLeft.loop = true;
-	idleAnimLeft.totalFrames = 2;
+	idleAnimLeft.totalFrames = 4;
 
 	jumpAnimRight.PushBack({ 68,70,66,50 });
 	jumpAnimRight.PushBack({ 135,70,67,50 });
@@ -39,7 +43,7 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 
 	jumpAnimLeft.PushBack({ 480,70,66,50 });
 	jumpAnimLeft.PushBack({ 412,70,67,50 });
-	jumpAnimLeft.speed = 0.008f;
+	jumpAnimLeft.speed = 0.05f;
 	jumpAnimLeft.loop = false;
 	jumpAnimLeft.totalFrames = 2;
 
@@ -98,51 +102,10 @@ void Wolf::Update() {
 				}
 			}
 			
-			/*if (JumpCnt <= 0) {
-
-				idle = false;
-				currentAnim = &jumpAnimRight;
-				jump = true;
-				JumpCnt = 300;
-			}
-
-			if (jumpAnimRight.HasFinished() == true && idle == false) {
-				jumpAnimRight.Reset();
-				jump = false;
-				jumpAnimRight.loopCount = 0;
-				idle = true;
-			}
-
-			if (jump == true) {
-				wolfImpulse -= Gravity;
-				position.y -= wolfImpulse;
-
-			}
-
-			if (position.y > 140 && jump == true) {
-				position.y = 140;
-				wolfImpulse = 3.2f;
-				idle = true;
-				jump = false;
-			}*/
+			
 		}
 
 		
-		
-
-		/*if (idle == false) {
-			position.x += 0.7f;
-			wolfImpulse -= Gravity;
-			position.y -= wolfImpulse;
-			if (position.y >= 140) {
-				position.y = 140;
-
-			}
-		}*/
-		 
-		
-		
-
 		if (dir == Direction::LEFT) 
 		{ 
 			if (idle == true) {
@@ -158,6 +121,7 @@ void Wolf::Update() {
 			}
 			if (idle == false) {
 				AttackCollider->SetPos(position.x + 5, position.y + 2);
+				currentAnim = &jumpAnimLeft;
 				position.x += 1.0f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
