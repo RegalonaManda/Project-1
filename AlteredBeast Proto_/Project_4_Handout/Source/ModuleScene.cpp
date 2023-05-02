@@ -90,7 +90,7 @@ bool ModuleScene::Start()
 	stone = App->textures->Load("Assets/stone.png");
 	trees = App->textures->Load("Assets/trees.png");
 	sky = App->textures->Load("Assets/sky.png");
-	EnemyTexture = App->textures->Load("Assets/Enemies Proto.png");
+	EnemyTexture = App->textures->Load("Assets/EnemiesProto.png");
 	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
 
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 120);
@@ -103,7 +103,8 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161+250, 110);
+	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110);
+	
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
 
 

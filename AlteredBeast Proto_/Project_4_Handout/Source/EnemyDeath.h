@@ -31,7 +31,7 @@
 //
 //	ZombieDeath() {
 //
-//		//texture = App->textures->Load("Assets/Enemies Proto.png");
+//		//texture = App->textures->Load("Assets/EnemiesProto.png");
 //		if (App != nullptr) {
 //			Surf = IMG_Load("Assets/Enemies.png");
 //			texture = SDL_CreateTextureFromSurface(App->render->renderer, Surf);

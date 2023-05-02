@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include "SceneIntro.h"
 
+
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib")
 #pragma comment( lib, "SDL/libx86/SDL2main.lib")
@@ -126,6 +127,7 @@ update_status ModulePlayer::Update()
 		attack += 1;
 		idle = true;
 		AllAnimations.powerUp1.loopCount = 0;
+		transforming = false;
 	}
 
 
@@ -845,6 +847,12 @@ update_status ModulePlayer::Update()
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
 					//return update_status::UPDATE_STOP;
+					
+					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+					idle = true;
+					airSt = AirState::GROUND;
+					tranSt = Transform::DEFAULT;
+					this->CleanUp();
 				}
 
 			}
@@ -913,7 +921,7 @@ update_status ModulePlayer::PostUpdate()
 
 	sprintf_s(scoreText, 10, "%7d", score);
 
-	App->fonts->BlitText(40, 8, scoreFont, scoreText);
+	App->fonts->BlitText(60, 8, scoreFont, scoreText);
 	App->fonts->BlitText(230, 8, scoreFont, "50000");
 
 
@@ -936,6 +944,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 		{
 			
+
 			knockImpulse = 1.0f;
 			iFrames = true;
 

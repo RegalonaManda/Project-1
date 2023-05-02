@@ -10,6 +10,8 @@ class Wolf : public Enemy {
 public:
 	Wolf(int x, int y);
 
+	float Y0 = 0;
+
 	void Update() override;
 
 	void OnCollision(Collider* collider) override;
@@ -19,12 +21,17 @@ public:
 	bool jump = false;
 
 	float wolfImpulse = 2.0f;
+	float knockImpulse = 4.0f;
 
 	int CodeN = 2;
 
-	int JumpCnt = 90;
+	int JumpCnt = 200;
 
-	
+	int knockH = 0;
+
+	bool stunt = true;
+
+	bool knocked = false;
 
 private:
 
