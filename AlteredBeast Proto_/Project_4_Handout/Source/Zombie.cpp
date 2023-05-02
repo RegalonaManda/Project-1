@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "EnemyDeath.h"
 
+
 //Calls the constructor of enemy class to save spawn position
 
 
@@ -18,7 +19,7 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 
 	//Default Direction
 	dir = Direction::RIGHT;
-
+	IsExploding = false;
 	//at 1 hit, head explodes, continues
 	//at 2 hits, disappears
 	
@@ -69,31 +70,32 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 }
 
 void Zombie::Update() {
+	
+		position.x -= Zspeed;
 
-	position.x -= 0.05f;
-
-	//if zombie is behind the player change the direction
-	if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
-	else { dir = Direction::LEFT; }
-
-	if (alive) 
-	{ 
-		if(hp == 2 && attacking == false){ currentAnim = &walkAnim; }
-		if (hp == 1 && hitByPlayer)
+		//if zombie is behind the player change the direction
+		if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
+		else { dir = Direction::LEFT; }
+	
+		if (alive)
 		{
-			hitCountdown--;
-			if (hitCountdown <= 0) {
-				currentAnim = &headXplode;
-				App->audio->PlayFx(lethalAtt, 3);
-			}
+			if (hp == 2 && attacking == false) { currentAnim = &walkAnim; }
+			if (hp == 1 && hitByPlayer)
+			{
+				hitCountdown--;
+				if (hitCountdown <= 0) {
+					currentAnim = &headXplode;
+					App->audio->PlayFx(lethalAtt, 3);
+				}
 
-			if (headXplode.HasFinished()) {
-				currentAnim = &headlessWalk;
-				hitByPlayer = false;
+				if (headXplode.HasFinished()) {
+					currentAnim = &headlessWalk;
+					hitByPlayer = false;
 
+				}
 			}
 		}
-	}
+	
 
 	/*if (!alive) {
 		currentAnim = &deathAnim;
@@ -156,7 +158,7 @@ void Zombie::Attack() {
 
 			//when player is in range for 50 frames
 			currentAnim = &bodyXplode;
-
+		
 			attacking = true;
 			App->scene->EnemyAttacking = true;
 			App->scene->enemyX = position.x;
@@ -164,12 +166,16 @@ void Zombie::Attack() {
 			App->scene->EnemyCN = 1;
 			XplodeCnt--;
 			//IMPORTANT the explosionCnt of the collider must be in sync with that of the explosion found in scene.cpp
+			Zspeed = 0;
 			if (XplodeCnt <= 0) {
 				if (exploded == false) {
 					hp = 0;
 					AttackCollider->SetPos(position.x - 10, position.y);
-					SelfDestruct->SetPos(position.x + 2, position.y + 5);
+					SelfDestruct->SetPos(position.x + 3, position.y + 5);
 					exploded = true;
+					
+
+					
 				}
 
 			}
