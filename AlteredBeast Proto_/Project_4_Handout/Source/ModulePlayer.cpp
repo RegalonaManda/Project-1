@@ -58,6 +58,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default transformation
 	tranSt = Transform::DEFAULT;
 
+
 	/*startEnabled = true;*/
 	
 }
@@ -90,7 +91,7 @@ bool ModulePlayer::Start()
 	scoreFont = App->fonts->Load("Assets/font_spritesheet.png", lookupTable, 1);
 
 	//player Sound FX
-	
+	currentAnimation = &AllAnimations.idleAnimRight;
 	nonLethalAtt = App->audio->LoadFx("Assets/FX/Non-Lethal_Punch.wav");
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch.wav");
 	loseHP = App->audio->LoadFx("Assets/FX/lose_1_hp.wav");
