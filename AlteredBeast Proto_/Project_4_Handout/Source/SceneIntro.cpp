@@ -130,8 +130,10 @@ update_status SceneIntro::Update()
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
-		/*App->player->Enable();*/
+		
 		App->fade->FadeToBlack(this, (Module*)App->scene, 60.0f);
+		App->player->Enable();
+		
 		
 	}
 	
@@ -143,7 +145,7 @@ update_status SceneIntro::Update()
 update_status SceneIntro::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	if (!screenChange) {
+	if (!screenChange1) {
 		App->render->Blit(assetsTex, 0, 0, &mural);
 	} 
 	else {
@@ -157,6 +159,7 @@ update_status SceneIntro::PostUpdate()
 		App->render->Blit(assetsTex, CoinX, 193, &InsertCoin);
 	}
 	
+
 
 	return update_status::UPDATE_CONTINUE;
 }

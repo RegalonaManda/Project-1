@@ -105,6 +105,8 @@ public:
 
 	void KnockBack();
 
+	void playerDamaged();
+
 	float destroyedCountdown = 120;
 
 	Enemy* knocked = nullptr;

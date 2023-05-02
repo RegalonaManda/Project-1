@@ -118,6 +118,9 @@
     <ClInclude Include="Neff.h">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="ScenePreIntro.h">
+      <Filter>Source Files\Modules\Gameplay\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Module.cpp">
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="Neff.cpp">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePreIntro.cpp">
+      <Filter>Source Files\Modules\Gameplay\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
