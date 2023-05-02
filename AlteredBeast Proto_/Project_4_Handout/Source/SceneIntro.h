@@ -33,26 +33,20 @@ public:
 
 	int changeCountdown = 50;
 
-	SDL_Texture* muralTex = nullptr;
-	SDL_Texture* blueTitleTex = nullptr;
-	SDL_Texture* crackAndFlashTex = nullptr;
-	SDL_Texture* muralFadeTex = nullptr;
 	SDL_Texture* assetsTex = nullptr;
-	SDL_Texture** currentTex = nullptr;
 	
-	bool screenChange1 = false;
-	bool screenChange2 = false;
+	
+	bool screenChange = false;
+	bool SEGAStop = false;
 
 	Animation muralFade;
 	Animation titleFade;
+	Animation bgFade;
 	Animation letterFlash;
 	Animation* currentAnim = nullptr;
 
 	SDL_Rect blueScreen;
 	SDL_Rect mural;
-	SDL_Rect whiteLetters;
-	SDL_Rect redLetters;
-	SDL_Rect blueLetters; 
 	SDL_Rect SEGA;
 	float SegaPosX = 320.0f;
 	float SegaSpeed = 1.0f;

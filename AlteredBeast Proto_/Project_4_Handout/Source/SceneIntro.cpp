@@ -16,13 +16,10 @@ SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 	
 
 	//Rects
-	mural = { 0,0,320,224 };
-	blueScreen = { 321,0,320,224 };
-	whiteLetters = { 321,225,320,224 };
-	redLetters = { 642,225,320,224 };
-	blueLetters = { 0,225,320,224 };
-	SEGA = {1, 449, 80, 28};
-	InsertCoin = { 82,450,86,8 };
+	mural = { 1,1126,320,224 };
+	blueScreen = { 1285,226,320,224 };
+	SEGA = { 1285,1126,80,27 };
+	InsertCoin = { 1285,1154,86,8 };
 
 	//variables 
 	CoinX = (float)(SCREEN_WIDTH / 2.0f) - (InsertCoin.w / 2.0f);
@@ -42,37 +39,42 @@ SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 	muralFade.loop = false;
 	muralFade.speed = 0.15f;
 
-	titleFade.PushBack({ 1,1,320,224 });
-	titleFade.PushBack({ 322,1,320,224 });
-	titleFade.PushBack({ 643,1,320,224 });
-	titleFade.PushBack({ 964,1,320,224 });
-	titleFade.PushBack({ 1285,1,320,224 });
-	titleFade.PushBack({ 1,226,320,224 });
-	titleFade.PushBack({ 322,226,320,224 });
-	titleFade.PushBack({ 643,226,320,224 });
-	titleFade.PushBack({ 964,226,320,224 });
-	titleFade.PushBack({ 1285,226,320,224 });
+	titleFade.PushBack({ 1,451,320,224 });
+	titleFade.PushBack({ 322,451,320,224 });
+	titleFade.PushBack({ 643,451,320,224 });
+	titleFade.PushBack({ 964,451,320,224 });
+	titleFade.PushBack({ 1285,451,320,224 });
+	titleFade.PushBack({ 1,676,320,224 });
+	titleFade.PushBack({ 322,676,320,224 });
+	titleFade.PushBack({ 643,676,320,224 });
+	titleFade.PushBack({ 964,676,320,224 });
+	titleFade.PushBack({ 1285,676,320,224 });
 	titleFade.totalFrames = 10;
 	titleFade.loop = false;
 	titleFade.speed = 0.15f;
 
-	letterFlash.PushBack(whiteLetters);
-	letterFlash.PushBack(redLetters);
-	letterFlash.PushBack(whiteLetters);
-	letterFlash.PushBack(redLetters);
-	/*letterFlash.PushBack(redTitle);*/
+	bgFade.PushBack({ 1,901,320,224 });
+	bgFade.PushBack({ 322,901,320,224 });
+	bgFade.PushBack({ 643,901,320,224 });
+	bgFade.PushBack({ 964,901,320,224 });
+	bgFade.PushBack({ 1285,901,320,224 });
+	bgFade.loop = false;
+	bgFade.totalFrames = 5;
+	bgFade.speed = 0.07f;
+
+	letterFlash.PushBack({ 322,1126,320,224 });
+	letterFlash.PushBack({ 643,1126,320,224 });
+	letterFlash.PushBack({ 322,1126,320,224 });
+	letterFlash.PushBack({ 643,1126,320,224 });
+	letterFlash.PushBack({ 964,1126,320,224 });
 	letterFlash.totalFrames = 5;
-	letterFlash.speed = 0.25f;
+	letterFlash.speed = 0.15f;
 	letterFlash.loop = false;
 }
 
 SceneIntro::~SceneIntro()
 {
 	App->textures->Unload(assetsTex);
-	App->textures->Unload(blueTitleTex);
-	App->textures->Unload(crackAndFlashTex);
-	App->textures->Unload(muralFadeTex);
-
 }
 
 // Load assets
@@ -82,16 +84,11 @@ bool SceneIntro::Start()
 
 	bool ret = true;
 	
-	blueTitleTex = App->textures->Load("Assets/Intro/blueTitleUnited.png");
-	crackAndFlashTex = App->textures->Load("Assets/Intro/crackAndFlashUnited.png");
-	muralFadeTex = App->textures->Load("Assets/Intro/muralScreenUnited.png");
-	assetsTex = App->textures->Load("Assets/Intro/introScreenUnited.png");
+	
+	assetsTex = App->textures->Load("Assets/Intro/AnimationsCombined.png");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
-	App->scene2->Disable();
-	App->enemies->Disable();
-	App->scene->Disable();
 	
 	return ret;
 
@@ -101,7 +98,7 @@ update_status SceneIntro::Update()
 {
 	if (SegaPosX - SegaSpeed < (SCREEN_WIDTH / 2 - SEGA.w / 2)) {
 		SegaPosX = SCREEN_WIDTH / 2 - SEGA.w / 2;
-		
+		SEGAStop = true;
 	}
 	else {
 		SegaPosX -= SegaSpeed;
@@ -114,25 +111,22 @@ update_status SceneIntro::Update()
 	}
 
 	changeCountdown--;
-	if (changeCountdown <= 0) { screenChange1 = true; }
+	if (changeCountdown <= 0) { screenChange = true; }
 
-	if (screenChange1){
+	if (screenChange){
 
-		currentTex = &muralFadeTex;
 		currentAnim = &muralFade;
 		
 		if (muralFade.HasFinished()) {
-			currentTex = &blueTitleTex;
 			currentAnim = &titleFade;
-			
-
+			if (titleFade.HasFinished()) {
+				currentAnim = &bgFade;
+			}
 		}
+		if (bgFade.HasFinished() && SEGAStop) { currentAnim = &letterFlash; }
+
 		currentAnim->Update();
 	}
-
-	
-	
-	
 
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 	{
@@ -141,8 +135,7 @@ update_status SceneIntro::Update()
 		
 	}
 	
-	
-	
+
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -150,12 +143,14 @@ update_status SceneIntro::Update()
 update_status SceneIntro::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	if (!screenChange1) {
+	if (!screenChange) {
 		App->render->Blit(assetsTex, 0, 0, &mural);
-	} else {
-		App->render->Blit(*currentTex, 0, 0, &currentAnim->GetCurrentFrame());
+	} 
+	else {
+		App->render->Blit(assetsTex, 0, 0, &currentAnim->GetCurrentFrame());
 
 	}
+
 	App->render->Blit(assetsTex, SegaPosX, 157, &SEGA);
 
 	if (CoinVisible) {
