@@ -3,7 +3,8 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 15 // 1 less than actual amount, to be used as arr index
+
+#define NUM_MODULES 16 // 1 less than actual amount, to be used as arr index
 
 //ALL NEW MODULES DEFINED HERE                                                                                                                                                              
 class Module;
@@ -11,6 +12,7 @@ class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleAudio;
+class ScenePreIntro;
 class SceneIntro;
 class ModuleScene;
 class ModulePlayer;
@@ -53,6 +55,7 @@ public:
 	ModuleTextures* textures = nullptr;
 	ModuleAudio* audio = nullptr;
 	ModulePlayer* player = nullptr;
+	ScenePreIntro* ScenePreIntro = nullptr;
 	SceneIntro* sceneIntro = nullptr;
 	ModuleScene* scene = nullptr;
 	ModuleScene2* scene2 = nullptr;

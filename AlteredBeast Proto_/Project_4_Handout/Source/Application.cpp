@@ -16,7 +16,7 @@
 #include "ModuleFonts.h"
 #include "ModuleParticles.h"
 #include "ModulePower.h"
-
+#include "ScenePreIntro.h"
 
 // SHOULD INCLUDE ALL MODULE .h FILES
 
@@ -30,19 +30,20 @@ Application::Application()
 	modules[2] =	textures =		new ModuleTextures(true);
 	modules[3] =	audio =			new ModuleAudio(true);
 
-	modules[6] =	sceneIntro =	new SceneIntro(true);
+	//modules[6] =	ScenePreIntro =	new ScenePreIntro(true);
+	modules[7] =	sceneIntro =	new SceneIntro(false);
 	modules[4] =	scene =			new ModuleScene(false);
 	modules[5] =	player =		new ModulePlayer(true);
-	modules[7] =	enemies =		new ModuleEnemies(false);
+	modules[8] =	enemies =		new ModuleEnemies(false);
 	
-	modules[8] =	particles =		new ModuleParticles(true);
-	modules[9] =	scene2 =		new ModuleScene2(false);
-	modules[10] =	collisions =	new ModuleCollisions(false);
-	modules[11] =	fade =			new ModuleFadeToBlack(true);
-	modules[12] =	powers =		new ModulePower(false);
-	modules[13] =	fonts =			new ModuleFonts(true);
+	modules[9] =	particles =		new ModuleParticles(true);
+	modules[10] =	scene2 =		new ModuleScene2(false);
+	modules[11] =	collisions =	new ModuleCollisions(false);
+	modules[12] =	fade =			new ModuleFadeToBlack(true);
+	modules[13] =	powers =		new ModulePower(false);
+	modules[14] =	fonts =			new ModuleFonts(true);
 	// render should always be the last module
-	modules[14] =	render =		new ModuleRender(true);
+	modules[15] =	render =		new ModuleRender(true);
 }
 
 Application::~Application()
