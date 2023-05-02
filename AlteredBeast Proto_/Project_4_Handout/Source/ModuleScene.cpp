@@ -90,7 +90,7 @@ bool ModuleScene::Start()
 	stone = App->textures->Load("Assets/stone.png");
 	trees = App->textures->Load("Assets/trees.png");
 	sky = App->textures->Load("Assets/sky.png");
-	EnemyTexture = App->textures->Load("Assets/Enemies Proto.png");
+	EnemyTexture = App->textures->Load("Assets/EnemiesProto.png");
 	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
 
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 120);

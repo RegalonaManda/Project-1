@@ -913,7 +913,7 @@ update_status ModulePlayer::PostUpdate()
 
 	sprintf_s(scoreText, 10, "%7d", score);
 
-	App->fonts->BlitText(40, 8, scoreFont, scoreText);
+	App->fonts->BlitText(60, 8, scoreFont, scoreText);
 	App->fonts->BlitText(230, 8, scoreFont, "50000");
 
 
