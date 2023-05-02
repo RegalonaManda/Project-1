@@ -63,7 +63,6 @@ void Neff::OnCollision(Collider* collider) {
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
 
-		App->player->score += 100;
 		App->scene2->killedBoss = true;
 		App->player->KilledBoss = true;
 	}

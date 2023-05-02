@@ -911,7 +911,7 @@ update_status ModulePlayer::Update()
 		}
 
 		if (KilledBoss == true) {
-			if (FadeCnt == 120) { App->player->score += 2000; }
+			if (FadeCnt == 120) { App->player->score += 20000; }
 			FadeCnt--;
 			if (FadeCnt <= 0) {
 				KilledBoss = false;
