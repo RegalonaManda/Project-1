@@ -49,7 +49,7 @@ int knockPos;
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
 	
-	
+	startEnabled = true;
 	
 	//Default direction
 	dir = Direction::RIGHT;
@@ -59,7 +59,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	tranSt = Transform::DEFAULT;
 
 
-	/*startEnabled = true;*/
+	
 	
 }
 

@@ -26,7 +26,7 @@ bool ScenePreIntro::Start()
 	timer = 0;
 	bool ret = true;
 
-	bgTexture = App->textures->Load("Assets/IntroScene.png");
+	bgTexture = App->textures->Load("Assets/IntroSceneResized.png");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
@@ -55,7 +55,7 @@ update_status ScenePreIntro::Update()
 update_status ScenePreIntro::PostUpdate()
 {
 	// Draw everything --------------------------------------
-	App->render->Blit(bgTexture, 0, -1*timer);
+	App->render->Blit(bgTexture, 0, -1 * timer);
 
 	return update_status::UPDATE_CONTINUE;
 }

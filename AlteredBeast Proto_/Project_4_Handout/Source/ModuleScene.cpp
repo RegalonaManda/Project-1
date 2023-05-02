@@ -121,10 +121,11 @@ bool ModuleScene::Start()
 	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-10, App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 
 	App->player->Enable();
-	
 	App->enemies->Enable();
 	App->scene2->Enable();
 	App->collisions->Enable();
+	App->audio->Enable();
+
 	//App->powers->Enable();
 	ScreenScroll = true;
 

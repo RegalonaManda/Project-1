@@ -6,6 +6,7 @@
 
 Enemy::Enemy(int x, int y) : position(x, y)
 {
+	
 	spawnPos = position;
 	
 }
