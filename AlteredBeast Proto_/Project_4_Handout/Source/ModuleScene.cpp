@@ -82,6 +82,7 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 	BDeathRight.speed = 0.08f;
 	BDeathRight.loop = false;
 	BDeathRight.totalFrames = 2;
+
 }
 
 
@@ -198,6 +199,12 @@ update_status ModuleScene::Update()
 			Bcurrent->Update();
 		}
 	}
+	else if (EnemyCN == 4) {
+		if (HasEnemyDied) {
+			Dcurrent = &explode;
+			Dcurrent->Update();
+		}
+	}
 
 
 
@@ -232,6 +239,10 @@ update_status ModuleScene::PostUpdate()
 	if (HasEnemyDied && EnemyCN == 3) {
 		DeathFrame = Bcurrent->GetCurrentFrame();
 		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
+	}
+	if (HasEnemyDied && EnemyCN == 4) {
+		DeathFrame = Dcurrent->GetCurrentFrame();
+		App->render->Blit(ExplosionText, enemyX, enemyY, &explosion);
 	}
 
 	if (WDeathRight.HasFinished()) {
