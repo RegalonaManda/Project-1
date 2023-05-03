@@ -15,7 +15,7 @@
 ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 {
 
-	/*startEnabled = true;*/
+	startEnabled = true;
 	//Background
 	background.x = 0;
 	background.y = 17;
@@ -84,6 +84,10 @@ bool ModuleScene::Start()
 {
 	LOG("Loading background assets");
 
+
+
+	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
+
 	bool ret = true;
 
 	layer2 = App->textures->Load("Assets/Layer2.png");
@@ -114,8 +118,8 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110);
 	
-	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
-
+	
+	
 
 	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-10, App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
@@ -179,6 +183,8 @@ update_status ModuleScene::Update()
 		}
 	}
 
+
+
 	return update_status::UPDATE_CONTINUE;
 
 }
@@ -192,7 +198,7 @@ update_status ModuleScene::PostUpdate()
 	App->render->Blit(stone, 0, 90, &StoneWall, 0.65f);
 	App->render->Blit(layer2, 0, 5, &background, 0.75f); 
 
-	
+
 
 	SDL_Rect DeathFrame;
 	if (HasEnemyDied == true && EnemyAttacking == false && EnemyCN == 1) {
@@ -233,6 +239,10 @@ update_status ModuleScene::PostUpdate()
 		
 
 	}
+
+
+	
+
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -250,6 +260,7 @@ bool ModuleScene::CleanUp() {
 	App->scene2->Disable();
 	App->powers->Disable();
 	App->collisions->Disable();
+	/*App->audio->Disable();*/
 
 	return true;
 }

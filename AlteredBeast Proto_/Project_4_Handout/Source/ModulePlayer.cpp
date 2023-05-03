@@ -820,12 +820,8 @@ update_status ModulePlayer::Update()
 		//Player gets killed
 		if (destroyed) {
 
-
-			
-
-
 			if (dir == Direction::RIGHT) {
-				if (destroyedCountdown > 117)
+				if (destroyedCountdown > 997)
 				{
 					position.x -= 0.7f;
 				}
@@ -833,7 +829,7 @@ update_status ModulePlayer::Update()
 
 			}
 			else if (dir == Direction::LEFT) {
-				if (destroyedCountdown > 117) {
+				if (destroyedCountdown > 997) {
 					position.x += 0.7f;
 				}
 				currentAnimation = &AllAnimations.deathAnimLeft;
@@ -845,6 +841,7 @@ update_status ModulePlayer::Update()
 			if (position.y >= 190) {
 				position.x += 0;
 				position.y = 190;
+				
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
 					//return update_status::UPDATE_STOP;
@@ -893,16 +890,22 @@ update_status ModulePlayer::Update()
 		}
 
 		if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN) {
-			
+
+			App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 1.0f);
 			lives = 0;
 			Deathcollider->SetPos(position.x, position.y);
 
 		}
 
 		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
+
+			App->audio->PlayMusic("Assets/Music/Win.ogg", 1.0f);
+			/*App->enemies->Disable();*/
+			App->collisions->Disable();
 		
 			App->player->KilledBoss = true;
 			App->scene2->killedBoss = true;
+			
 		}
 
 
@@ -911,19 +914,23 @@ update_status ModulePlayer::Update()
 		}
 
 		if (KilledBoss == true) {
-			if (FadeCnt == 120) { App->player->score += 20000; }
+
+			
+
+			if (FadeCnt == 1000) { App->player->score += 20000; }
 			FadeCnt--;
+			
 			if (FadeCnt <= 0) {
 				KilledBoss = false;
 				App->scene2->killedBoss = false;
 				App->render->camera.x = 0;
-				FadeCnt = 120;
+				FadeCnt = 1000;
 				tranSt = Transform::DEFAULT;
 				transforming = false;
 				idle = true;
 				airSt = AirState::GROUND;
 				App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
-				this->CleanUp();
+				/*this->CleanUp();*/
 			}
 		}
 
@@ -1079,11 +1086,15 @@ void ModulePlayer::playerDamaged() {
 
 	if (lives <= 0)
 	{
+
+		
 		hp = 0;
 		//DEATH
 		App->audio->PlayFx(playerDeathFX, 4);
+		App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 1.0f);
 		destroyed = true;
 		start = false;
-		App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);
+		
+		/*App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);*/
 	}
 }
