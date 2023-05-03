@@ -1096,6 +1096,6 @@ void ModulePlayer::playerDamaged() {
 		destroyed = true;
 		start = false;
 		
-		/*App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);*/
+		App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
 	}
 }
