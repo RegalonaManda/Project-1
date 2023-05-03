@@ -50,7 +50,7 @@ public:
 
 	float waveRatio = 0.0f;
 	float waveRatioSpeed = 0.05f;
-	int waveHeight = 15;
+	int waveHeight = 20;
 
 	int spawn_y = 0;
 	fPoint spawnPos;

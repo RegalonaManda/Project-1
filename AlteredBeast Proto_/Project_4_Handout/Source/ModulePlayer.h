@@ -70,7 +70,7 @@ public:
 
 	bool GodMode = false;
 	bool start = false;
-	float knockImpulse = 0;
+	float knockImpulse = 2;
 
 
 	float impulse = 3.2f;
@@ -103,7 +103,9 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2) override;
 
-	void KnockBack();
+	void KnockBack(float x);
+
+	void KnockBackL(float x);
 
 	void playerDamaged();
 
@@ -136,6 +138,7 @@ public:
 	bool firstHit = false;
 	bool KilledBoss = false;
 	int FadeCnt = 200;
+	bool playerKnocked = false;
 };
 
 

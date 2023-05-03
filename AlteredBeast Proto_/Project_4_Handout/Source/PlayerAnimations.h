@@ -94,6 +94,9 @@ public:
 	Animation LandingRight;
 	Animation LandingLeft;
 
+	Animation RiseR;
+	Animation RiseL;
+
 	//Power1 animations
 	Animation P1IdleRight;
 	Animation P1IdleLeft;
@@ -303,6 +306,19 @@ public:
 
 		LandingLeft.PushBack({ 111,379,54,75 });
 		LandingRight.PushBack({ 111,303,54,75 });
+
+		RiseR.PushBack({ 139,607,68,70 });
+		RiseR.PushBack({ 208,607,68,70 });
+		RiseR.loop = false;
+		RiseR.speed = 0.07f;
+		RiseR.totalFrames = 2;
+
+		RiseL.PushBack({ 139,678,68,70 });
+		RiseL.PushBack({ 208,678,68,70 });
+		RiseL.loop = false;
+		RiseL.speed = 0.07f;
+		RiseL.totalFrames = 2;
+
 
 		//Time for power1 animations ;)
 

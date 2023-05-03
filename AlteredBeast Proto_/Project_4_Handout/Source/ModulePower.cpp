@@ -59,9 +59,9 @@ update_status ModulePower::Update()
 	
 	waveRatio += waveRatioSpeed;
 
-	position.y = spawnPos.y + (waveHeight * sinf(waveRatio));
+	position.x = spawnPos.x + (waveHeight * sinf(waveRatio));
 	
-	position.x -= 1;
+	position.y -= 0.4;
 	
 	collider->SetPos(position.x +6, position.y+6);
 	//collider->SetPos(position.x, position.y);
