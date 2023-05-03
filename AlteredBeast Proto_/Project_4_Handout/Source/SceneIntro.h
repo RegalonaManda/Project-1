@@ -53,7 +53,7 @@ public:
 
 	SDL_Rect InsertCoin;
 	float CoinX; 
-	int CoinInterval = 25;
+	int CoinInterval = 50;
 	bool CoinVisible = false;
 	
 };

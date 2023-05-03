@@ -107,7 +107,7 @@ update_status SceneIntro::Update()
 	CoinInterval--;
 	if (CoinInterval <= 0) {
 		CoinVisible = !CoinVisible;
-		CoinInterval = 25;
+		CoinInterval = 50;
 	}
 
 	changeCountdown--;
