@@ -133,6 +133,7 @@ update_status ModulePlayer::Update()
 
 
 	if (tranSt == Transform::DEFAULT && transforming == false) {
+		attack = 1;
 		if (idle == true && airSt == AirState::GROUND && iFrames == false) {
 			position.y = 190;
 			knockImpulse = 0;
@@ -821,7 +822,7 @@ update_status ModulePlayer::Update()
 		if (destroyed) {
 
 			if (dir == Direction::RIGHT) {
-				if (destroyedCountdown > 997)
+				if (destroyedCountdown > 297)
 				{
 					position.x -= 0.7f;
 				}
@@ -829,7 +830,7 @@ update_status ModulePlayer::Update()
 
 			}
 			else if (dir == Direction::LEFT) {
-				if (destroyedCountdown > 997) {
+				if (destroyedCountdown > 297) {
 					position.x += 0.7f;
 				}
 				currentAnimation = &AllAnimations.deathAnimLeft;
@@ -891,7 +892,7 @@ update_status ModulePlayer::Update()
 
 		if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN) {
 
-			App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 1.0f);
+			App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 0.0f);
 			lives = 0;
 			Deathcollider->SetPos(position.x, position.y);
 
@@ -899,7 +900,7 @@ update_status ModulePlayer::Update()
 
 		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
 
-			App->audio->PlayMusic("Assets/Music/Win.ogg", 1.0f);
+			App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
 			/*App->enemies->Disable();*/
 			App->collisions->Disable();
 		
@@ -917,14 +918,14 @@ update_status ModulePlayer::Update()
 
 			
 
-			if (FadeCnt == 1000) { App->player->score += 20000; }
+			if (FadeCnt == 200) { App->player->score += 20000; }
 			FadeCnt--;
 			
 			if (FadeCnt <= 0) {
 				KilledBoss = false;
 				App->scene2->killedBoss = false;
 				App->render->camera.x = 0;
-				FadeCnt = 1000;
+				FadeCnt = 200;
 				tranSt = Transform::DEFAULT;
 				transforming = false;
 				idle = true;
@@ -1091,7 +1092,7 @@ void ModulePlayer::playerDamaged() {
 		hp = 0;
 		//DEATH
 		App->audio->PlayFx(playerDeathFX, 4);
-		App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 1.0f);
+		App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 0.0f);
 		destroyed = true;
 		start = false;
 		

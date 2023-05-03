@@ -63,7 +63,7 @@ void Neff::OnCollision(Collider* collider) {
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
 
-		App->audio->PlayMusic("Assets/Music/Win.ogg", 3.0f);
+		App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
 
 		App->scene2->killedBoss = true;
 		App->player->KilledBoss = true;

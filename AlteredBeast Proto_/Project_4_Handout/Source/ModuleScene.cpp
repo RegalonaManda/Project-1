@@ -86,7 +86,7 @@ bool ModuleScene::Start()
 
 
 
-	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 1.0f);
+	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 0.0f);
 
 	bool ret = true;
 

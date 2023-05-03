@@ -107,7 +107,7 @@ public:
 
 	void playerDamaged();
 
-	float destroyedCountdown = 1000;
+	float destroyedCountdown = 300;
 	
 
 	Enemy* knocked = nullptr;
@@ -135,7 +135,7 @@ public:
 
 	bool firstHit = false;
 	bool KilledBoss = false;
-	int FadeCnt = 1000;
+	int FadeCnt = 200;
 };
 
 
