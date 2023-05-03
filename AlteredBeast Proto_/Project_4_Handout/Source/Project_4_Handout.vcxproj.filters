@@ -100,7 +100,7 @@
     <ClInclude Include="Zombie.h">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Wolf.h">
+    <ClInclude Include="WhiteWolf.h">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
@@ -120,6 +120,9 @@
     </ClInclude>
     <ClInclude Include="ScenePreIntro.h">
       <Filter>Source Files\Modules\Gameplay\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="BrownWolf.h">
+      <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +186,7 @@
     <ClCompile Include="Zombie.cpp">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Wolf.cpp">
+    <ClCompile Include="WhiteWolf.cpp">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
@@ -203,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="ScenePreIntro.cpp">
       <Filter>Source Files\Modules\Gameplay\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="BrownWolf.cpp">
+      <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -79,9 +79,14 @@ public:
 	Animation* Ecurrent;
 	Animation* Xcurrent;
 
+	Animation* Bcurrent;
+	Animation BDeathRight;
+	Animation BDeathLeft;
+
+	Animation* Wcurrent;
 	Animation WDeathRight;
 	Animation WDeathLeft;
-	Animation* Wcurrent;
+	
 
 };
 

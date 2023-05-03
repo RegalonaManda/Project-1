@@ -1,4 +1,4 @@
-#include "Wolf.h"
+#include "WhiteWolf.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "Enemy.h"
@@ -10,7 +10,7 @@
 //Calls the constructor of enemy class to save spawn position
 
 
-Wolf::Wolf(int x, int y) : Enemy(x, y) {
+WhiteWolf::WhiteWolf(int x, int y) : Enemy(x, y) {
 
 	destroyedCountdown = 10;
 	hp = 1;
@@ -64,7 +64,7 @@ Wolf::Wolf(int x, int y) : Enemy(x, y) {
 	AttackCollider = App->collisions->AddCollider({ 600, 200, 34, 30 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 }
 
-void Wolf::Update() {
+void WhiteWolf::Update() {
 	if(knocked == true){ knockH = position.y - 150; }
 
 	if (Y0 == 0) {
@@ -163,25 +163,25 @@ void Wolf::Update() {
 
 
 	}
-	if (!alive) {
-		/*App->powers->Enable();
-		App->powers->position.x = position.x;
-		App->powers->position.y = position.y;
-		destroyed = true;*/
+	//if (!alive) {
+	//	/*App->powers->Enable();
+	//	App->powers->position.x = position.x;
+	//	App->powers->position.y = position.y;
+	//	destroyed = true;*/
 
-		if (dir == Direction::RIGHT) { currentAnim = &deathAnimRight; }
-		if (dir == Direction::LEFT) { currentAnim = &deathAnimLeft; }
+	//	if (dir == Direction::RIGHT) { currentAnim = &deathAnimRight; }
+	//	if (dir == Direction::LEFT) { currentAnim = &deathAnimLeft; }
 
-		if (currentAnim->HasFinished() == false) {
-			destroyed = false;
-		}
-	}
+	//	if (currentAnim->HasFinished() == false) {
+	//		destroyed = false;
+	//	}
+	//}
 
 
 	
 }
 
-void Wolf::OnCollision(Collider* collider) {
+void WhiteWolf::OnCollision(Collider* collider) {
 
 	if (collider->type == Collider::Type::PLAYER_SHOT) {
 

@@ -9,7 +9,8 @@
 #include "Enemy.h"
 #include "Zombie.h"
 #include "EnemyDeath.h"
-#include "Wolf.h"
+#include "WhiteWolf.h"
+#include "BrownWolf.h"
 
 
 ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
@@ -76,6 +77,11 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 	WDeathLeft.loop = false;
 	WDeathLeft.totalFrames = 2;
 
+	BDeathRight.PushBack({135,121,33,50});
+	BDeathRight.PushBack({ 169,121,33,50 });
+	BDeathRight.speed = 0.08f;
+	BDeathRight.loop = false;
+	BDeathRight.totalFrames = 2;
 }
 
 
@@ -105,16 +111,16 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 120);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 600, 140);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 705, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 740, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 800, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 900, 120);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 905, 120);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 910, 140);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 910, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1000, 120);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1100, 140);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 1100, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140);
 	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110);
 	
@@ -173,13 +179,23 @@ update_status ModuleScene::Update()
 		}
 	}
 	else if (EnemyCN == 2) {
-		if (HasEnemyDied && (bool)Wolf::Direction::RIGHT) {
+		if (HasEnemyDied && (bool)WhiteWolf::Direction::RIGHT) {
 			Wcurrent = &WDeathRight;
 			Wcurrent->Update();
 		}
-		else if (HasEnemyDied && (bool)Wolf::Direction::LEFT) {
+		else if (HasEnemyDied && (bool)WhiteWolf::Direction::LEFT) {
 			Wcurrent = &WDeathLeft;
 			Wcurrent->Update();
+		}
+	}
+	else if (EnemyCN == 3){
+		if (HasEnemyDied && (bool)BrownWolf::Direction::RIGHT) {
+			Bcurrent = &BDeathRight;
+			Bcurrent->Update();
+		}
+		else if (HasEnemyDied && (bool)BrownWolf::Direction::LEFT) {
+			Bcurrent = &BDeathLeft;
+			Bcurrent->Update();
 		}
 	}
 
@@ -213,10 +229,29 @@ update_status ModuleScene::PostUpdate()
 		DeathFrame = Wcurrent->GetCurrentFrame();
 		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
 	}
+	if (HasEnemyDied && EnemyCN == 3) {
+		DeathFrame = Bcurrent->GetCurrentFrame();
+		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
+	}
 
 	if (WDeathRight.HasFinished()) {
 		HasEnemyDied = false;
 		WDeathRight.loopCount--;
+	}
+
+	if (WDeathLeft.HasFinished()) {
+		HasEnemyDied = false;
+		WDeathLeft.loopCount--;
+	}
+
+	if (BDeathRight.HasFinished()) {
+		HasEnemyDied = false;
+		BDeathRight.loopCount--;
+	}
+
+	if (BDeathLeft.HasFinished()) {
+		HasEnemyDied = false;
+		BDeathLeft.loopCount--;
 	}
 
 	if (EnemyAttacking == true) {

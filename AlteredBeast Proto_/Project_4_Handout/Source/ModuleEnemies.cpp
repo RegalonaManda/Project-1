@@ -9,7 +9,8 @@
 #include "Enemy.h"
 
 #include "Zombie.h"
-#include "Wolf.h"
+#include "WhiteWolf.h"
+#include "BrownWolf.h"
 #include "Neff.h"
 
 
@@ -166,23 +167,30 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 				
 				enemies[i] = new Zombie(info.x, info.y);
 				
-
 				enemies[i]->texture = texture;
+
 				break;
 			
 			case ENEMY_TYPE::WHITEWOLF:
 
-				enemies[i] = new Wolf(info.x, info.y);
-
+				enemies[i] = new WhiteWolf(info.x, info.y);
 
 				enemies[i]->texture = texture;
+
+				break;
+
+			case ENEMY_TYPE::BROWNWOLF:
+
+				enemies[i] = new BrownWolf(info.x, info.y);
+
+				enemies[i]->texture = texture;
+
 				break;
 			
 			case ENEMY_TYPE::NEFF:
+
 				enemies[i] = new Neff(info.x, info.y);
 
-
-				//I think here yu could put a separate Boss sprite sheet as the texture
 				enemies[i]->texture = texture;
 
 				break;

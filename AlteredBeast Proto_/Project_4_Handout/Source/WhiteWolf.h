@@ -1,14 +1,14 @@
-#ifndef __WOLF_H__
-#define __WOLF_H__
+#ifndef __WHITEWOLF_H__
+#define __WHITEWOLF_H__
 
 #include "Enemy.h"
 #include "Path.h"
 #include "ModuleEnemies.h"
 
 
-class Wolf : public Enemy {
+class WhiteWolf : public Enemy {
 public:
-	Wolf(int x, int y);
+	WhiteWolf(int x, int y);
 
 	float Y0 = 0;
 
