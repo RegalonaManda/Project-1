@@ -57,6 +57,8 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	airSt = AirState::GROUND;
 	//Default transformation
 	tranSt = Transform::DEFAULT;
+	//default attack 
+	attack = 1;
 
 
 	
@@ -103,6 +105,7 @@ bool ModulePlayer::Start()
 	idle = true;
 	dir = Direction::RIGHT;
 	start = false;
+	attack = 1;
 	
 
 	return ret;
