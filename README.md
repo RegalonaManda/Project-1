@@ -21,6 +21,12 @@ controls:
 Mind the combinations! While mid-jump or couching you can perform actions like punch or kick.
 Collect Power Ups to become stronger and reach the end of the level.
 
+CHEAT section
+-f1 to become INVINCIBLE
+-f2 to see THE REAL SHAPES OF YOUR ENEMIES
+-f3 to SURRENDER TO THE DARKNESS
+-f4 to WIN ALL THE BATTLES
+
 Additional comments for the teacher:
 	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 	⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣴⣾⠿⠭⠽⠯⠯⠿⣷⡶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
