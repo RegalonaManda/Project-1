@@ -19,7 +19,7 @@ public:
 	int attackCnt = 50;
 	int attackCnt2 = 30;
 
-	int CodeN = 1;
+	int CodeN = 4;
 
 	bool exploded = false;
 

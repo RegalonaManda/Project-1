@@ -83,6 +83,8 @@ public:
 	Animation BDeathRight;
 	Animation BDeathLeft;
 
+	Animation* Dcurrent;
+
 	Animation* Wcurrent;
 	Animation WDeathRight;
 	Animation WDeathLeft;

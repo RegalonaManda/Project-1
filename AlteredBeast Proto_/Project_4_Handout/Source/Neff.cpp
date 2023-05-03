@@ -16,7 +16,7 @@ Neff::Neff(int x, int y) : Enemy(x, y) {
 
 
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
-	CodeN = 3;
+	CodeN = 4;
 
 	
 	
@@ -43,22 +43,20 @@ void Neff::Update() {
 
 void Neff::OnCollision(Collider* collider) {
 
-	if (collider->Collider::Type::PLAYER_SHOT) {
-		
-		
+	if (collider->type == Collider::Type::PLAYER_SHOT) {
+
 		destroyedCountdown--;
-		if (destroyedCountdown <= 0) {
-			hp-= App->player->attack;
-			App->audio->PlayFx(lethalAtt, 5);
-			hitByPlayer = true;
-			destroyedCountdown = 20;
-		}
+		hp -= App->player->attack;
+		App->audio->PlayFx(lethalAtt, 5);
+		hitByPlayer = true;
+		destroyedCountdown = 20;
 
 	}
 	if (hp <= 0) {
 		Ecollider->SetPos(-1000, -1000);
 		alive = false;
-
+		
+		App->scene->EnemyCN = 4;
 		App->scene->HasEnemyDied = true; 
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
