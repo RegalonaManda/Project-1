@@ -97,14 +97,6 @@ void Zombie::Update() {
 		}
 	
 
-	/*if (!alive) {
-		currentAnim = &deathAnim;
-		if (currentAnim->HasFinished()) {
-			destroyed = true;
-		}
-	}*/
-	//remove
-
 	if (attacking == true) { Attack(); }
 	
 

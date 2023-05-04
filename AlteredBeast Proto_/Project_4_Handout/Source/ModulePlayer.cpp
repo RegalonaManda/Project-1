@@ -40,7 +40,7 @@
 
 
 
-//deberia estar en el .h
+
 Uint32 startTime = 0;
 bool idle = true;
 int knockPos;
@@ -106,6 +106,8 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
+	tranSt = Transform::DEFAULT;
+
 	
 
 	return ret;
@@ -121,7 +123,7 @@ update_status ModulePlayer::Update()
 	}
 
 	//Transforming Animations, middleground between two Power stages
-	if (transforming == true && tranSt == Transform::DEFAULT) {
+	if (transforming == true && tranSt == Transform::DEFAULT && !destroyed) {
 		App->audio->PlayFx(powerUp, -1);
 		currentAnimation = &AllAnimations.powerUp1;
 		
@@ -512,10 +514,6 @@ update_status ModulePlayer::Update()
 			if (destroyed) {
 
 
-
-
-
-
 				if (dir == Direction::RIGHT) {
 					if (destroyedCountdown > 117)
 					{
@@ -540,8 +538,8 @@ update_status ModulePlayer::Update()
 					destroyedCountdown -= 0.5f;
 					if (destroyedCountdown <= 0) {
 						//return update_status::UPDATE_STOP;
-
-						App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+						
+						App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
 						this->CleanUp();
 					}
 
@@ -900,6 +898,18 @@ update_status ModulePlayer::Update()
 				}
 
 			}
+			//if (position.y >= 190) {
+			//	position.x += 0;
+			//	position.y = 190;
+			//	destroyedCountdown -= 0.5f;
+			//	if (destroyedCountdown <= 0) {
+			//		//return update_status::UPDATE_STOP;
+
+			//		App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
+			//		this->CleanUp();
+			//	}
+
+			//}
 
 		}
 
@@ -939,11 +949,18 @@ update_status ModulePlayer::Update()
 
 			App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 0.0f);
 			lives = 0;
-			Deathcollider->SetPos(position.x, position.y);
-
+			if (tranSt == Transform::DEFAULT) {
+				Deathcollider->SetPos(position.x, position.y);
+			} 
+			if (tranSt == Transform::POWER1) {
+				Deathcollider->SetPos(position.x + 36, position.y - 65);
+			}
+			
+			idle = true;
+			airSt = AirState::GROUND;
+			tranSt = Transform::DEFAULT;
 		}
-
-		if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
+		else if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
 
 			App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
 			/*App->enemies->Disable();*/
