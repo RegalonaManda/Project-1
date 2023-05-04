@@ -124,7 +124,7 @@ update_status ModulePlayer::Update()
 
 	//Transforming Animations, middleground between two Power stages
 	if (transforming == true && tranSt == Transform::DEFAULT && !destroyed) {
-		App->audio->PlayFx(powerUp, -1);
+		
 		currentAnimation = &AllAnimations.powerUp1;
 		
 	}
@@ -134,6 +134,7 @@ update_status ModulePlayer::Update()
 		idle = true;
 		AllAnimations.powerUp1.loopCount = 0;
 		transforming = false;
+		App->powers->Disable();
 	}
 
 
@@ -1114,7 +1115,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (c1 == Pcollider && c2->type == Collider::Type::POWER_UP && transforming == false) {
 
 			transforming = true;
-			// Kai pon aqui el Power Up sound
+			App->audio->PlayFx(powerUp, -1);
 
 			//El disable no funciona de momento, voy a esconderlo
 			App->powers->gotten = true;

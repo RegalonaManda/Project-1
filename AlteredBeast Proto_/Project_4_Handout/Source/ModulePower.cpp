@@ -29,7 +29,7 @@ bool ModulePower::Start()
 	LOG("Loading power textures");
 
 	bool ret = true;
-
+	gotten = false;
 	texture = App->textures->Load("Assets/PowerUpGrid.png");
 	//currentAnimation = &idleAnim;
 

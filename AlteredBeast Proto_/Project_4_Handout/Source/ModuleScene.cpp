@@ -136,6 +136,7 @@ bool ModuleScene::Start()
 	App->scene2->Enable();
 	App->collisions->Enable();
 	App->audio->Enable();
+	
 
 	//App->powers->Enable();
 	ScreenScroll = true;
@@ -165,46 +166,48 @@ update_status ModuleScene::Update()
 	
 
 	App->enemies->Update();
+	if (App->player->tranSt == ModulePlayer::Transform::DEFAULT || App->player->tranSt == ModulePlayer::Transform::POWER1) {
+		if (EnemyCN == 1) {
+			if (HasEnemyDied == true && EnemyAttacking == false) {
+				//Death->KillZombie(enemyX, enemyY);
+				Ecurrent = &deathAnim;
+				Ecurrent->Update();
+			}
 
-	if (EnemyCN == 1) {
-		if (HasEnemyDied == true && EnemyAttacking == false) {
-			//Death->KillZombie(enemyX, enemyY);
-			Ecurrent = &deathAnim;
-			Ecurrent->Update();
+			if (EnemyAttacking == true) {
+				//Kai Kaboom sound pls
+				Xcurrent = &explode;
+				Xcurrent->Update();
+			}
 		}
-
-		if (EnemyAttacking == true ) {
-			//Kai Kaboom sound pls
-			Xcurrent = &explode;
-			Xcurrent->Update();
+		else if (EnemyCN == 2) {
+			if (HasEnemyDied && (bool)WhiteWolf::Direction::RIGHT) {
+				Wcurrent = &WDeathRight;
+				Wcurrent->Update();
+			}
+			else if (HasEnemyDied && (bool)WhiteWolf::Direction::LEFT) {
+				Wcurrent = &WDeathLeft;
+				Wcurrent->Update();
+			}
 		}
-	}
-	else if (EnemyCN == 2) {
-		if (HasEnemyDied && (bool)WhiteWolf::Direction::RIGHT) {
-			Wcurrent = &WDeathRight;
-			Wcurrent->Update();
+		else if (EnemyCN == 3) {
+			if (HasEnemyDied && (bool)BrownWolf::Direction::RIGHT) {
+				Bcurrent = &BDeathRight;
+				Bcurrent->Update();
+			}
+			else if (HasEnemyDied && (bool)BrownWolf::Direction::LEFT) {
+				Bcurrent = &BDeathLeft;
+				Bcurrent->Update();
+			}
 		}
-		else if (HasEnemyDied && (bool)WhiteWolf::Direction::LEFT) {
-			Wcurrent = &WDeathLeft;
-			Wcurrent->Update();
-		}
-	}
-	else if (EnemyCN == 3){
-		if (HasEnemyDied && (bool)BrownWolf::Direction::RIGHT) {
-			Bcurrent = &BDeathRight;
-			Bcurrent->Update();
-		}
-		else if (HasEnemyDied && (bool)BrownWolf::Direction::LEFT) {
-			Bcurrent = &BDeathLeft;
-			Bcurrent->Update();
-		}
-	}
-	else if (EnemyCN == 4) {
-		if (HasEnemyDied) {
-			Dcurrent = &explode;
-			Dcurrent->Update();
+		else if (EnemyCN == 4) {
+			if (HasEnemyDied) {
+				Dcurrent = &explode;
+				Dcurrent->Update();
+			}
 		}
 	}
+	
 
 
 

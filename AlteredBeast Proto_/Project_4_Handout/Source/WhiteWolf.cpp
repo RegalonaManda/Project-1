@@ -163,19 +163,6 @@ void WhiteWolf::Update() {
 
 
 	}
-	//if (!alive) {
-	//	/*App->powers->Enable();
-	//	App->powers->position.x = position.x;
-	//	App->powers->position.y = position.y;
-	//	destroyed = true;*/
-
-	//	if (dir == Direction::RIGHT) { currentAnim = &deathAnimRight; }
-	//	if (dir == Direction::LEFT) { currentAnim = &deathAnimLeft; }
-
-	//	if (currentAnim->HasFinished() == false) {
-	//		destroyed = false;
-	//	}
-	//}
 
 
 	
@@ -194,12 +181,16 @@ void WhiteWolf::OnCollision(Collider* collider) {
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
 		App->scene->EnemyCN = 2;
-
-		App->powers->Enable();
-		App->powers->position.x = position.x;
-		App->powers->position.y = position.y;
-		App->powers->spawnPos.x = position.x;
-		App->powers->spawnPos.y = position.y;
+		if (App->player->tranSt == ModulePlayer::Transform::DEFAULT) {
+			App->powers->Enable();
+			App->powers->position.x = position.x;
+			App->powers->position.y = position.y;
+			App->powers->spawnPos.x = position.x;
+			App->powers->spawnPos.y = position.y;
+		}
+		if (App->player->tranSt == ModulePlayer::Transform::POWER1 && App->player->destroyed) {
+			App->powers->Disable();
+		}
 		
 
 		App->player->score += 1000;
