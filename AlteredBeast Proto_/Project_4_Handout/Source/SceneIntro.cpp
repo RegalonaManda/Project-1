@@ -85,7 +85,7 @@ bool SceneIntro::Start()
 	bool ret = true;
 	
 	
-	assetsTex = App->textures->Load("Assets/Intro/AnimationsCombined.png");
+	assetsTex = App->textures->Load("Assets/AnimationsCombined.png");
 
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
