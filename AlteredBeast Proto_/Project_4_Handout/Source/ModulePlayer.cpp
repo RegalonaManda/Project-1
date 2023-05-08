@@ -251,6 +251,7 @@ update_status ModulePlayer::Update()
 				landing = 5;
 			}
 			//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
+			//Could be a switch
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
 			{
 				currentAnimation = &AllAnimations.idleAnimRight;

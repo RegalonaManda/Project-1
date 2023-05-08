@@ -20,6 +20,7 @@ public:
 	int attackCnt = 50;
 	int attackCnt2 = 30;
 
+	bool Spawning;
 	bool IsExploding;
 
 	int CodeN = 1;

@@ -11,6 +11,7 @@
 
 
 Zombie::Zombie(int x, int y) : Enemy(x, y) {
+	Spawning = true;
 	hp = 2;
 	walkAnim.PushBack({1, 1, 41, 68 });
 	walkAnim.PushBack({43, 1, 41, 68});
@@ -72,13 +73,22 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 void Zombie::Update() {
 	
 		position.x -= Zspeed;
-
+		//the 350 needs reworks
+		if (position.x <= 350) {
+			Spawning = false;
+		}
+		if (Spawning == false && position.y > 120) {
+			position.y -= 1;
+		}
 		//if zombie is behind the player change the direction
 		if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
 		else { dir = Direction::LEFT; }
 	
+		
 		if (alive)
 		{
+			
+			
 			if (hp == 2 && attacking == false) { currentAnim = &walkAnim; }
 			if (hp == 1 && hitByPlayer)
 			{
