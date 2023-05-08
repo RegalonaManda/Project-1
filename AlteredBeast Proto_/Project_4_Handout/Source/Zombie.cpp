@@ -7,10 +7,14 @@
 #include "EnemyDeath.h"
 
 
+
 //Calls the constructor of enemy class to save spawn position
 
 
 Zombie::Zombie(int x, int y) : Enemy(x, y) {
+
+	
+	
 	Spawning = true;
 	hp = 2;
 	walkAnim.PushBack({1, 1, 41, 68 });
@@ -72,18 +76,34 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 
 void Zombie::Update() {
 	
+	
 		position.x -= Zspeed;
 		//the 350 needs reworks
-		if (position.x <= 350) {
-			Spawning = false;
-		}
-		if (Spawning == false && position.y > 120) {
-			position.y -= 1;
-		}
+		
+		
+			if (position.x <= App->player->position.x -60 && position.y > 120)
+			{
+				
+				position.y -= 0.7;
+				
+			}
+
+		
+		if (position.y <= 120) { Spawning = false; }
+		
+
+		
+
 		//if zombie is behind the player change the direction
+		
 		if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
 		else { dir = Direction::LEFT; }
-	
+
+		if (Spawning == false) {
+			if (dir == Direction::RIGHT) {
+				Zspeed = (Zspeed + 0.1f) * -1;
+			}
+		}
 		
 		if (alive)
 		{

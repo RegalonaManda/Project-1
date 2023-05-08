@@ -5,6 +5,8 @@
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib")
 #pragma comment( lib, "SDL/libx86/SDL2main.lib")
+#include <time.h>
+
 
 
 enum class main_states
@@ -20,6 +22,8 @@ Application* App = nullptr;
 
 int main(int argc, char* argv[])
 {
+	
+	
 	ReportMemoryLeaks();
 
 	int main_return = EXIT_FAILURE;
