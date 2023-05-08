@@ -20,6 +20,7 @@ struct EnemySpawnpoint
 {
 	ENEMY_TYPE type = ENEMY_TYPE::NO_TYPE;
 	int x, y;
+	bool spawnalignment;
 };
 
 class Enemy;
@@ -55,7 +56,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2) override;
 
 	// Add an enemy into the queue to be spawned later
-	bool AddEnemy(ENEMY_TYPE type, int x, int y);
+	bool AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment);
 
 	// Iterates the queue and checks for camera position
 	void HandleEnemiesSpawn();

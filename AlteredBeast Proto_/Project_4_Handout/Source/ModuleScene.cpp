@@ -104,27 +104,27 @@ bool ModuleScene::Start()
 	EnemyTexture = App->textures->Load("Assets/EnemiesProto.png");
 	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
 
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 200);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 200,false);
 
-	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 705, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 740, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 800, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 900, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 905, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 910, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1000, 200);
-	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 1100, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140);
-	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 705, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 740, 200,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 800, 140, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 900, 200,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 905, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 910, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1000, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 1100, 140,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110,false);
 	
 	
 	

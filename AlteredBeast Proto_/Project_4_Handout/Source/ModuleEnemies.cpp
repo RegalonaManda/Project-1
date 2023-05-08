@@ -84,7 +84,7 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y)
+bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment)
 {
 	bool ret = false;
 
@@ -95,6 +95,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y)
 			spawnQueue[i].type = type;
 			spawnQueue[i].x = x;
 			spawnQueue[i].y = y;
+			spawnQueue[i].spawnalignment = spawnalignment;
 			ret = true;
 			break;
 		}
@@ -165,7 +166,7 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 			{
 			case ENEMY_TYPE::ZOMBIE:
 				
-				enemies[i] = new Zombie(info.x, info.y);
+				enemies[i] = new Zombie(info.x, info.y, info.spawnalignment);
 				
 				enemies[i]->texture = texture;
 

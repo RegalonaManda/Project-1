@@ -9,8 +9,7 @@
 class Zombie : public Enemy {
 public:
 
-
-	Zombie(int x, int y);
+	Zombie(int x, int y, bool alignment);
 
 	void Update() override;
 
@@ -19,11 +18,9 @@ public:
 	int XplodeCnt = 40;
 	int attackCnt = 50;
 	int attackCnt2 = 30;
-	int SpawnPosPlus = 0;
-	int PositionMark1 = 1;
-	int PositionMark2 = 2;
-	int PositionMark3 = 3;
-	int PositionMark4 = 4;
+	bool Alignment;
+	bool isRising;
+	
 
 	bool Spawning;
 	bool IsExploding;

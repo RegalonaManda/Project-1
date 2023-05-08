@@ -11,10 +11,10 @@
 //Calls the constructor of enemy class to save spawn position
 
 
-Zombie::Zombie(int x, int y) : Enemy(x, y) {
+Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 
-	
-	
+	isRising = false;
+	Alignment = alignment;
 	Spawning = true;
 	hp = 2;
 	walkAnim.PushBack({1, 1, 41, 68 });
@@ -75,69 +75,83 @@ Zombie::Zombie(int x, int y) : Enemy(x, y) {
 }
 
 void Zombie::Update() {
-	
-	
-		position.x -= Zspeed;
-		//the 350 needs reworks
-		
-		
-			if (position.x <= App->player->position.x -60 && position.y > 120)
-			{
-				
-				position.y -= 0.7;
-				
-			}
 
-		
-		if (position.y <= 120) { Spawning = false; }
-		
 
-		
+	position.x -= Zspeed;
+	//the 350 needs reworks
 
-		//if zombie is behind the player change the direction
-		
-		if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
-		else { dir = Direction::LEFT; }
+	if (Alignment == 0) {
 
-		if (Spawning == false) {
-			if (dir == Direction::RIGHT) {
-				Zspeed = (Zspeed + 0.1f) * -1;
-			}
-		}
-		
-		if (alive)
+		if (position.x <= App->player->position.x - 60 && position.y > 120)
 		{
-			
-			
-			if (hp == 2 && attacking == false) { currentAnim = &walkAnim; }
-			if (hp == 1 && hitByPlayer)
+
+			isRising = true;
+
+		}
+	}else {
+			if (position.x <= App->player->position.x + 100 && position.y > 120)
 			{
-				hitCountdown--;
-				if (hitCountdown <= 0) {
-					currentAnim = &headXplode;
-					App->audio->PlayFx(lethalAtt, 3);
-				}
 
-				if (headXplode.HasFinished()) {
-					currentAnim = &headlessWalk;
-					hitByPlayer = false;
+				isRising = true;
 
-				}
 			}
 		}
 	
+
+
+	if (isRising == true) {
+		position.y -= 1;
+	}
+
+	if (position.y <= 120) { Spawning = false; isRising = false; }
+
+
+
+
+	//if zombie is behind the player change the direction
+
+	if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
+	else { dir = Direction::LEFT; }
+
+	if (Spawning == false) {
+		if (dir == Direction::RIGHT) {
+			Zspeed = (Zspeed + 0.4f) * -1;
+		}
+	}
+
+	if (alive)
+	{
+
+
+		if (hp == 2 && attacking == false) { currentAnim = &walkAnim; }
+		if (hp == 1 && hitByPlayer)
+		{
+			hitCountdown--;
+			if (hitCountdown <= 0) {
+				currentAnim = &headXplode;
+				App->audio->PlayFx(lethalAtt, 3);
+			}
+
+			if (headXplode.HasFinished()) {
+				currentAnim = &headlessWalk;
+				hitByPlayer = false;
+			}
+		}
+	}
+
 
 	if (attacking == true) { Attack(); }
-	
+
 
 
 
 	Ecollider->SetPos(2000, 2000);
 
-	Range->SetPos(position.x-10, position.y);
+	Range->SetPos(position.x - 10, position.y);
 
 	currentAnim->Update();
 	Enemy::Update();
+	
 }
 
 void Zombie::OnCollision(Collider* collider) {
