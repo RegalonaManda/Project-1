@@ -82,7 +82,7 @@ bool ModulePlayer::Start()
 	texture = App->textures->Load("Assets/ABfullspritesProto.png"); // arcade version
 
 	//Initialize collider
-	Pcollider = App->collisions->AddCollider({ 100,300,20,68 }, Collider::Type::PLAYER, this);
+	Pcollider = App->collisions->AddCollider({ 100,300,20,48 }, Collider::Type::PLAYER, this);
 	//CHANGE listener of attack to enemy
 	attackCollider = App->collisions->AddCollider({ 100,300,33,19 }, Collider::Type::PLAYER_SHOT, this);
 	kickCollider = App->collisions->AddCollider({ 100,300,19,33 }, Collider::Type::PLAYER_SHOT, this);
@@ -203,10 +203,12 @@ update_status ModulePlayer::Update()
 
 			if (dir == Direction::RIGHT && airSt == AirState::CROUCH)
 			{
-				Pcollider->SetPos(position.x + 20, position.y - 40);
+				
+				Pcollider->SetPos(position.x + 17, position.y - 40);
 			}
 			if (dir == Direction::LEFT && airSt == AirState::CROUCH)
 			{
+				
 				Pcollider->SetPos(position.x + 17, position.y - 40);
 			}
 

@@ -11,6 +11,7 @@
 #include "EnemyDeath.h"
 #include "WhiteWolf.h"
 #include "BrownWolf.h"
+#include "ModulePlayer.h"
 
 
 ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
@@ -287,6 +288,11 @@ update_status ModuleScene::PostUpdate()
 
 		return update_status::UPDATE_STOP;
 		
+
+	}
+	if (App->input->keys[SDL_SCANCODE_P] == KEY_DOWN) {
+
+		App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, App->player->position.x+150, 200, true);
 
 	}
 

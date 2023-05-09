@@ -17,10 +17,15 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 	Alignment = alignment;
 	Spawning = true;
 	hp = 2;
-	walkAnim.PushBack({1, 1, 41, 68 });
-	walkAnim.PushBack({43, 1, 41, 68});
-	walkAnim.speed = 0.008f;
-	walkAnim.loop = true;
+	walkAnimL.PushBack({1, 1, 41, 68 });
+	walkAnimL.PushBack({43, 1, 41, 68});
+	walkAnimR.PushBack({587, 1, 41,68});
+	walkAnimR.PushBack({547, 1, 41, 68});
+
+	walkAnimL.speed = 0.012f;
+	walkAnimL.loop = true;
+	walkAnimR.speed = 0.008f;
+	walkAnimR.loop = true;
 
 	//Default Direction
 	dir = Direction::RIGHT;
@@ -71,6 +76,8 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 	SelfDestruct->SetPos(-1000, -1000);
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
+	//default anim walk left
+	currentAnim = &walkAnimL;
 
 }
 
@@ -110,20 +117,30 @@ void Zombie::Update() {
 
 	//if zombie is behind the player change the direction
 
-	if (position.x < App->player->position.x) { dir = Direction::RIGHT; }
+	if (position.x <= App->player->position.x) 
+	{
+		dir = Direction::RIGHT; 
+	}
 	else { dir = Direction::LEFT; }
 
 	if (Spawning == false) {
 		if (dir == Direction::RIGHT) {
+			
 			Zspeed = (Zspeed + 0.4f) * -1;
+			
 		}
 	}
-
+	if (dir == Direction::LEFT) {
+		currentAnim = &walkAnimL;
+	}
+	if (dir == Direction::RIGHT) {
+		currentAnim = &walkAnimR;
+	}
 	if (alive)
 	{
 
 
-		if (hp == 2 && attacking == false) { currentAnim = &walkAnim; }
+		/*if (hp == 2 && attacking == false) { currentAnim = &walkAnimL; }*/
 		if (hp == 1 && hitByPlayer)
 		{
 			hitCountdown--;

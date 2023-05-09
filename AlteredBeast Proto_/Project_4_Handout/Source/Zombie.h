@@ -45,7 +45,9 @@ public:
 
 	Direction dir;
 
-	Animation walkAnim;
+	Animation walkAnimR;
+	Animation walkAnimL;
+
 	Animation headXplode;
 	Animation headlessWalk;
 	Animation bodyXplode;
