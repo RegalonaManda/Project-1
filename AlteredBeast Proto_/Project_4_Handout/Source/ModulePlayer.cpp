@@ -1038,6 +1038,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		{
 			
 
+			/*knockImpulse = 1.0f;
+			up to change */
 			knockImpulse = 1.0f;
 			iFrames = true;
 
@@ -1047,8 +1049,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 			position.y -= 0.1f;
 			if (position.y < 190) {
-				if (dir == Direction::RIGHT) { KnockBack(1); }
-				if (dir == Direction::LEFT) { KnockBackL(1); }
+				if (dir == Direction::RIGHT) { KnockBack(0.5); }
+				if (dir == Direction::LEFT) { KnockBackL(0.5); }
 
 				if (dir == Direction::LEFT) {
 					idle = false;
@@ -1132,35 +1134,35 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 void ModulePlayer:: KnockBack(float x) {
 	
-		airSt == AirState::AIRBORN;
-		knockImpulse -= Gravity;
-		position.y -= knockImpulse;
-
-		position.x -= x;
-		if (position.y >= 190) {
-			airSt = AirState::GROUND;
-			position.y = 190;
-			idle = true;
-			//jumpRight.Reset();
-			knockImpulse = 2;
-		}
+		//airSt == AirState::AIRBORN;
+		//knockImpulse -= Gravity;
+		//position.y -= knockImpulse;
+		//
+		//position.x -= x;
+		//if (position.y >= 190) {
+		//	airSt = AirState::GROUND;
+		//	position.y = 190;
+		//	idle = true;
+		//	//jumpRight.Reset();
+		///*	knockImpulse = 10;*/
+		//}
 	
 }
 
 void ModulePlayer::KnockBackL(float x) {
 
-	airSt == AirState::AIRBORN;
-	knockImpulse -= Gravity;
-	position.y -= knockImpulse;
-
-	position.x += x;
-	if (position.y >= 190) {
-		airSt = AirState::GROUND;
-		position.y = 190;
-		idle = true;
-		//jumpRight.Reset();
-		knockImpulse = 2.5f;
-	}
+	//airSt == AirState::AIRBORN;
+	//knockImpulse -= Gravity;
+	//position.y -= knockImpulse;
+	//
+	//position.x += x;
+	//if (position.y >= 190) {
+	//	airSt = AirState::GROUND;
+	//	position.y = 190;
+	//	idle = true;
+	//	//jumpRight.Reset();
+	//	/*knockImpulse = 1;*/
+	//}
 
 }
 

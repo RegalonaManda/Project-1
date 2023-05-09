@@ -130,10 +130,10 @@ void Zombie::Update() {
 			
 		}
 	}
-	if (dir == Direction::LEFT) {
+	if (dir == Direction::LEFT && currentAnim != &headXplode && hp > 1) {
 		currentAnim = &walkAnimL;
 	}
-	if (dir == Direction::RIGHT) {
+	if (dir == Direction::RIGHT && currentAnim != &headXplode && hp > 1) {
 		currentAnim = &walkAnimR;
 	}
 	if (alive)
