@@ -110,7 +110,13 @@ public:
 
 	void KnockBackL(float x);
 
-	void playerHit(Collider* c2);
+	void PlayerHit(Collider* c2);
+
+
+
+
+
+	void PlayerBump();
 
 	void playerDamaged();
 

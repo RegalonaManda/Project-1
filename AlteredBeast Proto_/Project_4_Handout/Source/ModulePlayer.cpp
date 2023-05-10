@@ -1030,13 +1030,15 @@ update_status ModulePlayer::PostUpdate()
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {
 	if (GodMode == false) {
+
+		//--------------------------------------Explosion Collision ------------------------------------
 		if (c1 == Pcollider && c2->type == Collider::Type::ATTACK_XplosionTrigger && !destroyed && !iFrames)
 		{
 			startExTimer = true;
 
 			if (exTimer <= 0) {
 
-				playerHit(c2);
+				PlayerHit(c2);
 				startExTimer = false;
 				exTimer = 40;
 			}
@@ -1053,56 +1055,37 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		hitEnemy = false;
 	}
-	//Bumping into enemy
+	//-------------------------------------Bumping into enemy----------------------------
 	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 	{
 
-
+		PlayerBump();
 		/*knockImpulse = 1.0f;
 		up to change */
-		knockImpulse = 1.0f;
-		iFrames = true;
+		
 
-		if (hp > 0) {
-			App->audio->PlayFx(loseHP, 6);
-		}
+		/*App->scene->ScreenScroll = false;*/
+	}
 
-		position.y -= 0.1f;
-		if (position.y < 190) {
-			if (dir == Direction::RIGHT) { KnockBack(0.5); }
-			if (dir == Direction::LEFT) { KnockBackL(0.5); }
+	//------------------------------------------------Getting hit by enemy attack-------------------------------------
 
-			if (dir == Direction::LEFT) {
-				idle = false;
-				currentAnimation = &AllAnimations.knockBackLeft;
-			}
-			if (dir == Direction::RIGHT) {
-				currentAnimation = &AllAnimations.knockBackRight;
-				idle = false;
-			}
-		}
-
-		playerDamaged();
+	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
+	{
+		PlayerHit(c2);
 
 		/*App->scene->ScreenScroll = false;*/
 	}
 	//Getting hit by enemy attack
 	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
 	{
-		playerHit(c2);
-
-		/*App->scene->ScreenScroll = false;*/
-	}
-	//Getting hit by enemy attack
-	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
-	{
-		playerHit(c2);
+		PlayerHit(c2);
 
 		playerDamaged();
 
 		/*App->scene->ScreenScroll = false;*/
 	}
-	// player gets hit by the zombie explosion ( is in the explosion are for more than x seconds
+	
+	// -------------------------------------------Camera Collisions-------------------------------
 
 	if (c1 == Pcollider && c2 == App->scene->backCamLimit) {
 		while (position.x < (App->render->camera.x * 0.3333333333f - 13.3333333333f)) {
@@ -1119,8 +1102,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	}
 
-
-
+	//-------------------------------------------PowerUp Collisions----------------------------------------
+	
 	if (c1 == Pcollider && c2->type == Collider::Type::POWER_UP && transforming == false) {
 
 		transforming = true;
@@ -1169,11 +1152,17 @@ void ModulePlayer::KnockBackL(float x) {
 	//}
 
 }
-void ModulePlayer::playerHit(Collider* c2) {
+void ModulePlayer::PlayerHit(Collider* c2) {
 
 	Deathcollider->SetPos(1300, 1200);
 	firstHit = true;
+	/*if ((c2->rect.x + c2->rect.w) >= Pcollider->rect.x) {
+		knockImpulse = -1.0f;
+	} else if (c2->rect.x < (Pcollider->rect.x+ Pcollider->rect.w) ) {
+		knockImpulse = 1.0f;
 
+	}*/
+	
 	knockImpulse = 1.0f;
 	iFrames = true;
 	hp--;
@@ -1199,6 +1188,32 @@ void ModulePlayer::playerHit(Collider* c2) {
 
 	playerDamaged();
 
+}
+void ModulePlayer::PlayerBump() {
+
+	knockImpulse = 1.0f;
+	iFrames = true;
+
+	if (hp > 0) {
+		App->audio->PlayFx(loseHP, 6);
+	}
+
+	position.y -= 0.1f;
+	if (position.y < 190) {
+		if (dir == Direction::RIGHT) { KnockBack(0.5); }
+		if (dir == Direction::LEFT) { KnockBackL(0.5); }
+
+		if (dir == Direction::LEFT) {
+			idle = false;
+			currentAnimation = &AllAnimations.knockBackLeft;
+		}
+		if (dir == Direction::RIGHT) {
+			currentAnimation = &AllAnimations.knockBackRight;
+			idle = false;
+		}
+	}
+
+	playerDamaged();
 }
 void ModulePlayer::playerDamaged() {
 	if (hp <= 0)
