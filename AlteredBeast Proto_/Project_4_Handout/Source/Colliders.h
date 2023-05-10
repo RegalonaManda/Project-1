@@ -17,7 +17,7 @@ struct Collider
 		ENEMY_SHOT,
 		CAMLIMIT,
 		POWER_UP,
-		ATTACK_RANGE,
+		ATTACK_XplosionTrigger,
 		ENEMY_SELF_DESTRUCT,
 
 		MAX
@@ -30,6 +30,10 @@ struct Collider
 	void SetPos(int x, int y);
 
 	void UpdatePos(int x, int y);
+
+	void SetProportions(int w, int h);
+
+	void UpdateProportions(int w, int h);
 
 	bool Intersects(const SDL_Rect& r) const;
 

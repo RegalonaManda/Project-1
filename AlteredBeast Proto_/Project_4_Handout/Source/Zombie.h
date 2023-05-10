@@ -48,8 +48,10 @@ public:
 	Animation walkAnimR;
 	Animation walkAnimL;
 
-	Animation headXplode;
+	Animation headXplodeR;
+	Animation headXplodeL;
 	Animation headlessWalk;
+	
 	Animation bodyXplode;
 	Animation deathAnim;
 

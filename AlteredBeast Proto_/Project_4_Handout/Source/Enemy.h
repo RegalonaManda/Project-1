@@ -22,7 +22,7 @@ public:
 	// Returns the enemy's collider
 	const Collider* GetCollider() const;
 
-	const Collider* GetRangeCollider() const;
+	const Collider* GetXplosionTriggerCollider() const;
 
 	const Collider* GetDestructCollider() const;
 
@@ -72,7 +72,8 @@ public:
 	Animation* currentAnim = nullptr;
 	Collider* Ecollider = nullptr;
 	
-	Collider* Range = nullptr;
+	Collider* XplosionTrigger = nullptr;
+	Collider* Xplosion = nullptr;
 	Collider* SelfDestruct = nullptr;
 	// Original spawn position. Stored for movement calculations
 	fPoint spawnPos;

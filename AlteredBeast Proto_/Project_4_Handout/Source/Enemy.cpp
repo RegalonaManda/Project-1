@@ -22,8 +22,8 @@ const Collider* Enemy::GetCollider() const
 	return Ecollider;
 }
 
-const Collider* Enemy::GetRangeCollider() const {
-	return Range;
+const Collider* Enemy::GetXplosionTriggerCollider() const {
+	return XplosionTrigger;
 }
 
 const Collider* Enemy::GetDestructCollider() const {

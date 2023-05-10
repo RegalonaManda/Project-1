@@ -35,13 +35,22 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 	
 	//if enemy gets close enough to player, will explode -> yellow sprite - normal sprite - disappears (no shake)
 
-	headXplode.PushBack({85,1,41,68});
-	headXplode.PushBack({132,1,41,68});
-	headXplode.PushBack({127,1,41,68});
-	headXplode.PushBack({132,1,41,68});
-	headXplode.loop = false;
-	headXplode.totalFrames = 4;
-	headXplode.speed = 0.03f;
+	headXplodeR.PushBack({85,1,41,68});
+	headXplodeR.PushBack({132,1,41,68});
+	headXplodeR.PushBack({127,1,41,68});
+	headXplodeR.PushBack({132,1,41,68});
+	headXplodeR.loop = false;
+	headXplodeR.totalFrames = 4;
+	headXplodeR.speed = 0.03f;
+
+
+	headXplodeL.PushBack({85,1,41,68});
+	headXplodeL.PushBack({132,1,41,68});
+	headXplodeL.PushBack({127,1,41,68});
+	headXplodeL.PushBack({132,1,41,68});
+	headXplodeL.loop = false;
+	headXplodeL.totalFrames = 4;
+	headXplodeL.speed = 0.03f;
 
 	headlessWalk.PushBack({ 127,1,41,68 });
 	headlessWalk.PushBack({ 85,121,41,68 });
@@ -67,13 +76,17 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 	bodyXplode.speed = 0.05f;
 
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
-	AttackCollider = App->collisions->AddCollider({ 412,140,50,60 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
-	Range = App->collisions->AddCollider({ 450,150,60,60 }, Collider::ATTACK_RANGE, (Module*)App->enemies);
+	AttackCollider = App->collisions->AddCollider({ 412,140,50,0 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
+	XplosionTrigger = App->collisions->AddCollider({ 470,150,38,60 }, Collider::ATTACK_XplosionTrigger, (Module*)App->enemies);
+	
 	SelfDestruct = App->collisions->AddCollider({ 5,5,5,5 }, Collider::ENEMY_SELF_DESTRUCT, (Module*)App->enemies);
 
 	//attack starts oob
 	AttackCollider->SetPos(-1000, -1000);
+	
 	SelfDestruct->SetPos(-1000, -1000);
+
+
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 	//default anim walk left
@@ -130,10 +143,10 @@ void Zombie::Update() {
 			
 		}
 	}
-	if (dir == Direction::LEFT && currentAnim != &headXplode && hp > 1) {
+	if (dir == Direction::LEFT && currentAnim != &headXplodeL && hp > 1) {
 		currentAnim = &walkAnimL;
 	}
-	if (dir == Direction::RIGHT && currentAnim != &headXplode && hp > 1) {
+	if (dir == Direction::RIGHT && currentAnim != &headXplodeL && hp > 1) {
 		currentAnim = &walkAnimR;
 	}
 	if (alive)
@@ -145,11 +158,11 @@ void Zombie::Update() {
 		{
 			hitCountdown--;
 			if (hitCountdown <= 0) {
-				currentAnim = &headXplode;
+				currentAnim = &headXplodeL;
 				App->audio->PlayFx(lethalAtt, 3);
 			}
 
-			if (headXplode.HasFinished()) {
+			if (headXplodeL.HasFinished()) {
 				currentAnim = &headlessWalk;
 				hitByPlayer = false;
 			}
@@ -163,9 +176,16 @@ void Zombie::Update() {
 
 
 	Ecollider->SetPos(2000, 2000);
-
-	Range->SetPos(position.x - 10, position.y);
-
+	if (attackCnt > 0) {
+		if (dir == Direction::LEFT) {
+			XplosionTrigger->SetPos(position.x-10, position.y);
+			/*XplosionTrigger->SetPos(position.x - 10, position.y);*/
+		}
+		else if (dir == Direction::RIGHT) {
+			XplosionTrigger->SetPos(position.x+10, position.y);
+		}
+		
+	}
 	currentAnim->Update();
 	Enemy::Update();
 	
@@ -211,7 +231,7 @@ void Zombie::Attack() {
 		attackCnt--;
 		if (attackCnt <= 0) {
 
-			//when player is in range for 50 frames
+			//when player is in XplosionTrigger for 50 frames
 			currentAnim = &bodyXplode;
 		
 			attacking = true;
@@ -220,6 +240,13 @@ void Zombie::Attack() {
 			App->scene->enemyY = position.y;
 			App->scene->EnemyCN = 1;
 			XplodeCnt--;
+			if (dir == Direction::LEFT) {
+				XplosionTrigger->SetPos(position.x - 20, position.y);
+			}
+			if (dir == Direction::RIGHT) {
+				XplosionTrigger->SetPos(position.x + 20, position.y);
+			}
+			XplosionTrigger->SetProportions(60, 60);
 			//IMPORTANT the explosionCnt of the collider must be in sync with that of the explosion found in scene.cpp
 			Zspeed = 0;
 			if (XplodeCnt <= 0) {
@@ -227,6 +254,7 @@ void Zombie::Attack() {
 					hp = 0;
 					AttackCollider->SetPos(position.x - 10, position.y);
 					SelfDestruct->SetPos(position.x + 3, position.y + 5);
+					
 					exploded = true;
 					
 

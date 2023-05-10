@@ -67,7 +67,9 @@ public:
 	int lives = 3;
 	bool iFrames = false;
 	int iTimer = 30;
+	int exTimer = 40;
 
+	bool startExTimer = false;
 	bool GodMode = false;
 	bool start = false;
 	float knockImpulse = 2;
@@ -108,7 +110,11 @@ public:
 
 	void KnockBackL(float x);
 
+	void playerHit(Collider* c2);
+
 	void playerDamaged();
+
+	
 
 	float destroyedCountdown = 300;
 	
