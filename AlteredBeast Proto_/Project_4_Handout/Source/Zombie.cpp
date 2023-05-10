@@ -17,32 +17,17 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 	Alignment = alignment;
 	Spawning = true;
 	hp = 2;
+	//-------------------------------------------- Left Dir Animations ------------------------------------------------------//
+
+	//------ Walk -------//
+
 	walkAnimL.PushBack({1, 1, 41, 68 });
 	walkAnimL.PushBack({43, 1, 41, 68});
-	walkAnimR.PushBack({587, 1, 41,68});
-	walkAnimR.PushBack({547, 1, 41, 68});
-
 	walkAnimL.speed = 0.012f;
 	walkAnimL.loop = true;
-	walkAnimR.speed = 0.008f;
-	walkAnimR.loop = true;
-
-	//Default Direction
-	dir = Direction::RIGHT;
-	IsExploding = false;
-	//at 1 hit, head explodes, continues
-	//at 2 hits, disappears
 	
-	//if enemy gets close enough to player, will explode -> yellow sprite - normal sprite - disappears (no shake)
 
-	headXplodeR.PushBack({85,1,41,68});
-	headXplodeR.PushBack({132,1,41,68});
-	headXplodeR.PushBack({127,1,41,68});
-	headXplodeR.PushBack({132,1,41,68});
-	headXplodeR.loop = false;
-	headXplodeR.totalFrames = 4;
-	headXplodeR.speed = 0.03f;
-
+	//------ HeadXplode -------//
 
 	headXplodeL.PushBack({85,1,41,68});
 	headXplodeL.PushBack({132,1,41,68});
@@ -52,28 +37,90 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 	headXplodeL.totalFrames = 4;
 	headXplodeL.speed = 0.03f;
 
-	headlessWalk.PushBack({ 127,1,41,68 });
-	headlessWalk.PushBack({ 85,121,41,68 });
-	headlessWalk.loop = true;
-	headlessWalk.totalFrames = 2;
-	headlessWalk.speed = 0.008f;
+	//------ HeadlessWalk -------//
 
-	deathAnim.PushBack({ 127,1,41,68 });
-	deathAnim.PushBack({ 132,1,41,68 });
-	deathAnim.PushBack({ 127,1,41,68 });
-	deathAnim.PushBack({ 132,1,41,68 });
-	deathAnim.loop = false;
-	deathAnim.totalFrames = 4;
-	deathAnim.speed = 0.03f;
+	headlessWalkL.PushBack({ 127,1,41,68 });
+	headlessWalkL.PushBack({ 85,121,41,68 });
+	headlessWalkL.loop = true;
+	headlessWalkL.totalFrames = 2;
+	headlessWalkL.speed = 0.008f;
+
+	//------ BodyXplode -------//
+
+	bodyXplodeL.PushBack({ 169,0,41,68 });
+	bodyXplodeL.PushBack({ 127,0,41,68 });
+	bodyXplodeL.PushBack({ 169,0,41,68 });
+	bodyXplodeL.PushBack({ 127,0,41,68 });
+	bodyXplodeL.loop = true;
+	bodyXplodeL.totalFrames = 4;
+	bodyXplodeL.speed = 0.05f;
+
+	//------ DeathAnim -------//
+
+	deathAnimL.PushBack({ 127,1,41,68 });
+	deathAnimL.PushBack({ 132,1,41,68 });
+	deathAnimL.PushBack({ 127,1,41,68 });
+	deathAnimL.PushBack({ 132,1,41,68 });
+	deathAnimL.loop = false;
+	deathAnimL.totalFrames = 4;
+	deathAnimL.speed = 0.03f;
+
+	//------------------------------------------- Right Dir Animations ------------------------------------------------------//
+
+	//------ Walk -------//
+
+	walkAnimR.PushBack({ 587, 4, 41,68 });
+	walkAnimR.PushBack({ 547, 4, 41, 68 });
+	walkAnimR.speed = 0.008f;
+	walkAnimR.loop = true;
+
+	//------ HeadXplode -------//
+
+	headXplodeR.PushBack({496,4,41,68});
+	headXplodeR.PushBack({453,4,41,68});
+	headXplodeR.PushBack({448,4,41,68});
+	headXplodeR.PushBack({453,4,41,68});
+	headXplodeR.loop = false;
+	headXplodeR.totalFrames = 4;
+	headXplodeR.speed = 0.03f;
+
+	//------ HeadlessWalk ------- (notfinished)//
+
+	headlessWalkR.PushBack({ 127,1,41,68 });
+	headlessWalkR.PushBack({ 85,121,41,68 });
+	headlessWalkR.loop = true;
+	headlessWalkR.totalFrames = 2;
+	headlessWalkR.speed = 0.008f;
+
+	//------ BodyXplode -------(notfinished)//
+
+	bodyXplodeR.PushBack({ 169,0,41,68 });
+	bodyXplodeR.PushBack({ 127,0,41,68 });
+	bodyXplodeR.PushBack({ 169,0,41,68 });
+	bodyXplodeR.PushBack({ 127,0,41,68 });
+	bodyXplodeR.loop = true;
+	bodyXplodeR.totalFrames = 4;
+	bodyXplodeR.speed = 0.05f;
+
+	//------ DeathAnim -------(notfinished)//
+
+	deathAnimR.PushBack({ 127,1,41,68 });
+	deathAnimR.PushBack({ 132,1,41,68 });
+	deathAnimR.PushBack({ 127,1,41,68 });
+	deathAnimR.PushBack({ 132,1,41,68 });
+	deathAnimR.loop = false;
+	deathAnimR.totalFrames = 4;
+	deathAnimR.speed = 0.03f;
+
+
+
+	//Default Direction
+	dir = Direction::RIGHT;
+	IsExploding = false;
+	//at 1 hit, head explodes, continues
+	//at 2 hits, disappears
 	
-
-	bodyXplode.PushBack({ 169,0,41,68 });
-	bodyXplode.PushBack({ 127,0,41,68 });
-	bodyXplode.PushBack({ 169,0,41,68 });
-	bodyXplode.PushBack({ 127,0,41,68 });
-	bodyXplode.loop = true;
-	bodyXplode.totalFrames = 4;
-	bodyXplode.speed = 0.05f;
+	//if enemy gets close enough to player, will explode -> yellow sprite - normal sprite - disappears (no shake)
 
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	AttackCollider = App->collisions->AddCollider({ 412,140,50,0 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
@@ -85,8 +132,6 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 	AttackCollider->SetPos(-1000, -1000);
 	
 	SelfDestruct->SetPos(-1000, -1000);
-
-
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 	//default anim walk left
@@ -146,7 +191,7 @@ void Zombie::Update() {
 	if (dir == Direction::LEFT && currentAnim != &headXplodeL && hp > 1) {
 		currentAnim = &walkAnimL;
 	}
-	if (dir == Direction::RIGHT && currentAnim != &headXplodeL && hp > 1) {
+	if (dir == Direction::RIGHT && currentAnim != &headXplodeR && hp > 1) {
 		currentAnim = &walkAnimR;
 	}
 	if (alive)
@@ -158,13 +203,25 @@ void Zombie::Update() {
 		{
 			hitCountdown--;
 			if (hitCountdown <= 0) {
-				currentAnim = &headXplodeL;
+				if (dir == Direction::LEFT) {
+					currentAnim = &headXplodeL;
+				}
+				else if (dir == Direction::RIGHT) {
+					currentAnim = &headXplodeR;
+				}
 				App->audio->PlayFx(lethalAtt, 3);
 			}
-
-			if (headXplodeL.HasFinished()) {
-				currentAnim = &headlessWalk;
-				hitByPlayer = false;
+			if (dir == Direction::LEFT) {
+				if (headXplodeL.HasFinished()) {
+					currentAnim = &headlessWalkL;
+					hitByPlayer = false;
+				}
+			}
+			if (dir == Direction::RIGHT) {
+				if (headXplodeR.HasFinished()) {
+					currentAnim = &headlessWalkR;
+					hitByPlayer = false;
+				}
 			}
 		}
 	}
@@ -176,13 +233,14 @@ void Zombie::Update() {
 
 
 	Ecollider->SetPos(2000, 2000);
+	// The collider of the enemy changes depending on the position of the direction
 	if (attackCnt > 0) {
 		if (dir == Direction::LEFT) {
 			XplosionTrigger->SetPos(position.x-10, position.y);
 			/*XplosionTrigger->SetPos(position.x - 10, position.y);*/
 		}
 		else if (dir == Direction::RIGHT) {
-			XplosionTrigger->SetPos(position.x+10, position.y);
+			XplosionTrigger->SetPos(position.x+6, position.y);
 		}
 		
 	}
@@ -232,7 +290,7 @@ void Zombie::Attack() {
 		if (attackCnt <= 0) {
 
 			//when player is in XplosionTrigger for 50 frames
-			currentAnim = &bodyXplode;
+			currentAnim = &bodyXplodeL;
 		
 			attacking = true;
 			App->scene->EnemyAttacking = true;
@@ -242,11 +300,13 @@ void Zombie::Attack() {
 			XplodeCnt--;
 			if (dir == Direction::LEFT) {
 				XplosionTrigger->SetPos(position.x - 20, position.y);
+				XplosionTrigger->SetProportions(60, 60);
 			}
 			if (dir == Direction::RIGHT) {
 				XplosionTrigger->SetPos(position.x + 20, position.y);
+				XplosionTrigger->SetProportions(42, 60);
 			}
-			XplosionTrigger->SetProportions(60, 60);
+			
 			//IMPORTANT the explosionCnt of the collider must be in sync with that of the explosion found in scene.cpp
 			Zspeed = 0;
 			if (XplodeCnt <= 0) {

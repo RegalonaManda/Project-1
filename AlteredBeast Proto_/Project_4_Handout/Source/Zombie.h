@@ -44,16 +44,50 @@ public:
 	
 
 	Direction dir;
+	//-------------------------------------------- Left Dir Animations ------------------------------------------------------//
+	
+	//------ Walk -------//
 
-	Animation walkAnimR;
 	Animation walkAnimL;
 
-	Animation headXplodeR;
+	//------ HeadXplode -------//
+
 	Animation headXplodeL;
-	Animation headlessWalk;
+
+	//------ HeadlessWalk -------//
+
+	Animation headlessWalkL;
+
+	//------ BodyXplode -------//
 	
-	Animation bodyXplode;
-	Animation deathAnim;
+	Animation bodyXplodeL;
+	
+	//------ DeathAnim -------//
+
+	Animation deathAnimL;
+
+	//------------------------------------------- Right Dir Animations ------------------------------------------------------//
+	
+	//------ Walk -------//
+
+	Animation walkAnimR;
+
+	//------ HeadXplode -------//
+
+	Animation headXplodeR;
+
+	//------ HeadlessWalk -------//
+
+	Animation headlessWalkR;
+
+	//------ BodyXplode -------//
+
+	Animation bodyXplodeR;
+
+	//------ DeathAnim -------//
+
+	Animation deathAnimR;
+	
 
 	
 
