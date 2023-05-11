@@ -124,6 +124,9 @@
     <ClInclude Include="BrownWolf.h">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Tomb.h">
+      <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Module.cpp">
@@ -208,6 +211,9 @@
       <Filter>Source Files\Modules\Gameplay\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="BrownWolf.cpp">
+      <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Tomb.cpp">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClCompile>
   </ItemGroup>

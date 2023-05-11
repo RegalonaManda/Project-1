@@ -24,7 +24,7 @@
 
 #include "SDL/include/SDL_scancode.h"
 //the lower the higher
-#define MAX_HEIGHT 147
+//#define MAX_HEIGHT 147
 //------- Animation Speeds ----------- //
 #define WALKANIMSPEED 0.08f
 #define PUNCHANIMSPEED 0.13f
@@ -82,7 +82,8 @@ bool ModulePlayer::Start()
 	texture = App->textures->Load("Assets/ABfullspritesProto.png"); // arcade version
 
 	//Initialize collider
-	Pcollider = App->collisions->AddCollider({ 100,300,20,48 }, Collider::Type::PLAYER, this);
+	Pcollider = App->collisions->AddCollider({ 100,300,20,64 }, Collider::Type::PLAYER, this);
+	Crouchcollider = App->collisions->AddCollider({ 100,300,20,34 }, Collider::Type::PLAYER, this);
 	//CHANGE listener of attack to enemy
 	attackCollider = App->collisions->AddCollider({ 100,300,33,19 }, Collider::Type::PLAYER_SHOT, this);
 	kickCollider = App->collisions->AddCollider({ 100,300,19,33 }, Collider::Type::PLAYER_SHOT, this);
@@ -106,8 +107,8 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::DEFAULT;
-
+	tranSt = Transform::POWER1;
+	
 	
 
 	return ret;
@@ -115,6 +116,15 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
+
+	
+
+	// calculate the max h for the current ground lvl
+	if (airSt == AirState::GROUND) {
+		MAX_HEIGHT = position.y - 56;
+	}
+ 	
+
 	if (App->sceneIntro->IsEnabled() == false && start == false) {
 		position.x = 50;
 		position.y = 190;
@@ -130,15 +140,40 @@ update_status ModulePlayer::Update()
 	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;
+		airSt = AirState::GROUND;
 		attack += 1;
 		idle = true;
 		AllAnimations.powerUp1.loopCount = 0;
 		transforming = false;
 		App->powers->Disable();
 	}
+	
+	/*if (airSt == AirState::GROUND && Pcollider->Intersects(Pcollider->rect) == false) {
+		airSt = AirState::AIRBORN;
+	}*/
+
+	
+	ModulePlayer::Gravity_();
+	
+	// New jumping function
+
+	if (App->input->keys[SDL_SCANCODE_J] == KEY_DOWN && idle == true && airSt != AirState::AIRBORN && airSt != AirState::LANDING) {
+		position.y -= 5;
+		airSt = AirState::AIRBORN;
+	}
+	if (airSt == AirState::AIRBORN) {
+		position.y -= impulse;
+	}
+	////Put a max height that makes the player fall faster for it to dont look like its floating ( not real but like the game )
+	////impulse lesser, the faster it falls
+	if (airSt == AirState::AIRBORN && position.y < MAX_HEIGHT) {
+		impulse = -2.0;
+		position.y = MAX_HEIGHT + 2;
+	}
 
 
 	if (tranSt == Transform::DEFAULT && transforming == false) {
+
 		attack = 1;
 		if (playerKnocked == true) {
 			if (dir == Direction::RIGHT) {
@@ -182,7 +217,7 @@ update_status ModulePlayer::Update()
 		}
 		if (playerKnocked == false) {
 			if (idle == true && airSt == AirState::GROUND && iFrames == false) {
-				position.y = 190;
+				//position.y = 190;
 				knockImpulse = 0;
 			}
 
@@ -197,6 +232,8 @@ update_status ModulePlayer::Update()
 				AllAnimations.knockBackRight.loopCount--;
 			}
 
+
+
 			//Update Collider to current player pos, change it depending on direction and AirState
 			if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 18, position.y - 65); }
 			if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 20, position.y - 65); }
@@ -204,12 +241,17 @@ update_status ModulePlayer::Update()
 			if (dir == Direction::RIGHT && airSt == AirState::CROUCH)
 			{
 				
-				Pcollider->SetPos(position.x + 17, position.y - 40);
+				Crouchcollider->SetPos(position.x + 17, position.y - 40);
+				Pcollider->SetPos(0, -5000);
 			}
 			if (dir == Direction::LEFT && airSt == AirState::CROUCH)
 			{
 				
-				Pcollider->SetPos(position.x + 17, position.y - 40);
+				Crouchcollider->SetPos(position.x + 17, position.y - 40);
+				Pcollider->SetPos(0, -5000);
+			}
+			if (airSt != AirState::CROUCH) {
+				Crouchcollider->SetPos(0, -5000);
 			}
 
 			if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 60); }
@@ -218,40 +260,25 @@ update_status ModulePlayer::Update()
 			if (idle == true) {
 				attackCollider->SetPos(1000, 1000);
 			}
-			//Jump function
-			//impulse bigger, the stronger it jumps
-			if (idle == true && airSt == AirState::GROUND && App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN) {
-				landing = 5;
-				impulse = 3.2;
-				position.y += 0.5;
-				airSt = AirState::AIRBORN;
-			}
-			if (airSt == AirState::AIRBORN) {
-				impulse -= Gravity;
-				position.y -= impulse;
-			}
-			//Put a max height that makes the player fall faster for it to dont look like its floating ( not real but like the game )
-			//impulse lesser, the faster it falls
-			if (airSt == AirState::AIRBORN && position.y < MAX_HEIGHT) {
-				impulse = -2.3;
-				position.y = MAX_HEIGHT + 2;
-			}
-			//Reset state to ground when touching the ground
-			if (position.y >= 190 && airSt == AirState::AIRBORN) {
-				airSt = AirState::LANDING;
-				position.y = 190;
-				idle = true;
-				//jumpRight.Reset();
-			}
+			
+			
+
+			// Landing isn't used yet... i'm dreading having to implement it 
+
 			if (airSt == AirState::LANDING) {
 				if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.LandingLeft; }
 				if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.LandingRight; }
 				landing--;
 			}
+			// 5 frame counter for landing animation
 			if (landing <= 0) {
 				airSt = AirState::GROUND;
 				landing = 5;
 			}
+
+
+
+
 			//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 			//Could be a switch
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
@@ -557,7 +584,7 @@ update_status ModulePlayer::Update()
 	if (tranSt == Transform::POWER1) {
 
 		if (idle == true && airSt == AirState::GROUND && iFrames == false) {
-			position.y = 190;
+			
 			knockImpulse = 0;
 		}
 
@@ -573,17 +600,20 @@ update_status ModulePlayer::Update()
 		}
 
 		//Update Collider to current player pos, change it depending on direction and AirState
-		if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 36, position.y - 65); }
-		if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 34, position.y - 65); }
+		if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 36, position.y - 68); }
+		if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 34, position.y - 68); }
 
 		if (dir == Direction::RIGHT && airSt == AirState::CROUCH)
 		{
-			Pcollider->SetPos(position.x + 38, position.y - 40);
+			Pcollider->SetPos(0, position.y - 5000);
+			Crouchcollider->SetPos(position.x + 36, position.y - 40);
 		}
 		if (dir == Direction::LEFT && airSt == AirState::CROUCH)
 		{
-			Pcollider->SetPos(position.x + 38, position.y - 40);
+			Pcollider->SetPos(0, position.y - 5000);
+			Crouchcollider->SetPos(position.x + 40, position.y - 40);
 		}
+		if (airSt != AirState::CROUCH) { Crouchcollider->SetPos(0, -5000); }
 
 		if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 40, position.y - 60); }
 		if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 30, position.y - 60); }
@@ -593,30 +623,20 @@ update_status ModulePlayer::Update()
 			kickCollider->SetPos(1000, 1000);
 		}
 		//Jump function
-		//impulse bigger, the stronger it jumps
-		if (idle == true && airSt == AirState::GROUND && App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN) {
-			landing = 5;
-			impulse = 3.2;
-			position.y += 0.5;
-			airSt = AirState::AIRBORN;
-		}
-		if (airSt == AirState::AIRBORN) {
-			impulse -= Gravity;
-			position.y -= impulse;
-		}
-		//Put a max height that makes the player fall faster for it to dont look like its floating ( not real but like the game )
-		//impulse lesser, the faster it falls
-		if (airSt == AirState::AIRBORN && position.y < MAX_HEIGHT) {
-			impulse = -2.3;
-			position.y = MAX_HEIGHT + 2;
-		}
-		//Reset state to ground when touching the ground
-		if (position.y >= 190 && airSt == AirState::AIRBORN) {
-			airSt = AirState::LANDING;
-			position.y = 190;
-			idle = true;
-			//jumpRight.Reset();
-		}
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
 		if (airSt == AirState::LANDING) {
 			if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.P1LandingL; }
 			if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.P1LandingR; }
@@ -1047,54 +1067,85 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			playerDamaged();
 		}
 
+		if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
+			hitEnemy = true;
+
+			hitEnemy = false;
+		}
+		//-------------------------------------Bumping into enemy----------------------------
+		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
+		{
+
+			PlayerBump();
+			/*knockImpulse = 1.0f;
+			up to change */
 
 
-	}
-	if (c1 == attackCollider && c2->type == Collider::Type::ENEMY) {
-		hitEnemy = true;
+			/*App->scene->ScreenScroll = false;*/
+		}
 
-		hitEnemy = false;
-	}
-	//-------------------------------------Bumping into enemy----------------------------
-	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
-	{
+		//------------------------------------------------Getting hit by enemy attack-------------------------------------
 
-		PlayerBump();
-		/*knockImpulse = 1.0f;
-		up to change */
-		
+		//if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
+		//{
+		//	PlayerHit(c2);
 
-		/*App->scene->ScreenScroll = false;*/
-	}
+		//	/*App->scene->ScreenScroll = false;*/
+		//}
 
-	//------------------------------------------------Getting hit by enemy attack-------------------------------------
+		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
+		{
+			Deathcollider->SetPos(1300, 1200);
+			firstHit = true;
 
-	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
-	{
-		PlayerHit(c2);
+			knockImpulse = 1.0f;
+			iFrames = true;
+			hp--;
 
-		/*App->scene->ScreenScroll = false;*/
-	}
-	//Getting hit by enemy attack
-	if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
-	{
-		PlayerHit(c2);
 
-		playerDamaged();
+			position.y -= 0.1f;
+			if (position.y < 190) {
+				//shoudl call a different knockbackfunction
+				if (c2 != Deathcollider) {
+					//KnockBack(25);
+					playerKnocked = true;
+					if (hp > 0) { App->audio->PlayFx(loseHP, 6); }
+					if (dir == Direction::LEFT) {
+						idle = false;
+						currentAnimation = &AllAnimations.knockBackLeft;
+					}
+					if (dir == Direction::RIGHT) {
+						currentAnimation = &AllAnimations.knockBackRight;
+						idle = false;
+					}
+				}
+			}
 
-		/*App->scene->ScreenScroll = false;*/
+			playerDamaged();
+		}
+
+		//Getting hit by enemy attack
+		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
+		{
+			PlayerHit(c2);
+
+			playerDamaged();
+
+			/*App->scene->ScreenScroll = false;*/
+		}
+
 	}
 	
 	// -------------------------------------------Camera Collisions-------------------------------
 
-	if (c1 == Pcollider && c2 == App->scene->backCamLimit) {
+	if (c1->type == Collider::Type::PLAYER && c2 == App->scene->backCamLimit) {
 		while (position.x < (App->render->camera.x * 0.3333333333f - 13.3333333333f)) {
 			position.x = App->render->camera.x * 0.3333333333f - 13.3333333333f;
 		}
 
 	}
 
-	if (c1 == Pcollider && c2 == App->scene->frontCamLimit) {
+	if (c1->type == Collider::Type::PLAYER && c2 == App->scene->frontCamLimit) {
 
 		while (position.x > App->scene->aux - 33.3333333333f) {
 			position.x = App->scene->aux - 33.3333333333f;
@@ -1115,6 +1166,26 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		App->powers->Disable();
 
 
+	}
+
+	// -------------------------------------------Ground Collisions-------------------------------
+
+	if (c1 == Pcollider && c2->type == Collider::Type::PLATFORM) {
+		
+		//Change to landing later
+		position.y--;
+		airSt = AirState::GROUND;
+		idle = true;
+	}
+	else {
+		//airSt = AirState::AIRBORN;
+	}
+
+	if (c1 == Pcollider && c2->type == Collider::Type::WALL) {
+		position.x-=2;
+	}
+	if (c1 == Pcollider && c2->type == Collider::Type::WALL_RIGHT) {
+		position.x += 2;
 	}
 }
 
@@ -1214,6 +1285,8 @@ void ModulePlayer::PlayerBump() {
 	}
 
 	playerDamaged();
+
+
 }
 void ModulePlayer::playerDamaged() {
 	if (hp <= 0)
@@ -1234,5 +1307,15 @@ void ModulePlayer::playerDamaged() {
 		start = false;
 		
 		App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
+	}
+}
+
+void ModulePlayer::Gravity_() {
+	// Gravity_ Function
+	if (airSt == AirState::AIRBORN) {
+		impulse -= Gravity;
+	}
+	else {
+		impulse = 3.5f;
 	}
 }

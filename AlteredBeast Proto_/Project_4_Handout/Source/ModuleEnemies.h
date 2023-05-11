@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define MAX_ENEMIES 20
+#define MAX_ENEMIES 30
 
 
 
@@ -13,7 +13,8 @@ enum class ENEMY_TYPE
 	ZOMBIE,
 	WHITEWOLF,
 	BROWNWOLF,
-	NEFF
+	NEFF,
+	GRAVE
 };
 
 struct EnemySpawnpoint
@@ -80,6 +81,8 @@ public:
 	SDL_Texture* texture = nullptr;
 
 	SDL_Texture* BossText = nullptr;
+
+	SDL_Texture* GraveText = nullptr;
 
 	uint enemyDeath;
 

@@ -36,6 +36,8 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 	iconAnim.PushBack({ 160,10,17,15 });
 
 	gameOverAnim.PushBack({ 0,0,140,20 });
+
+	
 }
 
 ModuleScene2::~ModuleScene2()
@@ -53,6 +55,8 @@ bool ModuleScene2::Start()
 	layer1 = App->textures->Load("Assets/Layer1.png");
 	uiTexture = App->textures->Load("Assets/UiElements.png");
 	gameOverTexture = App->textures->Load("Assets/gameOver.png");
+
+	Ground = App->collisions->AddCollider({ 0,189,4283,84 }, Collider::Type::PLATFORM, (Module*)App->player);
 
 	return ret;
 }

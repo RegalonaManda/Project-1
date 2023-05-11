@@ -25,6 +25,7 @@ class ModuleFonts;
 class ModulePower;
 class ModuleRender;
 
+
 class Application
 {
 
@@ -66,6 +67,7 @@ public:
 	ModulePower* powers = nullptr;
 	ModuleEnemies* enemies = nullptr;
 	ModuleRender* render = nullptr;
+	
 };
 
 // Global var made extern for Application ---

@@ -105,6 +105,11 @@ bool ModuleScene::Start()
 	EnemyTexture = App->textures->Load("Assets/EnemiesProto.png");
 	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
 
+
+	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 150, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 185, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 220, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 255, 140, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);

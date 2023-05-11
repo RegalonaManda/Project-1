@@ -1,14 +1,16 @@
+#pragma once;
+
 #include "ModuleEnemies.h"
 
-#include "Application.h"
 
+#include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 
-#include "Enemy.h"
-
 #include "Zombie.h"
+#include "Enemy.h"
+#include "Tomb.h"
 #include "WhiteWolf.h"
 #include "BrownWolf.h"
 #include "Neff.h"
@@ -37,6 +39,7 @@ bool ModuleEnemies::Start()
 	//Load Enemy Death Sound FX
 	enemyDeath = App->audio->LoadFx("Assets/FX/NPC_Death.wav");
 	
+	GraveText = App->textures->Load("Assets/toomb.png");
 
 	return true;
 }
@@ -167,11 +170,11 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 			case ENEMY_TYPE::ZOMBIE:
 				
 				enemies[i] = new Zombie(info.x, info.y, info.spawnalignment);
-				
+
 				enemies[i]->texture = texture;
 
 				break;
-			
+
 			case ENEMY_TYPE::WHITEWOLF:
 
 				enemies[i] = new WhiteWolf(info.x, info.y);
@@ -187,7 +190,7 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 				enemies[i]->texture = texture;
 
 				break;
-			
+
 			case ENEMY_TYPE::NEFF:
 
 				enemies[i] = new Neff(info.x, info.y);
@@ -195,8 +198,17 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 				enemies[i]->texture = texture;
 
 				break;
-			
+
+
+			case ENEMY_TYPE::GRAVE:
+
+				enemies[i] = new Tomb(info.x, info.y);
+
+				enemies[i]->texture = texture;
+
+				break;
 			}
+		
 			break;
 		}
 
