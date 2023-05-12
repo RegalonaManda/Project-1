@@ -19,6 +19,7 @@ Tomb::Tomb(int x, int y) : Enemy(x, y) {
 	WallLCollider = App->collisions->AddCollider({ 100,121,10,56 }, Collider::Type::WALL, (Module*)App->player);
 	WallRCollider = App->collisions->AddCollider({ 100,121,10,56 }, Collider::Type::WALL_RIGHT, (Module*)App->player);
 
+	Ecollider = App->collisions->AddCollider({ 100,121,22,56 }, Collider::Type::ENEMY, (Module*)App->player);
 
 	CodeN = 5;
 
@@ -45,35 +46,24 @@ void Tomb::Update() {
 	WallRCollider->SetPos(position.x+22, position.y + 4);
 	PlatformCollider->SetPos(position.x+4, position.y);
 
+	Ecollider->SetPos(position.x + 5, position.y);
+
 	Enemy::Update();
 }
 
 void Tomb::OnCollision(Collider* collider) {
 
-	if (collider->type == Collider::Type::PLAYER_SHOT) {
 
-		destroyedCountdown--;
-		hp -= App->player->attack;
-		App->audio->PlayFx(lethalAtt, 5);
-		hitByPlayer = true;
-		destroyedCountdown = 20;
+	//if (collider->type == Collider::Type::PLAYER_SHOT) {
 
-	}
-	if (hp <= 0) {
-		Ecollider->SetPos(-1000, -1000);
-		alive = false;
+	//	hp--;
 
-		App->scene->EnemyCN = 4;
-		App->scene->HasEnemyDied = true;
-		App->scene->enemyX = position.x;
-		App->scene->enemyY = position.y;
+	//	Ecollider->SetPos(-3000, -3000);
+	//	alive = false;
 
-		App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
 
-		App->scene2->killedBoss = true;
-		App->player->KilledBoss = true;
-	}
-
+	//	
+	//}
 
 
 

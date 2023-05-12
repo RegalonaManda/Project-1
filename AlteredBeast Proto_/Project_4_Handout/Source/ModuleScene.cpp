@@ -110,7 +110,7 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 185, 140, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 220, 140, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 255, 140, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
@@ -118,6 +118,15 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 200,false);
+
+
+	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 380, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 415, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 450, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::GRAVE, 485, 140, false);
+
+
+
 
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140,false);

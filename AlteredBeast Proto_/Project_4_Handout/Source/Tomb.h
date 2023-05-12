@@ -19,6 +19,7 @@ public:
 	int Risecnt = 170;
 	int Risecnt2 = 60;
 	bool Risen = false;
+	bool Rising = false;
 
 	int Fy;
 

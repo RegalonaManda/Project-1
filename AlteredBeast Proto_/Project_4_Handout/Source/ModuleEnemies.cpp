@@ -242,6 +242,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				break;
 				
 			}
+			
 		}
 		//In case player steps into attack XplosionTrigger
 		if (enemies[i] != nullptr && enemies[i]->GetXplosionTriggerCollider() == c1 && c2->type == Collider::Type::PLAYER) {
@@ -256,6 +257,17 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			enemies[i]->XplosionTrigger->SetPos(-2000, -2000);
 			enemies[i]->hp = 0;
 
+		}
+		if (enemies[i] != nullptr) {
+			if (enemies[i]->CodeN == 5) {
+				
+				enemies[i]->OnCollision(c2);
+				if (enemies[i]->hp <= 0) {
+					delete enemies[i];
+					enemies[i] = nullptr;
+				}
+				
+			}
 		}
 	}
 }
