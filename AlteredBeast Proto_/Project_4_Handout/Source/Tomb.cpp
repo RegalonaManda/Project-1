@@ -23,6 +23,7 @@ Tomb::Tomb(int x, int y, bool borderL, bool borderR, bool Zombie) : Enemy(x, y) 
 	PlatformCollider = App->collisions->AddCollider({ 100,100,26,5 },Collider::Type::PLATFORM, (Module*)App->player);
 	WallLCollider = App->collisions->AddCollider({ 100,121,10,56 }, Collider::Type::WALL, (Module*)App->player);
 	WallRCollider = App->collisions->AddCollider({ 100,121,10,56 }, Collider::Type::WALL_RIGHT, (Module*)App->player);
+	SelfDestruct = App->collisions->AddCollider({ -7000,-7000,5,5 }, Collider::Type::PLAYER_SHOT, (Module*)App->enemies);
 
 	Ecollider = App->collisions->AddCollider({ 100,114,22,60 }, Collider::Type::ENEMY, (Module*)App->enemies);
 
@@ -36,11 +37,16 @@ Tomb::Tomb(int x, int y, bool borderL, bool borderR, bool Zombie) : Enemy(x, y) 
 	}
 
 
-	position.y += 50;
+	position.y += 70;
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 
 	idle.PushBack({ 202,272,32,61 });
+
+	shake.PushBack({ 201,272,32,61 });
+	shake.PushBack({ 203,272,32,61 });
+	shake.loop = true;
+	shake.speed = 0.1f;
 
 	idle.loop = true;
 
@@ -51,8 +57,9 @@ void Tomb::Update() {
 
 
 	Tomb::Rise();
-
-	currentAnim = &idle;
+	if (zombieTimer > 200) {
+		currentAnim = &idle;
+	}
 
 	WallLCollider->SetPos(position.x, position.y+4);
 	WallRCollider->SetPos(position.x+22, position.y + 4);
@@ -68,6 +75,25 @@ void Tomb::Update() {
 		
 		RBorder->SetPos(position.x +52, position.y -40);
 	}
+
+
+	// Release zombie if has zombie inside
+	if (Zombie == true && Risen == true) {
+		zombieTimer--;
+
+		if (zombieTimer <= 200) {
+			currentAnim = &shake;
+		}
+		if (zombieTimer <= 0) {
+			App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, position.x, position.y, true);
+			hp = 0;
+			SelfDestruct->SetPos(position.x + 10, position.y + 10);
+			WallLCollider->SetPos(-650, -650);
+			WallRCollider->SetPos(-650, -650);
+			PlatformCollider->SetPos(-650, -650);
+		}
+	}
+
 
 	Enemy::Update();
 }

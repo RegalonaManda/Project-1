@@ -121,7 +121,7 @@ update_status ModulePlayer::Update()
 
 	// calculate the max h for the current ground lvl
 	if (airSt == AirState::GROUND) {
-		MAX_HEIGHT = position.y - 60   ;
+		MAX_HEIGHT = position.y - 52   ;
 	}
  	
 

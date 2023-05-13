@@ -16,8 +16,11 @@ public:
 	void OnCollision(Collider* collider) override;
 
 	void Rise();
-	int Risecnt = 170;
+	int Risecnt = 400;
 	int Risecnt2 = 60;
+
+	int zombieTimer = 900;
+
 	bool Risen = false;
 	bool Rising = false;
 
@@ -36,11 +39,13 @@ public:
 
 
 	Animation idle;
+	Animation shake;
 
 
 	Collider* WallLCollider;
 	Collider* WallRCollider;
 	Collider* PlatformCollider;
+	Collider* deathCollider;
 
 	Collider* LBorder = nullptr;
 	Collider* RBorder = nullptr;

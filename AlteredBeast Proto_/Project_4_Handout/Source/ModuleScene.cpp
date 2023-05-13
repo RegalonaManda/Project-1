@@ -106,24 +106,24 @@ bool ModuleScene::Start()
 	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
 
 	// border L ,  border R
-	App->enemies->AddGrave( 150, 140, true, false,false);
-	App->enemies->AddGrave(185, 140, false,false ,true);
-	App->enemies->AddGrave( 220, 140, false,false,false);
-	App->enemies->AddGrave( 255, 140, false, true,false);
-	/*App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
+	App->enemies->AddGrave( 150, 130, true, false,false);
+	App->enemies->AddGrave(185, 130, false,false ,true);
+	App->enemies->AddGrave( 220, 130, false,false,false);
+	App->enemies->AddGrave( 255, 130, false, true,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 200,false);*/
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 200,false);
 
 
-	App->enemies->AddGrave( 380, 135, true, false, true);
-	App->enemies->AddGrave( 415, 135, false,false, false);
-	App->enemies->AddGrave( 450, 135, false,false, false);
-	App->enemies->AddGrave( 485, 135, false,true , false);
+	App->enemies->AddGrave( 380, 130, true, false, true);
+	App->enemies->AddGrave( 415, 130, false,false, false);
+	App->enemies->AddGrave( 450, 130, false,false, false);
+	App->enemies->AddGrave( 485, 130, false,true , false);
 
 
 
