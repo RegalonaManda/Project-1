@@ -9,7 +9,7 @@
 class Tomb : public Enemy {
 public:
 
-	Tomb(int x, int y, bool borderL , bool borderR);
+	Tomb(int x, int y, bool borderL , bool borderR, bool Zombie);
 
 	void Update() override;
 
@@ -23,6 +23,8 @@ public:
 
 	bool TombBorderL = false;
 	bool TombBorderR = false;
+
+	bool Zombie = false;
 
 	int Fy;
 

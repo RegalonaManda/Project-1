@@ -107,7 +107,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment)
 	return ret;
 }
 
-bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR)
+bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR, bool Zombie)
 {
 	bool ret = false;
 
@@ -119,6 +119,7 @@ bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR)
 			spawnQueue[i].y = y;
 			spawnQueue[i].borderL = borderL;
 			spawnQueue[i].borderR = borderR;  
+			spawnQueue[i].SpawnZombie = Zombie;
 			ret = true;
 			break;
 		}
@@ -223,7 +224,7 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 
 			case ENEMY_TYPE::GRAVE:
 
-				enemies[i] = new Tomb(info.x, info.y,info.borderL,info.borderR);
+				enemies[i] = new Tomb(info.x, info.y,info.borderL,info.borderR, info.SpawnZombie);
 
 				enemies[i]->texture = texture;
 
@@ -256,6 +257,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				if (enemies[i]->AttackCollider != nullptr) { enemies[i]->AttackCollider->SetPos(1000, 1000); }
 				if (enemies[i]->SelfDestruct != nullptr) { enemies[i]->SelfDestruct->SetPos(-2000, -2000); }
 				if (enemies[i]->XplosionTrigger != nullptr) { enemies[i]->XplosionTrigger->SetPos(-2000, -2000); }
+				
 				App->audio->PlayFx(enemyDeath, 1);
 				delete enemies[i];
 				enemies[i] = nullptr;
@@ -279,16 +281,17 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			enemies[i]->hp = 0;
 
 		}
-		if (enemies[i] != nullptr) {
+		// Testing grave stuff
+		/*if (enemies[i] != nullptr) {
 			if (enemies[i]->CodeN == 5) {
-				
-				enemies[i]->OnCollision(c2);
-				if (enemies[i]->hp <= 0) {
-					delete enemies[i];
-					enemies[i] = nullptr;
+				if (c2->type == Collider::Type::PLAYER_SHOT) {
+					enemies[i]->OnCollision(c2);
+					if (enemies[i]->hp <= 0) {
+						delete enemies[i];
+						enemies[i] = nullptr;
+					}
 				}
-				
 			}
-		}
+		}*/
 	}
 }

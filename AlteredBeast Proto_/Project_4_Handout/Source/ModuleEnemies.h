@@ -25,6 +25,8 @@ struct EnemySpawnpoint
 
 	bool borderL = false;
 	bool borderR = false;
+
+	bool SpawnZombie = false;
 };
 
 class Enemy;
@@ -62,7 +64,7 @@ public:
 	// Add an enemy into the queue to be spawned later
 	bool AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment);
 
-	bool AddGrave( int x, int y, bool borderL, bool borderR);
+	bool AddGrave( int x, int y, bool borderL, bool borderR, bool Zombie);
 
 	bool borderL = false;
 	bool borderR = false;
