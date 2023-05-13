@@ -9,7 +9,7 @@
 class Tomb : public Enemy {
 public:
 
-	Tomb(int x, int y);
+	Tomb(int x, int y, bool borderL , bool borderR);
 
 	void Update() override;
 
@@ -20,6 +20,9 @@ public:
 	int Risecnt2 = 60;
 	bool Risen = false;
 	bool Rising = false;
+
+	bool TombBorderL = false;
+	bool TombBorderR = false;
 
 	int Fy;
 
@@ -37,6 +40,8 @@ public:
 	Collider* WallRCollider;
 	Collider* PlatformCollider;
 
+	Collider* LBorder = nullptr;
+	Collider* RBorder = nullptr;
 
 
 

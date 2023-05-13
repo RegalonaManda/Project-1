@@ -57,6 +57,8 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::PLAYER][Collider::Type::ATTACK_XplosionTrigger] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLATFORM] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::BORDER] = true;
+
 
 	matrix[Collider::Type::ENEMY][Collider::Type::WALL] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::WALL_RIGHT] = true;
@@ -69,6 +71,7 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::ENEMY][Collider::Type::ATTACK_XplosionTrigger] = false;
 	matrix[Collider::Type::ENEMY][Collider::Type::ENEMY_SELF_DESTRUCT] = true;
 	matrix[Collider::Type::ENEMY][Collider::Type::PLATFORM] = true;
+	matrix[Collider::Type::ENEMY][Collider::Type::BORDER] = true;
 
 
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::WALL] = true;
@@ -82,6 +85,7 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ATTACK_XplosionTrigger] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::PLATFORM] = false;
+	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::BORDER] = false;
 
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WALL] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WALL_RIGHT] = true;
@@ -94,6 +98,7 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ATTACK_XplosionTrigger] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::PLATFORM] = false;
+	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::BORDER] = false;
 
 
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::WALL] = false;
@@ -107,6 +112,7 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::ATTACK_XplosionTrigger] = false;
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::CAMLIMIT][Collider::Type::PLATFORM] = false;
+	matrix[Collider::Type::CAMLIMIT][Collider::Type::BORDER] = false;
 
 	matrix[Collider::Type::POWER_UP][Collider::Type::WALL] = false;
 	matrix[Collider::Type::POWER_UP][Collider::Type::WALL_RIGHT] = false;
@@ -118,6 +124,7 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::POWER_UP][Collider::Type::ATTACK_XplosionTrigger] = false;
 	matrix[Collider::Type::POWER_UP][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::POWER_UP][Collider::Type::PLATFORM] = false;
+	matrix[Collider::Type::CAMLIMIT][Collider::Type::BORDER] = false;
 
 						  
 	matrix[Collider::Type::ATTACK_XplosionTrigger][Collider::Type::WALL] = false;
@@ -130,6 +137,7 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::ATTACK_XplosionTrigger][Collider::Type::POWER_UP] = false;
 	matrix[Collider::Type::ATTACK_XplosionTrigger][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::ATTACK_XplosionTrigger][Collider::Type::PLATFORM] = false;
+	matrix[Collider::Type::ATTACK_XplosionTrigger][Collider::Type::BORDER] = false;
 
 	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::WALL] = false;
 	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::WALL_RIGHT] = false;
@@ -141,6 +149,18 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::CAMLIMIT] = false;
 	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::ATTACK_XplosionTrigger] = false;
 	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::PLATFORM] = false;
+	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::BORDER] = false;
+
+	matrix[Collider::Type::BORDER][Collider::Type::WALL] = false;
+	matrix[Collider::Type::BORDER][Collider::Type::WALL_RIGHT] = false;
+	matrix[Collider::Type::BORDER][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::BORDER][Collider::Type::ENEMY] = true;
+	matrix[Collider::Type::BORDER][Collider::Type::PLAYER_SHOT] = false;
+	matrix[Collider::Type::BORDER][Collider::Type::POWER_UP] = false;
+	matrix[Collider::Type::BORDER][Collider::Type::ENEMY_SHOT] = false;
+	matrix[Collider::Type::BORDER][Collider::Type::CAMLIMIT] = false;
+	matrix[Collider::Type::BORDER][Collider::Type::ATTACK_XplosionTrigger] = false;
+	matrix[Collider::Type::BORDER][Collider::Type::PLATFORM] = false;
 
 
 }
@@ -258,6 +278,9 @@ void ModuleCollisions::DebugDraw()
 			break;
 		case Collider::Type::PLATFORM: //pinky
 			App->render->DrawQuad(colliders[i]->rect, 204, 0, 102, alpha);
+			break;
+		case Collider::Type::BORDER: //BROWN
+			App->render->DrawQuad(colliders[i]->rect, 101, 67, 33, alpha);
 			break;
 		}
 

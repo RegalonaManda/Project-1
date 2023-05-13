@@ -126,7 +126,7 @@ public:
 
 	void playerDamaged();
 
-	
+	bool jumped = false;
 
 	float destroyedCountdown = 300;
 	

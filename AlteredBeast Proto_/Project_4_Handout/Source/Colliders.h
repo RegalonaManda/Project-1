@@ -21,6 +21,7 @@ struct Collider
 		POWER_UP,
 		ATTACK_XplosionTrigger,
 		ENEMY_SELF_DESTRUCT,
+		BORDER,
 
 		MAX
 	};

@@ -282,9 +282,9 @@ void Zombie::OnCollision(Collider* collider) {
 
 	//rise above paltform
 	if (collider->type == Collider::Type::PLATFORM) {
-
-		position.y-=1.8f;
-		
+		if (collider != App->scene2->Ground) {
+			position.y -= 1.8f;
+		}
 		
 	}
 

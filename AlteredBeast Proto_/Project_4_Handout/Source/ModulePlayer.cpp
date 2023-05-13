@@ -121,7 +121,7 @@ update_status ModulePlayer::Update()
 
 	// calculate the max h for the current ground lvl
 	if (airSt == AirState::GROUND) {
-		MAX_HEIGHT = position.y - 56;
+		MAX_HEIGHT = position.y - 60   ;
 	}
  	
 
@@ -160,9 +160,13 @@ update_status ModulePlayer::Update()
 	if (App->input->keys[SDL_SCANCODE_J] == KEY_DOWN && idle == true && airSt != AirState::AIRBORN && airSt != AirState::LANDING) {
 		position.y -= 5;
 		airSt = AirState::AIRBORN;
+		jumped = true;
 	}
-	if (airSt == AirState::AIRBORN) {
+	if (airSt == AirState::AIRBORN && jumped == true) {
 		position.y -= impulse;
+	}
+	if (airSt == AirState::AIRBORN && jumped == false) {
+		position.y += 3;
 	}
 	////Put a max height that makes the player fall faster for it to dont look like its floating ( not real but like the game )
 	////impulse lesser, the faster it falls
@@ -1176,6 +1180,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		position.y--;
 		airSt = AirState::GROUND;
 		idle = true;
+		jumped = false;
 	}
 	else {
 		//airSt = AirState::AIRBORN;
@@ -1186,6 +1191,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	}
 	if (c1 == Pcollider && c2->type == Collider::Type::WALL_RIGHT) {
 		position.x += 2;
+	}
+
+	// -------------------------------------------Border Collisions-------------------------------
+
+	if (c1 == Pcollider && c2->type == Collider::Type::BORDER && airSt != AirState::AIRBORN) {
+		airSt = AirState::AIRBORN;
 	}
 }
 
