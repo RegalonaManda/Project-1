@@ -244,6 +244,19 @@ void Zombie::Update() {
 		}
 		
 	}
+
+
+
+
+	if (falling == true) {
+		position.y += 3;
+	}
+
+
+
+
+
+
 	currentAnim->Update();
 	Enemy::Update();
 	
@@ -285,7 +298,8 @@ void Zombie::OnCollision(Collider* collider) {
 		if (collider != App->scene2->Ground) {
 			position.y -= 1.8f;
 		}
-		
+		falling = false;
+		idle = true;
 	}
 
 	// stop againts wall
@@ -295,6 +309,12 @@ void Zombie::OnCollision(Collider* collider) {
 	}
 	if (collider->type == Collider::Type::WALL_RIGHT) {
 		position.x += 1.1f;
+	}
+
+	// fall on border
+	if (collider->type == Collider::Type::BORDER) {
+		falling = true;
+		idle = false;
 	}
 	
 }

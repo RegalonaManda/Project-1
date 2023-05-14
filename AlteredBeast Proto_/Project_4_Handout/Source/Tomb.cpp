@@ -17,7 +17,7 @@ Tomb::Tomb(int x, int y, bool borderL, bool borderR, bool Zombie) : Enemy(x, y) 
 	TombBorderL = borderL;
 	TombBorderR = borderR;
 	this->Zombie = Zombie;
-	hp = 1;
+	hp = 2;
 	Fy = y;
 
 	PlatformCollider = App->collisions->AddCollider({ 100,100,26,5 },Collider::Type::PLATFORM, (Module*)App->player);
@@ -86,6 +86,7 @@ void Tomb::Update() {
 		}
 		if (zombieTimer <= 0) {
 			App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, position.x, position.y, true);
+			Zombie = false;
 			hp = 0;
 			SelfDestruct->SetPos(position.x + 10, position.y + 10);
 			WallLCollider->SetPos(-650, -650);
@@ -104,7 +105,17 @@ void Tomb::OnCollision(Collider* collider) {
 	
 
 	if (collider->type == Collider::Type::PLAYER_SHOT) {
-		hp--;
+		
+
+		if(destroyedCountdown == 20){ hp -= App->player->attack; }
+		destroyedCountdown--;
+		if (destroyedCountdown <= 0) {
+			
+			App->audio->PlayFx(lethalAtt, 5);
+			destroyedCountdown = 20;
+
+		}
+
 
 
 		WallLCollider->SetPos(-650, -650);
@@ -113,6 +124,7 @@ void Tomb::OnCollision(Collider* collider) {
 		// Add enemy?
 		if (Zombie == true) {
 			App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, position.x, position.y, true);
+			Zombie = false;
 		}
 	}
 

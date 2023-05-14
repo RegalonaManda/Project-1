@@ -107,7 +107,7 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::POWER1;
+	tranSt = Transform::DEFAULT;
 	
 	
 
@@ -140,7 +140,8 @@ update_status ModulePlayer::Update()
 	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;
-		airSt = AirState::GROUND;
+		
+		
 		attack += 1;
 		idle = true;
 		AllAnimations.powerUp1.loopCount = 0;
@@ -162,7 +163,7 @@ update_status ModulePlayer::Update()
 		airSt = AirState::AIRBORN;
 		jumped = true;
 	}
-	if (airSt == AirState::AIRBORN && jumped == true) {
+	if (airSt == AirState::AIRBORN && jumped == true && transforming == false) {
 		position.y -= impulse;
 	}
 	if (airSt == AirState::AIRBORN && jumped == false) {
@@ -179,47 +180,47 @@ update_status ModulePlayer::Update()
 	if (tranSt == Transform::DEFAULT && transforming == false) {
 
 		attack = 1;
-		if (playerKnocked == true) {
-			if (dir == Direction::RIGHT) {
-				Pcollider->SetPos(position.x + 20, position.y - 60);
-				if (position.y >= 190) {
-					currentAnimation = &AllAnimations.RiseR;
-					
-				}
-				
-				//KnockBack(0.8);
-				if (position.y >= 190) {
-					if (AllAnimations.RiseR.HasFinished() == true) {
-						AllAnimations.RiseR.Reset();
-						AllAnimations.RiseR.loopCount = 0;
-						airSt = AirState::GROUND;
-						position.y = 190;
-						idle = true;
-						playerKnocked = false;
+		//if (playerKnocked == true) {
+		//	if (dir == Direction::RIGHT) {
+		//		Pcollider->SetPos(position.x + 20, position.y - 60);
+		//		if (position.y >= 190) {
+		//			currentAnimation = &AllAnimations.RiseR;
+		//			
+		//		}
+		//		
+		//		//KnockBack(0.8);
+		//		if (position.y >= 190) {
+		//			if (AllAnimations.RiseR.HasFinished() == true) {
+		//				AllAnimations.RiseR.Reset();
+		//				AllAnimations.RiseR.loopCount = 0;
+		//				airSt = AirState::GROUND;
+		//				position.y = 190;
+		//				idle = true;
+		//				playerKnocked = false;
 
-					}
-				}
-				
-			}
-			if (dir == Direction::LEFT) {
-				Pcollider->SetPos(position.x + 20, position.y - 60);
-				if (position.y >= 190) {
-					currentAnimation = &AllAnimations.RiseL;
-					
-				}
+		//			}
+		//		}
+		//		
+		//	}
+		//	if (dir == Direction::LEFT) {
+		//		Pcollider->SetPos(position.x + 20, position.y - 60);
+		//		if (position.y >= 190) {
+		//			currentAnimation = &AllAnimations.RiseL;
+		//			
+		//		}
 
-				if (AllAnimations.RiseL.HasFinished() == true) {
-					AllAnimations.RiseL.Reset();
-					AllAnimations.RiseL.loopCount = 0;
-					airSt = AirState::GROUND;
-					position.y = 190;
-					idle = true;
-					playerKnocked = false;
+		//		if (AllAnimations.RiseL.HasFinished() == true) {
+		//			AllAnimations.RiseL.Reset();
+		//			AllAnimations.RiseL.loopCount = 0;
+		//			airSt = AirState::GROUND;
+		//			position.y = 190;
+		//			idle = true;
+		//			playerKnocked = false;
 
-				}
-			}
-		}
-		if (playerKnocked == false) {
+		//		}
+		//	}
+		//}
+		if (destroyed == false) {
 			if (idle == true && airSt == AirState::GROUND && iFrames == false) {
 				//position.y = 190;
 				knockImpulse = 0;
