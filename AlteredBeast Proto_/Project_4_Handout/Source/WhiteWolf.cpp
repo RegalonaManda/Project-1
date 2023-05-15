@@ -8,7 +8,7 @@
 #include "ModuleScene.h"
 
 //Calls the constructor of enemy class to save spawn position
-
+int MAX_HEIGHT_2 = 0;
 
 WhiteWolf::WhiteWolf(int x, int y) : Enemy(x, y) {
 
@@ -60,7 +60,7 @@ WhiteWolf::WhiteWolf(int x, int y) : Enemy(x, y) {
 	deathAnimLeft.loop = false;
 	deathAnimLeft.totalFrames = 2;
 
-	Ecollider = App->collisions->AddCollider({ 600, 190, 68, 70 }, Collider::Type::ENEMY, (Module*)App->enemies);
+	Ecollider = App->collisions->AddCollider({ 600, 190, 55, 22 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	AttackCollider = App->collisions->AddCollider({ 600, 200, 34, 30 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 }
 
@@ -78,40 +78,32 @@ void WhiteWolf::Update() {
 
 	if (alive && knocked == false)
 	{
-		
-		if (dir == Direction::RIGHT ) 
+
+		if (dir == Direction::RIGHT)
 		{
-			if (idle == true) { 
+			if (idle == true) {
 				currentAnim = &idleAnimRight;
-			    JumpCnt--;
+				JumpCnt--;
 				AttackCollider->SetPos(-2000, -2000);
 			}
-			
+
 			if (JumpCnt <= 0) {
+				position.y -= 10;
 				idle = false;
 				JumpCnt = 150;
 			}
 
 			if (idle == false) {
-				AttackCollider->SetPos(position.x-5, position.y+10);
+				AttackCollider->SetPos(position.x - 5, position.y + 10);
 				currentAnim = &jumpAnimRight;
 				position.x -= 1.2f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
-
-				if (position.y > Y0) {
-					position.y = Y0;
-					idle = true;
-					wolfImpulse = 2.0f;
-				}
 			}
-			
-			
 		}
 
-		
-		if (dir == Direction::LEFT) 
-		{ 
+		if (dir == Direction::LEFT)
+		{
 			if (idle == true) {
 				currentAnim = &idleAnimLeft;
 				JumpCnt--;
@@ -119,31 +111,27 @@ void WhiteWolf::Update() {
 			}
 
 			if (JumpCnt <= 0) {
+				position.y -= 10;
 				idle = false;
 				JumpCnt = 150;
-
 			}
+
 			if (idle == false) {
 				AttackCollider->SetPos(position.x + 5, position.y + 2);
 				currentAnim = &jumpAnimLeft;
 				position.x += 1.2f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
-				
-				if (position.y > 140) {
-					position.y = 140;
-					idle = true;
-					wolfImpulse = 2.0f;
-				}
 			}
 		}
-		
+
 
 		Enemy::Update();
-		
+
 
 	}
-	//Kocked
+	Ecollider->SetPos(position.x, position.y + 26);
+	//Knocked
 	if (knocked == true) {
 		if (stunt == true) {
 			stunt = false;
@@ -161,7 +149,10 @@ void WhiteWolf::Update() {
 			knockImpulse = 3.0f;
 		}
 
-
+		// calculate the max h for the current ground lvl
+		if (knocked == false) {
+			MAX_HEIGHT_2 = position.y - 56;
+		}
 	}
 
 
@@ -180,18 +171,14 @@ void WhiteWolf::OnCollision(Collider* collider) {
 		App->scene->HasEnemyDied = true;
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
-		App->scene->EnemyCN = 2;
-		if (App->player->tranSt == ModulePlayer::Transform::DEFAULT) {
-			App->powers->Enable();
-			App->powers->position.x = position.x;
-			App->powers->position.y = position.y;
-			App->powers->spawnPos.x = position.x;
-			App->powers->spawnPos.y = position.y;
-		}
-		if (App->player->tranSt == ModulePlayer::Transform::POWER1 && App->player->destroyed) {
-			App->powers->Disable();
-		}
-		
+		App->scene->EnemyCN = 3;
+
+		/*App->powers->Enable();
+		App->powers->position.x = position.x;
+		App->powers->position.y = position.y;
+		App->powers->spawnPos.x = position.x;
+		App->powers->spawnPos.y = position.y;*/
+
 
 		App->player->score += 1000;
 	}
@@ -199,6 +186,15 @@ void WhiteWolf::OnCollision(Collider* collider) {
 	if (collider->type == Collider::Type::PLAYER) {
 		knocked = true;
 
+	}
+
+	if (collider == App->scene2->Ground || collider->type == Collider::Type::PLATFORM) {
+		position.y -= 1;
+		idle = true;
+		knocked = false;
+		stunt = true;
+		knockImpulse = 3.0f;
+		wolfImpulse = 2.0f;
 	}
 
 }

@@ -102,18 +102,9 @@ void BrownWolf::Update() {
 				position.x -= 1.2f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
-
-				/*if (position.y > Y0) {
-					position.y = Y0;
-					idle = true;
-					wolfImpulse = 2.0f;
-				}*/
 			}
-
-
 		}
 
-		// Working on this... change like right direction
 		if (dir == Direction::LEFT)
 		{
 			if (idle == true) {
@@ -134,12 +125,6 @@ void BrownWolf::Update() {
 				position.x += 1.2f;
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
-
-				/*if (position.y > Y0) {
-					position.y = Y0;
-					idle = true;
-					wolfImpulse = 2.0f;
-				}*/
 			}
 		}
 
@@ -148,7 +133,7 @@ void BrownWolf::Update() {
 
 
 	}
-	Ecollider->SetPos(position.x, position.y+20);
+	Ecollider->SetPos(position.x, position.y+26);
 	//Knocked
 	if (knocked == true) {
 		if (stunt == true) {
@@ -217,7 +202,7 @@ void BrownWolf::OnCollision(Collider* collider) {
 	}
 
 	if(collider == App->scene2->Ground || collider->type == Collider::Type::PLATFORM) {
-		position.y-=10;
+		position.y-=1;
 		idle = true;
 		knocked = false;
 		stunt = true;

@@ -168,7 +168,7 @@ void Zombie::Update() {
 		position.y -= 1;
 	}
 
-	if (position.y <= 120) { Spawning = false; isRising = false; }
+	if (position.y <= 120) { Spawning = false; isRising = false; Risen = true; }
 
 
 

@@ -20,6 +20,7 @@ public:
 	int attackCnt2 = 30;
 	bool Alignment;
 	bool isRising;
+	bool Risen = false;
 	
 
 	bool Spawning;
