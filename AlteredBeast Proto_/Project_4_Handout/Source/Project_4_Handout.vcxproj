@@ -105,6 +105,7 @@
     <ClInclude Include="PlayerAnimations.h" />
     <ClInclude Include="ScenePreIntro.h" />
     <ClInclude Include="SceneIntro.h" />
+    <ClInclude Include="Tomb.h" />
     <ClInclude Include="WhiteWolf.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
@@ -135,6 +136,7 @@
     <ClCompile Include="ModulePower.cpp" />
     <ClCompile Include="ScenePreIntro.cpp" />
     <ClCompile Include="SceneIntro.cpp" />
+    <ClCompile Include="Tomb.cpp" />
     <ClCompile Include="WhiteWolf.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>

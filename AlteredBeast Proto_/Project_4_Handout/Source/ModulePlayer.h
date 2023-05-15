@@ -45,6 +45,8 @@ public:
 
 	};
 
+
+
 	Direction dir;
 	AirState airSt;
 	Transform tranSt;
@@ -75,7 +77,8 @@ public:
 	float knockImpulse = 2;
 
 
-	float impulse = 3.2f;
+	float impulse = 3.5f;
+	float MAX_HEIGHT;
 
 	// Position of the player in the map
 	fPoint position;
@@ -85,6 +88,7 @@ public:
 
 	float AirSpeed = 1.3f;
 
+	bool inAir = false;
 	// The player spritesheet loaded into an SDL_Texture
 	SDL_Texture* texture = nullptr;
 	
@@ -94,6 +98,7 @@ public:
 
 	// The player's collider
 	Collider* Pcollider = nullptr;
+	Collider* Crouchcollider = nullptr;
 	Collider* attackCollider = nullptr;
 	Collider* kickCollider = nullptr;
 	Collider* Deathcollider = nullptr;
@@ -113,14 +118,15 @@ public:
 	void PlayerHit(Collider* c2);
 
 
+	void Gravity_();
 
-
+	
 
 	void PlayerBump();
 
 	void playerDamaged();
 
-	
+	bool jumped = false;
 
 	float destroyedCountdown = 300;
 	
@@ -152,6 +158,8 @@ public:
 	bool KilledBoss = false;
 	int FadeCnt = 200;
 	bool playerKnocked = false;
+
+	bool Platform = false;
 };
 
 

@@ -105,7 +105,12 @@ bool ModuleScene::Start()
 	EnemyTexture = App->textures->Load("Assets/EnemiesProto.png");
 	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
 
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 300, 200, true);
+	// border L ,  border R
+	App->enemies->AddGrave( 150, 130, true, false,false);
+	App->enemies->AddGrave(185, 130, false,false ,true);
+	App->enemies->AddGrave( 220, 130, false,false,false);
+	App->enemies->AddGrave( 255, 130, false, true,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
@@ -113,6 +118,15 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 200,false);
+
+
+	App->enemies->AddGrave( 380, 130, true, false, true);
+	App->enemies->AddGrave( 415, 130, false,false, false);
+	App->enemies->AddGrave( 450, 130, false,false, false);
+	App->enemies->AddGrave( 485, 130, false,true , false);
+
+
+
 
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140,false);

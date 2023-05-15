@@ -1,14 +1,16 @@
+#pragma once;
+
 #include "ModuleEnemies.h"
 
-#include "Application.h"
 
+#include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 
-#include "Enemy.h"
-
 #include "Zombie.h"
+#include "Enemy.h"
+#include "Tomb.h"
 #include "WhiteWolf.h"
 #include "BrownWolf.h"
 #include "Neff.h"
@@ -37,6 +39,7 @@ bool ModuleEnemies::Start()
 	//Load Enemy Death Sound FX
 	enemyDeath = App->audio->LoadFx("Assets/FX/NPC_Death.wav");
 	
+	GraveText = App->textures->Load("Assets/toomb.png");
 
 	return true;
 }
@@ -99,6 +102,28 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment)
 			ret = true;
 			break;
 		}
+	}
+
+	return ret;
+}
+
+bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR, bool Zombie)
+{
+	bool ret = false;
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (spawnQueue[i].type == ENEMY_TYPE::NO_TYPE){
+			spawnQueue[i].type = ENEMY_TYPE::GRAVE;
+			spawnQueue[i].x = x;
+			spawnQueue[i].y = y;
+			spawnQueue[i].borderL = borderL;
+			spawnQueue[i].borderR = borderR;  
+			spawnQueue[i].SpawnZombie = Zombie;
+			ret = true;
+			break;
+		}
+		
 	}
 
 	return ret;
@@ -167,11 +192,11 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 			case ENEMY_TYPE::ZOMBIE:
 				
 				enemies[i] = new Zombie(info.x, info.y, info.spawnalignment);
-				
+
 				enemies[i]->texture = texture;
 
 				break;
-			
+
 			case ENEMY_TYPE::WHITEWOLF:
 
 				enemies[i] = new WhiteWolf(info.x, info.y);
@@ -187,7 +212,7 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 				enemies[i]->texture = texture;
 
 				break;
-			
+
 			case ENEMY_TYPE::NEFF:
 
 				enemies[i] = new Neff(info.x, info.y);
@@ -195,8 +220,17 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 				enemies[i]->texture = texture;
 
 				break;
-			
+
+
+			case ENEMY_TYPE::GRAVE:
+
+				enemies[i] = new Tomb(info.x, info.y,info.borderL,info.borderR, info.SpawnZombie);
+
+				enemies[i]->texture = texture;
+
+				break;
 			}
+		
 			break;
 		}
 
@@ -223,6 +257,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				if (enemies[i]->AttackCollider != nullptr) { enemies[i]->AttackCollider->SetPos(1000, 1000); }
 				if (enemies[i]->SelfDestruct != nullptr) { enemies[i]->SelfDestruct->SetPos(-2000, -2000); }
 				if (enemies[i]->XplosionTrigger != nullptr) { enemies[i]->XplosionTrigger->SetPos(-2000, -2000); }
+				
 				App->audio->PlayFx(enemyDeath, 1);
 				delete enemies[i];
 				enemies[i] = nullptr;
@@ -230,6 +265,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				break;
 				
 			}
+			
 		}
 		//In case player steps into attack XplosionTrigger
 		if (enemies[i] != nullptr && enemies[i]->GetXplosionTriggerCollider() == c1 && c2->type == Collider::Type::PLAYER) {
@@ -245,5 +281,17 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			enemies[i]->hp = 0;
 
 		}
+		// Testing grave stuff
+		/*if (enemies[i] != nullptr) {
+			if (enemies[i]->CodeN == 5) {
+				if (c2->type == Collider::Type::PLAYER_SHOT) {
+					enemies[i]->OnCollision(c2);
+					if (enemies[i]->hp <= 0) {
+						delete enemies[i];
+						enemies[i] = nullptr;
+					}
+				}
+			}
+		}*/
 	}
 }

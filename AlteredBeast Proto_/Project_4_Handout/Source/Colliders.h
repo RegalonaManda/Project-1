@@ -11,6 +11,8 @@ struct Collider
 	{
 		NONE = -1,
 		WALL,
+		WALL_RIGHT,
+		PLATFORM,
 		PLAYER,
 		ENEMY,
 		PLAYER_SHOT,
@@ -19,6 +21,7 @@ struct Collider
 		POWER_UP,
 		ATTACK_XplosionTrigger,
 		ENEMY_SELF_DESTRUCT,
+		BORDER,
 
 		MAX
 	};

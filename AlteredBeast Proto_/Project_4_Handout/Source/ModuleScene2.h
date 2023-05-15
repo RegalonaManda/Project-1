@@ -46,6 +46,8 @@ public:
 	Animation iconAnim;
 	Animation gameOverAnim;
 
+	Collider* Ground = nullptr;
+
 	bool killedBoss = false;
 	int FadeCnt = 120;
 };

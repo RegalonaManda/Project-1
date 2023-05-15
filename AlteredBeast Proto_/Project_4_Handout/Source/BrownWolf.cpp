@@ -6,9 +6,11 @@
 #include "ModulePlayer.h"
 #include "ModulePower.h"
 #include "ModuleScene.h"
+#include "ModuleScene2.h"
 
 //Calls the constructor of enemy class to save spawn position
 
+int MAX_HEIGHT = 0;
 
 BrownWolf::BrownWolf(int x, int y) : Enemy(x, y) {
 
@@ -54,12 +56,15 @@ BrownWolf::BrownWolf(int x, int y) : Enemy(x, y) {
 	deathAnimLeft.loop = false;
 	deathAnimLeft.totalFrames = 2;
 
-	Ecollider = App->collisions->AddCollider({ 600, 190, 68, 70 }, Collider::Type::ENEMY, (Module*)App->enemies);
+	Ecollider = App->collisions->AddCollider({ 600, 190, 55, 27 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	AttackCollider = App->collisions->AddCollider({ 600, 200, 34, 30 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 }
 
 void BrownWolf::Update() {
 	if (knocked == true) { knockH = position.y - 150; }
+
+
+	Ecollider->SetPos(position.x, position.y);
 
 	if (Y0 == 0) {
 		Y0 = position.y;
@@ -157,7 +162,10 @@ void BrownWolf::Update() {
 			knockImpulse = 3.0f;
 		}
 
-
+		// calculate the max h for the current ground lvl
+		if (knocked == false) {
+			MAX_HEIGHT = position.y - 56;
+		}
 	}
 	//if (!alive) {
 	//	
@@ -200,6 +208,15 @@ void BrownWolf::OnCollision(Collider* collider) {
 
 	if (collider->type == Collider::Type::PLAYER) {
 		knocked = true;
+
+	}
+
+	if(collider == App->scene2->Ground) {
+		position.y--;
+		idle = true;
+		knocked = false;
+		stunt = true;
+		knockImpulse = 3.0f;
 
 	}
 

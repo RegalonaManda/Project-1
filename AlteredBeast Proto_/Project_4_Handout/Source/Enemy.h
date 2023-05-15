@@ -81,7 +81,7 @@ public:
 	
 	bool idle = true;
 
-	
+	bool falling = false;
 
 	void KnockBack();
 };

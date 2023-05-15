@@ -244,6 +244,19 @@ void Zombie::Update() {
 		}
 		
 	}
+
+
+
+
+	if (falling == true) {
+		position.y += 3;
+	}
+
+
+
+
+
+
 	currentAnim->Update();
 	Enemy::Update();
 	
@@ -251,7 +264,7 @@ void Zombie::Update() {
 
 void Zombie::OnCollision(Collider* collider) {
 
-	if (collider->Collider::Type::PLAYER_SHOT) {
+	if (collider->type == Collider::Type::PLAYER_SHOT) {
 		
 		
 		destroyedCountdown--;
@@ -279,7 +292,30 @@ void Zombie::OnCollision(Collider* collider) {
 	}
 
 	//make the explosion kill the zombie
-	
+
+	//rise above paltform
+	if (collider->type == Collider::Type::PLATFORM) {
+		if (collider != App->scene2->Ground) {
+			position.y -= 1.8f;
+		}
+		falling = false;
+		idle = true;
+	}
+
+	// stop againts wall
+	if (collider->type == Collider::Type::WALL) {
+		position.x -= 1.1f;
+		// we could also stop their movement behaviour
+	}
+	if (collider->type == Collider::Type::WALL_RIGHT) {
+		position.x += 1.1f;
+	}
+
+	// fall on border
+	if (collider->type == Collider::Type::BORDER) {
+		falling = true;
+		idle = false;
+	}
 	
 }
 

@@ -20,6 +20,7 @@
 
 
 
+
 // SHOULD INCLUDE ALL MODULE .h FILES
 
 Application::Application()
@@ -45,7 +46,7 @@ Application::Application()
 	modules[12] =	fade =			new ModuleFadeToBlack(true);
 	modules[13] =	powers =		new ModulePower(false);
 	modules[14] =	fonts =			new ModuleFonts(true);
-	// render should always be the last module
+	// rendershould always be the last module
 	modules[15] =	render =		new ModuleRender(true);
 }
 

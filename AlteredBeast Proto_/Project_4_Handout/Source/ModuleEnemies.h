@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define MAX_ENEMIES 20
+#define MAX_ENEMIES 30
 
 
 
@@ -13,7 +13,8 @@ enum class ENEMY_TYPE
 	ZOMBIE,
 	WHITEWOLF,
 	BROWNWOLF,
-	NEFF
+	NEFF,
+	GRAVE
 };
 
 struct EnemySpawnpoint
@@ -21,6 +22,11 @@ struct EnemySpawnpoint
 	ENEMY_TYPE type = ENEMY_TYPE::NO_TYPE;
 	int x, y;
 	bool spawnalignment;
+
+	bool borderL = false;
+	bool borderR = false;
+
+	bool SpawnZombie = false;
 };
 
 class Enemy;
@@ -58,6 +64,11 @@ public:
 	// Add an enemy into the queue to be spawned later
 	bool AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment);
 
+	bool AddGrave( int x, int y, bool borderL, bool borderR, bool Zombie);
+
+	bool borderL = false;
+	bool borderR = false;
+
 	// Iterates the queue and checks for camera position
 	void HandleEnemiesSpawn();
 
@@ -80,6 +91,8 @@ public:
 	SDL_Texture* texture = nullptr;
 
 	SDL_Texture* BossText = nullptr;
+
+	SDL_Texture* GraveText = nullptr;
 
 	uint enemyDeath;
 
