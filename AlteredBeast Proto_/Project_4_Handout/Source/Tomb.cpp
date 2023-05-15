@@ -57,8 +57,18 @@ void Tomb::Update() {
 
 
 	Tomb::Rise();
-	if (zombieTimer > 200) {
+	if (zombieTimer > 200 && shakeB == false) {
 		currentAnim = &idle;
+	}
+
+	if (shakeB == true) {
+		currentAnim = &shake;
+		shaketimer--;
+		if (shaketimer <= 0) {
+			shakeB = false;
+			shaketimer = 20;
+		}
+
 	}
 
 	WallLCollider->SetPos(position.x, position.y+4);
@@ -106,7 +116,7 @@ void Tomb::OnCollision(Collider* collider) {
 
 	if (collider->type == Collider::Type::PLAYER_SHOT) {
 		
-
+		shakeB = true;
 		if(destroyedCountdown == 20){ hp -= App->player->attack; }
 		destroyedCountdown--;
 		if (destroyedCountdown <= 0) {

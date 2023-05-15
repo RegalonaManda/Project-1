@@ -56,17 +56,19 @@ BrownWolf::BrownWolf(int x, int y) : Enemy(x, y) {
 	deathAnimLeft.loop = false;
 	deathAnimLeft.totalFrames = 2;
 
-	Ecollider = App->collisions->AddCollider({ 600, 190, 55, 27 }, Collider::Type::ENEMY, (Module*)App->enemies);
+	Ecollider = App->collisions->AddCollider({ 600, 190, 55, 22 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	AttackCollider = App->collisions->AddCollider({ 600, 200, 34, 30 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
+
+	position.y = 210;
 }
 
 void BrownWolf::Update() {
 	if (knocked == true) { knockH = position.y - 150; }
 
 
-	Ecollider->SetPos(position.x, position.y);
+	Ecollider->SetPos(position.x, position.y+20 );
 
-	if (Y0 == 0) {
+	if (idle == true) {
 		Y0 = position.y;
 	}
 
@@ -89,6 +91,7 @@ void BrownWolf::Update() {
 			}
 
 			if (JumpCnt <= 0) {
+				position.y -= 10;
 				idle = false;
 				JumpCnt = 150;
 			}
@@ -100,17 +103,17 @@ void BrownWolf::Update() {
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
 
-				if (position.y > Y0) {
+				/*if (position.y > Y0) {
 					position.y = Y0;
 					idle = true;
 					wolfImpulse = 2.0f;
-				}
+				}*/
 			}
 
 
 		}
 
-
+		// Working on this... change like right direction
 		if (dir == Direction::LEFT)
 		{
 			if (idle == true) {
@@ -211,13 +214,13 @@ void BrownWolf::OnCollision(Collider* collider) {
 
 	}
 
-	if(collider == App->scene2->Ground) {
-		position.y--;
+	if(collider == App->scene2->Ground || collider->type == Collider::Type::PLATFORM) {
+		position.y-=25;
 		idle = true;
 		knocked = false;
 		stunt = true;
 		knockImpulse = 3.0f;
-
+		wolfImpulse = 2.0f;
 	}
 
 }

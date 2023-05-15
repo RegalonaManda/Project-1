@@ -20,6 +20,8 @@ public:
 	int Risecnt2 = 60;
 
 	int zombieTimer = 900;
+	int shaketimer = 20;
+	bool shakeB = false;
 
 	bool Risen = false;
 	bool Rising = false;

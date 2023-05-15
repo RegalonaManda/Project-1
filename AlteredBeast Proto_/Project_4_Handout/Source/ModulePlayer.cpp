@@ -158,7 +158,7 @@ update_status ModulePlayer::Update()
 	
 	// New jumping function
 
-	if (App->input->keys[SDL_SCANCODE_J] == KEY_DOWN && idle == true && airSt != AirState::AIRBORN && airSt != AirState::LANDING) {
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN && idle == true && airSt != AirState::AIRBORN && airSt != AirState::LANDING) {
 		position.y -= 5;
 		airSt = AirState::AIRBORN;
 		jumped = true;
@@ -259,8 +259,8 @@ update_status ModulePlayer::Update()
 				Crouchcollider->SetPos(0, -5000);
 			}
 
-			if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 60); }
-			if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 60); }
+			if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 65); }
+			if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 65); }
 
 			if (idle == true) {
 				attackCollider->SetPos(1000, 1000);
