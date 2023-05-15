@@ -89,6 +89,8 @@ update_status Application::Update()
 	for (int i = 0; i < NUM_MODULES && ret == update_status::UPDATE_CONTINUE; ++i)
 		ret = modules[i]->IsEnabled() ? modules[i]->PostUpdate() : update_status::UPDATE_CONTINUE;
 
+	SDL_Delay(16.6f);
+
 	return ret;
 		
 }
