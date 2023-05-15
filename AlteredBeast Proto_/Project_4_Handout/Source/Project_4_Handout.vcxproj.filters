@@ -127,6 +127,12 @@
     <ClInclude Include="Tomb.h">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Power1.h">
+      <Filter>Source Files\Modules\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="WereWolf.h">
+      <Filter>Source Files\Modules\Gameplay\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Module.cpp">
@@ -215,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="Tomb.cpp">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Default.h">
+      <Filter>Source Files\Modules\Gameplay\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -103,9 +103,11 @@
     <ClInclude Include="Path.h" />
     <ClInclude Include="ModulePower.h" />
     <ClInclude Include="PlayerAnimations.h" />
+    <ClInclude Include="Power1.h" />
     <ClInclude Include="ScenePreIntro.h" />
     <ClInclude Include="SceneIntro.h" />
     <ClInclude Include="Tomb.h" />
+    <ClInclude Include="WereWolf.h" />
     <ClInclude Include="WhiteWolf.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
@@ -113,6 +115,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BrownWolf.cpp" />
     <ClCompile Include="Colliders.cpp" />
+    <ClCompile Include="Default.h" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />

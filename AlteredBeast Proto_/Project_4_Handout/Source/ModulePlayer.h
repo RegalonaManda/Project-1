@@ -24,6 +24,7 @@ public:
 	// Destructor
 	~ModulePlayer();
 	int attack = 1;
+	bool idle = true;
 
 	enum class Direction {
 		LEFT,
@@ -45,6 +46,11 @@ public:
 
 	};
 
+	//----------Control---Functions-------------
+
+	void DefaultMovement();
+
+	void Power1Movement();
 
 
 	Direction dir;
