@@ -66,7 +66,7 @@ void BrownWolf::Update() {
 	if (knocked == true) { knockH = position.y - 150; }
 
 
-	Ecollider->SetPos(position.x, position.y+20 );
+	
 
 	if (idle == true) {
 		Y0 = position.y;
@@ -123,10 +123,11 @@ void BrownWolf::Update() {
 			}
 
 			if (JumpCnt <= 0) {
+				position.y -= 10;
 				idle = false;
 				JumpCnt = 150;
-
 			}
+
 			if (idle == false) {
 				AttackCollider->SetPos(position.x + 5, position.y + 2);
 				currentAnim = &jumpAnimLeft;
@@ -134,11 +135,11 @@ void BrownWolf::Update() {
 				wolfImpulse -= Gravity;
 				position.y -= wolfImpulse;
 
-				if (position.y > 140) {
-					position.y = 140;
+				/*if (position.y > Y0) {
+					position.y = Y0;
 					idle = true;
 					wolfImpulse = 2.0f;
-				}
+				}*/
 			}
 		}
 
@@ -147,6 +148,7 @@ void BrownWolf::Update() {
 
 
 	}
+	Ecollider->SetPos(position.x, position.y+20);
 	//Knocked
 	if (knocked == true) {
 		if (stunt == true) {
@@ -215,7 +217,7 @@ void BrownWolf::OnCollision(Collider* collider) {
 	}
 
 	if(collider == App->scene2->Ground || collider->type == Collider::Type::PLATFORM) {
-		position.y-=25;
+		position.y-=10;
 		idle = true;
 		knocked = false;
 		stunt = true;
