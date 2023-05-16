@@ -1,5 +1,6 @@
 #include "ModulePlayer.h"
 #include "Power1.h"
+#include "WereWolf.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
@@ -189,7 +190,12 @@ update_status ModulePlayer::Update()
 
 	}
 
-	
+	//WereWolf
+	if (tranSt == Transform::WOLF) {
+		ModulePlayer::WereWolfMovement();
+	}
+
+
 		currentAnimation->Update();
 
 	

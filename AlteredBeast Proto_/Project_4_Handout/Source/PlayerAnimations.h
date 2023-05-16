@@ -129,6 +129,17 @@ public:
 	Animation P1LandingR;
 	Animation P1LandingL;
 
+	//------WereWolf Animations--------
+
+	Animation W_IdleR;
+	Animation W_IdleL;
+
+	Animation W_walkR;
+	Animation W_walkL;
+
+	Animation W_KickR;
+	Animation W_KickL;
+
 	PlayerAnim::PlayerAnim() {
 
 
@@ -425,6 +436,50 @@ public:
 
 		P1LandingL.PushBack({ 485,645,88,69 });
 
+		//----WereWolf--PushBack------------
+
+		W_IdleR.PushBack({ 1,1097,148,92 });
+
+		W_IdleL.PushBack({ 449,1190,148,92 });
+
+		W_walkR.PushBack({ 150,1097,148,92 });
+		W_walkR.PushBack({ 299,1097,148,92 });
+		W_walkR.PushBack({ 448,1097,148,92 });
+		W_walkR.speed = WALKANIMSPEED;
+		W_walkR.loop = true;
+
+		W_walkL.PushBack({ 299,1190,148,92 });
+		W_walkL.PushBack({ 150,1190,148,92 });
+		W_walkL.PushBack({ 1,1190,148,92 });
+		W_walkL.speed = WALKANIMSPEED;
+		W_walkL.loop = true;
+
+		W_KickR.PushBack({ 1,1469,148,92 });
+		W_KickR.PushBack({ 150,1469,148,92 });
+
+		W_KickR.PushBack({ 1,1469,148,92 });
+		W_KickR.PushBack({ 150,1469,148,92 });
+		W_KickR.PushBack({ 1,1469,148,92 });
+		W_KickR.PushBack({ 150,1469,148,92 });
+		W_KickR.PushBack({ 1,1469,148,92 });
+		W_KickR.PushBack({ 150,1469,148,92 });
+		W_KickR.loop = false;
+		W_KickR.speed = KICKANIMSPEED + 0.1;
+		// loop 4 times
+
+
+
+		W_KickL.PushBack({ 299,1562,148,92 });
+		W_KickL.PushBack({ 150,1562,148,92 });
+
+		W_KickL.PushBack({ 299,1562,148,92 });
+		W_KickL.PushBack({ 150,1562,148,92 });
+		W_KickL.PushBack({ 299,1562,148,92 });
+		W_KickL.PushBack({ 150,1562,148,92 });
+		W_KickL.PushBack({ 299,1562,148,92 });
+		W_KickL.PushBack({ 150,1562,148,92 });
+		W_KickL.loop = false;
+		W_KickL.speed = KICKANIMSPEED + 0.1;
 	}
 
 

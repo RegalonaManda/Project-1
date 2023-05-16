@@ -52,6 +52,9 @@ public:
 
 	void Power1Movement();
 
+	void WereWolfMovement();
+
+	void WolfKick();
 
 	Direction dir;
 	AirState airSt;

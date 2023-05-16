@@ -182,7 +182,7 @@ update_status ModuleScene::Update()
 	
 
 	App->enemies->Update();
-	if (App->player->tranSt == ModulePlayer::Transform::DEFAULT || App->player->tranSt == ModulePlayer::Transform::POWER1) {
+	if (App->player->tranSt == ModulePlayer::Transform::DEFAULT || App->player->tranSt == ModulePlayer::Transform::POWER1 || App->player->tranSt == ModulePlayer::Transform::WOLF) {
 		if (EnemyCN == 1) {
 			if (HasEnemyDied == true && EnemyAttacking == false) {
 				//Death->KillZombie(enemyX, enemyY);
