@@ -103,10 +103,10 @@ bool ModuleScene::Start()
 	trees = App->textures->Load("Assets/trees.png");
 	sky = App->textures->Load("Assets/sky.png");
 	EnemyTexture = App->textures->Load("Assets/EnemiesProto.png");
-	ExplosionText = App->textures->Load("Assets/ParticleGrid.png");
+	ExplosionText = App->textures->Load("Assets/Particle.png");
 
 	// border L ,  border R
-	/*App->enemies->AddGrave( 150, 130, true, false,false);
+	App->enemies->AddGrave( 150, 130, true, false,false);
 	App->enemies->AddGrave(185, 130, false,false ,true);
 	App->enemies->AddGrave( 220, 130, false,false,false);
 	App->enemies->AddGrave( 255, 130, false, true,false);
@@ -141,7 +141,7 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110,false);
 	
-	*/
+	
 	
 
 	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);

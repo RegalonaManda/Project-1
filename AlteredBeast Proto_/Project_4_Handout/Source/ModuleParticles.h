@@ -56,6 +56,8 @@ public:
 	//Template particle for an explosion
 	Particle* zombieExpl;
 
+	Particle wolfShot;
+
 private:
 	// Particles spritesheet loaded into an SDL Texture
 	SDL_Texture* texture = nullptr;

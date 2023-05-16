@@ -296,7 +296,7 @@ update_status ModulePlayer::PostUpdate()
 	App->fonts->BlitText(60, 8, scoreFont, scoreText);
 	App->fonts->BlitText(230, 8, scoreFont, "50000");
 
-
+	// Blit the wolf shot if it exists
 
 	return update_status::UPDATE_CONTINUE;
 }

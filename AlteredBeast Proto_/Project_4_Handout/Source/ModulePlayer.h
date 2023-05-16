@@ -8,6 +8,7 @@
 #include "Globals.h"
 #include "PlayerAnimations.h"
 #include "Enemy.h"
+#include "WereWolf.h"
 
 #define Gravity 0.07f;
 
@@ -55,6 +56,8 @@ public:
 	void WereWolfMovement();
 
 	void WolfKick();
+
+	WolfShot FireBall;
 
 	Direction dir;
 	AirState airSt;

@@ -482,3 +482,28 @@ void ModulePlayer::WolfKick() {
 
 
 }
+
+class WolfShot {
+
+
+public:
+
+	Animation* CurrentShot = nullptr;
+
+	Animation GrowAnim;
+	Animation TravelAnim;
+	Animation ExplodeAnim;
+
+	SDL_Texture* ShotText = nullptr;
+
+
+	fPoint ShotPosition;
+
+	SDL_Rect wolfRec;
+
+
+
+
+
+
+};

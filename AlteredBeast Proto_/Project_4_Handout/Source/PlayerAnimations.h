@@ -140,6 +140,9 @@ public:
 	Animation W_KickR;
 	Animation W_KickL;
 
+	Animation W_punchR;
+	Animation W_punchL;
+
 	PlayerAnim::PlayerAnim() {
 
 
@@ -480,6 +483,21 @@ public:
 		W_KickL.PushBack({ 150,1562,148,92 });
 		W_KickL.loop = false;
 		W_KickL.speed = KICKANIMSPEED + 0.1;
+
+
+		W_punchR.PushBack({ 1,1283, 148, 92 });
+		W_punchR.PushBack({ 150,1283, 148, 92 });
+		W_punchR.PushBack({ 299, 1283, 148, 92 });
+		W_punchR.loop = false;
+		W_punchR.speed = PUNCHANIMSPEED;
+
+
+		W_punchL.PushBack({ 448,1376, 148, 92 });
+		W_punchL.PushBack({ 299,1283, 148, 92 });
+		W_punchL.PushBack({ 150, 1283, 148, 92 });
+		W_punchL.loop = false;
+		W_punchL.speed = PUNCHANIMSPEED;
+
 	}
 
 
