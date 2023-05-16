@@ -79,14 +79,19 @@ bool kickL = false;
 
 void ModulePlayer::WereWolfMovement() {
 
-	//Power1
+	
 	attack = 4;
 	speed = 3.5;
+
+	
+
 	if (tranSt == Transform::WOLF) {
 
 		if (idle == true && airSt == AirState::GROUND && iFrames == false) {
-
+			AllAnimations.W_KickR.loopCount = 0;
+			AllAnimations.W_KickL.loopCount = 0;
 			knockImpulse = 0;
+			WolfKickCollider->SetPos(-9000, 900);
 		}
 
 		if (AllAnimations.knockBackLeft.HasFinished() == true) {
@@ -101,8 +106,8 @@ void ModulePlayer::WereWolfMovement() {
 		}
 
 		//Update Collider to current player pos, change it depending on direction and AirState
-		if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 36, position.y - 68); }
-		if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 34, position.y - 68); }
+		if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 71, position.y - 68); }
+		if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 75, position.y - 68); }
 
 		if (dir == Direction::RIGHT && airSt == AirState::CROUCH)
 		{
@@ -277,18 +282,16 @@ void ModulePlayer::WereWolfMovement() {
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
 				AllAnimations.W_KickR.Reset();
-				AllAnimations.W_KickR.loopCount = 0;
 				currentAnimation = &AllAnimations.W_KickR;
-				attackCollider->SetPos(position.x + 55, position.y - 30);
+				
 				idle = false;
 				kickR = true;
 			}
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 			{
 				AllAnimations.W_KickL.Reset();
-				AllAnimations.W_KickL.loopCount = 0;
 				currentAnimation = &AllAnimations.W_KickL;
-				attackCollider->SetPos(position.x - 1, position.y - 30);
+				
 				idle = false;
 				kickL = true;
 			}
@@ -318,7 +321,7 @@ void ModulePlayer::WereWolfMovement() {
 			}
 		}
 		if (currentAnimation == &AllAnimations.W_KickR ) {
-			position.x += 4;
+			WolfKick();
 		}
 		if (currentAnimation == &AllAnimations.W_KickL ) {
 			WolfKick();
@@ -459,7 +462,7 @@ void ModulePlayer::WolfKick() {
 
 		position.x += 4;
 
-
+		WolfKickCollider->SetPos(position.x+78, position.y-70);
 
 
 
@@ -468,6 +471,7 @@ void ModulePlayer::WolfKick() {
 
 	if (dir == Direction::LEFT) {
 		position.x -= 4;
+		WolfKickCollider->SetPos(position.x+5, position.y-70);
 	}
 
 

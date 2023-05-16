@@ -88,6 +88,7 @@ bool ModulePlayer::Start()
 	//CHANGE listener of attack to enemy
 	attackCollider = App->collisions->AddCollider({ 100,300,33,19 }, Collider::Type::PLAYER_SHOT, this);
 	kickCollider = App->collisions->AddCollider({ 100,300,19,33 }, Collider::Type::PLAYER_SHOT, this);
+	WolfKickCollider = App->collisions->AddCollider({ 100,300,66,46 }, Collider::Type::PLAYER_SHOT, this);
 	Deathcollider = App->collisions->AddCollider({ 100,300,19,33 }, Collider::Type::ENEMY_SHOT, this);
 	Deathcollider->SetPos(1300, 1200);
 	//font table
@@ -108,7 +109,7 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::DEFAULT;
+	tranSt = Transform::WOLF;
 	
 	
 
@@ -395,6 +396,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	// -------------------------------------------Camera Collisions-------------------------------
 
 	if (c1->type == Collider::Type::PLAYER && c2 == App->scene->backCamLimit) {
+		AllAnimations.W_KickR.loopCount = 0;
+		AllAnimations.W_KickL.loopCount = 0;
+		idle = true;
 		while (position.x < (App->render->camera.x * 0.3333333333f - 13.3333333333f)) {
 			position.x = App->render->camera.x * 0.3333333333f - 13.3333333333f;
 		}
@@ -402,6 +406,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	}
 
 	if (c1->type == Collider::Type::PLAYER && c2 == App->scene->frontCamLimit) {
+		AllAnimations.W_KickR.loopCount = 0;
+		AllAnimations.W_KickL.loopCount = 0;
+		idle = true;
 
 		while (position.x > App->scene->aux - 33.3333333333f) {
 			position.x = App->scene->aux - 33.3333333333f;
@@ -433,6 +440,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		airSt = AirState::GROUND;
 		idle = true;
 		jumped = false;
+		
 	}
 	else {
 		//airSt = AirState::AIRBORN;
@@ -440,9 +448,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1 == Pcollider && c2->type == Collider::Type::WALL) {
 		position.x-=2;
+		AllAnimations.W_KickR.loopCount = 0;
+		AllAnimations.W_KickL.loopCount = 0;
+
 	}
 	if (c1 == Pcollider && c2->type == Collider::Type::WALL_RIGHT) {
 		position.x += 2;
+		AllAnimations.W_KickR.loopCount = 0;
+		AllAnimations.W_KickL.loopCount = 0;
 	}
 
 	// -------------------------------------------Border Collisions-------------------------------

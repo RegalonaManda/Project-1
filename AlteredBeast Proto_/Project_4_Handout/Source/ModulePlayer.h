@@ -112,6 +112,8 @@ public:
 	Collider* kickCollider = nullptr;
 	Collider* Deathcollider = nullptr;
 
+	Collider* WolfKickCollider = nullptr;
+
 	// A flag to detect when the player has been destroyed
 	bool destroyed = false;
 
