@@ -24,11 +24,7 @@
 #include "Module.h"
 #include <stdio.h>
 
-#include "SDL/include/SDL.h"
-#pragma comment( lib, "SDL/libx86/SDL2.lib")
-#pragma comment( lib, "SDL/libx86/SDL2main.lib")
 
-#include "SDL/include/SDL_scancode.h"
 
 //------- Animation Speeds ----------- //
 #define WALKANIMSPEED 0.08f

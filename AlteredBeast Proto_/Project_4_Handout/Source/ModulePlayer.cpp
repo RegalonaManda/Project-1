@@ -66,7 +66,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	
 }
 
-
+WolfShot FireBall;
 ModulePlayer::~ModulePlayer()
 {
 
@@ -103,13 +103,32 @@ bool ModulePlayer::Start()
 	powerUp = App->audio->LoadFx("Assets/FX/Power_Up.wav");
 	playerDeathFX = App->audio->LoadFx("Assets/FX/Player_Death.wav");
 
+	//Wolf Fireball
+	
+
+	FireBall.ShotText = App->textures->Load("Assets/Particle.png");
+	FireBall.wolfRec = { 0,0,31,31 };
+	FireBall.collider = App->collisions->AddCollider(FireBall.wolfRec, Collider::Type::PLAYER_SHOT, this);
+	FireBall.ShotPosition = position;
+
+	FireBall.despawned.PushBack({ 0,0,1,1 });
+	FireBall.despawned.loop = true;
+
+	FireBall.GrowAnim.PushBack({ 1,115,73,65 });
+	FireBall.GrowAnim.PushBack({ 75,115,73,65 });
+	FireBall.GrowAnim.PushBack({ 149,115,73,65 });
+	FireBall.GrowAnim.PushBack({ 223,115,73,65 });
+	FireBall.GrowAnim.speed = 0.06f;
+
+	FireBall.CurrentShot = &FireBall.despawned;
+
 	lives = 3;
 	hp = 4;
 	idle = true;
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::WOLF;
+	tranSt = Transform::DEFAULT;
 	
 	
 
@@ -196,7 +215,11 @@ update_status ModulePlayer::Update()
 		ModulePlayer::WereWolfMovement();
 	}
 
-
+	if (wolfPunch == false) {
+		FireBall.CurrentShot = &FireBall.despawned;
+	}
+	FireBall.CurrentShot->Update();
+	
 		currentAnimation->Update();
 
 	
@@ -286,10 +309,13 @@ update_status ModulePlayer::Update()
 
 update_status ModulePlayer::PostUpdate()
 {
-
+	
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y - rect.h, &rect);
+
+	SDL_Rect ShotRect = FireBall.CurrentShot->GetCurrentFrame();
+	App->render->Blit(FireBall.ShotText, FireBall.ShotPosition.x, FireBall.ShotPosition.y, &ShotRect);
 
 	sprintf_s(scoreText, 10, "%7d", score);
 
@@ -594,4 +620,436 @@ void ModulePlayer::Gravity_() {
 	else {
 		impulse = 3.5f;
 	}
+}
+
+bool kickR = false;
+bool kickL = false;
+
+
+void ModulePlayer::WereWolfMovement() {
+
+
+	attack = 4;
+	speed = 3.5;
+
+
+
+	if (tranSt == Transform::WOLF) {
+
+		if (idle == true && airSt == AirState::GROUND && iFrames == false) {
+			AllAnimations.W_KickR.loopCount = 0;
+			AllAnimations.W_KickL.loopCount = 0;
+			knockImpulse = 0;
+			WolfKickCollider->SetPos(-9000, 900);
+		}
+
+		if (AllAnimations.knockBackLeft.HasFinished() == true) {
+			idle = true;
+			airSt == AirState::GROUND;
+			AllAnimations.knockBackLeft.loopCount--;
+		}
+		if (AllAnimations.knockBackRight.HasFinished() == true) {
+			idle = true;
+			airSt == AirState::GROUND;
+			AllAnimations.knockBackRight.loopCount--;
+		}
+
+
+		//Update Collider to current player pos, change it depending on direction and AirState
+		if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 71, position.y - 68); }
+		if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 75, position.y - 68); }
+
+		if (dir == Direction::RIGHT && airSt == AirState::CROUCH)
+		{
+			Pcollider->SetPos(0, position.y - 5000);
+			Crouchcollider->SetPos(position.x + 36, position.y - 40);
+		}
+		if (dir == Direction::LEFT && airSt == AirState::CROUCH)
+		{
+			Pcollider->SetPos(0, position.y - 5000);
+			Crouchcollider->SetPos(position.x + 40, position.y - 40);
+		}
+		if (airSt != AirState::CROUCH) { Crouchcollider->SetPos(0, -5000); }
+
+		if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 40, position.y - 60); }
+		if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 30, position.y - 60); }
+
+		if (idle == true) {
+			attackCollider->SetPos(1000, 1000);
+			kickCollider->SetPos(1000, 1000);
+		}
+		//Jump function
+
+
+
+		if (airSt == AirState::LANDING) {
+			if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.P1LandingL; }
+			if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.P1LandingR; }
+			landing--;
+		}
+		if (landing <= 0) {
+			airSt = AirState::GROUND;
+			landing = 5;
+		}
+		//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
+		{
+			currentAnimation = &AllAnimations.W_IdleR;
+		}
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
+		{
+			currentAnimation = &AllAnimations.W_IdleL;
+		}
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
+			currentAnimation = &AllAnimations.P1CrouchRight;
+		}
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
+			currentAnimation = &AllAnimations.P1CrouchLeft;
+		}
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN) {
+			currentAnimation = &AllAnimations.P1JumpR;
+		}
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
+			currentAnimation = &AllAnimations.P1JumpL;
+		}
+		if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT && !destroyed && knockImpulse == 0)
+		{
+			if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
+				//change direction
+				dir = Direction::RIGHT;
+				currentAnimation = &AllAnimations.W_walkR;
+				position.x += speed;
+			}
+			//Air
+			if (airSt == AirState::AIRBORN) {
+				position.x += AirSpeed;
+			}
+		}
+
+
+		if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT && !destroyed && knockImpulse == 0) {
+			if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
+				//change direction
+				dir = Direction::LEFT;
+
+				currentAnimation = &AllAnimations.W_walkL;
+				position.x -= speed;
+			}
+			//Air
+			if (airSt == AirState::AIRBORN) {
+				position.x -= AirSpeed;
+			}
+		}
+
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT && airSt == AirState::GROUND && idle == true) {
+
+			airSt = AirState::CROUCH;
+
+			if (dir == Direction::LEFT) {
+				currentAnimation = &AllAnimations.P1CrouchLeft;
+			}
+			if (dir == Direction::RIGHT) {
+				currentAnimation = &AllAnimations.P1CrouchRight;
+			}
+
+		}
+
+		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
+
+
+			if (hitEnemy == false) {
+				App->audio->PlayFx(nonLethalAtt, 3);
+			}
+
+			//FireBall direction is player direction
+			FireBall.dir = dir;
+
+			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
+				AllAnimations.P1punchRight.Reset();
+				currentAnimation = &AllAnimations.P1punchRight;
+
+				// FireBall stuff
+				
+					wolfPunch = true;
+					FireBall.CurrentShot = &FireBall.GrowAnim;
+					FireBall.ShotPosition.x = position.x + 40;
+					FireBall.ShotPosition.y = position.y - 80;
+				
+
+
+				//activate punch collider when player punches
+				attackCollider->SetPos(position.x + 46, position.y - 60);
+
+				idle = false;
+			}
+			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
+			{
+				AllAnimations.P1punchLeft.Reset();
+				currentAnimation = &AllAnimations.P1punchLeft;
+				//activate punch collider when player punches
+				attackCollider->SetPos(position.x + 8, position.y - 60);
+
+				idle = false;
+			}
+			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
+				AllAnimations.P1CrouchPunchR.Reset();
+				currentAnimation = &AllAnimations.P1CrouchPunchR;
+				attackCollider->SetPos(position.x + 51, position.y - 40);
+				idle = false;
+			}
+			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
+				AllAnimations.P1CrouchPunchL.Reset();
+				currentAnimation = &AllAnimations.P1CrouchPunchL;
+				//CHANGE x
+				attackCollider->SetPos(position.x + 4, position.y - 40);
+				idle = false;
+			}
+			if (airSt == AirState::AIRBORN) {
+				if (dir == Direction::LEFT) {
+					currentAnimation = &AllAnimations.P1JumpPunchL;
+
+					idle = false;
+				}
+				if (dir == Direction::RIGHT) {
+					currentAnimation = &AllAnimations.P1JumpPunchR;
+
+					idle = false;
+				}
+			}
+		}
+		// after punch fireball movement
+
+		ModulePlayer::FireBallMovement();
+
+
+
+
+		//CHANGE
+		if (currentAnimation == &AllAnimations.P1JumpPunchL) { attackCollider->SetPos(position.x + 0, position.y - 60); }
+		if (currentAnimation == &AllAnimations.P1JumpPunchR) { attackCollider->SetPos(position.x + 59, position.y - 60); }
+		if (currentAnimation == &AllAnimations.P1JumpKickL) { attackCollider->SetPos(position.x + 0, position.y - 40); }
+		if (currentAnimation == &AllAnimations.P1JumpKickR) { attackCollider->SetPos(position.x + 55, position.y - 40); }
+
+
+		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
+
+			if (hitEnemy == false) {
+				App->audio->PlayFx(nonLethalAtt, 3);
+			}
+
+			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
+				AllAnimations.W_KickR.Reset();
+				currentAnimation = &AllAnimations.W_KickR;
+
+				idle = false;
+				kickR = true;
+			}
+			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
+			{
+				AllAnimations.W_KickL.Reset();
+				currentAnimation = &AllAnimations.W_KickL;
+
+				idle = false;
+				kickL = true;
+			}
+			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
+				AllAnimations.P1CrouchKickR.Reset();
+				currentAnimation = &AllAnimations.P1CrouchKickR;
+				kickCollider->SetPos(position.x + 51, position.y - 60);
+				idle = false;
+			}
+			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
+				AllAnimations.P1CrouchKickL.Reset();
+				currentAnimation = &AllAnimations.P1CrouchKickL;
+				kickCollider->SetPos(position.x + 16, position.y - 60);
+				idle = false;
+			}
+			if (airSt == AirState::AIRBORN) {
+				if (dir == Direction::LEFT) {
+					currentAnimation = &AllAnimations.P1JumpKickL;
+
+					idle = false;
+				}
+				if (dir == Direction::RIGHT) {
+					currentAnimation = &AllAnimations.P1JumpKickR;
+
+					idle = false;
+				}
+			}
+		}
+		if (currentAnimation == &AllAnimations.W_KickR) {
+			WolfKick();
+		}
+		if (currentAnimation == &AllAnimations.W_KickL) {
+			WolfKick();
+		}
+
+		//OUTSIDE THE IF
+		if (AllAnimations.P1punchRight.HasFinished() == true) {
+			AllAnimations.P1punchRight.loopCount--;
+			idle = true;
+		}
+		//OUTSIDE THE IF
+		if (AllAnimations.P1punchLeft.HasFinished() == true) {
+			AllAnimations.P1punchLeft.loopCount--;
+			idle = true;
+		}
+
+		if (AllAnimations.P1CrouchPunchR.HasFinished() == true) {
+			AllAnimations.P1CrouchPunchR.loopCount--;
+			idle = true;
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+				airSt = AirState::CROUCH;
+			}
+			else { airSt = AirState::GROUND; }
+
+		}
+		if (AllAnimations.P1CrouchPunchL.HasFinished() == true) {
+			AllAnimations.P1CrouchPunchL.loopCount--;
+			idle = true;
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+				airSt = AirState::CROUCH;
+			}
+			else { airSt = AirState::GROUND; }
+
+		}
+		if (AllAnimations.P1CrouchKickR.HasFinished() == true) {
+			AllAnimations.P1CrouchKickR.loopCount--;
+			idle = true;
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+				airSt = AirState::CROUCH;
+			}
+			else { airSt = AirState::GROUND; }
+		}
+		if (AllAnimations.P1CrouchKickL.HasFinished() == true) {
+			AllAnimations.P1CrouchKickL.loopCount--;
+			idle = true;
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+				airSt = AirState::CROUCH;
+			}
+			else { airSt = AirState::GROUND; }
+		}
+
+		if (AllAnimations.W_KickR.HasFinished() == true) {
+			kickR = false;
+			AllAnimations.W_KickR.loopCount = 0;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
+			idle = true;
+		}
+		//OUTSIDE THE IF
+		if (AllAnimations.W_KickL.HasFinished() == true) {
+			kickL = false;
+			AllAnimations.P1KickLeft.loopCount = 0;   //VERY IMPORTANT , since HasFinished checks if the loop count has surpassed 0, after the animation has finished reset loop count
+			idle = true;
+		}
+
+		if (AllAnimations.P1CrouchKickL.HasFinished() == true) {
+			AllAnimations.P1CrouchKickL.loopCount--;
+			idle = true;
+		}
+
+		if (AllAnimations.P1CrouchKickR.HasFinished() == true) {
+			AllAnimations.P1CrouchKickR.loopCount--;
+			idle = true;
+		}
+
+
+
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true) {
+			airSt = AirState::GROUND;
+		}
+
+		//Player gets killed
+		if (destroyed) {
+
+			if (dir == Direction::RIGHT) {
+				if (destroyedCountdown > 297)
+				{
+					position.x -= 0.7f;
+				}
+				currentAnimation = &AllAnimations.deathAnimRight;
+
+			}
+			else if (dir == Direction::LEFT) {
+				if (destroyedCountdown > 297) {
+					position.x += 0.7f;
+				}
+				currentAnimation = &AllAnimations.deathAnimLeft;
+			}
+
+			impulse -= Gravity;
+			position.y -= impulse;
+
+			if (position.y >= 190) {
+				position.x += 0;
+				position.y = 190;
+
+				destroyedCountdown -= 0.5f;
+				if (destroyedCountdown <= 0) {
+					//return update_status::UPDATE_STOP;
+
+					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
+					idle = true;
+					airSt = AirState::GROUND;
+					tranSt = Transform::DEFAULT;
+					this->CleanUp();
+				}
+
+			}
+			//if (position.y >= 190) {
+			//	position.x += 0;
+			//	position.y = 190;
+			//	destroyedCountdown -= 0.5f;
+			//	if (destroyedCountdown <= 0) {
+			//		//return update_status::UPDATE_STOP;
+
+			//		App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
+			//		this->CleanUp();
+			//	}
+
+			//}
+
+		}
+	}
+}
+
+
+void ModulePlayer::WolfKick() {
+
+	if (dir == Direction::RIGHT) {
+
+		position.x += 4;
+
+		WolfKickCollider->SetPos(position.x + 78, position.y - 70);
+
+
+
+
+	}
+
+	if (dir == Direction::LEFT) {
+		position.x -= 4;
+		WolfKickCollider->SetPos(position.x + 5, position.y - 70);
+	}
+
+
+
+
+
+
+
+
+}
+
+void ModulePlayer::FireBallMovement() {
+
+	if (FireBall.dir == Direction::RIGHT) {
+		FireBall.ShotPosition.x += 3;
+		
+	}
+
+	if (FireBall.dir == Direction::LEFT) {
+		FireBall.ShotPosition.y += 3;
+	}
+
+	FireBall.collider->SetPos(FireBall.ShotPosition.x+20, FireBall.ShotPosition.y+17);
 }

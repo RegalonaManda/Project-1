@@ -15,6 +15,37 @@
 struct SDL_Texture;
 struct Collider;
 
+enum class Direction {
+	LEFT,
+	RIGHT
+};
+
+class WolfShot {
+
+
+public:
+
+	Animation* CurrentShot = nullptr;
+
+	Animation despawned;
+	Animation GrowAnim;
+	Animation TravelAnim;
+	Animation ExplodeAnim;
+
+	SDL_Texture* ShotText = nullptr;
+	Collider* collider = nullptr;
+
+	fPoint ShotPosition;
+
+	SDL_Rect wolfRec;
+
+	Direction dir;
+
+
+
+
+};
+
 class ModulePlayer : public Module
 {
 public:
@@ -27,10 +58,7 @@ public:
 	int attack = 1;
 	bool idle = true;
 
-	enum class Direction {
-		LEFT,
-		RIGHT
-	};
+	
 
 	enum class AirState {
 		CROUCH,
@@ -57,12 +85,15 @@ public:
 
 	void WolfKick();
 
-	WolfShot FireBall;
+	void FireBallMovement();
+
+	WolfShot FBall;
 
 	Direction dir;
 	AirState airSt;
 	Transform tranSt;
 	bool transforming = false;
+	bool wolfPunch = false;
 
 	// Called when the module is activated
 	// Loads the necessary textures for the player
