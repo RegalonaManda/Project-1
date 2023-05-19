@@ -142,361 +142,355 @@ public:
 	PlayerAnim::PlayerAnim() {
 
 
-		idleAnimRight.PushBack({ 0, 0, 54, 75 });
+		idleAnimRight.PushBack({ 1, 1, 89, 65 });
 		idleAnimRight.speed = 0.1f;
 
-		idleAnimLeft.PushBack({ 165,75, 54,75 });
+		idleAnimLeft.PushBack({ 631,1, 89,65 });
 		idleAnimLeft.speed = 0.1f;
 
 		// walk forward animation (arcade sprite sheet)
-		forwardAnim.PushBack({ 56, 0, 54, 75 });
-		forwardAnim.PushBack({ 112, 0, 54, 75 });
-		forwardAnim.PushBack({ 168, 0, 54, 75 });
+		forwardAnim.PushBack({ 91, 1, 89,65 });
+		forwardAnim.PushBack({ 181, 1, 89,65 });
+		forwardAnim.PushBack({ 271, 1, 89,65 });
 
 		forwardAnim.loop = true;
 
 		forwardAnim.speed = WALKANIMSPEED;
 
 
-		backAnim.PushBack({ 0,76,54,75 });
-		backAnim.PushBack({ 56,76,54,75 });
-		backAnim.PushBack({ 111,76,54,75 });
+		backAnim.PushBack({ 361,1,89,65 });
+		backAnim.PushBack({ 451,1,89,65 });
+		backAnim.PushBack({ 541,1,89,65 });
 		backAnim.speed = WALKANIMSPEED;
 
 		//Punch animation
-		punchAnimRight.PushBack({ 0,151,54,75 });
-		punchAnimRight.PushBack({ 56,151,54,75 });
-		punchAnimRight.PushBack({ 110,151,111,75 });//Extra large frame for extended punch
+		punchAnimRight.PushBack({ 91, 67, 89, 65 });
+		punchAnimRight.PushBack({ 181, 67, 89, 65 });
+		punchAnimRight.PushBack({ 271, 67, 89, 65 });
 		punchAnimRight.loop = false;
 		punchAnimRight.totalFrames = 3;
 
 		punchAnimRight.speed = PUNCHANIMSPEED;
 
 
-		punchAnimLeft.PushBack({ 385,227,54,75 });
-		punchAnimLeft.PushBack({ 330,227,54,75 });
-		punchAnimLeft.PushBack({ 261,227,73,75 });//Extra large frame for extended punch
+		punchAnimLeft.PushBack({ 541,67,89,65 });
+		punchAnimLeft.PushBack({ 451,67,89,65 });
+		punchAnimLeft.PushBack({ 361,67,89,65 });
 		punchAnimLeft.loop = false;
 
 		punchAnimLeft.speed = PUNCHANIMSPEED;
 		punchAnimLeft.totalFrames = 3;
 
 
-		crouchAnimRight.PushBack({ 0, 226, 54, 75 });
+		crouchAnimRight.PushBack({ 91, 133, 89, 65 });
 		crouchAnimRight.speed = CROUCHANIMSPEED;
 		crouchAnimRight.totalFrames = 1;
 
-		crouchAnimLeft.PushBack({ 386,303,54,75 });
+		crouchAnimLeft.PushBack({ 541, 133,89,65 });
 		crouchAnimLeft.speed = CROUCHANIMSPEED;
 		crouchAnimLeft.totalFrames = 1;
 
 
-		crouchPunchRight.PushBack({ 55, 226, 54, 75 });
-		crouchPunchRight.PushBack({ 110, 226, 108, 75 });
+		crouchPunchRight.PushBack({ 181, 133, 89,65 });
+		crouchPunchRight.PushBack({ 271, 133, 89,65 });
 		crouchPunchRight.loop = false;
 		crouchPunchRight.totalFrames = 2;
 		crouchPunchRight.speed = CROUCHPUNCHSPEED;
 
-		crouchPunchLeft.PushBack({ 331, 303, 54, 75 });
-		crouchPunchLeft.PushBack({ 253, 303, 63, 75 });
+		crouchPunchLeft.PushBack({ 451, 133, 89,65 });
+		crouchPunchLeft.PushBack({ 361, 133, 89,65 });
 		crouchPunchLeft.loop = false;
 		crouchPunchLeft.totalFrames = 2;
 		crouchPunchLeft.speed = CROUCHPUNCHSPEED;
 
 
-		kickAnimRight.PushBack({ 221, 379, 87, 75 });
-		kickAnimRight.PushBack({ 309, 379, 87, 75 });
-		kickAnimRight.PushBack({ 397, 379, 87, 75 });
-		kickAnimRight.PushBack({ 309, 379, 87, 75 });
+		kickAnimRight.PushBack({ 91, 265, 89,65 });
+		kickAnimRight.PushBack({ 181, 265, 89,65 });
+		kickAnimRight.PushBack({ 271, 265, 89,65 });
+		kickAnimRight.PushBack({ 181, 265, 89,65 });
 
 		kickAnimRight.speed = KICKANIMSPEED;
 		kickAnimRight.loop = false;
 		kickAnimRight.totalFrames = 4;
 
 
-		kickAnimLeft.PushBack({ 221, 455, 87, 75 });
-		kickAnimLeft.PushBack({ 309, 455, 87, 75 });
-		kickAnimLeft.PushBack({ 397, 455, 87, 75 });
-		kickAnimLeft.PushBack({ 309, 455, 87, 75 });
+		kickAnimLeft.PushBack({ 541, 265, 89,65 });
+		kickAnimLeft.PushBack({ 451, 265,89,65 });
+		kickAnimLeft.PushBack({ 361, 265, 89,65 });
+		kickAnimLeft.PushBack({ 451, 265, 89,65 });
 
 		kickAnimLeft.speed = KICKANIMSPEED;
 		kickAnimLeft.loop = false;
 		kickAnimLeft.totalFrames = 4;
 
-		kickCrouchRight.PushBack({ 1,455,72,75 });
-		kickCrouchRight.PushBack({ 74,455,72,75 });
-		kickCrouchRight.PushBack({ 1,455,72,75 });
+		kickCrouchRight.PushBack({ 91, 331 ,89,65 });
+		kickCrouchRight.PushBack({ 181,331,89,65 });
+		kickCrouchRight.PushBack({ 91,331,89,65 });
 		kickCrouchRight.speed = CROUCHKICKSPEED;
 		kickCrouchRight.totalFrames = 3;
 		kickCrouchRight.loop = false;
 
-		kickCrouchLeft.PushBack({ 1,531,72,75 });
-		kickCrouchLeft.PushBack({ 74,531,72,75 });
-		kickCrouchLeft.PushBack({ 1,531,72,75 });
+		kickCrouchLeft.PushBack({ 361,331,89,65 });
+		kickCrouchLeft.PushBack({ 451,331,89,65 });
+		kickCrouchLeft.PushBack({ 361,331,89,65 });
 		kickCrouchLeft.speed = CROUCHKICKSPEED;
 		kickCrouchLeft.totalFrames = 3;
 		kickCrouchLeft.loop = false;
 
 
-		deathAnimRight.PushBack({ 266,531,72,75 });
-		deathAnimRight.PushBack({ 339,531,72,75 });
-		deathAnimRight.PushBack({ 412,531,72,75 });
+		deathAnimRight.PushBack({ 91,397,89,65 });
+		deathAnimRight.PushBack({ 181,397,89,65 });
+		deathAnimRight.PushBack({ 271,397,89,65 });
 		deathAnimRight.speed = DEATHANIMSPEED;
 		deathAnimRight.totalFrames = 3;
 		deathAnimRight.loop = false;
 
-		hitAnimRight.PushBack({ 1,607,68,70 });
-		hitAnimRight.PushBack({ 70,607,68,70 });
-		hitAnimRight.totalFrames = 2;
-		hitAnimRight.loop = false;
-		hitAnimRight.speed = HITANIMSPEED;
-
-		hitAnimLeft.PushBack({ 1,678,68,70 });
-		hitAnimLeft.PushBack({ 70,678,68,70 });
-		hitAnimLeft.totalFrames = 2;
-		hitAnimLeft.loop = false;
-		hitAnimLeft.speed = HITANIMSPEED;
-
-		knockBackRight.PushBack({ 266, 531, 72, 75 });
-		knockBackRight.totalFrames = 1;
-		knockBackRight.loop = false;
-		knockBackRight.speed = 0.07f;
-
-		knockBackLeft.PushBack({ 266,607,72,75 });
-		knockBackLeft.totalFrames = 1;
-		knockBackLeft.loop = false;
-		knockBackLeft.speed = 0.07f;
-
-		HitContinueRight.PushBack({ 266,531,72,75 });
-		HitContinueRight.PushBack({ 339,531,72,75 });
-		HitContinueRight.PushBack({ 412,531,72,75 });
-		HitContinueRight.PushBack({ 139, 607, 72, 75 });
-		HitContinueRight.PushBack({ 208, 607, 72, 75 });
-		HitContinueRight.totalFrames = 5;
-		HitContinueRight.loop = false;
-		HitContinueRight.speed = 0.07f;
-
-		HitContinueLeft.PushBack({ 266,531,72,75 });
-		HitContinueLeft.PushBack({ 339,531,72,75 });
-		HitContinueLeft.PushBack({ 412,531,72,75 });
-		HitContinueLeft.PushBack({ 139, 678, 72, 75 });
-		HitContinueLeft.PushBack({ 208, 678, 72, 75 });
-		HitContinueLeft.totalFrames = 5;
-		HitContinueLeft.loop = false;
-		HitContinueLeft.speed = 0.07f;
-
-		deathAnimLeft.PushBack({ 266,607,72,75 });
-		deathAnimLeft.PushBack({ 339,607,72,75 });
-		deathAnimLeft.PushBack({ 412,607,72,75 });
+		deathAnimLeft.PushBack({ 91, 397, 89, 65 });
+		deathAnimLeft.PushBack({ 181, 397, 89, 65 });
+		deathAnimLeft.PushBack({ 271, 397, 89, 65 });
 		deathAnimLeft.speed = DEATHANIMSPEED;
 		deathAnimLeft.totalFrames = 3;
 		deathAnimLeft.loop = false;
 
-		jumpRight.PushBack({ 0,303,54,75 });
-		jumpRight.PushBack({ 56,303,54,75 });
+		hitAnimRight.PushBack({ 1,463,89,65 });
+		hitAnimRight.PushBack({ 91,463,89,65 });
+		hitAnimRight.totalFrames = 2;
+		hitAnimRight.loop = false;
+		hitAnimRight.speed = HITANIMSPEED;
+
+		hitAnimLeft.PushBack({ 361,463,89,65 });
+		hitAnimLeft.PushBack({ 541,463,89,65 });
+		hitAnimLeft.totalFrames = 2;
+		hitAnimLeft.loop = false;
+		hitAnimLeft.speed = HITANIMSPEED;
+
+		knockBackRight.PushBack({ 91, 397, 89,65 });
+		knockBackRight.totalFrames = 1;
+		knockBackRight.loop = false;
+		knockBackRight.speed = 0.07f;
+
+		knockBackLeft.PushBack({ 541,397,89,65 });
+		knockBackLeft.totalFrames = 1;
+		knockBackLeft.loop = false;
+		knockBackLeft.speed = 0.07f;
+
+		HitContinueRight.PushBack({  91, 397, 89, 65 });
+		HitContinueRight.PushBack({ 181, 397, 89, 65 });
+		HitContinueRight.PushBack({ 271, 397, 89, 65 });
+		HitContinueRight.PushBack({ 181, 463, 89, 65 });
+		HitContinueRight.PushBack({ 271, 463, 89, 65 });
+		HitContinueRight.totalFrames = 5;
+		HitContinueRight.loop = false;
+		HitContinueRight.speed = 0.07f;
+
+		HitContinueLeft.PushBack({ 541, 397, 89, 65 });
+		HitContinueLeft.PushBack({ 451, 397, 89, 65 });
+		HitContinueLeft.PushBack({ 361, 397, 89, 65 });
+		HitContinueLeft.PushBack({ 451, 463, 89, 65 });
+		HitContinueLeft.PushBack({ 361, 463, 89, 65 });
+		HitContinueLeft.totalFrames = 5;
+		HitContinueLeft.loop = false;
+		HitContinueLeft.speed = 0.07f;
+
+		jumpRight.PushBack({  91, 199, 89, 65 });
+		jumpRight.PushBack({ 181, 199, 89, 65 });
 		jumpRight.speed = JUMPANIMSPEED;
 
-		jumpLeft.PushBack({ 0,379,54,75 });
-		jumpLeft.PushBack({ 56,379,54,75 });
+		jumpLeft.PushBack({ 541, 199, 89, 65 });
+		jumpLeft.PushBack({ 451, 199, 89, 65 });
 		jumpLeft.speed = JUMPANIMSPEED;
 
-		airPunchLeft.PushBack({ 354,749,54,75 });
-		airPunchLeft.loop = true;
-		airPunchRight.PushBack({ 0,749,60,75 });
+		airPunchRight.PushBack({ 91, 529, 89, 65 });
 		airPunchRight.loop = true;
+		airPunchLeft.PushBack({ 541, 529, 89, 65 });
+		airPunchLeft.loop = true;
 
-		airKickRight.PushBack({ 70,749,68,75 });
-		airKickRight.PushBack({ 140,749,68,75 });
+
+		airKickRight.PushBack({ 271, 529, 89, 65 });
+		airKickRight.PushBack({ 181, 529, 89, 65 });
 		airKickRight.speed = AIRKICKSPEED;
 
-		airKickLeft.PushBack({ 277,749,68,75 });
-		airKickLeft.PushBack({ 208,749,68,75 });
+		airKickLeft.PushBack({ 361, 529, 89, 65 });
+		airKickLeft.PushBack({ 451, 529, 89, 65 });
 		airKickLeft.speed = AIRKICKSPEED;
 		airKickLeft.totalFrames = 2;
 
-		LandingLeft.PushBack({ 111,379,54,75 });
-		LandingRight.PushBack({ 111,303,54,75 });
+		LandingRight.PushBack({ 271, 199, 89, 65 });
+		LandingLeft.PushBack({  361, 199, 89, 65 });
 
-		RiseR.PushBack({ 139,607,68,70 });
-		RiseR.PushBack({ 208,607,68,70 });
+		RiseR.PushBack({ 181, 463, 89, 65});
+		RiseR.PushBack({ 271, 463, 89, 65});
 		RiseR.loop = false;
 		RiseR.speed = 0.07f;
 		RiseR.totalFrames = 2;
 
-		RiseL.PushBack({ 139,678,68,70 });
-		RiseL.PushBack({ 208,678,68,70 });
+		RiseL.PushBack({ 451, 463, 89, 65 });
+		RiseL.PushBack({ 361, 463, 89, 65 });
 		RiseL.loop = false;
 		RiseL.speed = 0.07f;
 		RiseL.totalFrames = 2;
 
 
-		//Time for power1 animations ;)
-
-		powerUp1.PushBack({ 221, 0, 54, 75 });
-		powerUp1.PushBack({ 221, 0, 54, 75 });
-		powerUp1.PushBack({ 276, 0, 54, 75 });
-		powerUp1.PushBack({ 331, 0, 54, 75 });
-		powerUp1.PushBack({ 331, 0, 54, 75 });
+		//Time for power1 animations ;)----------------------------------------------------------------------------------------------------
+		//orb taken
+		powerUp1.PushBack({ 542, 1104, 54, 75 });
+		powerUp1.PushBack({ 542, 1104, 54, 75 });
+		powerUp1.PushBack({ 597, 1104, 54, 75 });
+		powerUp1.PushBack({ 652, 1104, 54, 75 });
+		powerUp1.PushBack({ 652, 1104, 54, 75 });
 		powerUp1.loop = false;
 		powerUp1.totalFrames = 5;
 		powerUp1.speed = 0.07;
-
-		P1IdleRight.PushBack({ 743,5,88,69 });
+		//------------------------------------------------------------------------------------------------------------------------------------
+		P1IdleRight.PushBack({ 402,1253,88,69 });
 		
-		P1IdleLeft.PushBack({ 832,5,88,69 });
+		P1IdleLeft.PushBack({ 491,1253,88,69 });
 
-		P1walkRight.PushBack({ 476,5,88,69 });
-		P1walkRight.PushBack({ 565,5,88,69 });
-		P1walkRight.PushBack({ 654,5,88,69 });
+		P1walkRight.PushBack({ 135,1253,88,69 });
+		P1walkRight.PushBack({ 224,1253,88,69 });
+		P1walkRight.PushBack({ 313,1253,88,69 });//done
 		P1walkRight.speed = WALKANIMSPEED;
 
-		P1walkLeft.PushBack({ 654,81,88,69 });
-		P1walkLeft.PushBack({ 565,81,88,69 });
-		P1walkLeft.PushBack({ 476,81,88,69 });
+		P1walkLeft.PushBack({ 313,1329,88,69 });
+		P1walkLeft.PushBack({ 224,1329,88,69 });
+		P1walkLeft.PushBack({ 135,1329,88,69 });//
 		P1walkLeft.speed = WALKANIMSPEED;
 
-		P1punchRight.PushBack({ 476,225,88,69 });
-		P1punchRight.PushBack({ 565,225,88,69 });
-		P1punchRight.PushBack({ 654,225,88,69 });
+		P1punchRight.PushBack({ 135,1473,88,69 });
+		P1punchRight.PushBack({ 224,1473,88,69 });
+		P1punchRight.PushBack({ 313,1473,88,69 });//
 		P1punchRight.totalFrames = 3;
 		P1punchRight.speed = PUNCHANIMSPEED;
 		P1punchRight.loop = false;
 
-		P1punchLeft.PushBack({ 654,295,88,69 });
-		P1punchLeft.PushBack({ 565,295,88,69 });
-		P1punchLeft.PushBack({ 476,295,88,69 });
+		P1punchLeft.PushBack({ 313,1543,88,69 });
+		P1punchLeft.PushBack({ 224,1543,88,69 });
+		P1punchLeft.PushBack({ 135,1543,88,69 });
 		P1punchLeft.totalFrames = 3;
 		P1punchLeft.speed = PUNCHANIMSPEED;
 		P1punchLeft.loop = false;
 
-		P1KickRight.PushBack({ 476,155,88,69 });
-		P1KickRight.PushBack({ 565,155,88,69 });
-		P1KickRight.PushBack({ 654,155,88,69 });
+		P1KickRight.PushBack({ 135,1403,88,69 });
+		P1KickRight.PushBack({ 224,1403,88,69 });
+		P1KickRight.PushBack({ 313,1403,88,69 });
 		P1KickRight.totalFrames = 3;
 		P1KickRight.speed = KICKANIMSPEED;
 		P1KickRight.loop = false;
 
-		P1KickLeft.PushBack({ 663,365,88,69 });
-		P1KickLeft.PushBack({ 574,365,88,69 });
-		P1KickLeft.PushBack({ 485,365,88,69 });
+		P1KickLeft.PushBack({ 322,1613,88,69 });
+		P1KickLeft.PushBack({ 233,1613,88,69 });
+		P1KickLeft.PushBack({ 144,1613,88,69 });
 		P1KickLeft.totalFrames = 3;
 		P1KickLeft.speed = KICKANIMSPEED;
 		P1KickLeft.loop = false;
 
-		P1CrouchRight.PushBack({ 485,435,88,69 });
+		P1CrouchRight.PushBack({ 144,1683,88,69 });
 
-		P1CrouchLeft.PushBack({ 654,505, 88,69});
+		P1CrouchLeft.PushBack({ 313,1753, 88,69 });
 
-		P1CrouchPunchR.PushBack({ 574,435,88,69 });
-		P1CrouchPunchR.PushBack({ 663,435,88,69 });
+		P1CrouchPunchR.PushBack({ 233,1683,88,69 });
+		P1CrouchPunchR.PushBack({ 322,1683,88,69 });
 		P1CrouchPunchR.totalFrames = 2;
 		P1CrouchPunchR.speed = CROUCHPUNCHSPEED;
 		P1CrouchPunchR.loop = false;
 
-		P1CrouchPunchL.PushBack({ 574,505,88,69 });
-		P1CrouchPunchL.PushBack({ 485,505,88,69 });
+		P1CrouchPunchL.PushBack({ 233,1753,88,69 });
+		P1CrouchPunchL.PushBack({ 144,1753,88,69 });
 		P1CrouchPunchL.totalFrames = 2;
 		P1CrouchPunchL.speed = CROUCHPUNCHSPEED;
 		P1CrouchPunchL.loop = false;
 
-		P1CrouchKickR.PushBack({ 752, 435 ,88,69});
-		P1CrouchKickR.PushBack({ 841,435, 88 , 69 });
+		P1CrouchKickR.PushBack({ 411, 1683,88,69 });
+		P1CrouchKickR.PushBack({ 500, 1683, 88 , 69 });
 		P1CrouchKickR.totalFrames = 2;
 		P1CrouchKickR.speed = CROUCHKICKSPEED;
 		P1CrouchKickR.loop = false;
 
-		P1CrouchKickL.PushBack({ 841, 505 ,88,69 });
-		P1CrouchKickL.PushBack({ 752,505, 88 , 69 });
+		P1CrouchKickL.PushBack({ 500,1753 ,88,69 });
+		P1CrouchKickL.PushBack({ 411,1753 , 88 , 69 });
 		P1CrouchKickL.totalFrames = 2;
 		P1CrouchKickL.speed = CROUCHKICKSPEED;
 		P1CrouchKickL.loop = false;
 
-		P1JumpR.PushBack({ 485,575, 88,69 });
-		P1JumpR.PushBack({ 574,575,88,69 });
+		P1JumpR.PushBack({ 144, 1823, 88, 69 });
+		P1JumpR.PushBack({ 233, 1823, 88, 69 });
 		P1JumpR.speed = JUMPANIMSPEED;
 
-		P1JumpL.PushBack({ 663,645, 88,69 });
-		P1JumpL.PushBack({ 574,645,88,69 });
+		P1JumpL.PushBack({ 322, 1893, 88, 69 });
+		P1JumpL.PushBack({ 233, 1893, 88, 69 });
 		P1JumpL.speed = JUMPANIMSPEED;
 
-		P1JumpPunchR.PushBack({485,715, 91,70});
+		P1JumpPunchR.PushBack({ 144, 1963, 91, 70});
 		P1JumpPunchR.loop = true;
 
-		P1JumpPunchL.PushBack({ 658,785, 91, 70 });
+		P1JumpPunchL.PushBack({ 317,2033, 91, 70 });
 		P1JumpPunchL.loop = true;
 
 		
-		P1JumpKickR.PushBack({ 663,715, 91,69 });
+		P1JumpKickR.PushBack({ 322,1963, 91,69 });
 		
 		
-		P1JumpKickL.PushBack({ 481,785,94,69 });
+		P1JumpKickL.PushBack({ 140,2033,94,69 });
 
-		P1LandingR.PushBack({ 663, 575, 88, 69 });
+		P1LandingR.PushBack({ 322, 1823, 88, 69 });//
 
-		P1LandingL.PushBack({ 485,645,88,69 });
+		P1LandingL.PushBack({ 144,1893,88,69 });
 
-		//----WereWolf--PushBack------------
+		//----WereWolf--PushBack------------------------------------------------------------------------------------------------------------------
 
-		W_IdleR.PushBack({ 1,1097,148,92 });
+		W_IdleR.PushBack({  64, 659,148,92 });
 
-		W_IdleL.PushBack({ 449,1190,148,92 });
+		W_IdleL.PushBack({ 512, 1190 - 438, 148, 92 });
 
-		W_walkR.PushBack({ 150,1097,148,92 });
-		W_walkR.PushBack({ 299,1097,148,92 });
-		W_walkR.PushBack({ 448,1097,148,92 });
+		W_walkR.PushBack({ 213, 659, 148, 92 });
+		W_walkR.PushBack({ 362, 659, 148, 92 });
+		W_walkR.PushBack({ 511, 659, 148, 92 });
 		W_walkR.speed = WALKANIMSPEED;
 		W_walkR.loop = true;
 
-		W_walkL.PushBack({ 299,1190,148,92 });
-		W_walkL.PushBack({ 150,1190,148,92 });
-		W_walkL.PushBack({ 1,1190,148,92 });
+		W_walkL.PushBack({ 362, 752, 148, 92 });
+		W_walkL.PushBack({ 213, 752, 148, 92 });
+		W_walkL.PushBack({  64, 752, 148, 92 });
 		W_walkL.speed = WALKANIMSPEED;
 		W_walkL.loop = true;
 
-		W_KickR.PushBack({ 1,1469,148,92 });
-		W_KickR.PushBack({ 150,1469,148,92 });
+		W_KickR.PushBack({  64, 1031, 148, 92 });
+		W_KickR.PushBack({ 213, 1031, 148, 92 });
 
-		W_KickR.PushBack({ 1,1469,148,92 });
-		W_KickR.PushBack({ 150,1469,148,92 });
-		W_KickR.PushBack({ 1,1469,148,92 });
-		W_KickR.PushBack({ 150,1469,148,92 });
-		W_KickR.PushBack({ 1,1469,148,92 });
-		W_KickR.PushBack({ 150,1469,148,92 });
+		W_KickR.PushBack({  64, 1031, 148, 92 });
+		W_KickR.PushBack({ 213, 1031, 148, 92 });
+		W_KickR.PushBack({  64, 1031, 148, 92 });
+		W_KickR.PushBack({ 213, 1031, 148, 92 });
+		W_KickR.PushBack({  64, 1031, 148, 92 });
+		W_KickR.PushBack({ 213, 1031, 148, 92 });
 		W_KickR.loop = false;
 		W_KickR.speed = KICKANIMSPEED + 0.1;
 		// loop 4 times
 
+		W_KickL.PushBack({ 362, 1124, 148, 92 });
+		W_KickL.PushBack({ 213, 1124, 148, 92 });
 
-
-		W_KickL.PushBack({ 299,1562,148,92 });
-		W_KickL.PushBack({ 150,1562,148,92 });
-
-		W_KickL.PushBack({ 299,1562,148,92 });
-		W_KickL.PushBack({ 150,1562,148,92 });
-		W_KickL.PushBack({ 299,1562,148,92 });
-		W_KickL.PushBack({ 150,1562,148,92 });
-		W_KickL.PushBack({ 299,1562,148,92 });
-		W_KickL.PushBack({ 150,1562,148,92 });
+		W_KickL.PushBack({ 362, 1124, 148, 92 });
+		W_KickL.PushBack({ 213, 1124, 148, 92 });
+		W_KickL.PushBack({ 362, 1124, 148, 92 });
+		W_KickL.PushBack({ 213, 1124, 148, 92 });
+		W_KickL.PushBack({ 362, 1124, 148, 92 });
+		W_KickL.PushBack({ 213, 1124, 148, 92 });
 		W_KickL.loop = false;
 		W_KickL.speed = KICKANIMSPEED + 0.1;
 
-
-		W_punchR.PushBack({ 1,1283, 148, 92 });
-		W_punchR.PushBack({ 150,1283, 148, 92 });
-		W_punchR.PushBack({ 299, 1283, 148, 92 });
+		W_punchR.PushBack({  64, 845, 148, 92 });
+		W_punchR.PushBack({ 213, 845 - 438, 148, 92 });
+		W_punchR.PushBack({ 362, 845 - 438, 148, 92 });
 		W_punchR.loop = false;
 		W_punchR.speed = PUNCHANIMSPEED;
 
-
-		W_punchL.PushBack({ 448,1376, 148, 92 });
-		W_punchL.PushBack({ 299,1283, 148, 92 });
-		W_punchL.PushBack({ 150, 1283, 148, 92 });
+		W_punchL.PushBack({ 511, 938, 148, 92 });
+		W_punchL.PushBack({ 362, 845, 148, 92 });
+		W_punchL.PushBack({ 213, 845, 148, 92 });
 		W_punchL.loop = false;
 		W_punchL.speed = PUNCHANIMSPEED;
 
 	}
-
-
-
 };
 
