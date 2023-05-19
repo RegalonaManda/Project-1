@@ -117,7 +117,8 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 575, 200,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 600, 200, false);
+	
 
 
 	App->enemies->AddGrave( 380, 130, true, false, true);
@@ -140,6 +141,7 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 1100, 140,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110,false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1400, 200, false);
 	
 	
 	
