@@ -41,7 +41,8 @@ public:
 
 	Direction dir;
 
-
+	bool destroyed = true;
+	bool exploded = false;
 
 
 };

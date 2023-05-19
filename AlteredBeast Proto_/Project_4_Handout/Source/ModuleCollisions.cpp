@@ -74,13 +74,13 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::ENEMY][Collider::Type::BORDER] = true;
 
 
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::WALL] = true;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::WALL_RIGHT] = true;
+	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::WALL] = false;
+	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::WALL_RIGHT] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::PLAYER] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY] = true;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::PLAYER_SHOT] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY_SHOT] = false;
-	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::CAMLIMIT] = false;
+	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::CAMLIMIT] = true;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::POWER_UP] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ATTACK_XplosionTrigger] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY_SELF_DESTRUCT] = false;

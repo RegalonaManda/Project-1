@@ -111,14 +111,26 @@ bool ModulePlayer::Start()
 	FireBall.collider = App->collisions->AddCollider(FireBall.wolfRec, Collider::Type::PLAYER_SHOT, this);
 	FireBall.ShotPosition = position;
 
-	FireBall.despawned.PushBack({ 0,0,1,1 });
+	FireBall.despawned.PushBack({ 2,2,1,1 });
 	FireBall.despawned.loop = true;
 
 	FireBall.GrowAnim.PushBack({ 1,115,73,65 });
 	FireBall.GrowAnim.PushBack({ 75,115,73,65 });
 	FireBall.GrowAnim.PushBack({ 149,115,73,65 });
 	FireBall.GrowAnim.PushBack({ 223,115,73,65 });
-	FireBall.GrowAnim.speed = 0.06f;
+	FireBall.GrowAnim.speed = 0.09f;
+	FireBall.GrowAnim.loop = false;
+
+	FireBall.TravelAnim.PushBack({ 297,115, 73,65 });
+	FireBall.TravelAnim.PushBack({ 371,115,73,65 });
+	FireBall.TravelAnim.speed = 0.07f;
+	FireBall.TravelAnim.loop = true;
+
+	FireBall.ExplodeAnim.PushBack({ 445,115,73,65 });
+	FireBall.ExplodeAnim.PushBack({ 519,115,73,65 });
+	FireBall.ExplodeAnim.PushBack({ 593,115,73,65 });
+	FireBall.ExplodeAnim.speed = 0.06f;
+	FireBall.ExplodeAnim.loop = false;
 
 	FireBall.CurrentShot = &FireBall.despawned;
 
@@ -128,7 +140,7 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::DEFAULT;
+	tranSt = Transform::WOLF;
 	
 	
 
@@ -431,6 +443,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	}
 
+
 	if (c1->type == Collider::Type::PLAYER && c2 == App->scene->frontCamLimit) {
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
@@ -440,6 +453,18 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			position.x = App->scene->aux - 33.3333333333f;
 		}
 
+	}
+
+	if (c1 == FireBall.collider && c2 == App->scene->frontCamLimit) {
+		FireBall.destroyed = true;
+		FireBall.CurrentShot = &FireBall.despawned;
+		FireBall.collider->SetPos(-9000, -9000);
+	}
+
+
+	if (c1 == FireBall.collider && c2 != App->scene->frontCamLimit) {
+		
+		FireBall.CurrentShot = &FireBall.ExplodeAnim;
 	}
 
 	//-------------------------------------------PowerUp Collisions----------------------------------------
@@ -754,8 +779,11 @@ void ModulePlayer::WereWolfMovement() {
 
 		}
 
-		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
+		// Punch with fireball
+		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN && FireBall.destroyed == true) {
 
+			FireBall.destroyed = false;
+			FireBall.exploded = false;
 
 			if (hitEnemy == false) {
 				App->audio->PlayFx(nonLethalAtt, 3);
@@ -821,7 +849,21 @@ void ModulePlayer::WereWolfMovement() {
 
 		ModulePlayer::FireBallMovement();
 
+		//FireBall animation update
+		if (FireBall.GrowAnim.HasFinished() == true) {
+			FireBall.GrowAnim.Reset();
+			FireBall.CurrentShot = &FireBall.TravelAnim;
+			FireBall.GrowAnim.loopCount = 0;
+		}
 
+
+		if (FireBall.ExplodeAnim.HasFinished() == true) {
+			FireBall.ExplodeAnim.loopCount = 0;
+			FireBall.destroyed = true;
+			FireBall.exploded = true;
+			FireBall.CurrentShot = &FireBall.despawned;
+			FireBall.collider->SetPos(-9000, -9000);
+		}
 
 
 		//CHANGE
@@ -1022,8 +1064,6 @@ void ModulePlayer::WolfKick() {
 		WolfKickCollider->SetPos(position.x + 78, position.y - 70);
 
 
-
-
 	}
 
 	if (dir == Direction::LEFT) {
@@ -1042,14 +1082,21 @@ void ModulePlayer::WolfKick() {
 
 void ModulePlayer::FireBallMovement() {
 
-	if (FireBall.dir == Direction::RIGHT) {
+	if (FireBall.dir == Direction::RIGHT && FireBall.CurrentShot != &FireBall.ExplodeAnim && FireBall.exploded == false) {
 		FireBall.ShotPosition.x += 3;
-		
+
+		// Detroy when out of bounds
+		// CHANGE TO CAMERA BORDER
+		if (FireBall.ShotPosition.x > position.x + 400) {
+			
+		}
+		FireBall.collider->SetPos(FireBall.ShotPosition.x + 20, FireBall.ShotPosition.y + 17);
 	}
 
 	if (FireBall.dir == Direction::LEFT) {
 		FireBall.ShotPosition.y += 3;
+		FireBall.collider->SetPos(FireBall.ShotPosition.x + 20, FireBall.ShotPosition.y + 17);
 	}
 
-	FireBall.collider->SetPos(FireBall.ShotPosition.x+20, FireBall.ShotPosition.y+17);
+	
 }
