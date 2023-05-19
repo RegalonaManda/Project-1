@@ -139,6 +139,9 @@ public:
 	Animation W_punchR;
 	Animation W_punchL;
 
+	Animation W_punchR_depleted;
+	Animation W_punchL_depleted;
+
 	PlayerAnim::PlayerAnim() {
 
 
@@ -489,10 +492,22 @@ public:
 
 
 		W_punchL.PushBack({ 448,1376, 148, 92 });
-		W_punchL.PushBack({ 299,1283, 148, 92 });
-		W_punchL.PushBack({ 150, 1283, 148, 92 });
+		W_punchL.PushBack({ 299,1376, 148, 92 });
+		W_punchL.PushBack({ 150,1376, 148, 92 });
 		W_punchL.loop = false;
 		W_punchL.speed = PUNCHANIMSPEED;
+
+
+		W_punchR_depleted.PushBack({ 448,1283, 148,92 });
+		W_punchR_depleted.speed = PUNCHANIMSPEED/2;
+		W_punchR_depleted.loop = false;
+
+		W_punchL_depleted.PushBack({ 1,1376, 148, 92 });
+		W_punchL_depleted.speed = PUNCHANIMSPEED/2;
+		W_punchL_depleted.loop = false;
+
+
+
 
 	}
 
