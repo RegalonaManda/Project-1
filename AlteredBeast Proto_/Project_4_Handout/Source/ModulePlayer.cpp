@@ -132,6 +132,19 @@ bool ModulePlayer::Start()
 	FireBall.ExplodeAnim.speed = 0.06f;
 	FireBall.ExplodeAnim.loop = false;
 
+	FireBall.GrowAnimL.PushBack({ 593,201,73,65 });
+	FireBall.GrowAnimL.PushBack({ 519,201,73,65 });
+	FireBall.GrowAnimL.PushBack({ 445,201,73,65 });
+	FireBall.GrowAnimL.PushBack({ 371,201,73,65 });
+	FireBall.GrowAnimL.speed = 0.09f;
+	FireBall.GrowAnimL.loop = false;
+
+	FireBall.TravelAnimL.PushBack({ 297,201,73,65 });
+	FireBall.TravelAnimL.PushBack({ 223,201,73,65 });
+	FireBall.TravelAnimL.speed = 0.07f;
+	FireBall.TravelAnimL.loop = true;
+
+
 	FireBall.CurrentShot = &FireBall.despawned;
 
 	lives = 3;
@@ -455,14 +468,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	}
 
-	if (c1 == FireBall.collider && c2 == App->scene->frontCamLimit) {
+	if (c1 == FireBall.collider && (c2 == App->scene->frontCamLimit || c2 == App->scene->backCamLimit)) {
 		FireBall.destroyed = true;
 		FireBall.CurrentShot = &FireBall.despawned;
 		FireBall.collider->SetPos(-9000, -9000);
 	}
 
 
-	if (c1 == FireBall.collider && c2 != App->scene->frontCamLimit) {
+	if (c1 == FireBall.collider && c2 != App->scene->frontCamLimit && c2 != App->scene->backCamLimit) {
 		
 		FireBall.CurrentShot = &FireBall.ExplodeAnim;
 	}
@@ -814,6 +827,18 @@ void ModulePlayer::WereWolfMovement() {
 			{
 				AllAnimations.P1punchLeft.Reset();
 				currentAnimation = &AllAnimations.P1punchLeft;
+
+				// FireBall stuff
+
+				wolfPunch = true;
+				FireBall.CurrentShot = &FireBall.GrowAnimL;
+				FireBall.ShotPosition.x = position.x + 40;
+				FireBall.ShotPosition.y = position.y - 80;
+
+
+
+
+
 				//activate punch collider when player punches
 				attackCollider->SetPos(position.x + 8, position.y - 60);
 
@@ -854,6 +879,11 @@ void ModulePlayer::WereWolfMovement() {
 			FireBall.GrowAnim.Reset();
 			FireBall.CurrentShot = &FireBall.TravelAnim;
 			FireBall.GrowAnim.loopCount = 0;
+		}
+		if (FireBall.GrowAnimL.HasFinished() == true) {
+			FireBall.GrowAnimL.Reset();
+			FireBall.CurrentShot = &FireBall.TravelAnimL;
+			FireBall.GrowAnimL.loopCount = 0;
 		}
 
 
@@ -1093,8 +1123,8 @@ void ModulePlayer::FireBallMovement() {
 		FireBall.collider->SetPos(FireBall.ShotPosition.x + 20, FireBall.ShotPosition.y + 17);
 	}
 
-	if (FireBall.dir == Direction::LEFT) {
-		FireBall.ShotPosition.y += 3;
+	if (FireBall.dir == Direction::LEFT && FireBall.CurrentShot != &FireBall.ExplodeAnim && FireBall.exploded == false) {
+		FireBall.ShotPosition.x -= 3;
 		FireBall.collider->SetPos(FireBall.ShotPosition.x + 20, FireBall.ShotPosition.y + 17);
 	}
 

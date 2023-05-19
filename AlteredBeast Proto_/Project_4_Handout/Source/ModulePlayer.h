@@ -32,6 +32,9 @@ public:
 	Animation TravelAnim;
 	Animation ExplodeAnim;
 
+	Animation GrowAnimL;
+	Animation TravelAnimL;
+
 	SDL_Texture* ShotText = nullptr;
 	Collider* collider = nullptr;
 
