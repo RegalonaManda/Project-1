@@ -133,6 +133,9 @@
     <ClInclude Include="WereWolf.h">
       <Filter>Source Files\Modules\Gameplay\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Skull.h">
+      <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Module.cpp">
@@ -224,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="Default.h">
       <Filter>Source Files\Modules\Gameplay\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Skull.cpp">
+      <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

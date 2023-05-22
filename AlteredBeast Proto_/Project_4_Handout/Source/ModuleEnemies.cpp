@@ -14,6 +14,7 @@
 #include "WhiteWolf.h"
 #include "BrownWolf.h"
 #include "Neff.h"
+#include "Skull.h"
 
 
 #define SPAWN_MARGIN 50
@@ -229,7 +230,12 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 				enemies[i]->texture = texture;
 
 				break;
+
+			case ENEMY_TYPE::SKULL:
+				enemies[i] = new Skull(info.x, info.y);
+				enemies[i]->texture = texture;
 			}
+			
 		
 			break;
 		}

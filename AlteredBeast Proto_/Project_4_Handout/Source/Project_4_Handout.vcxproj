@@ -106,6 +106,7 @@
     <ClInclude Include="Power1.h" />
     <ClInclude Include="ScenePreIntro.h" />
     <ClInclude Include="SceneIntro.h" />
+    <ClInclude Include="Skull.h" />
     <ClInclude Include="Tomb.h" />
     <ClInclude Include="WereWolf.h" />
     <ClInclude Include="WhiteWolf.h" />
@@ -139,6 +140,7 @@
     <ClCompile Include="ModulePower.cpp" />
     <ClCompile Include="ScenePreIntro.cpp" />
     <ClCompile Include="SceneIntro.cpp" />
+    <ClCompile Include="Skull.cpp" />
     <ClCompile Include="Tomb.cpp" />
     <ClCompile Include="WhiteWolf.cpp" />
     <ClCompile Include="Zombie.cpp" />
