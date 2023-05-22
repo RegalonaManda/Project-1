@@ -153,7 +153,7 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::DEFAULT;
+	tranSt = Transform::WOLF;
 	
 	
 
