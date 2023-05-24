@@ -136,6 +136,9 @@
     <ClInclude Include="Skull.h">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Dragon.h">
+      <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Module.cpp">
@@ -229,6 +232,9 @@
       <Filter>Source Files\Modules\Gameplay\Player</Filter>
     </ClCompile>
     <ClCompile Include="Skull.cpp">
+      <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon.cpp">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClCompile>
   </ItemGroup>

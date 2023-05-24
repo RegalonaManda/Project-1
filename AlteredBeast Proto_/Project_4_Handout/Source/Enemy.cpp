@@ -35,7 +35,8 @@ void Enemy::Update()
 	if (currentAnim != nullptr)
 		currentAnim->Update();
 
-	if (Ecollider != nullptr)
+	// why do we move the collider of all anemies ???
+	if (Ecollider != nullptr )
 		//CHANGE
 		Ecollider->SetPos(position.x+7, position.y+7);
 	//CHANGE acticate attack collider when exploding

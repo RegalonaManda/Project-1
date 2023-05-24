@@ -15,6 +15,7 @@ enum class ENEMY_TYPE
 	WHITEWOLF,
 	BROWNWOLF,
 	NEFF,
+	DRAGON,
 	GRAVE
 };
 

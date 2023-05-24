@@ -15,6 +15,7 @@
 #include "BrownWolf.h"
 #include "Neff.h"
 #include "Skull.h"
+#include "Dragon.h"
 
 
 #define SPAWN_MARGIN 50
@@ -234,6 +235,8 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 			case ENEMY_TYPE::SKULL:
 				enemies[i] = new Skull(info.x, info.y);
 				enemies[i]->texture = texture;
+			case ENEMY_TYPE::DRAGON:
+				enemies[i] = new Dragon(info.x, info.y);
 			}
 			
 		
@@ -287,17 +290,6 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			enemies[i]->hp = 0;
 
 		}
-		// Testing grave stuff
-		/*if (enemies[i] != nullptr) {
-			if (enemies[i]->CodeN == 5) {
-				if (c2->type == Collider::Type::PLAYER_SHOT) {
-					enemies[i]->OnCollision(c2);
-					if (enemies[i]->hp <= 0) {
-						delete enemies[i];
-						enemies[i] = nullptr;
-					}
-				}
-			}
-		}*/
+		
 	}
 }

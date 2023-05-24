@@ -79,6 +79,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="BrownWolf.h" />
     <ClInclude Include="Colliders.h" />
+    <ClInclude Include="Dragon.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyDeath.h" />
     <ClInclude Include="ModuleAudio.h" />
@@ -117,6 +118,7 @@
     <ClCompile Include="BrownWolf.cpp" />
     <ClCompile Include="Colliders.cpp" />
     <ClCompile Include="Default.h" />
+    <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
