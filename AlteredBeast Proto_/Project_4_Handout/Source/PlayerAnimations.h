@@ -139,6 +139,9 @@ public:
 	Animation W_punchR;
 	Animation W_punchL;
 
+	Animation W_punchR_depleted;
+	Animation W_punchL_depleted;
+
 	PlayerAnim::PlayerAnim() {
 
 
@@ -480,16 +483,31 @@ public:
 		W_KickL.speed = KICKANIMSPEED + 0.1;
 
 		W_punchR.PushBack({  64, 845, 148, 92 });
-		W_punchR.PushBack({ 213, 845 - 438, 148, 92 });
-		W_punchR.PushBack({ 362, 845 - 438, 148, 92 });
+		W_punchR.PushBack({ 213, 845, 148, 92 });
+		W_punchR.PushBack({ 362, 845, 148, 92 });
 		W_punchR.loop = false;
 		W_punchR.speed = PUNCHANIMSPEED;
 
-		W_punchL.PushBack({ 511, 938, 148, 92 });
-		W_punchL.PushBack({ 362, 845, 148, 92 });
-		W_punchL.PushBack({ 213, 845, 148, 92 });
+
+
+		W_punchL.PushBack({ 362,938, 148, 92 });
+		W_punchL.PushBack({ 213,938, 148, 92 });
+		W_punchL.PushBack({ 64 ,938, 148, 92 });
+
 		W_punchL.loop = false;
 		W_punchL.speed = PUNCHANIMSPEED;
+
+
+		W_punchR_depleted.PushBack({ 511,845, 148,92 });
+		W_punchR_depleted.speed = PUNCHANIMSPEED/2;
+		W_punchR_depleted.loop = false;
+
+		W_punchL_depleted.PushBack({ 64,938, 148, 92 });
+		W_punchL_depleted.speed = PUNCHANIMSPEED/2;
+		W_punchL_depleted.loop = false;
+
+
+
 
 	}
 };

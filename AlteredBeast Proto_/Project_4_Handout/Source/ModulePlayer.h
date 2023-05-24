@@ -47,6 +47,7 @@ public:
 	bool destroyed = true;
 	bool exploded = false;
 
+	int bugPatched = 800;
 
 };
 

@@ -118,7 +118,7 @@ bool ModulePlayer::Start()
 	FireBall.GrowAnim.PushBack({ 75,115,73,65 });
 	FireBall.GrowAnim.PushBack({ 149,115,73,65 });
 	FireBall.GrowAnim.PushBack({ 223,115,73,65 });
-	FireBall.GrowAnim.speed = 0.09f;
+	FireBall.GrowAnim.speed = 0.1f;
 	FireBall.GrowAnim.loop = false;
 
 	FireBall.TravelAnim.PushBack({ 297,115, 73,65 });
@@ -136,7 +136,7 @@ bool ModulePlayer::Start()
 	FireBall.GrowAnimL.PushBack({ 519,201,73,65 });
 	FireBall.GrowAnimL.PushBack({ 445,201,73,65 });
 	FireBall.GrowAnimL.PushBack({ 371,201,73,65 });
-	FireBall.GrowAnimL.speed = 0.09f;
+	FireBall.GrowAnimL.speed = 0.1f;
 	FireBall.GrowAnimL.loop = false;
 
 	FireBall.TravelAnimL.PushBack({ 297,201,73,65 });
@@ -153,7 +153,7 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::DEFAULT;
+	tranSt = Transform::WOLF;
 	
 	
 
@@ -806,8 +806,8 @@ void ModulePlayer::WereWolfMovement() {
 			FireBall.dir = dir;
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
-				AllAnimations.P1punchRight.Reset();
-				currentAnimation = &AllAnimations.P1punchRight;
+				AllAnimations.W_punchR.Reset();
+				currentAnimation = &AllAnimations.W_punchR;
 
 				// FireBall stuff
 				
@@ -817,16 +817,12 @@ void ModulePlayer::WereWolfMovement() {
 					FireBall.ShotPosition.y = position.y - 80;
 				
 
-
-				//activate punch collider when player punches
-				attackCollider->SetPos(position.x + 46, position.y - 60);
-
 				idle = false;
 			}
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 			{
-				AllAnimations.P1punchLeft.Reset();
-				currentAnimation = &AllAnimations.P1punchLeft;
+				AllAnimations.W_punchL.Reset();
+				currentAnimation = &AllAnimations.W_punchL;
 
 				// FireBall stuff
 
@@ -836,11 +832,131 @@ void ModulePlayer::WereWolfMovement() {
 				FireBall.ShotPosition.y = position.y - 80;
 
 
+				idle = false;
+			}
+			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
+				AllAnimations.P1CrouchPunchR.Reset();
+				currentAnimation = &AllAnimations.P1CrouchPunchR;
+				attackCollider->SetPos(position.x + 51, position.y - 40);
+				idle = false;
+			}
+			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
+				AllAnimations.P1CrouchPunchL.Reset();
+				currentAnimation = &AllAnimations.P1CrouchPunchL;
+				//CHANGE x
+				attackCollider->SetPos(position.x + 4, position.y - 40);
+				idle = false;
+			}
+			if (airSt == AirState::AIRBORN) {
+				if (dir == Direction::LEFT) {
+					currentAnimation = &AllAnimations.P1JumpPunchL;
 
+					idle = false;
+				}
+				if (dir == Direction::RIGHT) {
+					currentAnimation = &AllAnimations.P1JumpPunchR;
+
+					idle = false;
+				}
+			}
+		}
+		// Punch with fireball
+		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN && FireBall.destroyed == true) {
+
+			FireBall.destroyed = false;
+			FireBall.exploded = false;
+
+			if (hitEnemy == false) {
+				App->audio->PlayFx(nonLethalAtt, 3);
+			}
+
+			//FireBall direction is player direction
+			FireBall.dir = dir;
+
+			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
+				AllAnimations.W_punchR.Reset();
+				currentAnimation = &AllAnimations.W_punchR;
+
+				// FireBall stuff
+				
+					wolfPunch = true;
+					FireBall.CurrentShot = &FireBall.GrowAnim;
+					FireBall.ShotPosition.x = position.x + 40;
+					FireBall.ShotPosition.y = position.y - 80;
+				
+
+				idle = false;
+			}
+			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
+			{
+				AllAnimations.W_punchL.Reset();
+				currentAnimation = &AllAnimations.W_punchL;
+
+				// FireBall stuff
+
+				wolfPunch = true;
+				FireBall.CurrentShot = &FireBall.GrowAnimL;
+				FireBall.ShotPosition.x = position.x + 40;
+				FireBall.ShotPosition.y = position.y - 80;
+
+
+				idle = false;
+			}
+			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
+				AllAnimations.P1CrouchPunchR.Reset();
+				currentAnimation = &AllAnimations.P1CrouchPunchR;
+				attackCollider->SetPos(position.x + 51, position.y - 40);
+				idle = false;
+			}
+			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
+				AllAnimations.P1CrouchPunchL.Reset();
+				currentAnimation = &AllAnimations.P1CrouchPunchL;
+				//CHANGE x
+				attackCollider->SetPos(position.x + 4, position.y - 40);
+				idle = false;
+			}
+			if (airSt == AirState::AIRBORN) {
+				if (dir == Direction::LEFT) {
+					currentAnimation = &AllAnimations.P1JumpPunchL;
+
+					idle = false;
+				}
+				if (dir == Direction::RIGHT) {
+					currentAnimation = &AllAnimations.P1JumpPunchR;
+
+					idle = false;
+				}
+			}
+		}
+
+		// Punch without fireball
+		else if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN && FireBall.destroyed == false) {
+
+			
+
+			if (hitEnemy == false) {
+				App->audio->PlayFx(nonLethalAtt, 3);
+			}
+
+			
+
+			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
+				AllAnimations.W_punchR_depleted.Reset();
+				currentAnimation = &AllAnimations.W_punchR_depleted;
 
 
 				//activate punch collider when player punches
-				attackCollider->SetPos(position.x + 8, position.y - 60);
+				attackCollider->SetPos(position.x + 96, position.y - 60);
+
+				idle = false;
+			}
+			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
+			{
+				AllAnimations.W_punchL_depleted.Reset();
+				currentAnimation = &AllAnimations.W_punchL_depleted;
+
+				//activate punch collider when player punches
+				attackCollider->SetPos(position.x + 18, position.y - 60);
 
 				idle = false;
 			}
@@ -957,13 +1073,23 @@ void ModulePlayer::WereWolfMovement() {
 		}
 
 		//OUTSIDE THE IF
-		if (AllAnimations.P1punchRight.HasFinished() == true) {
-			AllAnimations.P1punchRight.loopCount--;
+		if (AllAnimations.W_punchR.HasFinished() == true) {
+			AllAnimations.W_punchR.loopCount--;
 			idle = true;
 		}
 		//OUTSIDE THE IF
-		if (AllAnimations.P1punchLeft.HasFinished() == true) {
-			AllAnimations.P1punchLeft.loopCount--;
+		if (AllAnimations.W_punchL.HasFinished() == true) {
+			AllAnimations.W_punchL.loopCount--;
+			idle = true;
+		}
+		//OUTSIDE THE IF
+		if (AllAnimations.W_punchR_depleted.HasFinished() == true) {
+			AllAnimations.W_punchR_depleted.loopCount--;
+			idle = true;
+		}
+		//OUTSIDE THE IF
+		if (AllAnimations.W_punchL_depleted.HasFinished() == true) {
+			AllAnimations.W_punchL_depleted.loopCount--;
 			idle = true;
 		}
 
@@ -1081,6 +1207,13 @@ void ModulePlayer::WereWolfMovement() {
 			//}
 
 		}
+
+		//FireBall.bugPatched--;
+		//if (FireBall.bugPatched <= 0) {
+		//	FireBall.destroyed = false;
+		//}
+
+
 	}
 }
 
@@ -1113,7 +1246,7 @@ void ModulePlayer::WolfKick() {
 void ModulePlayer::FireBallMovement() {
 
 	if (FireBall.dir == Direction::RIGHT && FireBall.CurrentShot != &FireBall.ExplodeAnim && FireBall.exploded == false) {
-		FireBall.ShotPosition.x += 3;
+		FireBall.ShotPosition.x += 4;
 
 		// Detroy when out of bounds
 		// CHANGE TO CAMERA BORDER
@@ -1124,7 +1257,7 @@ void ModulePlayer::FireBallMovement() {
 	}
 
 	if (FireBall.dir == Direction::LEFT && FireBall.CurrentShot != &FireBall.ExplodeAnim && FireBall.exploded == false) {
-		FireBall.ShotPosition.x -= 3;
+		FireBall.ShotPosition.x -= 4;
 		FireBall.collider->SetPos(FireBall.ShotPosition.x + 20, FireBall.ShotPosition.y + 17);
 	}
 
