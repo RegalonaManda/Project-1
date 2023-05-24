@@ -39,7 +39,7 @@ void Dragon::Update() {
 	
 	if (followCnt >= 0) {
 		Dragon::Follow();
-		finalY = position.y + 100;
+		finalY = App->player->position.y;
 
 	}
 	
