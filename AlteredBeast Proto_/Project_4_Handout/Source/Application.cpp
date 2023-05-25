@@ -17,6 +17,7 @@
 #include "ModuleParticles.h"
 #include "ModulePower.h"
 #include "ScenePreIntro.h"
+#include "ModuleBoss.h"
 
 
 
@@ -40,14 +41,16 @@ Application::Application()
 	modules[5] =	player =		new ModulePlayer(false);
 	modules[8] =	enemies =		new ModuleEnemies(false);
 	
-	modules[9] =	particles =		new ModuleParticles(true);
-	modules[10] =	scene2 =		new ModuleScene2(false);
-	modules[11] =	collisions =	new ModuleCollisions(false);
-	modules[12] =	fade =			new ModuleFadeToBlack(true);
-	modules[13] =	powers =		new ModulePower(false);
-	modules[14] =	fonts =			new ModuleFonts(true);
+	modules[9] =	bossfight =		new ModuleBoss(false);
+	modules[10] =	particles =		new ModuleParticles(true);
+	modules[11] =	scene2 =		new ModuleScene2(false);
+	modules[12] =	collisions =	new ModuleCollisions(false);
+	modules[13] =	fade =			new ModuleFadeToBlack(true);
+	modules[14] =	powers =		new ModulePower(false);
+	modules[15] =	fonts =			new ModuleFonts(true);
+
 	// rendershould always be the last module
-	modules[15] =	render =		new ModuleRender(true);
+	modules[16] =	render =		new ModuleRender(true);
 }
 
 Application::~Application()

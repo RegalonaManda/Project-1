@@ -139,6 +139,9 @@
     <ClInclude Include="Dragon.h">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleBoss.h">
+      <Filter>Source Files\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Module.cpp">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="Dragon.cpp">
       <Filter>Source Files\Modules\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleBoss.cpp">
+      <Filter>Source Files\Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

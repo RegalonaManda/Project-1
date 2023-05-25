@@ -13,7 +13,9 @@ public:
 
 	void Update() override;
 
-	//void OnCollision(Collider* collider) override;
+	void BackTrack();
+
+	void OnCollision(Collider* collider) override;
 
 	int XplodeCnt = 40;
 	int attackCnt = 50;
@@ -21,6 +23,9 @@ public:
 	bool Alignment;
 	bool isFalling;
 	bool onGround = false;
+
+	int backtrackCnt = 30;
+	int backTrackDist;
 
 	enum SkullState {
 		STILL,
@@ -59,11 +64,12 @@ public:
 
 
 
-	uint walkCountdown = 30;
-	uint stillCountdown = 20;
+	int walkCountdown = 30;
+	int stillCountdown = 20;
 
-	uint hitCountdown = 10;
-	uint destroyedCountdown = 10;
+	int hitCountdown = 10;
+	int destroyedCountdown = 20;
+
 
 	uint lethalAtt;
 

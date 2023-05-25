@@ -235,8 +235,12 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 			case ENEMY_TYPE::SKULL:
 				enemies[i] = new Skull(info.x, info.y);
 				enemies[i]->texture = texture;
+				break;
+
 			case ENEMY_TYPE::DRAGON:
 				enemies[i] = new Dragon(info.x, info.y);
+				enemies[i]->texture = texture;
+				break;
 			}
 			
 		

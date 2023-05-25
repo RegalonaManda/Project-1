@@ -253,7 +253,7 @@ void ModuleCollisions::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 		case Collider::Type::ENEMY: // red
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha); //why does alpha not work here?
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha); 
 			break;
 		case Collider::Type::PLAYER_SHOT: // yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
@@ -269,7 +269,7 @@ void ModuleCollisions::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 			break;
 
-		case Collider::Type::ATTACK_XplosionTrigger: //oXplosionTrigger
+		case Collider::Type::ATTACK_XplosionTrigger: //orange
 			App->render->DrawQuad(colliders[i]->rect, 255, 165, 0, alpha);
 			break;
 

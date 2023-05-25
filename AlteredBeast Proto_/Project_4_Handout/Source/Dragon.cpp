@@ -39,7 +39,7 @@ void Dragon::Update() {
 	
 	if (followCnt >= 0) {
 		Dragon::Follow();
-		finalY = App->player->position.y;
+		finalY = position.y + 100;
 
 	}
 	
@@ -86,7 +86,7 @@ void Dragon::OnCollision(Collider* collider) {
 		Ecollider->SetPos(-1000, -1000);
 		alive = false;
 
-		App->scene->EnemyCN = 6;
+		App->scene->EnemyCN = 7;
 		App->scene->HasEnemyDied = true;
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
