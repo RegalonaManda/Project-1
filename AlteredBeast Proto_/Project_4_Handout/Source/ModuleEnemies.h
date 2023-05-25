@@ -28,6 +28,8 @@ struct EnemySpawnpoint
 	bool borderL = false;
 	bool borderR = false;
 
+	bool last = false;
+
 	bool SpawnZombie = false;
 };
 
@@ -68,8 +70,11 @@ public:
 
 	bool AddGrave( int x, int y, bool borderL, bool borderR, bool Zombie);
 
+	bool AddNeff(int x, int y, bool last);
+
 	bool borderL = false;
 	bool borderR = false;
+	bool last = false;
 
 	// Iterates the queue and checks for camera position
 	void HandleEnemiesSpawn();

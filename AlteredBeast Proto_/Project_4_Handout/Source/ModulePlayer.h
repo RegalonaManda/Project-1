@@ -20,6 +20,14 @@ enum class Direction {
 	RIGHT
 };
 
+enum class Transform {
+	DEFAULT,
+	POWER1,
+	POWER2,
+	WOLF
+
+};
+
 class WolfShot {
 
 
@@ -72,13 +80,7 @@ public:
 		LANDING
 	};
 
-	enum class Transform {
-		DEFAULT,
-		POWER1,
-		POWER2,
-		WOLF
 
-	};
 
 	//----------Control---Functions-------------
 

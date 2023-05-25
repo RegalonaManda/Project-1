@@ -11,13 +11,8 @@
 
 ModuleBoss::ModuleBoss(bool startEnabled) : Module(startEnabled)
 {
-	//Animations
-	Anim.PushBack({ 1,1,31,31 });
-	Anim.PushBack({ 33,1,31,31 });
-	Anim.PushBack({ 65,1,31,31 });
-	Anim.speed = 0.1f;
-
-	DisappearAnim.PushBack({ 91,1,1,1 });
+	
+	
 }
 
 ModuleBoss::~ModuleBoss()
@@ -29,10 +24,18 @@ bool ModuleBoss::Start()
 {
 	LOG("Loading power textures");
 
+	App->audio->PlayMusic("Gaum_Boss.ogg", 0.0f);
+
 	bool ret = true;
 	beaten = false;
 	texture = App->textures->Load("Assets/PowerUpGrid.png");
-	//currentAnimation = &idleAnim;
+
+	deathExpl = App->audio->LoadFx("Boss_Death");
+	welcomeDoom = App->audio->LoadFx("Welcome_To_Your_Doom");
+
+	currentAnim = &idleAnim;
+
+	//pattern[0].headAttack[0].finalX = 
 
 	return ret;
 }

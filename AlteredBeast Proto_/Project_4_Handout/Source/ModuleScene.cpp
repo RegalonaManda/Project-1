@@ -120,8 +120,8 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);*/
-	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 300, 120, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 300, 120, true);*/
 	
 
 
@@ -144,12 +144,12 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 910, 140, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1000, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 1100, 140,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110,false);*/
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);*/
+	//App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110,false);
 	
 	
 	
-	
+	//App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 200, 110, false);
 
 	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-10, App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
@@ -189,7 +189,7 @@ update_status ModuleScene::Update()
 	
 
 	App->enemies->Update();
-	if (App->player->tranSt == ModulePlayer::Transform::DEFAULT || App->player->tranSt == ModulePlayer::Transform::POWER1 || App->player->tranSt == ModulePlayer::Transform::WOLF) {
+	if (App->player->tranSt == Transform::DEFAULT || App->player->tranSt == Transform::POWER1 || App->player->tranSt == Transform::WOLF) {
 		if (EnemyCN == 1) {
 			if (HasEnemyDied == true && EnemyAttacking == false) {
 				//Death->KillZombie(enemyX, enemyY);

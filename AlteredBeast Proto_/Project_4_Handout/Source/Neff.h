@@ -9,7 +9,7 @@
 class Neff : public Enemy {
 public:
 
-	Neff(int x, int y);
+	Neff(int x, int y, bool last);
 
 	void Update() override;
 
@@ -28,7 +28,7 @@ public:
 		RIGHT
 	};
 
-
+	Collider* rangeCollider = nullptr;
 
 	uint hitCountdown = 10;
 	uint destroyedCountdown = 10;

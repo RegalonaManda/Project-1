@@ -6,11 +6,12 @@
 #include "EnemyDeath.h"
 #include "Neff.h"
 #include "ModuleScene2.h"
+#include "ModuleBoss.h"
 
 //Calls the constructor of enemy class to save spawn position
 
 
-Neff::Neff(int x, int y) : Enemy(x, y) {
+Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 	
 	hp = 1;
 
@@ -18,7 +19,7 @@ Neff::Neff(int x, int y) : Enemy(x, y) {
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	CodeN = 4;
 
-	
+	rangeCollider = App->collisions->AddCollider({0,0,50,73}, Collider::Type::ATTACK_XplosionTrigger, (Module*)this);
 	
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
@@ -34,7 +35,7 @@ Neff::Neff(int x, int y) : Enemy(x, y) {
 void Neff::Update() {
 	
 	currentAnim = &CapeAnimation;
-
+	rangeCollider->SetPos(position.x - 50, position.y);
 	
 
 	
@@ -67,15 +68,21 @@ void Neff::OnCollision(Collider* collider) {
 		App->player->KilledBoss = true;
 	}
 
-	
+	if (collider->type == Collider::Type::PLAYER) {
+		if (App->player->tranSt != Transform::WOLF) {
+			position.x += 3;
+
+		}
+	}
+	else {
+		//App->bossfight->Enable();
+	}
 	
 	
 }
 
 void Neff::Attack() {
 
-	
-		
 	
 
 }

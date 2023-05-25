@@ -131,6 +131,26 @@ bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR, bool Zomb
 	return ret;
 }
 
+bool ModuleEnemies::AddNeff(int x, int y, bool last)
+{
+	bool ret = false;
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (spawnQueue[i].type == ENEMY_TYPE::NO_TYPE) {
+			spawnQueue[i].type = ENEMY_TYPE::NEFF;
+			spawnQueue[i].x = x;
+			spawnQueue[i].y = y;
+			spawnQueue[i].last = last;
+			ret = true;
+			break;
+		}
+
+	}
+
+	return ret;
+}
+
 void ModuleEnemies::HandleEnemiesSpawn()
 {
 	// Iterate all the enemies queue
@@ -217,7 +237,7 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 
 			case ENEMY_TYPE::NEFF:
 
-				enemies[i] = new Neff(info.x, info.y);
+				enemies[i] = new Neff(info.x, info.y, info.last);
 
 				enemies[i]->texture = texture;
 
