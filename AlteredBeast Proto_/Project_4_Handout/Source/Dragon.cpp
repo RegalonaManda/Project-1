@@ -23,8 +23,11 @@ Dragon::Dragon(int x, int y) : Enemy(x, y) {
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 
-	FlyR.PushBack({ 427,568,71,61 });
+	FlyR.PushBack({ 399, 545, 73,90 });
+	FlyR.PushBack({ 473, 545, 73,90 });
+	FlyR.PushBack({ 547, 545, 73,90 });
 	FlyR.loop = true;
+	FlyR.speed = 0.03f;
 	
 	
 
