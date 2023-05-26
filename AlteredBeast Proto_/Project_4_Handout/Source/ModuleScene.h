@@ -84,11 +84,14 @@ public:
 	Animation BDeathLeft;
 
 	Animation* Dcurrent;
+	Animation DDeath;
 
 	Animation* Wcurrent;
 	Animation WDeathRight;
 	Animation WDeathLeft;
 	
+
+
 
 };
 
