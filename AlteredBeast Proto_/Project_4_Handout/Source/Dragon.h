@@ -19,12 +19,6 @@ public:
 
 
 
-	enum class Direction {
-		LEFT,
-		RIGHT
-	};
-
-
 
 	uint hitCountdown = 10;
 	uint destroyedCountdown = 10;
@@ -36,6 +30,8 @@ public:
 	int checkPos = 50;
 
 	int attackCnt = 30;
+
+
 
 	const int initialY = position.y;
 
@@ -50,9 +46,10 @@ public:
 	void FlyBack();
 
 	Animation FlyR;
+	Animation FlyL;
 
-
-	
+	Animation AttackR;
+	Animation AttackL;
 
 
 

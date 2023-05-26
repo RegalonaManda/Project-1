@@ -13,36 +13,90 @@
 Dragon::Dragon(int x, int y) : Enemy(x, y) {
 
 	hp = 1;
-
+	attacking = false;
 
 	Ecollider = App->collisions->AddCollider({ 400, 120, 50, 24 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	
+	AttackCollider = App->collisions->AddCollider({ 0,0, 17,21 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 
 
 
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 
-	FlyR.PushBack({ 399, 545, 73,90 });
-	FlyR.PushBack({ 473, 545, 73,90 });
-	FlyR.PushBack({ 547, 545, 73,90 });
+	FlyL.PushBack({ 399, 545, 73,90 });
+	FlyL.PushBack({ 473, 545, 73,90 });
+	FlyL.PushBack({ 547, 545, 73,90 });
+	FlyL.loop = true;
+	FlyL.speed = 0.03f;
+	
+	FlyR.PushBack({ 695, 636, 73,90 });
+	FlyR.PushBack({ 621, 636, 73,90 });
+	FlyR.PushBack({ 547, 636, 73,90 });
 	FlyR.loop = true;
 	FlyR.speed = 0.03f;
-	
-	
+
+	AttackL.PushBack({ 621,545, 73,90 });
+	AttackL.PushBack({ 695,545, 73,90 });
+	AttackL.PushBack({ 621,545, 73,90 });
+	AttackL.PushBack({ 695,545, 73,90 });
+	AttackL.loop = false;
+	AttackL.speed = 0.04f;
+
+	AttackR.PushBack({ 399,636, 73,90 });
+	AttackR.PushBack({ 473,636, 73,90 });
+	AttackR.PushBack({ 399,636, 73,90 });
+	AttackR.PushBack({ 473,636, 73,90 });
+	AttackR.loop = false;
+	AttackR.speed = 0.04f;
 
 }
 
 void Dragon::Update() {
 
 
-	Ecollider->SetPos(position.x, position.y+15);
+	
 
-	currentAnim = &FlyR;
+	if (dir == Direction::RIGHT) {
+		currentAnim = &FlyR;
+	}
+	if (dir == Direction::LEFT) {
+		currentAnim = &FlyL;
+	}
 	
 	if (followCnt >= 0) {
-		Dragon::Follow();
-		finalY = position.y + 100;
+		
+
+		// Aquires targetting position evry 50 frames
+		if (checkPos == 50) {
+			targetPos = App->player->position;
+
+			if (targetPos.x < position.x && attacking == false) {
+				dir = Direction::RIGHT;
+			}
+			if (targetPos.x >= position.x && attacking == false) {
+				dir = Direction::LEFT;
+			}
+		}
+		checkPos--;
+		if (checkPos <= 0) { checkPos = 50; }
+
+
+		// move towards target pos
+
+		if (targetPos.x < position.x) {
+			position.x -= 0.5;
+
+		}
+		else if (targetPos.x >= position.x) {
+			position.x += 0.5;
+
+		}
+		else {
+			// TODO implement slight random movement pattern
+		}
+
+		finalY = position.y + 70;
 
 	}
 	
@@ -57,11 +111,37 @@ void Dragon::Update() {
 		attackCnt--;
 	}
 
-	if (attackCnt <= 0 && position.y > initialY) {
-		position.y--;
-		if (position.y <= initialY) {
-			attackCnt = 30;
-			followCnt = 600;
+	if (attackCnt <= 0 && attacking == true) {
+
+	
+		if (dir == Direction::LEFT) {
+			currentAnim = &AttackL;
+			AttackCollider->SetPos(position.x + 41, position.y + 68);
+		}
+		if (dir == Direction::RIGHT) {
+			currentAnim = &AttackR;
+			AttackCollider->SetPos(position.x + 18, position.y + 68);
+		}
+	}
+
+	if (AttackL.HasFinished() == true || AttackR.HasFinished() == true) {
+		currentAnim->Reset();
+		currentAnim->loopCount = 0;
+
+
+		AttackCollider->SetPos(-2000, -2000);
+
+		attacking = false;
+	}
+
+	if (attacking == false) {
+		// FlyBack()
+		if (attackCnt <= 0 && position.y > initialY) {
+			position.y--;
+			if (position.y <= initialY) {
+				attackCnt = 30;
+				followCnt = 600;
+			}
 		}
 	}
 
@@ -71,7 +151,7 @@ void Dragon::Update() {
 	
 
 	Enemy::Update();
-	Ecollider->SetPos(position.x+6, position.y + 20);
+	Ecollider->SetPos(position.x+6, position.y + 40);
 }
 
 void Dragon::OnCollision(Collider* collider) {
@@ -110,6 +190,9 @@ void Dragon::OnCollision(Collider* collider) {
 }
 
 void Dragon::Attack() {
+
+	attacking = true;
+
 	int distanceX = (App->player->position.x + 45) - (position.x);
 	int distanceY = App->player->position.y - finalY;
 	double distance = sqrt(distanceX * distanceX + distanceY * distanceY);
@@ -123,6 +206,16 @@ void Dragon::Attack() {
 	position.x += VelocityX;
 	position.y += VelocityY;
 
+	if (position.y == finalY) {
+
+		attacking = true;
+		if (dir == Direction::LEFT) {
+			currentAnim = &AttackL;
+		}
+		if (dir == Direction::RIGHT) {
+			currentAnim = &AttackR;
+		}
+	}
 
 }
 
@@ -131,6 +224,13 @@ void Dragon::Follow() {
 	// Aquires targetting position evry 50 frames
 	if (checkPos == 50) {
 		targetPos = App->player->position;
+
+		if (targetPos.x < position.x) {
+			dir = Direction::RIGHT;
+		}
+		else{
+			dir = Direction::LEFT;
+		}
 	}
 	checkPos--;
 	if (checkPos <= 0) { checkPos = 50; }
@@ -140,9 +240,11 @@ void Dragon::Follow() {
 
 	if (targetPos.x < position.x) {
 		position.x -= 0.5;
+		
 	}
-	else if (targetPos.x > position.x) {
+	else if (targetPos.x >= position.x) {
 		position.x += 0.5;
+		
 	}
 	else {
 		// TODO implement slight random movement pattern
@@ -152,10 +254,13 @@ void Dragon::Follow() {
 
 void Dragon::FlyBack() {
 
-	if (position.y > initialY) {
-		position.y++;
+	if (attackCnt <= 0 && position.y > initialY) {
+		position.y--;
+		if (position.y <= initialY) {
+			attackCnt = 30;
+			followCnt = 600;
+		}
 	}
-
 
 
 }

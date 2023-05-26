@@ -107,7 +107,7 @@ bool ModuleScene::Start()
 
 
 
-	//App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
 
 	// border L ,  border R
 	//App->enemies->AddGrave( 150, 130, true, false,false);
