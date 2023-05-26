@@ -188,10 +188,12 @@ public:
 		crouchAnimRight.PushBack({ 91, 133, 89, 65 });
 		crouchAnimRight.speed = CROUCHANIMSPEED;
 		crouchAnimRight.totalFrames = 1;
+		crouchAnimRight.loop = false;
 
 		crouchAnimLeft.PushBack({ 541, 133,89,65 });
 		crouchAnimLeft.speed = CROUCHANIMSPEED;
 		crouchAnimLeft.totalFrames = 1;
+		crouchAnimLeft.loop = false;
 
 
 		crouchPunchRight.PushBack({ 181, 133, 89,65 });

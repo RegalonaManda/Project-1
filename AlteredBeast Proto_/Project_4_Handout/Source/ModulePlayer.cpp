@@ -49,7 +49,6 @@ int knockPos;
 
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
-	
 	startEnabled = true;
 	
 	//Default direction
@@ -60,9 +59,6 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	tranSt = Transform::DEFAULT;
 	//default attack 
 	attack = 1;
-
-
-	
 	
 }
 
@@ -200,21 +196,73 @@ update_status ModulePlayer::Update()
 	}*/
 
 	
+
+
+
+	//F1, F2, F3, F4 functionalities (keyboard & gamepad)
+
+	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN || App->input->pads[0].l3) {
+
+		if (!GodMode) 
+		{ 
+			GodMode = true; 
+			lives++;
+		}
+		else {
+			GodMode = false;
+			lives = 3;
+		}
+
+	}
+
+	if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN || App->input->pads[0].r1) {
+
+		App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 0.0f);
+
+		if (tranSt == Transform::DEFAULT) {
+			Deathcollider->SetPos(position.x + 20, position.y - 20);
+		}
+		if (tranSt == Transform::POWER1) {
+			Deathcollider->SetPos(position.x + 36, position.y - 65);
+		}
+		lives = 0;
+		idle = true;
+		airSt = AirState::GROUND;
+		tranSt = Transform::DEFAULT;
+	}
+	else if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN || App->input->pads[0].l1) {
+
+		App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
+		/*App->enemies->Disable();*/
+		App->collisions->Disable();
+
+		App->player->KilledBoss = true;
+		App->scene2->killedBoss = true;
+
+	}
+
+
+
 	ModulePlayer::Gravity_();
-	
+
 	// New jumping function
 
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN && idle == true && airSt != AirState::AIRBORN && airSt != AirState::LANDING) {
-		position.y -= 5;
-		airSt = AirState::AIRBORN;
-		jumped = true;
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN || App->input->pads[0].x || App->input->pads[0].y) {
+		if (idle == true && airSt != AirState::AIRBORN && airSt != AirState::LANDING) {
+			position.y -= 5;
+			airSt = AirState::AIRBORN;
+			jumped = true;
+
+		}
 	}
+
 	if (airSt == AirState::AIRBORN && jumped == true && transforming == false) {
 		position.y -= impulse;
 	}
 	if (airSt == AirState::AIRBORN && jumped == false) {
 		position.y += 3;
 	}
+
 	////Put a max height that makes the player fall faster for it to dont look like its floating ( not real but like the game )
 	////impulse lesser, the faster it falls
 	if (airSt == AirState::AIRBORN && position.y < MAX_HEIGHT) {
@@ -265,45 +313,43 @@ update_status ModulePlayer::Update()
 			
 		}
 
-		if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == false) {
-			GodMode = true;
-
-		}
-		else if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN && GodMode == true) {
-			GodMode = false;
-			lives = 3;
-		}
-
-		if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN) {
-
-			App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 0.0f);
-			
-			if (tranSt == Transform::DEFAULT) {
-				Deathcollider->SetPos(position.x+20, position.y-20);
-			} 
-			if (tranSt == Transform::POWER1) {
-				Deathcollider->SetPos(position.x + 36, position.y - 65);
-			}
-			lives = 0;
-			idle = true;
-			airSt = AirState::GROUND;
-			tranSt = Transform::DEFAULT;
-		}
-		else if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN) {
-
-			App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
-			/*App->enemies->Disable();*/
-			App->collisions->Disable();
-		
-			App->player->KilledBoss = true;
-			App->scene2->killedBoss = true;
-			
-		}
+		//if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN || App->input->pads[0].l3) {
+		//	if (!GodMode) { GodMode = true; }
+		//	else if (GodMode) {
+		//		GodMode = false;
+		//		lives = 3;
+		//	}
+		//
+		//}
 
 
-		if (GodMode == true) {
-			lives++;
-		}
+		//if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN || App->input->pads[0].l1) {
+
+		//	App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 0.0f);
+		//	
+		//	if (tranSt == Transform::DEFAULT) {
+		//		Deathcollider->SetPos(position.x+20, position.y-20);
+		//	} 
+		//	if (tranSt == Transform::POWER1) {
+		//		Deathcollider->SetPos(position.x + 36, position.y - 65);
+		//	}
+		//	lives = 0;
+		//	idle = true;
+		//	airSt = AirState::GROUND;
+		//	tranSt = Transform::DEFAULT;
+		//}
+		//
+		//if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN || App->input->pads[0].l1) {
+
+		//	App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
+		//	/*App->enemies->Disable();*/
+		//	App->collisions->Disable();
+		//
+		//	App->player->KilledBoss = true;
+		//	App->scene2->killedBoss = true;
+		//	
+		//}
+
 
 		if (KilledBoss == true) {
 
@@ -750,28 +796,35 @@ void ModulePlayer::WereWolfMovement() {
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
 			currentAnimation = &AllAnimations.P1JumpL;
 		}
-		if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT && !destroyed && knockImpulse == 0)
-		{
-			if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
-				//change direction
-				dir = Direction::RIGHT;
-				currentAnimation = &AllAnimations.W_walkR;
-				position.x += speed;
+
+
+
+		if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT || App->input->pads[0].l_x > 0.5f) {
+			if (!destroyed && knockImpulse == 0) {
+				if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
+					//change direction
+					dir = Direction::RIGHT;
+					currentAnimation = &AllAnimations.W_walkR;
+					position.x += speed;
+				}
+				//Air
+				if (airSt == AirState::AIRBORN) {
+					position.x += AirSpeed;
+				}
 			}
-			//Air
-			if (airSt == AirState::AIRBORN) {
-				position.x += AirSpeed;
-			}
+
 		}
 
 
-		if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT && !destroyed && knockImpulse == 0) {
-			if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
-				//change direction
-				dir = Direction::LEFT;
+		if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT || App->input->pads[0].l_x < -0.5f) {
+			if (!destroyed && knockImpulse == 0) {
+				if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
+					//change direction
+					dir = Direction::LEFT;
 
-				currentAnimation = &AllAnimations.W_walkL;
-				position.x -= speed;
+					currentAnimation = &AllAnimations.W_walkL;
+					position.x -= speed;
+				}
 			}
 			//Air
 			if (airSt == AirState::AIRBORN) {
@@ -779,21 +832,23 @@ void ModulePlayer::WereWolfMovement() {
 			}
 		}
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT && airSt == AirState::GROUND && idle == true) {
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 
-			airSt = AirState::CROUCH;
+			if (airSt == AirState::GROUND && idle == true) {
 
-			if (dir == Direction::LEFT) {
-				currentAnimation = &AllAnimations.P1CrouchLeft;
+				airSt = AirState::CROUCH;
+
+				if (dir == Direction::LEFT) {
+					currentAnimation = &AllAnimations.P1CrouchLeft;
+				}
+				if (dir == Direction::RIGHT) {
+					currentAnimation = &AllAnimations.P1CrouchRight;
+				}
 			}
-			if (dir == Direction::RIGHT) {
-				currentAnimation = &AllAnimations.P1CrouchRight;
-			}
-
 		}
 
 		// Punch with fireball
-		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN && FireBall.destroyed == true) {
+		if (FireBall.destroyed && (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN || App->input->pads[0].b)) {
 
 			FireBall.destroyed = false;
 			FireBall.exploded = false;
@@ -819,6 +874,7 @@ void ModulePlayer::WereWolfMovement() {
 
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 			{
 				AllAnimations.W_punchL.Reset();
@@ -834,12 +890,14 @@ void ModulePlayer::WereWolfMovement() {
 
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
 				AllAnimations.P1CrouchPunchR.Reset();
 				currentAnimation = &AllAnimations.P1CrouchPunchR;
 				attackCollider->SetPos(position.x + 51, position.y - 40);
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
 				AllAnimations.P1CrouchPunchL.Reset();
 				currentAnimation = &AllAnimations.P1CrouchPunchL;
@@ -847,6 +905,7 @@ void ModulePlayer::WereWolfMovement() {
 				attackCollider->SetPos(position.x + 4, position.y - 40);
 				idle = false;
 			}
+
 			if (airSt == AirState::AIRBORN) {
 				if (dir == Direction::LEFT) {
 					currentAnimation = &AllAnimations.P1JumpPunchL;
@@ -860,8 +919,9 @@ void ModulePlayer::WereWolfMovement() {
 				}
 			}
 		}
+
 		// Punch with fireball
-		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN && FireBall.destroyed == true) {
+		if ((App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN || App->input->pads[0].b) && FireBall.destroyed == true) {
 
 			FireBall.destroyed = false;
 			FireBall.exploded = false;
@@ -887,6 +947,7 @@ void ModulePlayer::WereWolfMovement() {
 
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 			{
 				AllAnimations.W_punchL.Reset();
@@ -902,12 +963,14 @@ void ModulePlayer::WereWolfMovement() {
 
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
 				AllAnimations.P1CrouchPunchR.Reset();
 				currentAnimation = &AllAnimations.P1CrouchPunchR;
 				attackCollider->SetPos(position.x + 51, position.y - 40);
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
 				AllAnimations.P1CrouchPunchL.Reset();
 				currentAnimation = &AllAnimations.P1CrouchPunchL;
@@ -915,6 +978,7 @@ void ModulePlayer::WereWolfMovement() {
 				attackCollider->SetPos(position.x + 4, position.y - 40);
 				idle = false;
 			}
+
 			if (airSt == AirState::AIRBORN) {
 				if (dir == Direction::LEFT) {
 					currentAnimation = &AllAnimations.P1JumpPunchL;
@@ -930,15 +994,13 @@ void ModulePlayer::WereWolfMovement() {
 		}
 
 		// Punch without fireball
-		else if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN && FireBall.destroyed == false) {
+		else if ((App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN || App->input->pads[0].b) && FireBall.destroyed == false) {
 
 			
 
 			if (hitEnemy == false) {
 				App->audio->PlayFx(nonLethalAtt, 3);
 			}
-
-			
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
 				AllAnimations.W_punchR_depleted.Reset();
@@ -950,6 +1012,7 @@ void ModulePlayer::WereWolfMovement() {
 
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 			{
 				AllAnimations.W_punchL_depleted.Reset();
@@ -960,12 +1023,14 @@ void ModulePlayer::WereWolfMovement() {
 
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
 				AllAnimations.P1CrouchPunchR.Reset();
 				currentAnimation = &AllAnimations.P1CrouchPunchR;
 				attackCollider->SetPos(position.x + 51, position.y - 40);
 				idle = false;
 			}
+
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
 				AllAnimations.P1CrouchPunchL.Reset();
 				currentAnimation = &AllAnimations.P1CrouchPunchL;
@@ -973,6 +1038,7 @@ void ModulePlayer::WereWolfMovement() {
 				attackCollider->SetPos(position.x + 4, position.y - 40);
 				idle = false;
 			}
+
 			if (airSt == AirState::AIRBORN) {
 				if (dir == Direction::LEFT) {
 					currentAnimation = &AllAnimations.P1JumpPunchL;
@@ -986,6 +1052,8 @@ void ModulePlayer::WereWolfMovement() {
 				}
 			}
 		}
+
+
 		// after punch fireball movement
 
 		ModulePlayer::FireBallMovement();
@@ -1019,7 +1087,7 @@ void ModulePlayer::WereWolfMovement() {
 		if (currentAnimation == &AllAnimations.P1JumpKickR) { attackCollider->SetPos(position.x + 55, position.y - 40); }
 
 
-		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
+		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN || App->input->pads[0].a) {
 
 			if (hitEnemy == false) {
 				App->audio->PlayFx(nonLethalAtt, 3);
@@ -1065,6 +1133,7 @@ void ModulePlayer::WereWolfMovement() {
 				}
 			}
 		}
+
 		if (currentAnimation == &AllAnimations.W_KickR) {
 			WolfKick();
 		}
@@ -1096,7 +1165,7 @@ void ModulePlayer::WereWolfMovement() {
 		if (AllAnimations.P1CrouchPunchR.HasFinished() == true) {
 			AllAnimations.P1CrouchPunchR.loopCount--;
 			idle = true;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
@@ -1105,7 +1174,7 @@ void ModulePlayer::WereWolfMovement() {
 		if (AllAnimations.P1CrouchPunchL.HasFinished() == true) {
 			AllAnimations.P1CrouchPunchL.loopCount--;
 			idle = true;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT|| App->input->pads[0].l_y > 0.5f) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
@@ -1114,7 +1183,7 @@ void ModulePlayer::WereWolfMovement() {
 		if (AllAnimations.P1CrouchKickR.HasFinished() == true) {
 			AllAnimations.P1CrouchKickR.loopCount--;
 			idle = true;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
@@ -1122,7 +1191,7 @@ void ModulePlayer::WereWolfMovement() {
 		if (AllAnimations.P1CrouchKickL.HasFinished() == true) {
 			AllAnimations.P1CrouchKickL.loopCount--;
 			idle = true;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
@@ -1152,7 +1221,7 @@ void ModulePlayer::WereWolfMovement() {
 
 
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true) {
+		if (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP || App->input->pads[0].l_y == 0.0f)) { // ?
 			airSt = AirState::GROUND;
 		}
 

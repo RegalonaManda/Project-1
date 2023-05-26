@@ -107,36 +107,35 @@ bool ModuleScene::Start()
 
 
 
-	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, -20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
 
 	// border L ,  border R
-	App->enemies->AddGrave( 150, 130, true, false,false);
-	App->enemies->AddGrave(185, 130, false,false ,true);
-	App->enemies->AddGrave( 220, 130, false,false,false);
-	App->enemies->AddGrave( 255, 130, false, true,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 502, 0, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 300, 120, true);
+	//App->enemies->AddGrave( 150, 130, true, false,false);
+	//App->enemies->AddGrave(185, 130, false,false ,true);
+	//App->enemies->AddGrave( 220, 130, false,false,false);
+	//App->enemies->AddGrave( 255, 130, false, true,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 300, 120, true);
 	
 
 
-	App->enemies->AddGrave( 380, 130, true, false, true);
-	App->enemies->AddGrave( 415, 130, false,false, false);
-	App->enemies->AddGrave( 450, 130, false,false, false);
-	App->enemies->AddGrave( 485, 130, false,true , false);
+	//App->enemies->AddGrave( 380, 130, true, false, true);
+	//App->enemies->AddGrave( 415, 130, false,false, false);
+	//App->enemies->AddGrave( 450, 130, false,false, false);
+	//App->enemies->AddGrave( 485, 130, false,true , false);
 
 
 
 
-	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 650, 200, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140,false);
+	/*App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140, true);*/
+	/*App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 650, 200, false);*/
+	/*App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 705, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 740, 200,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 800, 140, true);
@@ -145,7 +144,7 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 910, 140, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1000, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 1100, 140,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);*/
 	//App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110,false);
 	
 	
@@ -231,7 +230,7 @@ update_status ModuleScene::Update()
 			}
 		}
 	}
-	
+
 
 
 
@@ -246,7 +245,7 @@ update_status ModuleScene::PostUpdate()
 	App->render->Blit(sky, 0, 0, &SkyLayer, 0.4f);
 	App->render->Blit(trees, 0, 58, &TreeLayer, 0.5f);
 	App->render->Blit(stone, 0, 90, &StoneWall, 0.65f);
-	App->render->Blit(layer2, 0, 5, &background, 0.75f); 
+	App->render->Blit(layer2, 0, 5, &background, 0.75f);
 
 
 
@@ -298,7 +297,7 @@ update_status ModuleScene::PostUpdate()
 
 	if (EnemyAttacking == true && explosionCnt <= 0 && EnemyCN == 1) {
 		SDL_Rect explosion = Xcurrent->GetCurrentFrame();
-		App->render->Blit(ExplosionText, enemyX-25, enemyY, &explosion);
+		App->render->Blit(ExplosionText, enemyX - 25, enemyY, &explosion);
 	}
 	if (explode.HasFinished() == true && explosionCnt <= 0 && EnemyCN == 1) {
 		explode.Reset();
@@ -306,19 +305,36 @@ update_status ModuleScene::PostUpdate()
 		EnemyAttacking = false;
 		explosionCnt = 40;
 	}
-	if (App->input->keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN) {
+	if (App->input->keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN || App->input->pads[0].guide) {
 
 		return update_status::UPDATE_STOP;
-		
+
 
 	}
-	if (App->input->keys[SDL_SCANCODE_P] == KEY_DOWN) {
+	if (App->input->keys[SDL_SCANCODE_1] == KEY_DOWN || App->input->pads[0].up) {
 
-		App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, App->player->position.x+150, 200, true);
+		App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, App->player->position.x + 150, 200, true);
 
 	}
+	else if (App->input->keys[SDL_SCANCODE_2] == KEY_DOWN || App->input->pads[0].down) {
 
+		App->enemies->AddEnemy(ENEMY_TYPE::SKULL, App->player->position.x + 150, 200, true);
 
+	}
+	else if (App->input->keys[SDL_SCANCODE_3] == KEY_DOWN || App->input->pads[0].right) {
+		App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, App->player->position.x + 150, 200, true);
+
+	}
+	else if (App->input->keys[SDL_SCANCODE_4] == KEY_DOWN || App->input->pads[0].left) {
+		App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, App->player->position.x + 150, 200, true);
+
+	}
+	else if (App->input->keys[SDL_SCANCODE_5] == KEY_DOWN)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, App->player->position.x + 150, 200, true);
+	}
+
+	// including more enemies could only be done through keyboard input only
 	
 
 	return update_status::UPDATE_CONTINUE;

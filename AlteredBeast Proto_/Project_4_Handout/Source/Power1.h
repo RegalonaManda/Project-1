@@ -137,49 +137,57 @@ void ModulePlayer::Power1Movement() {
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
 			currentAnimation = &AllAnimations.P1JumpL;
 		}
-		if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT && !destroyed && knockImpulse == 0)
+		if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT || App->input->pads[0].l_x > 0.5f) 
 		{
-			if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
-				//change direction
-				dir = Direction::RIGHT;
-				currentAnimation = &AllAnimations.P1walkRight;
-				position.x += speed;
-			}
-			//Air
-			if (airSt == AirState::AIRBORN) {
-				position.x += AirSpeed;
-			}
-		}
+			if (!destroyed && knockImpulse == 0) {
 
-
-		if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT && !destroyed && knockImpulse == 0) {
-			if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
-				//change direction
-				dir = Direction::LEFT;
-
-				currentAnimation = &AllAnimations.P1walkLeft;
-				position.x -= speed;
-			}
-			//Air
-			if (airSt == AirState::AIRBORN) {
-				position.x -= AirSpeed;
+				if (idle && airSt == AirState::GROUND)/* Can't move if punching */ {
+					//change direction
+					dir = Direction::RIGHT;
+					currentAnimation = &AllAnimations.P1walkRight;
+					position.x += speed;
+				}
+				//Air
+				if (airSt == AirState::AIRBORN) {
+					position.x += AirSpeed;
+				}
 			}
 		}
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT && airSt == AirState::GROUND && idle == true) {
 
-			airSt = AirState::CROUCH;
+		if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT || App->input->pads[0].l_x < -0.5f) {
+			if (!destroyed && knockImpulse == 0) {
+				if (idle && airSt == AirState::GROUND)/* Can't move if punching */ {
+					//change direction
+					dir = Direction::LEFT;
 
-			if (dir == Direction::LEFT) {
-				currentAnimation = &AllAnimations.P1CrouchLeft;
+					currentAnimation = &AllAnimations.P1walkLeft;
+					position.x -= speed;
+				}
+				//Air
+				if (airSt == AirState::AIRBORN) {
+					position.x -= AirSpeed;
+				}
 			}
-			if (dir == Direction::RIGHT) {
-				currentAnimation = &AllAnimations.P1CrouchRight;
+		}
+
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
+
+			if (idle && airSt == AirState::GROUND) {
+
+				airSt = AirState::CROUCH;
+
+				if (dir == Direction::LEFT) {
+					currentAnimation = &AllAnimations.P1CrouchLeft;
+				}
+				if (dir == Direction::RIGHT) {
+					currentAnimation = &AllAnimations.P1CrouchRight;
+				}
 			}
 
 		}
 
-		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN) {
+		if (App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN || App->input->pads[0].b) {
 
 			if (hitEnemy == false) {
 				App->audio->PlayFx(nonLethalAtt, 3);
@@ -238,7 +246,7 @@ void ModulePlayer::Power1Movement() {
 		if (currentAnimation == &AllAnimations.P1JumpKickR) { attackCollider->SetPos(position.x + 55, position.y - 40); }
 
 
-		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN) {
+		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN || App->input->pads[0].a) {
 
 			if (hitEnemy == false) {
 				App->audio->PlayFx(nonLethalAtt, 3);
@@ -297,7 +305,7 @@ void ModulePlayer::Power1Movement() {
 		if (AllAnimations.P1CrouchPunchR.HasFinished() == true) {
 			AllAnimations.P1CrouchPunchR.loopCount--;
 			idle = true;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
@@ -306,7 +314,7 @@ void ModulePlayer::Power1Movement() {
 		if (AllAnimations.P1CrouchPunchL.HasFinished() == true) {
 			AllAnimations.P1CrouchPunchL.loopCount--;
 			idle = true;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
@@ -315,7 +323,7 @@ void ModulePlayer::Power1Movement() {
 		if (AllAnimations.P1CrouchKickR.HasFinished() == true) {
 			AllAnimations.P1CrouchKickR.loopCount--;
 			idle = true;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
@@ -323,7 +331,7 @@ void ModulePlayer::Power1Movement() {
 		if (AllAnimations.P1CrouchKickL.HasFinished() == true) {
 			AllAnimations.P1CrouchKickL.loopCount--;
 			idle = true;
-			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT) {
+			if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 				airSt = AirState::CROUCH;
 			}
 			else { airSt = AirState::GROUND; }
@@ -351,7 +359,7 @@ void ModulePlayer::Power1Movement() {
 
 
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_UP && idle == true) {
+		if (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP || App->input->pads[0].l_y < 0.5f)) {
 			airSt = AirState::GROUND;
 		}
 

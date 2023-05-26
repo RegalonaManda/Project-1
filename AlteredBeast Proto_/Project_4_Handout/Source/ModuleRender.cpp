@@ -38,6 +38,8 @@ bool ModuleRender::Init()
 		ret = false;
 	}
 
+	/*SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);*/ //camera speed problems!
+
 	return ret;
 }
 
@@ -56,19 +58,19 @@ update_status ModuleRender::PreUpdate()
 update_status ModuleRender::Update()
 {
 	//Handle positive vertical movement
-	if (App->input->keys[SDL_SCANCODE_UP] == KEY_REPEAT)
+	if (App->input->keys[SDL_SCANCODE_UP] == KEY_REPEAT || App->input->pads[0].r_y < -0.5f)
 		camera.y += cameraSpeed;
 
 	//Handle negative vertical movement
-	if (App->input->keys[SDL_SCANCODE_DOWN] == KEY_REPEAT)
+	if (App->input->keys[SDL_SCANCODE_DOWN] == KEY_REPEAT || App->input->pads[0].r_y > 0.5f)
 		camera.y -= cameraSpeed;
 
 	// TODO 1: Handle horizontal movement of the camera
-	if (App->input->keys[SDL_SCANCODE_LEFT] == KEY_REPEAT) {
+	if (App->input->keys[SDL_SCANCODE_LEFT] == KEY_REPEAT || App->input->pads[0].r_x < -0.5f)  {
 		camera.x += cameraSpeed;
 	}
 
-	if (App->input->keys[SDL_SCANCODE_RIGHT] == KEY_REPEAT) {
+	if (App->input->keys[SDL_SCANCODE_RIGHT] == KEY_REPEAT || App->input->pads[0].r_x > 0.5f) {
 		camera.x -= cameraSpeed;
 	}
 	

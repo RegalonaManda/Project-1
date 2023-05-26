@@ -38,11 +38,10 @@ bool ScenePreIntro::Start()
 update_status ScenePreIntro::Update()
 {
 
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || App->input->pads[0].start)
 	{
-		
 		App->fade->FadeToBlack(this, (Module*)App->sceneIntro, 60.0f);
-		
+		App->input->pads[0].start = false;
 	}
 	
 	++timer;
