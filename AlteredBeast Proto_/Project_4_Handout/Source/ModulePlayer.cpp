@@ -149,7 +149,7 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::DEFAULT;
+	tranSt = Transform::WOLF;
 	
 	
 
@@ -247,7 +247,7 @@ update_status ModulePlayer::Update()
 
 	// New jumping function
 
-	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN || App->input->pads[0].x || App->input->pads[0].y) {
+	if (App->input->keys[SDL_SCANCODE_J] == KEY_DOWN || App->input->pads[0].x || App->input->pads[0].y) {
 		if (idle == true && airSt != AirState::AIRBORN && airSt != AirState::LANDING) {
 			position.y -= 5;
 			airSt = AirState::AIRBORN;
@@ -268,6 +268,11 @@ update_status ModulePlayer::Update()
 	if (airSt == AirState::AIRBORN && position.y < MAX_HEIGHT) {
 		impulse = -2.0;
 		position.y = MAX_HEIGHT + 2;
+	}
+
+	if (airSt == AirState::CROUCH && (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP || App->input->pads[0].l_y <= 0.0f))) {
+
+		airSt = AirState::GROUND;
 	}
 
 	//---------------Default--Movement---Function------------
@@ -1219,11 +1224,6 @@ void ModulePlayer::WereWolfMovement() {
 			idle = true;
 		}
 
-
-
-		if (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP || App->input->pads[0].l_y == 0.0f)) { // ?
-			airSt = AirState::GROUND;
-		}
 
 		//Player gets killed
 		if (destroyed) {

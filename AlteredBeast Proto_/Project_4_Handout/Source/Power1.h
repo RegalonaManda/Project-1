@@ -359,10 +359,7 @@ void ModulePlayer::Power1Movement() {
 
 
 
-		if (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP || App->input->pads[0].l_y < 0.5f)) {
-			airSt = AirState::GROUND;
-		}
-
+	
 		//Player gets killed
 		if (destroyed) {
 

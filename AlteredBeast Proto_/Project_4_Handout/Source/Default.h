@@ -417,18 +417,6 @@ void ModulePlayer::DefaultMovement() {
 			kickCollider->SetPos(1000, 1000);
 		}
 
-
-
-		if (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP || App->input->pads[0].l_y == 0.0f)) {
-
-
-			airSt = AirState::GROUND;
-			//deactivate punch collider
-			kickCollider->SetPos(1000, 1000); //quick fix to make collider disappear from scene by sending it oob, TRY TO CHANGE
-		}
-
-
-
 		//Player gets killed
 		if (destroyed) {
 
