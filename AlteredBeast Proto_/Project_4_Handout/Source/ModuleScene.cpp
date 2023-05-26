@@ -84,6 +84,17 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 	BDeathRight.loop = false;
 	BDeathRight.totalFrames = 2;
 
+	//------Dragon_Death-------//
+
+	DDeath.PushBack({ 325,727 , 73,90 });
+	DDeath.PushBack({ 399,727 , 73,90 });
+	DDeath.PushBack({ 473,727 , 73,90 });
+	DDeath.loop = true;
+	DDeath.speed = 0.08f;
+
+
+
+
 }
 
 
@@ -169,18 +180,18 @@ update_status ModuleScene::Update()
 {
 	
 	//This is so camera stops when reaching boss
-	if (App->render->camera.x > 1161*3) { ScreenScroll = false; }
+	if (App->render->camera.x > 1161) { ScreenScroll = false; }
 	if (ScreenScroll == false) {
-		App->render->camera.x = 1161*3;
+		App->render->camera.x = 1161;
 		//WHY does it slightly move backwards???
 	}
 	//SCREEN SCROLL
 	if (ScreenScroll == true) {
 		App->render->camera.x += 1;
 
-		aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE ) * 0.3333333333f;
+		aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE );
 
-		backCamLimit->SetPos(App->render->camera.x * 0.3333333333f, 0);
+		backCamLimit->SetPos(App->render->camera.x, 0);
 		frontCamLimit->SetPos(aux, 0);
 	}
 
@@ -221,11 +232,13 @@ update_status ModuleScene::Update()
 				Bcurrent->Update();
 			}
 		}
-		else if (EnemyCN == 4) {
+		else if (EnemyCN == 7) {
+			
 			if (HasEnemyDied) {
-				Dcurrent = &explode;
+				Dcurrent = &DDeath;
 				Dcurrent->Update();
 			}
+			
 		}
 	}
 
@@ -264,9 +277,10 @@ update_status ModuleScene::PostUpdate()
 		DeathFrame = Bcurrent->GetCurrentFrame();
 		App->render->Blit(EnemyTexture, enemyX, enemyY, &DeathFrame);
 	}
-	if (HasEnemyDied && EnemyCN == 4) {
+	if (HasEnemyDied && EnemyCN == 7) {
 		DeathFrame = Dcurrent->GetCurrentFrame();
-		App->render->Blit(ExplosionText, enemyX, enemyY, &explosion);
+		
+		App->render->Blit(EnemyTexture, enemyX, enemyY--, &DeathFrame);
 	}
 
 	if (WDeathRight.HasFinished()) {
@@ -288,6 +302,12 @@ update_status ModuleScene::PostUpdate()
 		HasEnemyDied = false;
 		BDeathLeft.loopCount--;
 	}
+
+	if (EnemyCN == 7 && enemyY < -100){
+		HasEnemyDied = false;
+		DDeath.loopCount = 0;  
+	}
+
 
 	if (EnemyAttacking == true) {
 		explosionCnt--;

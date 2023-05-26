@@ -38,7 +38,7 @@ bool ModuleRender::Init()
 		ret = false;
 	}
 
-	/*SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);*/ //camera speed problems!
+	//SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT); //camera speed problems!
 
 	return ret;
 }
@@ -103,8 +103,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 	bool ret = true;
 
 	SDL_Rect rect {
-		(int)(-camera.x * speed) + x * SCREEN_SIZE,
-		(int)(-camera.y * speed) + y * SCREEN_SIZE,
+		(int)((-camera.x * speed) + x) * SCREEN_SIZE,
+		(int)((-camera.y * speed) + y) * SCREEN_SIZE,
 		0, 0 };
 	
 	if (section != nullptr)
@@ -138,8 +138,8 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 
 	SDL_Rect dstRect{
-		(int)(-camera.x * speed) + rect.x * SCREEN_SIZE,
-		(int)(-camera.y * speed) + rect.y * SCREEN_SIZE,
+		(int)((-camera.x * speed) + rect.x) * SCREEN_SIZE,
+		(int)((-camera.y * speed) + rect.y) * SCREEN_SIZE,
 		rect.w * SCREEN_SIZE, rect.h * SCREEN_SIZE };
 
 	if (SDL_RenderFillRect(renderer, &dstRect) != 0)
