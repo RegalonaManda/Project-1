@@ -182,18 +182,18 @@ update_status ModuleScene::Update()
 {
 	
 	//This is so camera stops when reaching boss
-	if (App->render->camera.x > 1161*3) { ScreenScroll = false; }
+	if (App->render->camera.x > 1161) { ScreenScroll = false; }
 	if (ScreenScroll == false) {
-		App->render->camera.x = 1161*3;
+		App->render->camera.x = 1161;
 		//WHY does it slightly move backwards???
 	}
 	//SCREEN SCROLL
 	if (ScreenScroll == true) {
 		App->render->camera.x += 1;
 
-		aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE ) * 0.3333333333f;
+		aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE );
 
-		backCamLimit->SetPos(App->render->camera.x * 0.3333333333f, 0);
+		backCamLimit->SetPos(App->render->camera.x, 0);
 		frontCamLimit->SetPos(aux, 0);
 	}
 
