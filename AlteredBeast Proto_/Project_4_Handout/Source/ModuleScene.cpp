@@ -92,8 +92,6 @@ bool ModuleScene::Start()
 {
 	LOG("Loading background assets");
 
-
-
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 0.0f);
 
 	bool ret = true;
@@ -189,7 +187,7 @@ update_status ModuleScene::Update()
 	
 
 	App->enemies->Update();
-	if (App->player->tranSt == Transform::DEFAULT || App->player->tranSt == Transform::POWER1 || App->player->tranSt == Transform::WOLF) {
+	if (App->player->tranSt == Transform::DEFAULT || App->player->tranSt == Transform::POWER1 || App->player->tranSt == Transform::POWER2 || App->player->tranSt == Transform::WOLF) {
 		if (EnemyCN == 1) {
 			if (HasEnemyDied == true && EnemyAttacking == false) {
 				//Death->KillZombie(enemyX, enemyY);

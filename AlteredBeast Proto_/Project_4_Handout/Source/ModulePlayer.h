@@ -88,6 +88,8 @@ public:
 
 	void Power1Movement();
 
+	void Power2Movement();
+
 	void WereWolfMovement();
 
 	void WolfKick();

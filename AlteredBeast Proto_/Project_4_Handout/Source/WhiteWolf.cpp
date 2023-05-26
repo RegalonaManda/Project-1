@@ -172,15 +172,17 @@ void WhiteWolf::OnCollision(Collider* collider) {
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
 		App->scene->EnemyCN = 2;
-		if (App->player->tranSt == Transform::DEFAULT) {
+		if (App->player->tranSt == Transform::DEFAULT|| App->player->tranSt == Transform::POWER1) {
 			App->powers->Enable();
 			App->powers->position.x = position.x;
 			App->powers->position.y = position.y;
 			App->powers->spawnPos.x = position.x;
 			App->powers->spawnPos.y = position.y;
 		}
-		if (App->player->tranSt == Transform::POWER1 && App->player->destroyed) {
-			App->powers->Disable();
+		if (App->player->destroyed) {
+			if (App->player->tranSt == Transform::POWER1 || App->player->tranSt == Transform::POWER2) {
+				App->powers->Disable();
+			}
 		}
 
 

@@ -1,5 +1,6 @@
 #include "ModulePlayer.h"
 #include "Power1.h"
+#include "Power2.h"
 #include "WereWolf.h"
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -156,14 +157,10 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
-
-	
-
 	// calculate the max h for the current ground lvl
 	if (airSt == AirState::GROUND) {
 		MAX_HEIGHT = position.y - 52   ;
 	}
- 	
 
 	if (App->sceneIntro->IsEnabled() == false && start == false) {
 		position.x = 50;
@@ -178,6 +175,11 @@ update_status ModulePlayer::Update()
 		currentAnimation = &AllAnimations.powerUp1;
 		
 	}
+	if (transforming == true && tranSt == Transform::POWER1 && !destroyed) {
+
+		currentAnimation = &AllAnimations.powerUp2;
+
+	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;
 		
@@ -185,6 +187,16 @@ update_status ModulePlayer::Update()
 		attack += 1;
 		idle = true;
 		AllAnimations.powerUp1.loopCount = 0;
+		transforming = false;
+		App->powers->Disable();
+	}
+	if (AllAnimations.powerUp2.HasFinished() == true) {
+		tranSt = Transform::POWER2;
+
+
+		attack += 1;
+		idle = true;
+		AllAnimations.powerUp2.loopCount = 0;
 		transforming = false;
 		App->powers->Disable();
 	}
@@ -221,6 +233,9 @@ update_status ModulePlayer::Update()
 			Deathcollider->SetPos(position.x + 20, position.y - 20);
 		}
 		if (tranSt == Transform::POWER1) {
+			Deathcollider->SetPos(position.x + 36, position.y - 65);
+		}
+		if (tranSt == Transform::POWER2) {
 			Deathcollider->SetPos(position.x + 36, position.y - 65);
 		}
 		lives = 0;
@@ -283,6 +298,11 @@ update_status ModulePlayer::Update()
 	if (tranSt == Transform::POWER1) {
 
 		ModulePlayer::Power1Movement();
+
+	}
+	if (tranSt == Transform::POWER2) {
+
+		ModulePlayer::Power2Movement();
 
 	}
 

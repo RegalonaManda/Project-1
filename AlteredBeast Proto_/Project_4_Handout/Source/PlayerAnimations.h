@@ -68,6 +68,7 @@ public:
 	Animation kickCrouchLeft;
 
 	Animation powerUp1;
+	Animation powerUp2;
 
 	//damage animations
 	Animation knockBackLeft;
@@ -124,6 +125,38 @@ public:
 
 	Animation P1LandingR;
 	Animation P1LandingL;
+
+	//Power2 animations
+	Animation P2IdleRight;
+	Animation P2IdleLeft;
+
+	Animation P2walkRight;
+	Animation P2walkLeft;
+	Animation P2punchRight;
+	Animation P2punchLeft;
+	Animation P2KickLeft;
+	Animation P2KickRight;
+
+	Animation P2CrouchRight;
+	Animation P2CrouchLeft;
+				
+	Animation P2CrouchPunchR;
+	Animation P2CrouchPunchL;
+
+	Animation P2CrouchKickR;
+	Animation P2CrouchKickL;
+
+	Animation P2JumpR;
+	Animation P2JumpL;
+
+	Animation P2JumpPunchR;
+	Animation P2JumpPunchL;
+
+	Animation P2JumpKickR;
+	Animation P2JumpKickL;
+
+	Animation P2LandingR;
+	Animation P2LandingL;
 
 	//------WereWolf Animations--------
 
@@ -346,24 +379,24 @@ public:
 		powerUp1.loop = false;
 		powerUp1.totalFrames = 5;
 		powerUp1.speed = 0.07;
-		//------------------------------------------------------------------------------------------------------------------------------------
+
 		P1IdleRight.PushBack({ 402,1253,88,69 });
 		
 		P1IdleLeft.PushBack({ 491,1253,88,69 });
 
 		P1walkRight.PushBack({ 135,1253,88,69 });
 		P1walkRight.PushBack({ 224,1253,88,69 });
-		P1walkRight.PushBack({ 313,1253,88,69 });//done
+		P1walkRight.PushBack({ 313,1253,88,69 });
 		P1walkRight.speed = WALKANIMSPEED;
 
 		P1walkLeft.PushBack({ 313,1329,88,69 });
 		P1walkLeft.PushBack({ 224,1329,88,69 });
-		P1walkLeft.PushBack({ 135,1329,88,69 });//
+		P1walkLeft.PushBack({ 135,1329,88,69 });
 		P1walkLeft.speed = WALKANIMSPEED;
 
 		P1punchRight.PushBack({ 135,1473,88,69 });
 		P1punchRight.PushBack({ 224,1473,88,69 });
-		P1punchRight.PushBack({ 313,1473,88,69 });//
+		P1punchRight.PushBack({ 313,1473,88,69 });
 		P1punchRight.totalFrames = 3;
 		P1punchRight.speed = PUNCHANIMSPEED;
 		P1punchRight.loop = false;
@@ -437,9 +470,114 @@ public:
 		
 		P1JumpKickL.PushBack({ 140,2033,94,69 });
 
-		P1LandingR.PushBack({ 322, 1823, 88, 69 });//
+		P1LandingR.PushBack({ 322, 1823, 88, 69 });
 
 		P1LandingL.PushBack({ 144,1893,88,69 });
+
+		//power2---------------------------------------------------------------------------------------------------------------
+
+		powerUp2.PushBack({ 542, 1104, 54, 75 });//NEED CHANGE
+		powerUp2.PushBack({ 542, 1104, 54, 75 });//NEED CHANGE
+		powerUp2.PushBack({ 597, 1104, 54, 75 });//NEED CHANGE
+		powerUp2.PushBack({ 652, 1104, 54, 75 });//NEED CHANGE
+		powerUp2.PushBack({ 652, 1104, 54, 75 });//NEED CHANGE
+		powerUp2.loop = false;
+		powerUp2.totalFrames = 5;
+		powerUp2.speed = 0.07;
+
+		P2IdleRight.PushBack({ 402,1253,88,69 });//NEED CHANGE
+
+		P2IdleLeft.PushBack({ 491,1253,88,69 });//NEED CHANGE
+
+		P2walkRight.PushBack({ 135,1253,88,69 });//NEED CHANGE
+		P2walkRight.PushBack({ 224,1253,88,69 });//NEED CHANGE
+		P2walkRight.PushBack({ 313,1253,88,69 });//NEED CHANGE
+		P2walkRight.speed = WALKANIMSPEED;
+
+		P2walkLeft.PushBack({ 313,1329,88,69 });//NEED CHANGE
+		P2walkLeft.PushBack({ 224,1329,88,69 });//NEED CHANGE
+		P2walkLeft.PushBack({ 135,1329,88,69 });//NEED CHANGE
+		P2walkLeft.speed = WALKANIMSPEED;
+
+		P2punchRight.PushBack({ 135,1473,88,69 });//NEED CHANGE
+		P2punchRight.PushBack({ 224,1473,88,69 });//NEED CHANGE
+		P2punchRight.PushBack({ 313,1473,88,69 });//NEED CHANGE
+		P2punchRight.totalFrames = 3;
+		P2punchRight.speed = PUNCHANIMSPEED;
+		P2punchRight.loop = false;
+
+		P2punchLeft.PushBack({ 313,1543,88,69 });//NEED CHANGE
+		P2punchLeft.PushBack({ 224,1543,88,69 });//NEED CHANGE
+		P2punchLeft.PushBack({ 135,1543,88,69 });//NEED CHANGE
+		P2punchLeft.totalFrames = 3;
+		P2punchLeft.speed = PUNCHANIMSPEED;
+		P2punchLeft.loop = false;
+
+		P2KickRight.PushBack({ 135,1403,88,69 });//NEED CHANGE
+		P2KickRight.PushBack({ 224,1403,88,69 });//NEED CHANGE
+		P2KickRight.PushBack({ 313,1403,88,69 });//NEED CHANGE
+		P2KickRight.totalFrames = 3;
+		P2KickRight.speed = KICKANIMSPEED;
+		P2KickRight.loop = false;
+
+		P2KickLeft.PushBack({ 322,1613,88,69 });//NEED CHANGE
+		P2KickLeft.PushBack({ 233,1613,88,69 });//NEED CHANGE
+		P2KickLeft.PushBack({ 144,1613,88,69 });//NEED CHANGE
+		P2KickLeft.totalFrames = 3;
+		P2KickLeft.speed = KICKANIMSPEED;
+		P2KickLeft.loop = false;
+
+		P2CrouchRight.PushBack({ 144,1683,88,69 });//NEED CHANGE
+
+		P2CrouchLeft.PushBack({ 313,1753, 88,69 });//NEED CHANGE
+
+		P2CrouchPunchR.PushBack({ 233,1683,88,69 });//NEED CHANGE
+		P2CrouchPunchR.PushBack({ 322,1683,88,69 });//NEED CHANGE
+		P2CrouchPunchR.totalFrames = 2;
+		P2CrouchPunchR.speed = CROUCHPUNCHSPEED;
+		P2CrouchPunchR.loop = false;
+
+		P2CrouchPunchL.PushBack({ 233,1753,88,69 });//NEED CHANGE
+		P2CrouchPunchL.PushBack({ 144,1753,88,69 });//NEED CHANGE
+		P2CrouchPunchL.totalFrames = 2;
+		P2CrouchPunchL.speed = CROUCHPUNCHSPEED;
+		P2CrouchPunchL.loop = false;
+
+		P2CrouchKickR.PushBack({ 411, 1683,88,69 });//NEED CHANGE
+		P2CrouchKickR.PushBack({ 500, 1683, 88 , 69 });//NEED CHANGE
+		P2CrouchKickR.totalFrames = 2;
+		P2CrouchKickR.speed = CROUCHKICKSPEED;
+		P2CrouchKickR.loop = false;
+
+		P2CrouchKickL.PushBack({ 500,1753 ,88,69 });//NEED CHANGE
+		P2CrouchKickL.PushBack({ 411,1753 , 88 , 69 });//NEED CHANGE
+		P2CrouchKickL.totalFrames = 2;
+		P2CrouchKickL.speed = CROUCHKICKSPEED;
+		P2CrouchKickL.loop = false;
+
+		P2JumpR.PushBack({ 144, 1823, 88, 69 });//NEED CHANGE
+		P2JumpR.PushBack({ 233, 1823, 88, 69 });//NEED CHANGE
+		P2JumpR.speed = JUMPANIMSPEED;
+
+		P2JumpL.PushBack({ 322, 1893, 88, 69 });//NEED CHANGE
+		P2JumpL.PushBack({ 233, 1893, 88, 69 });//NEED CHANGE
+		P2JumpL.speed = JUMPANIMSPEED;
+
+		P2JumpPunchR.PushBack({ 144, 1963, 91, 70 });//NEED CHANGE
+		P2JumpPunchR.loop = true;
+
+		P2JumpPunchL.PushBack({ 317,2033, 91, 70 });//NEED CHANGE
+		P2JumpPunchL.loop = true;
+
+
+		P2JumpKickR.PushBack({ 322,1963, 91,69 });//NEED CHANGE
+
+
+		P2JumpKickL.PushBack({ 140,2033,94,69 });//NEED CHANGE
+
+		P2LandingR.PushBack({ 322, 1823, 88, 69 });//NEED CHANGE
+
+		P2LandingL.PushBack({ 144,1893,88,69 });//NEED CHANGE
 
 		//----WereWolf--PushBack------------------------------------------------------------------------------------------------------------------
 
