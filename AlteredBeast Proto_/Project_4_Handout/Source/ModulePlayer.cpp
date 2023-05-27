@@ -965,13 +965,27 @@ void ModulePlayer::WereWolfMovement() {
 
 			if (airSt == AirState::AIRBORN) {
 				if (dir == Direction::LEFT) {
-					currentAnimation = &AllAnimations.P1JumpPunchL;
+					currentAnimation = &AllAnimations.W_jump_punchL;
+					// FireBall stuff
 
+					wolfPunch = true;
+					FireBall.CurrentShot = &FireBall.GrowAnimL;
+					FireBall.ShotPosition.x = position.x + 20;
+					FireBall.ShotPosition.y = position.y - 60;
+
+					attackCollider->SetPos(position.x + 40, position.y - 40);
 					idle = false;
 				}
 				if (dir == Direction::RIGHT) {
-					currentAnimation = &AllAnimations.P1JumpPunchR;
+					currentAnimation = &AllAnimations.W_jump_punchR;
+					// FireBall stuff
 
+					wolfPunch = true;
+					FireBall.CurrentShot = &FireBall.GrowAnim;
+					FireBall.ShotPosition.x = position.x + 20;
+					FireBall.ShotPosition.y = position.y - 60;
+
+					attackCollider->SetPos(position.x + 40, position.y - 40);
 					idle = false;
 				}
 			}
@@ -1025,12 +1039,12 @@ void ModulePlayer::WereWolfMovement() {
 
 			if (airSt == AirState::AIRBORN) {
 				if (dir == Direction::LEFT) {
-					currentAnimation = &AllAnimations.P1JumpPunchL;
+					currentAnimation = &AllAnimations.W_jump_punchL;
 
 					idle = false;
 				}
 				if (dir == Direction::RIGHT) {
-					currentAnimation = &AllAnimations.P1JumpPunchR;
+					currentAnimation = &AllAnimations.W_jump_punchR;
 
 					idle = false;
 				}

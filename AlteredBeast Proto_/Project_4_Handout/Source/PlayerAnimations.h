@@ -184,6 +184,9 @@ public:
 	Animation W_jumpR;
 	Animation W_jumpL;
 
+	Animation W_jump_punchR;
+	Animation W_jump_punchL;
+
 	PlayerAnim::PlayerAnim() {
 
 
@@ -680,6 +683,9 @@ public:
 		W_crouch_punchL.speed = CROUCHPUNCHSPEED;
 		W_crouch_punchL.loop = false;
 
+		W_jump_punchR.PushBack({ 959,660,148,92 });
+
+		W_jump_punchL.PushBack({ 660,752,148,92 });
 	}
 };
 
