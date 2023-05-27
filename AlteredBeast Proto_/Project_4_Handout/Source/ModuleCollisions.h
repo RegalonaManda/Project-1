@@ -35,6 +35,8 @@ public:
 	// Adds a new collider to the list
 	Collider* AddCollider(SDL_Rect rect, Collider::Type type, Module* listener = nullptr);
 
+	Collider* AddFloatCollider(SDL_FRect rect, Collider::Type type, Module* listener = nullptr);
+
 	// Draws all existing colliders with some transparency
 	void DebugDraw();
 

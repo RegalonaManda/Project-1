@@ -5,6 +5,7 @@
 #include "ModuleWindow.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
+#include "ModuleScene.h"
 
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_scancode.h"
@@ -74,7 +75,7 @@ update_status ModuleRender::Update()
 		camera.x -= cameraSpeed;
 	}
 	
-
+	
 	return update_status::UPDATE_CONTINUE;
 }
 

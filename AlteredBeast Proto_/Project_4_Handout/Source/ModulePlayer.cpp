@@ -260,7 +260,7 @@ update_status ModulePlayer::Update()
 
 	// New jumping function
 
-	if (App->input->keys[SDL_SCANCODE_J] == KEY_DOWN || App->input->pads[0].x || App->input->pads[0].y) {
+	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_DOWN || App->input->pads[0].x || App->input->pads[0].y) {
 		if (idle == true && airSt != AirState::AIRBORN && airSt != AirState::LANDING) {
 			position.y -= 5;
 			airSt = AirState::AIRBORN;
@@ -519,9 +519,14 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
 		idle = true;
-		while (position.x < (App->render->camera.x * 0.3333333333f - 13.3333333333f)) {
-			position.x = App->render->camera.x * 0.3333333333f - 13.3333333333f;
-		}
+		//Kai revisa esto cuando puedas, de momento lo he harcodeado
+
+		/*while (position.x < (App->render->camera.x * 0.3333333333f - 13.3333333333f)) {
+			position.x += 20;
+
+		}*/
+
+		position.x += 2.4;
 
 	}
 

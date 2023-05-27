@@ -30,6 +30,8 @@ struct Collider
 
 	Collider (SDL_Rect rectangle, Type type, Module* listener = nullptr);
 
+	Collider(SDL_FRect rectangle, Type type, Module* listener = nullptr);
+
 	void SetPos(int x, int y);
 
 	void UpdatePos(int x, int y);
@@ -40,8 +42,23 @@ struct Collider
 
 	bool Intersects(const SDL_Rect& r) const;
 
+	// Float rect functions
+
+	void SetFloatPos(float x, float y);
+
+	void UpdateFloatPos(float x, float y);
+
+	void SetFloatProportions(float w, float h);
+
+	void UpdateFloatProportions(float w, float h);
+
+	bool IntersectsFloat(const SDL_FRect& r) const;
+
 	//Variables
 	SDL_Rect rect;
+
+	SDL_FRect ract;
+
 	bool pendingToDelete = false;
 	Type type;
 	Module* listener = nullptr;

@@ -288,6 +288,8 @@ void ModuleCollisions::DebugDraw()
 	
 }
 
+
+
 // Called before quitting
 bool ModuleCollisions::CleanUp()
 {
@@ -319,4 +321,21 @@ Collider* ModuleCollisions::AddCollider(SDL_Rect rect, Collider::Type type, Modu
 	}
 
  	return ret;
+}
+
+
+Collider* ModuleCollisions::AddFloatCollider(SDL_FRect rect, Collider::Type type, Module* listener)
+{
+	Collider* ret = nullptr;
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] == nullptr)
+		{
+			ret = colliders[i] = new Collider(rect, type, listener);
+			break;
+		}
+	}
+
+	return ret;
 }

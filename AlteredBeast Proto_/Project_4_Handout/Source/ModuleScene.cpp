@@ -160,8 +160,8 @@ bool ModuleScene::Start()
 	
 	//App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 200, 110, false);
 
-	backCamLimit = App->collisions->AddCollider({ App->render->camera.x, App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
-	frontCamLimit = App->collisions->AddCollider({ App->render->camera.x + SCREEN_WIDTH-10, App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
+	backCamLimit = App->collisions->AddCollider({ (int)App->render->camera.x, (int)App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
+	frontCamLimit = App->collisions->AddCollider({ (int)App->render->camera.x + SCREEN_WIDTH-10, (int)App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 
 	App->player->Enable();
 	App->enemies->Enable();
@@ -187,7 +187,7 @@ update_status ModuleScene::Update()
 	}
 	//SCREEN SCROLL
 	if (ScreenScroll == true) {
-		App->render->camera.x += 1;
+		App->render->camera.x += 0.3;
 
 		aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE );
 

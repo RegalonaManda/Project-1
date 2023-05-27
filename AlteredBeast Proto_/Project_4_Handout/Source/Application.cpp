@@ -49,7 +49,7 @@ Application::Application()
 	modules[14] =	powers =		new ModulePower(false);
 	modules[15] =	fonts =			new ModuleFonts(true);
 
-	// rendershould always be the last module
+	// render should always be the last module
 	modules[16] =	render =		new ModuleRender(true);
 }
 
