@@ -81,7 +81,7 @@ bool ModulePlayer::Start()
 
 	//Initialize collider
 	Pcollider = App->collisions->AddCollider({ 100,300,20,64 }, Collider::Type::PLAYER, this);
-	Crouchcollider = App->collisions->AddCollider({ 100,300,20,34 }, Collider::Type::PLAYER, this);
+	Crouchcollider = App->collisions->AddCollider({ 100,300,29,34 }, Collider::Type::PLAYER, this);
 	//CHANGE listener of attack to enemy
 	attackCollider = App->collisions->AddCollider({ 100,300,33,19 }, Collider::Type::PLAYER_SHOT, this);
 	kickCollider = App->collisions->AddCollider({ 100,300,19,33 }, Collider::Type::PLAYER_SHOT, this);
@@ -150,7 +150,7 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::POWER1;
+	tranSt = Transform::WOLF;
 	
 	return ret;
 }
@@ -283,8 +283,9 @@ update_status ModulePlayer::Update()
 		position.y = MAX_HEIGHT + 2;
 	}
 
-	if (airSt == AirState::CROUCH && (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP || App->input->pads[0].l_y <= 0.0f))) {
-
+	if (airSt == AirState::CROUCH && (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP|| App->input->pads[0].l_y <= 0.0f))) {
+ 
+  		idle = true;
 		airSt = AirState::GROUND;
 	}
 
@@ -526,7 +527,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 		}*/
 
-		position.x += 2.4;
+		position.x += 1.2*speed;
 
 	}
 
@@ -536,9 +537,10 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		AllAnimations.W_KickL.loopCount = 0;
 		idle = true;
 
-		while (position.x > App->scene->aux - 33.3333333333f) {
+		/*while (position.x > App->scene->aux - 33.3333333333f) {
 			position.x = App->scene->aux - 33.3333333333f;
-		}
+		}*/
+		position.x -= 1.2 * speed;
 
 	}
 
@@ -574,6 +576,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == Pcollider && c2->type == Collider::Type::PLATFORM) {
 		
 		//Change to landing later
+		currentAnimation->Reset();
 		position.y--;
 		airSt = AirState::GROUND;
 		idle = true;
@@ -768,13 +771,13 @@ void ModulePlayer::WereWolfMovement() {
 
 
 		//Update Collider to current player pos, change it depending on direction and AirState
-		if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 71, position.y - 68); }
+ 		if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 71, position.y - 68); }
 		if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 75, position.y - 68); }
 
 		if (dir == Direction::RIGHT && airSt == AirState::CROUCH)
 		{
 			Pcollider->SetPos(0, position.y - 5000);
-			Crouchcollider->SetPos(position.x + 36, position.y - 40);
+			Crouchcollider->SetPos(position.x + 75, position.y - 40);
 		}
 		if (dir == Direction::LEFT && airSt == AirState::CROUCH)
 		{
@@ -783,8 +786,17 @@ void ModulePlayer::WereWolfMovement() {
 		}
 		if (airSt != AirState::CROUCH) { Crouchcollider->SetPos(0, -5000); }
 
-		if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 40, position.y - 60); }
-		if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 30, position.y - 60); }
+		if (dir == Direction::RIGHT && airSt == AirState::AIRBORN && kickR == false ) { Pcollider->SetPos(position.x + 83, position.y - 60); }
+		if (dir == Direction::LEFT && airSt == AirState::AIRBORN && kickL == false) { Pcollider->SetPos(position.x + 65, position.y - 60); }
+
+		// When kicking in the air
+		if (dir == Direction::RIGHT && airSt == AirState::AIRBORN && kickR == true) { 
+			Pcollider->SetPos(position.x + 63, position.y - 75);
+		}
+		if (dir == Direction::LEFT && airSt == AirState::AIRBORN && kickL ==  true) 
+		{ 
+			Pcollider->SetPos(position.x + 65, position.y - 75); 
+		}
 
 		if (idle == true) {
 			attackCollider->SetPos(1000, 1000);
@@ -813,16 +825,18 @@ void ModulePlayer::WereWolfMovement() {
 			currentAnimation = &AllAnimations.W_IdleL;
 		}
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
-			currentAnimation = &AllAnimations.P1CrouchRight;
+			currentAnimation = &AllAnimations.W_crouchR;
+			//Pcollider->SetPos(-5612, -5612);
 		}
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
-			currentAnimation = &AllAnimations.P1CrouchLeft;
+			currentAnimation = &AllAnimations.W_crouchL;
+			Pcollider->SetPos(-5612, -5612);
 		}
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN) {
-			currentAnimation = &AllAnimations.P1JumpR;
+			currentAnimation = &AllAnimations.W_jumpR;
 		}
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
-			currentAnimation = &AllAnimations.P1JumpL;
+			currentAnimation = &AllAnimations.W_jumpL;
 		}
 
 
@@ -867,10 +881,10 @@ void ModulePlayer::WereWolfMovement() {
 				airSt = AirState::CROUCH;
 
 				if (dir == Direction::LEFT) {
-					currentAnimation = &AllAnimations.P1CrouchLeft;
+					currentAnimation = &AllAnimations.W_crouchL;
 				}
 				if (dir == Direction::RIGHT) {
-					currentAnimation = &AllAnimations.P1CrouchRight;
+					currentAnimation = &AllAnimations.W_crouchR;
 				}
 			}
 		}
@@ -920,89 +934,31 @@ void ModulePlayer::WereWolfMovement() {
 			}
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
-				AllAnimations.P1CrouchPunchR.Reset();
-				currentAnimation = &AllAnimations.P1CrouchPunchR;
-				attackCollider->SetPos(position.x + 51, position.y - 40);
+				AllAnimations.W_crouch_punchR.Reset();
+				currentAnimation = &AllAnimations.W_crouch_punchR;
+				attackCollider->SetPos(position.x + 112, position.y - 40);
+
+				// FireBall stuff
+
+				wolfPunch = true;
+				FireBall.CurrentShot = &FireBall.GrowAnim;
+				FireBall.ShotPosition.x = position.x + 40;
+				FireBall.ShotPosition.y = position.y - 60;
+
 				idle = false;
 			}
 
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
-				AllAnimations.P1CrouchPunchL.Reset();
-				currentAnimation = &AllAnimations.P1CrouchPunchL;
-				//CHANGE x
-				attackCollider->SetPos(position.x + 4, position.y - 40);
-				idle = false;
-			}
-
-			if (airSt == AirState::AIRBORN) {
-				if (dir == Direction::LEFT) {
-					currentAnimation = &AllAnimations.P1JumpPunchL;
-
-					idle = false;
-				}
-				if (dir == Direction::RIGHT) {
-					currentAnimation = &AllAnimations.P1JumpPunchR;
-
-					idle = false;
-				}
-			}
-		}
-
-		// Punch with fireball
-		if ((App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN || App->input->pads[0].b) && FireBall.destroyed == true) {
-
-			FireBall.destroyed = false;
-			FireBall.exploded = false;
-
-			if (hitEnemy == false) {
-				App->audio->PlayFx(nonLethalAtt, 3);
-			}
-
-			//FireBall direction is player direction
-			FireBall.dir = dir;
-
-			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
-				AllAnimations.W_punchR.Reset();
-				currentAnimation = &AllAnimations.W_punchR;
-
-				// FireBall stuff
+				AllAnimations.W_crouch_punchL.Reset();
+				currentAnimation = &AllAnimations.W_crouch_punchL;
 				
-					wolfPunch = true;
-					FireBall.CurrentShot = &FireBall.GrowAnim;
-					FireBall.ShotPosition.x = position.x + 40;
-					FireBall.ShotPosition.y = position.y - 80;
-				
-
-				idle = false;
-			}
-
-			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
-			{
-				AllAnimations.W_punchL.Reset();
-				currentAnimation = &AllAnimations.W_punchL;
-
 				// FireBall stuff
 
 				wolfPunch = true;
 				FireBall.CurrentShot = &FireBall.GrowAnimL;
 				FireBall.ShotPosition.x = position.x + 40;
-				FireBall.ShotPosition.y = position.y - 80;
+				FireBall.ShotPosition.y = position.y - 60;
 
-
-				idle = false;
-			}
-
-			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
-				AllAnimations.P1CrouchPunchR.Reset();
-				currentAnimation = &AllAnimations.P1CrouchPunchR;
-				attackCollider->SetPos(position.x + 51, position.y - 40);
-				idle = false;
-			}
-
-			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
-				AllAnimations.P1CrouchPunchL.Reset();
-				currentAnimation = &AllAnimations.P1CrouchPunchL;
-				//CHANGE x
 				attackCollider->SetPos(position.x + 4, position.y - 40);
 				idle = false;
 			}
@@ -1053,15 +1009,15 @@ void ModulePlayer::WereWolfMovement() {
 			}
 
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
-				AllAnimations.P1CrouchPunchR.Reset();
-				currentAnimation = &AllAnimations.P1CrouchPunchR;
-				attackCollider->SetPos(position.x + 51, position.y - 40);
+				AllAnimations.W_crouch_punchR.Reset();
+				currentAnimation = &AllAnimations.W_crouch_punchR;
+				attackCollider->SetPos(position.x + 112, position.y - 40);
 				idle = false;
 			}
 
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
-				AllAnimations.P1CrouchPunchL.Reset();
-				currentAnimation = &AllAnimations.P1CrouchPunchL;
+				AllAnimations.W_crouch_punchL.Reset();
+				currentAnimation = &AllAnimations.W_crouch_punchL;
 				//CHANGE x
 				attackCollider->SetPos(position.x + 4, position.y - 40);
 				idle = false;
@@ -1107,6 +1063,17 @@ void ModulePlayer::WereWolfMovement() {
 			FireBall.collider->SetPos(-9000, -9000);
 		}
 
+		if (AllAnimations.W_crouch_punchL.HasFinished() == true) {
+			AllAnimations.W_crouch_punchL.Reset();
+			AllAnimations.W_crouch_punchL.loopCount = 0;
+			idle = true;
+		}
+
+		if (AllAnimations.W_crouch_punchR.HasFinished() == true) {
+			AllAnimations.W_crouch_punchR.Reset();
+			AllAnimations.W_crouch_punchR.loopCount = 0;
+			idle = true;
+		}
 
 		//CHANGE
 		if (currentAnimation == &AllAnimations.P1JumpPunchL) { attackCollider->SetPos(position.x + 0, position.y - 60); }
@@ -1150,14 +1117,18 @@ void ModulePlayer::WereWolfMovement() {
 			}
 			if (airSt == AirState::AIRBORN) {
 				if (dir == Direction::LEFT) {
-					currentAnimation = &AllAnimations.P1JumpKickL;
-
+					AllAnimations.W_KickL.Reset();
+					currentAnimation = &AllAnimations.W_KickL;
+					position.y -= 10;
 					idle = false;
+					kickL = true;
 				}
 				if (dir == Direction::RIGHT) {
-					currentAnimation = &AllAnimations.P1JumpKickR;
-
+					AllAnimations.W_KickR.Reset();
+					currentAnimation = &AllAnimations.W_KickR;
+					position.y -= 10;
 					idle = false;
+					kickR = true;
 				}
 			}
 		}
@@ -1326,12 +1297,9 @@ void ModulePlayer::WolfKick() {
 		WolfKickCollider->SetPos(position.x + 5, position.y - 70);
 	}
 
-
-
-
-
-
-
+	if (airSt == AirState::AIRBORN) {
+		position.y-=2;
+	}
 
 }
 

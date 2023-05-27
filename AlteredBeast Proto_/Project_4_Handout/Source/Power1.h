@@ -50,6 +50,19 @@
 void ModulePlayer::Power1Movement() {
 
 	//Power1
+
+
+
+
+
+
+
+	if (idle == true && airSt != AirState::CROUCH) {
+		crouched = false;
+	}
+
+
+
 	attack = 2;
 	if (tranSt == Transform::POWER1) {
 
@@ -107,7 +120,7 @@ void ModulePlayer::Power1Movement() {
 
 
 
-		if (airSt == AirState::LANDING) {
+		/*if (airSt == AirState::LANDING) {
 			if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.P1LandingL; }
 			if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.P1LandingR; }
 			landing--;
@@ -115,7 +128,8 @@ void ModulePlayer::Power1Movement() {
 		if (landing <= 0) {
 			airSt = AirState::GROUND;
 			landing = 5;
-		}
+		}*/
+
 		//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
 		{
@@ -137,7 +151,7 @@ void ModulePlayer::Power1Movement() {
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
 			currentAnimation = &AllAnimations.P1JumpL;
 		}
-		if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT || App->input->pads[0].l_x > 0.5f) 
+		if (idle == true && airSt != AirState::CROUCH && App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT || App->input->pads[0].l_x > 0.5f) 
 		{
 			if (!destroyed && knockImpulse == 0) {
 
@@ -154,8 +168,9 @@ void ModulePlayer::Power1Movement() {
 			}
 		}
 
+		if (crouched == true) { airSt = AirState::CROUCH; }
 
-		if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT || App->input->pads[0].l_x < -0.5f) {
+		if (idle == true && airSt != AirState::CROUCH && App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT || App->input->pads[0].l_x < -0.5f) {
 			if (!destroyed && knockImpulse == 0) {
 				if (idle && airSt == AirState::GROUND)/* Can't move if punching */ {
 					//change direction
@@ -171,17 +186,20 @@ void ModulePlayer::Power1Movement() {
 			}
 		}
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT/* || App->input->pads[0].l_y > 0.5f*/) {
 
 			if (idle && airSt == AirState::GROUND) {
 
 				airSt = AirState::CROUCH;
+				crouched = true;
 
 				if (dir == Direction::LEFT) {
 					currentAnimation = &AllAnimations.P1CrouchLeft;
+					airSt = AirState::CROUCH;
 				}
 				if (dir == Direction::RIGHT) {
 					currentAnimation = &AllAnimations.P1CrouchRight;
+					airSt = AirState::CROUCH;
 				}
 			}
 

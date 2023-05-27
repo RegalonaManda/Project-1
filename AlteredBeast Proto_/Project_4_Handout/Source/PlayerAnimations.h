@@ -175,6 +175,15 @@ public:
 	Animation W_punchR_depleted;
 	Animation W_punchL_depleted;
 
+	Animation W_crouchR;
+	Animation W_crouchL;
+
+	Animation W_crouch_punchR;
+	Animation W_crouch_punchL;
+
+	Animation W_jumpR;
+	Animation W_jumpL;
+
 	PlayerAnim::PlayerAnim() {
 
 
@@ -647,7 +656,29 @@ public:
 		W_punchL_depleted.loop = false;
 
 
+		W_crouchR.PushBack({ 660,845,148,92 });
 
+		W_crouchL.PushBack({ 958,938,148,92 });
+
+		
+		W_jumpR.PushBack({ 660,659,148,92 });
+		W_jumpR.PushBack({ 809,659,148,92 });
+		W_jumpR.speed = JUMPANIMSPEED;
+
+		W_jumpL.PushBack({ 958,752,148,92 });
+		W_jumpL.PushBack({ 809,752,148,92 });
+		W_jumpL.speed = JUMPANIMSPEED;
+
+		W_crouch_punchR.PushBack({ 809,845,148,92 });
+		W_crouch_punchR.PushBack({ 958,845,148,92 });
+		W_crouch_punchR.speed = CROUCHPUNCHSPEED;
+		W_crouch_punchR.loop = false;
+
+
+		W_crouch_punchL.PushBack({ 809,938,148,92 });
+		W_crouch_punchL.PushBack({ 660,938,148,92 });
+		W_crouch_punchL.speed = CROUCHPUNCHSPEED;
+		W_crouch_punchL.loop = false;
 
 	}
 };

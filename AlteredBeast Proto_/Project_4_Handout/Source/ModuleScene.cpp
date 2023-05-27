@@ -89,8 +89,11 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 	DDeath.PushBack({ 325,727 , 73,90 });
 	DDeath.PushBack({ 399,727 , 73,90 });
 	DDeath.PushBack({ 473,727 , 73,90 });
+	DDeath.PushBack({ 547,727 , 73,90 });
+	DDeath.PushBack({ 621,727 , 73,90 });
+	DDeath.PushBack({ 695,727 , 73,90 });
 	DDeath.loop = true;
-	DDeath.speed = 0.08f;
+	DDeath.speed = 0.12f;
 
 
 
@@ -117,6 +120,9 @@ bool ModuleScene::Start()
 
 
 	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
+
+
+	//App->enemies->AddEnemy(ENEMY_TYPE::NEFF,400, 70, false);
 
 	// border L ,  border R
 	//App->enemies->AddGrave( 150, 130, true, false,false);
@@ -189,7 +195,9 @@ update_status ModuleScene::Update()
 	if (ScreenScroll == true) {
 		App->render->camera.x += 0.3;
 
-		aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE );
+		//aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE );
+
+		aux = (App->render->camera.x + (SCREEN_WIDTH - 10));
 
 		backCamLimit->SetPos(App->render->camera.x, 0);
 		frontCamLimit->SetPos(aux, 0);
@@ -280,7 +288,13 @@ update_status ModuleScene::PostUpdate()
 	if (HasEnemyDied && EnemyCN == 7) {
 		DeathFrame = Dcurrent->GetCurrentFrame();
 		
-		App->render->Blit(EnemyTexture, enemyX, enemyY--, &DeathFrame);
+		waveRatio += waveRatioSpeed;
+
+		enemyX2 = enemyX + (waveHeight * sinf(waveRatio));
+
+		enemyY -= 1.4;
+
+		App->render->Blit(EnemyTexture, enemyX2, enemyY, &DeathFrame);
 	}
 
 	if (WDeathRight.HasFinished()) {
@@ -306,6 +320,7 @@ update_status ModuleScene::PostUpdate()
 	if (EnemyCN == 7 && enemyY < -100){
 		HasEnemyDied = false;
 		DDeath.loopCount = 0;  
+		
 	}
 
 

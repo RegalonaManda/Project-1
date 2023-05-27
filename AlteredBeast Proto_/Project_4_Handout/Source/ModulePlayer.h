@@ -141,6 +141,7 @@ public:
 	float AirSpeed = 1.3f;
 
 	bool inAir = false;
+	bool crouched = false;
 	// The player spritesheet loaded into an SDL_Texture
 	SDL_Texture* texture = nullptr;
 	

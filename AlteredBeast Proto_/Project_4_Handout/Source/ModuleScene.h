@@ -69,6 +69,7 @@ public:
 	bool HasEnemyDied = false;
 	bool EnemyAttacking = false;
 	float enemyX = 0;
+	float enemyX2 = 0;
 	float enemyY = 0;
 	int explosionCnt = 40;
 
@@ -91,7 +92,12 @@ public:
 	Animation WDeathLeft;
 	
 
+	float waveRatio = 0.0f;
+	float waveRatioSpeed = 0.1f;
+	int waveHeight = 15;
 
+	int spawn_y = 0;
+	
 
 };
 
