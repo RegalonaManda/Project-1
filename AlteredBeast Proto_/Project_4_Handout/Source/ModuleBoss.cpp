@@ -33,13 +33,26 @@ bool ModuleBoss::Start()
 	deathExpl = App->audio->LoadFx("Boss_Death");
 	welcomeDoom = App->audio->LoadFx("Welcome_To_Your_Doom");
 
-	
+	transform.PushBack({1185,744,62,144});
+	transform.PushBack({ 996,744,62,144 });
+	transform.PushBack({ 807,744,62,144 });
+	transform.PushBack({ 618,744,62,144 });
+	transform.PushBack({ 429,744,62,144 });
+	transform.PushBack({ 240,744,62,144 });
+	transform.PushBack({1185,889,62,144 });
+	transform.PushBack({ 996,889,62,144 });
+	transform.PushBack({ 807,889,62,144 });
+	transform.PushBack({ 618,889,62,144 });
+	transform.PushBack({ 429,889,62,144 });
+	transform.PushBack({ 240,889,62,144 });
 
 	idleAnim.PushBack({ 19,1190, 131,156 });
 	idleAnim.PushBack({ 151,1190, 131,156 });
 	idleAnim.speed = 0.035f;
 
 	idleAnim.loop = true;
+
+	
 
 	colliderBoss = App->collisions->AddCollider({ 0,0,85,150 }, Collider::Type::ENEMY, (Module*)App->bossfight);
 

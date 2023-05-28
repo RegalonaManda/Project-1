@@ -26,17 +26,24 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 
-	CapeAnimation.PushBack({ 1,600,57,83 });
-	CapeAnimation.PushBack({ 59,600,57,83 });
-	CapeAnimation.PushBack({ 117,600,57,83 });
-	CapeAnimation.speed = 0.01;
-	CapeAnimation.loop = true;
-
+	RayAtt.PushBack({ 1125,12,114,87 });
+	RayAtt.PushBack({ 1010,12,114,87 });
+	RayAtt.PushBack({ 895,12,114,87 });
+	RayAtt.PushBack({ 780,12,114,87 });
+	RayAtt.PushBack({ 665,12,114,87 });
+	RayAtt.PushBack({ 550,12,114,87 });
+	RayAtt.PushBack({ 435,12,114,87 });
+	RayAtt.PushBack({ 320,12,114,87 });
+		
+	RayAtt.speed = 0.01;
+	RayAtt.pingpong = true;
+	
+	
 }
 
 void Neff::Update() {
 	
-	currentAnim = &CapeAnimation;
+	currentAnim = &RayAtt;
 	
 	//rangeCollider->SetPos(position.x - 50, position.y);
 
