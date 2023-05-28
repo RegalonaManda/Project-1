@@ -7,7 +7,6 @@
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
 #include "ModuleCollisions.h"
-#include "ModuleBoss.h"
 #include "ModuleScene.h"
 
 ModuleBoss::ModuleBoss(bool startEnabled) : Module(startEnabled)
@@ -59,6 +58,16 @@ bool ModuleBoss::Start()
 	idleAnim.speed = 0.035f;
 
 	idleAnim.loop = true;
+
+	attackAnim.PushBack({307,1190, 131, 156});
+	attackAnim.PushBack({ 439,1190, 131,156 });
+	attackAnim.PushBack({ 571,1190, 131,156 });
+	attackAnim.PushBack({ 703,1190, 131,156 });
+	attackAnim.PushBack({ 835,1190, 131,156 });
+	attackAnim.PushBack({ 967,1190, 131,156 });
+	attackAnim.PushBack({ 1099,1190, 131,156 });
+	attackAnim.speed = 0.3f;
+	attackAnim.loop = false;
 
 	App->scene->ScreenScroll = false;
 
@@ -119,6 +128,12 @@ update_status ModuleBoss::Update()
 	}
 	colliderBoss->SetPos(position.x +20, position.y);
 
+	if (attackAnim.HasFinished()) {
+		currentAnim->Reset();
+		currentAnim->loopCount = 0;
+		currentAnim = &idleAnim;
+	}
+
 	if (transformed == true){
 
 		attackCnt--;
@@ -127,29 +142,9 @@ update_status ModuleBoss::Update()
 		if (attackCnt <= 0) {
 
 			ModuleBoss::Attack(pattern[0]);
-
-
-
-
-
-
 		}
 
-
-
-
-
 	}
-
-
-
-
-
-
-
-
-
-
 
 	currentAnim->Update();
 
@@ -175,25 +170,30 @@ update_status ModuleBoss::PostUpdate()
 
 void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 {
+	for (int i = 0; i < pattern[0].activeHeads; ++i) {
+		if (c1 == pattern[currentPattern_].headAttack[i].headCollider && c2->type == Collider::Type::PLATFORM) {
 
-	if (c1 == pattern[currentPattern_].headAttack[currentHead].headCollider && c2->type == Collider::Type::PLATFORM) {
+			// make head explode
+			pattern[currentPattern_].headAttack[i].fallen = true;
+			/*pattern[currentPattern_].headAttack[i].positionY-= 100;*/
+			c1->SetPos(-7500, -7500);
+			pattern[currentPattern_].headAttack[i].current = &pattern[currentPattern_].headAttack[i].XplodeAnim;
+			currentHead++;
+			
 
-		// make head explode
-		currentHead++;
-		c1->SetPos(-7500, 7500);
-
+		}
 	}
-
-
-
-
 
 }
 
 void ModuleBoss::Attack(AttackPattern& Pattern) {
 
+	
 	if (Pattern.activeHeads < 6) {
 		cooldown--;
+		if (cooldown <= 20) {
+			currentAnim = &attackAnim;
+		}
 		if (cooldown <= 0) {
 			cooldown = 60;
 			// throw new head
@@ -204,6 +204,7 @@ void ModuleBoss::Attack(AttackPattern& Pattern) {
 	
 		for (int i = 0; i < Pattern.activeHeads; ++i) {
 			Pattern.headAttack[i].Trajectory();
+			Pattern.headAttack[i].current->Update();
 			//Pattern.headAttack[i].Draw();
 			
 		}

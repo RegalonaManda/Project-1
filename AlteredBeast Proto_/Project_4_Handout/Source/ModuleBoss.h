@@ -37,43 +37,67 @@ public:
 
 	bool fallen = false;
 
+	Animation travelAnim;
+	Animation turnAnim;
 	Animation fallAnim;
+	Animation XplodeAnim;
 
 	void Start() {
 		
 		text = App->textures->Load("Assets/Boss spsheet Proto.png");
 		headCollider = App->collisions->AddCollider({ 0,0,48,40 }, Collider::Type::ENEMY_SHOT, (Module*)App->bossfight);
 
-		fallAnim.PushBack({ 992,1422,49,49 });
+		travelAnim.PushBack({1139, 1422, 48, 48});
+		travelAnim.PushBack({1090, 1422, 48, 48});
+		travelAnim.loop = false;
+		travelAnim.speed = 0.08f;
+
+		turnAnim.PushBack({ 1041,1422,48,48 });
+		turnAnim.loop = true;
+
+		fallAnim.PushBack({ 992,1422,48,48 });
 		fallAnim.loop = true; 
 
-			current = &fallAnim;
+		XplodeAnim.PushBack({ 1186,1512,61,45});
+		XplodeAnim.PushBack({ 1124,1512,61,45 });
+		XplodeAnim.PushBack({ 1062,1512,61,45 });
+		XplodeAnim.PushBack({ 1000,1512,61,45 });
+		XplodeAnim.PushBack({ 938,1512,61,45 });
+		XplodeAnim.PushBack({ 876,1512,61,45 });
+		XplodeAnim.PushBack({ 0,0,1,1 });
+		XplodeAnim.loop = false;
+		XplodeAnim.speed = 0.2f;
+
+		current = &travelAnim;
 
 	};
 
 	int FinalX;
 
 	void Trajectory() {
-		if (positionX > FinalX) { 
-			positionX-=2; 
+		if (positionX >= FinalX) { 
+			positionX -= 2;
+			if (positionX == FinalX) {
+				current = &turnAnim;
+			}
 		}
-		else {
-			positionY+=2; 
+		else if (!fallen) {
+			positionY += 2;
+			current = &fallAnim;
 		}
+		
 
-		if (positionY >= 200) {
-			fallen = true;
+		if (!fallen) {
+			headCollider->SetPos(positionX, positionY);
 		}
-		headCollider->SetPos(positionX, positionY);
+		
+		
 	}
-
 
 	void Draw() {
 
 		SDL_Rect Head = current->GetCurrentFrame();
 		App->render->Blit(text, positionX, positionY, &Head);
-
-
 	}
 
 };
