@@ -140,21 +140,27 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 }
 
 void Zombie::Update() {
-
+	//Aplicar para el resto de enemigos
+	if (App->render->camera.dynamicSpeed == 0.1) {
+		if (alive == false) {
+			App->render->camera.dynamicSpeed = 0.3;
+		}
+	}
+	//----------------------
 
 	position.x -= Zspeed;
 	//the 350 needs reworks
 
 	if (Alignment == 0) {
 
-		if (position.x <= App->player->position.x - 60 && position.y > 120)
+		if (position.x <= App->player->position.x - 200 && position.y > 120)
 		{
 
 			isRising = true;
 
 		}
 	}else {
-			if (position.x <= App->player->position.x + 100 && position.y > 120)
+			if (position.x <= App->player->position.x + 150 && position.y > 120)
 			{
 
 				isRising = true;
@@ -263,7 +269,12 @@ void Zombie::Update() {
 }
 
 void Zombie::OnCollision(Collider* collider) {
+	//Aplicar para el resto de enemigos
+	if (collider == App->scene->backCamLimit || collider == App->scene->frontCamLimit) {
 
+		App->render->camera.dynamicSpeed = 0.1;
+	}
+	//---------------------------------------------
 	if (collider->type == Collider::Type::PLAYER_SHOT) {
 		
 		
@@ -316,6 +327,7 @@ void Zombie::OnCollision(Collider* collider) {
 		falling = true;
 		idle = false;
 	}
+
 	
 }
 

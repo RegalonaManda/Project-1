@@ -90,6 +90,7 @@ typedef struct SDL_FRect
     float y;
     float w;
     float h;
+    float dynamicSpeed;
 } SDL_FRect;
 
 
