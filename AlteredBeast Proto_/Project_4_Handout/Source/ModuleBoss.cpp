@@ -22,18 +22,26 @@ ModuleBoss::~ModuleBoss()
 
 bool ModuleBoss::Start()
 {
-	LOG("Loading power textures");
+	LOG("Loading Boss textures");
 
 	App->audio->PlayMusic("Gaum_Boss.ogg", 0.0f);
 
 	bool ret = true;
 	beaten = false;
-	texture = App->textures->Load("Assets/PowerUpGrid.png");
+	texture = App->textures->Load("Assets/Boss spsheet Proto.png");
 
 	deathExpl = App->audio->LoadFx("Boss_Death");
 	welcomeDoom = App->audio->LoadFx("Welcome_To_Your_Doom");
 
-	currentAnim = &idleAnim;
+	
+
+	idleAnim.PushBack({ 19,1190, 131,156 });
+	idleAnim.PushBack({ 151,1190, 131,156 });
+	idleAnim.speed = 0.035f;
+
+	idleAnim.loop = true;
+
+	colliderBoss = App->collisions->AddCollider({ 0,0,85,150 }, Collider::Type::ENEMY, (Module*)App->bossfight);
 
 	//pattern[0].headAttack[0].finalX = 
 
@@ -42,13 +50,18 @@ bool ModuleBoss::Start()
 
 update_status ModuleBoss::Update()
 {
+	currentAnim = &idleAnim;
 	currentAnim->Update();
+
+	colliderBoss->SetPos(position.x +20, position.y);
 
 	return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleBoss::PostUpdate()
 {
+	SDL_Rect BossRec = currentAnim->GetCurrentFrame();
+	App->render->Blit(texture, position.x, position.y, &BossRec);
 
 
 	return update_status::UPDATE_CONTINUE;

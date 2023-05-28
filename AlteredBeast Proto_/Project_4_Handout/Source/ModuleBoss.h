@@ -24,6 +24,7 @@ public:
 
 	Animation* current;
 
+	
 	Animation fallAnim;
 
 	int FinalX;
@@ -91,7 +92,7 @@ public:
 
 	fPoint spawnPos;
 
-	Collider* collider = nullptr;
+	Collider* colliderBoss = nullptr;
 
 	// A flag to detect when the player has been destroyed
 	bool beaten = false;
