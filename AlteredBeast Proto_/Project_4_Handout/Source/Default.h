@@ -101,8 +101,8 @@ void ModulePlayer::DefaultMovement() {
 	}
 
 	//Update Collider to current player pos, change it depending on direction and AirState
-	if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 18, position.y - 65); }
-	if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 20, position.y - 65); }
+	if (dir == Direction::RIGHT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 36, position.y - 65); }
+	if (dir == Direction::LEFT && airSt == AirState::GROUND) { Pcollider->SetPos(position.x + 36, position.y - 65); }
 
 	if (dir == Direction::RIGHT && airSt == AirState::CROUCH)
 	{
@@ -120,8 +120,8 @@ void ModulePlayer::DefaultMovement() {
 		Crouchcollider->SetPos(0, -5000);
 	}
 
-	if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 65); }
-	if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 20, position.y - 65); }
+	if (dir == Direction::RIGHT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 36, position.y - 60); }
+	if (dir == Direction::LEFT && airSt == AirState::AIRBORN) { Pcollider->SetPos(position.x + 36, position.y - 60); }
 
 	if (idle == true) {
 		attackCollider->SetPos(1000, 1000);
@@ -229,8 +229,8 @@ void ModulePlayer::DefaultMovement() {
 
 
 
-				//activate punch collider when player punches
-				attackCollider->SetPos(position.x + 38, position.y - 60);
+				//activate punch collider when player punches  
+				attackCollider->SetPos(position.x + 56, position.y -60);
 
 				idle = false;
 			}
@@ -246,7 +246,7 @@ void ModulePlayer::DefaultMovement() {
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
 				AllAnimations.crouchPunchRight.Reset();
 				currentAnimation = &AllAnimations.crouchPunchRight;
-				attackCollider->SetPos(position.x + 43, position.y - 40);
+				attackCollider->SetPos(position.x + 60, position.y - 40);
 				idle = false;
 			}
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
@@ -283,14 +283,14 @@ void ModulePlayer::DefaultMovement() {
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND) {
 				AllAnimations.kickAnimRight.Reset();
 				currentAnimation = &AllAnimations.kickAnimRight;
-				attackCollider->SetPos(position.x + 43, position.y - 30);
+				attackCollider->SetPos(position.x + 58, position.y - 30);
 				idle = false;
 			}
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::GROUND)
 			{
 				AllAnimations.kickAnimLeft.Reset();
 				currentAnimation = &AllAnimations.kickAnimLeft;
-				attackCollider->SetPos(position.x - 5, position.y - 30);
+				attackCollider->SetPos(position.x +5, position.y - 30);
 				idle = false;
 			}
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {

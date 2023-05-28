@@ -58,7 +58,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
-	tranSt = Transform::WOLF;
+	tranSt = Transform::DEFAULT;
 	//default attack 
 	attack = 1;
 	
@@ -159,7 +159,7 @@ bool ModulePlayer::Start()
 update_status ModulePlayer::Update()
 {
 	// calculate the max h for the current ground lvl
-	if (airSt == AirState::GROUND) {
+  	if (airSt == AirState::GROUND) {
 		MAX_HEIGHT = position.y - 52   ;
 	}
 
@@ -205,8 +205,6 @@ update_status ModulePlayer::Update()
 	/*if (airSt == AirState::GROUND && Pcollider->Intersects(Pcollider->rect) == false) {
 		airSt = AirState::AIRBORN;
 	}*/
-
-	
 
 
 
@@ -287,7 +285,7 @@ update_status ModulePlayer::Update()
 	if (airSt == AirState::CROUCH && (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP|| App->input->pads[0].l_y <= 0.0f))) {
  
   		idle = true;
-		airSt = AirState::GROUND;
+		//airSt = AirState::GROUND;
 	}
 
 	//---------------Default--Movement---Function------------
@@ -606,7 +604,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		airSt = AirState::AIRBORN;
 	}
 
-
+	//-------------------Neff Collisions-------------------//
 
 	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::RANGE) {
 
@@ -622,12 +620,6 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 
 	}
-
-
-
-
-
-
 
 }
 
