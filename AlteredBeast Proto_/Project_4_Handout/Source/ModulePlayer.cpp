@@ -57,7 +57,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
-	tranSt = Transform::DEFAULT;
+	tranSt = Transform::WOLF;
 	//default attack 
 	attack = 1;
 	
@@ -150,7 +150,7 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	tranSt = Transform::WOLF;
+	
 	
 	return ret;
 }
@@ -1118,16 +1118,18 @@ void ModulePlayer::WereWolfMovement() {
 				kickL = true;
 			}
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
-				AllAnimations.P1CrouchKickR.Reset();
-				currentAnimation = &AllAnimations.P1CrouchKickR;
-				kickCollider->SetPos(position.x + 51, position.y - 60);
+				AllAnimations.W_KickR.Reset();
+				currentAnimation = &AllAnimations.W_KickR;
+				position.y += 15;
 				idle = false;
+				kickR = true;
 			}
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
-				AllAnimations.P1CrouchKickL.Reset();
-				currentAnimation = &AllAnimations.P1CrouchKickL;
-				kickCollider->SetPos(position.x + 16, position.y - 60);
+				AllAnimations.W_KickL.Reset();
+				currentAnimation = &AllAnimations.W_KickL;
+				position.y += 15;
 				idle = false;
+				kickL = true;
 			}
 			if (airSt == AirState::AIRBORN) {
 				if (dir == Direction::LEFT) {
@@ -1315,6 +1317,7 @@ void ModulePlayer::WolfKick() {
 		position.y-=2;
 	}
 
+	 
 }
 
 void ModulePlayer::FireBallMovement() {
