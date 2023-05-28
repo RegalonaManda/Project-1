@@ -143,7 +143,7 @@ void Zombie::Update() {
 	//Aplicar para el resto de enemigos
 	if (App->render->camera.dynamicSpeed == 0.1) {
 		if (alive == false) {
-			App->render->camera.dynamicSpeed = 0.3;
+			App->render->camera.dynamicSpeed = 0.5;
 		}
 	}
 	//----------------------

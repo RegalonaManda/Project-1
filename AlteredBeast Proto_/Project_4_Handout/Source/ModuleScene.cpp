@@ -122,7 +122,7 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
 
 
-	//App->enemies->AddNeff(400, 100, false);
+	App->enemies->AddNeff(400, 100, false);
 
 	// border L ,  border R
 	//App->enemies->AddGrave( 150, 130, true, false,false);
@@ -132,10 +132,10 @@ bool ModuleScene::Start()
 	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
 	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
 	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
+	/*App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);*/
 	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 300, 120, true);
 	
 
@@ -174,7 +174,7 @@ bool ModuleScene::Start()
 	App->scene2->Enable();
 	App->collisions->Enable();
 	App->audio->Enable();
-	App->render->camera.dynamicSpeed = 0.3;
+	App->render->camera.dynamicSpeed = 0.5;
 
 
 	//App->powers->Enable();

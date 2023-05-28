@@ -162,8 +162,13 @@ update_status ModuleBoss::PostUpdate()
 	SDL_Rect BossRec = currentAnim->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y, &BossRec);
 
-	SDL_Rect Head = pattern[currentPattern_].headAttack[currentHead].current->GetCurrentFrame();
-	App->render->Blit(texture, pattern[currentPattern_].headAttack[currentHead].positionX, pattern[currentPattern_].headAttack[currentHead].positionY, &Head);
+
+	/*SDL_Rect Head = pattern[currentPattern_].headAttack[currentHead].current->GetCurrentFrame();
+	App->render->Blit(texture, pattern[currentPattern_].headAttack[currentHead].positionX, pattern[currentPattern_].headAttack[currentHead].positionY, &Head);*/
+	for (int i = 0; i < pattern[0].activeHeads; ++i) {
+		SDL_Rect Head = pattern[currentPattern_].headAttack[i].current->GetCurrentFrame();
+		App->render->Blit(texture, pattern[currentPattern_].headAttack[i].positionX, pattern[currentPattern_].headAttack[i].positionY, &Head);
+	}
 
 	return update_status::UPDATE_CONTINUE;
 }
@@ -171,19 +176,41 @@ update_status ModuleBoss::PostUpdate()
 void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 {
 
+	if (c1 == pattern[currentPattern_].headAttack[currentHead].headCollider && c2->type == Collider::Type::PLATFORM) {
+
+		// make head explode
+		currentHead++;
+		c1->SetPos(-7500, 7500);
+
+	}
+
+
+
+
+
 }
 
 void ModuleBoss::Attack(AttackPattern& Pattern) {
 
-	if (currentHead < 6) {
-
-		
-
-		Pattern.headAttack[currentHead].Trajectory();
-
-		if (Pattern.headAttack[currentHead].fallen == true) {
-			currentHead++;
-			attackCnt = 40;
+	if (Pattern.activeHeads < 6) {
+		cooldown--;
+		if (cooldown <= 0) {
+			cooldown = 60;
+			// throw new head
+			LOG("Spawning Head");
+			Pattern.activeHeads++;
 		}
 	}
+	
+		for (int i = 0; i < Pattern.activeHeads; ++i) {
+			Pattern.headAttack[i].Trajectory();
+			//Pattern.headAttack[i].Draw();
+			
+		}
+
+		/*if (Pattern.headAttack[currentHead].fallen == true) {
+			currentHead++;
+			attackCnt = 40;
+		}*/
+	
 }

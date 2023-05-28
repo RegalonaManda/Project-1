@@ -64,6 +64,16 @@ public:
 		if (positionY >= 200) {
 			fallen = true;
 		}
+		headCollider->SetPos(positionX, positionY);
+	}
+
+
+	void Draw() {
+
+		SDL_Rect Head = current->GetCurrentFrame();
+		App->render->Blit(text, positionX, positionY, &Head);
+
+
 	}
 
 };
@@ -74,6 +84,7 @@ class AttackPattern {
 public:
 
 	Head headAttack[6];
+	int activeHeads = 1;
 
 	int ID;
 
@@ -107,7 +118,8 @@ public:
 
 	fPoint position;
 
-	
+	int cooldown = 60;
+
 	int speed;
 
 	
