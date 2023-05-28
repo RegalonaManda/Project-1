@@ -24,6 +24,7 @@ public:
 
 	Animation* current;
 
+	
 	Animation fallAnim;
 
 	int FinalX;

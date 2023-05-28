@@ -81,10 +81,15 @@ void Neff::OnCollision(Collider* collider) {
 			run = true;
 
 		}
+		else {
+			App->bossfight->Enable();
+
+			App->bossfight->position.x = position.x;
+			App->bossfight->position.y = position.y -80;
+			//hp = 0;
+		}
 	}
-	else {
-		//App->bossfight->Enable();
-	}
+	
 	
 	
 	
