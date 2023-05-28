@@ -43,9 +43,12 @@ public:
 
 	void Attack() override;
 
+	bool run = false;
+	int runCnt = 180;
 
+	void HeadOut();
 
-
+	
 
 
 

@@ -48,6 +48,7 @@ Uint32 startTime = 0;
 int knockPos;
 
 
+
 ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 {
 	startEnabled = true;
@@ -57,7 +58,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
-	tranSt = Transform::WOLF;
+	tranSt = Transform::POWER1;
 	//default attack 
 	attack = 1;
 	
@@ -604,6 +605,30 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == Pcollider && c2->type == Collider::Type::BORDER && airSt != AirState::AIRBORN) {
 		airSt = AirState::AIRBORN;
 	}
+
+
+
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::RANGE) {
+
+		Neff_pushBack--;
+		if (Neff_pushBack <= 0) {
+			Neff_pushBack = 12 - delay;
+			position.x -= 8;
+			position.y -= 8;
+			airSt = AirState::AIRBORN;
+			delay++;
+		}
+
+
+
+	}
+
+
+
+
+
+
+
 }
 
 

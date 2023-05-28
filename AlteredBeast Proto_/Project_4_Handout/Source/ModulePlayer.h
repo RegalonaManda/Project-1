@@ -215,6 +215,11 @@ public:
 	bool playerKnocked = false;
 
 	bool Platform = false;
+
+
+
+	int Neff_pushBack = 20;
+	int delay = 0;
 };
 
 
