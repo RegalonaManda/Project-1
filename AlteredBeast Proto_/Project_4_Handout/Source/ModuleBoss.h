@@ -83,7 +83,7 @@ public:
 
 	Animation* currentAnim;
 
-	Animation transform;
+	Animation transform; //grow + cloud (?)
 	Animation idleAnim;
 	Animation attackAnim;
 	Animation hitAnim;

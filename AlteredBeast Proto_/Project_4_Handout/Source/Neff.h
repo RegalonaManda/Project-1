@@ -35,9 +35,10 @@ public:
 
 	uint lethalAtt;
 
-
-	Animation CapeAnimation;
 	
+
+	
+	Animation RayAtt;
 
 
 
