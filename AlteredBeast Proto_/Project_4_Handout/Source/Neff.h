@@ -23,6 +23,8 @@ public:
 
 	bool exploded = false;
 
+	bool last;
+
 	enum class Direction {
 		LEFT,
 		RIGHT

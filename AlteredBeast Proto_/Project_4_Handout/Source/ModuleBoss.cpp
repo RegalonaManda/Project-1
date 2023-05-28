@@ -36,9 +36,12 @@ bool ModuleBoss::Start()
 	
 
 	idleAnim.PushBack({ 19,1190, 131,156 });
+	idleAnim.PushBack({ 151,1190, 131,156 });
+	idleAnim.speed = 0.035f;
+
 	idleAnim.loop = true;
 
-
+	colliderBoss = App->collisions->AddCollider({ 0,0,85,150 }, Collider::Type::ENEMY, (Module*)App->bossfight);
 
 	//pattern[0].headAttack[0].finalX = 
 
@@ -49,6 +52,8 @@ update_status ModuleBoss::Update()
 {
 	currentAnim = &idleAnim;
 	currentAnim->Update();
+
+	colliderBoss->SetPos(position.x +20, position.y);
 
 	return update_status::UPDATE_CONTINUE;
 }

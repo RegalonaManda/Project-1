@@ -117,11 +117,11 @@ update_status ModuleScene2::PostUpdate()
 		App->render->Blit(gameOverTexture, SCREEN_WIDTH/2-70 , SCREEN_HEIGHT/2-10, &reckt, 0);//Game over text
 	}
 	
-	if (killedBoss == true) {
-		SDL_Rect ClearRec = { 0,0,225,10 };
-		App->render->Blit(uiTexture, 48, 72, &ClearRec, 0);
-		
-	}
+	//if (killedBoss == true) {
+	//	SDL_Rect ClearRec = { 0,0,225,10 };
+	//	App->render->Blit(uiTexture, 48, 72, &ClearRec, 0);
+	//	
+	//}
 	
 
 	

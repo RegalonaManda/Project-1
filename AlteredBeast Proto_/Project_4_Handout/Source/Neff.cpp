@@ -13,6 +13,8 @@
 
 Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 	
+
+	this->last = last;
 	hp = 1;
 
 
@@ -77,16 +79,25 @@ void Neff::OnCollision(Collider* collider) {
 	}*/
 
 	if (collider->type == Collider::Type::PLAYER) {
-		if (App->player->tranSt != Transform::WOLF) {
-			run = true;
+		if (last == false) {
+			if (App->player->tranSt != Transform::WOLF) {
+				run = true;
 
+			}
+			else {
+				App->bossfight->Enable();
+
+				App->bossfight->position.x = position.x;
+				App->bossfight->position.y = position.y - 80;
+				hp = 0;
+			}
 		}
 		else {
 			App->bossfight->Enable();
 
 			App->bossfight->position.x = position.x;
-			App->bossfight->position.y = position.y -80;
-			//hp = 0;
+			App->bossfight->position.y = position.y - 80;
+			hp = 0;
 		}
 	}
 	
