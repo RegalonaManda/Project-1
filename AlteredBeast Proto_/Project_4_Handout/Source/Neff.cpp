@@ -26,27 +26,40 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 
-	RayAtt.PushBack({ 1125,12,114,87 });
-	RayAtt.PushBack({ 1010,12,114,87 });
-	RayAtt.PushBack({ 895,12,114,87 });
-	RayAtt.PushBack({ 780,12,114,87 });
-	RayAtt.PushBack({ 665,12,114,87 });
-	RayAtt.PushBack({ 550,12,114,87 });
-	RayAtt.PushBack({ 435,12,114,87 });
-	RayAtt.PushBack({ 320,12,114,87 });
+	RayAtt.PushBack({ 701,906,114,87 });
+	RayAtt.PushBack({ 701,818,114,87 });
+	RayAtt.PushBack({ 586,818,114,87 });
+	RayAtt.PushBack({ 471,818,114,87 });
+	RayAtt.PushBack({ 356,818,114,87 });
+	RayAtt.PushBack({ 241,818,114,87 });
+	RayAtt.PushBack({ 126,818,114,87 });
+	RayAtt.PushBack({ 11,818,114,87 });
+	RayAtt.PushBack({ 701,818,114,87 });
+	RayAtt.PushBack({ 701,906,114,87 });
+	RayAtt.PushBack({ 701,906,114,87 });
 		
-	RayAtt.speed = 0.01;
-	RayAtt.pingpong = true;
-	
+	RayAtt.speed = 0.05f;
+	RayAtt.loop = true;
+
+	reachedBoss = false;
+
 	
 }
 
 void Neff::Update() {
 	
 	currentAnim = &RayAtt;
-	
-	//rangeCollider->SetPos(position.x - 50, position.y);
+	scroll--;
 
+	if (reachedBoss) {
+		bossCountdown--;
+	}
+	
+
+	if (scroll <= 0) {
+		App->scene->ScreenScroll = false;
+	}
+	
 	if (run) {
 		runCnt--;
 		Neff::HeadOut();
@@ -55,8 +68,9 @@ void Neff::Update() {
 	
 	
 	Enemy::Update();
-
 	Ecollider->SetPos(position.x - 30, position.y + 10);
+	ActivateBoss();
+	
 }
 
 void Neff::OnCollision(Collider* collider) {
@@ -92,19 +106,12 @@ void Neff::OnCollision(Collider* collider) {
 
 			}
 			else {
-				App->bossfight->Enable();
-
-				App->bossfight->position.x = position.x;
-				App->bossfight->position.y = position.y - 80;
-				hp = 0;
+				reachedBoss = true;
+				
 			}
 		}
 		else {
-			App->bossfight->Enable();
-
-			App->bossfight->position.x = position.x;
-			App->bossfight->position.y = position.y - 80;
-			hp = 0;
+			reachedBoss = true;
 		}
 	}
 	
@@ -121,9 +128,24 @@ void Neff::Attack() {
 
 void Neff::HeadOut() {
 
+	App->scene->ScreenScroll = true;
 	if (run && runCnt <= 0) {
 		position.x += 2;
 	}
 
 
+}
+
+void Neff::ActivateBoss(){
+	
+	if (bossCountdown <= 0) {
+		App->bossfight->Enable();
+
+
+
+		App->bossfight->position.x = position.x;
+		App->bossfight->position.y = position.y - 60;
+		App->enemies->Disable();
+		hp = 0;
+	}
 }

@@ -58,7 +58,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
-	tranSt = Transform::DEFAULT;
+	tranSt = Transform::WOLF;
 	//default attack 
 	attack = 1;
 	
@@ -285,7 +285,7 @@ update_status ModulePlayer::Update()
 	if (airSt == AirState::CROUCH && (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP|| App->input->pads[0].l_y <= 0.0f))) {
  
   		idle = true;
-		//airSt = AirState::GROUND;
+		airSt = AirState::GROUND;
 	}
 
 	//---------------Default--Movement---Function------------

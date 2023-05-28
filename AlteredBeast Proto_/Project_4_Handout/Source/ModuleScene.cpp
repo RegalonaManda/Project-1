@@ -122,7 +122,7 @@ bool ModuleScene::Start()
 	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
 
 
-	App->enemies->AddNeff(400, 100, true);
+	App->enemies->AddNeff(400, 100, false);
 
 	// border L ,  border R
 	//App->enemies->AddGrave( 150, 130, true, false,false);
@@ -186,11 +186,11 @@ update_status ModuleScene::Update()
 {
 	
 	//This is so camera stops when reaching boss
-	if (App->render->camera.x > 1161) { ScreenScroll = false; }
-	if (ScreenScroll == false) {
-		App->render->camera.x = 1161;
-		//WHY does it slightly move backwards???
-	}
+	//if (App->render->camera.x > 1161) { ScreenScroll = false; }
+	//if (ScreenScroll == false) {
+	//	App->render->camera.x = 1161;
+	//	//WHY does it slightly move backwards???
+	//}
 	//SCREEN SCROLL
 	if (ScreenScroll == true) {
 		App->render->camera.x += 0.3;

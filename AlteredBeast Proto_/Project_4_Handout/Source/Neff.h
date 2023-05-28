@@ -23,6 +23,10 @@ public:
 
 	bool exploded = false;
 
+	int scroll = 30;
+
+	int bossCountdown = 200;
+
 	bool last;
 
 	enum class Direction {
@@ -37,7 +41,7 @@ public:
 
 	uint lethalAtt;
 
-	
+	bool reachedBoss;
 
 	
 	Animation RayAtt;
@@ -51,7 +55,7 @@ public:
 
 	void HeadOut();
 
-	
+	void ActivateBoss();
 
 
 

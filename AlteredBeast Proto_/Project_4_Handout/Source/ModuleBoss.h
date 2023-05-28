@@ -82,6 +82,8 @@ public:
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
 
+	SDL_Rect initialframe = { 1185,744,62,144 };
+
 	Animation* currentAnim;
 
 	Animation transform; //grow + cloud (?)

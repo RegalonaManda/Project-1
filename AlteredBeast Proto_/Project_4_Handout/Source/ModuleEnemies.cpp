@@ -16,7 +16,7 @@
 #include "Neff.h"
 #include "Skull.h"
 #include "Dragon.h"
-
+#include "ModuleScene.h"
 
 #define SPAWN_MARGIN 50
 
@@ -42,6 +42,7 @@ bool ModuleEnemies::Start()
 	enemyDeath = App->audio->LoadFx("Assets/FX/NPC_Death.wav");
 	
 	GraveText = App->textures->Load("Assets/toomb.png");
+
 
 	return true;
 }
