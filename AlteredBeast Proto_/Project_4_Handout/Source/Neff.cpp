@@ -16,10 +16,10 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 	hp = 1;
 
 
-	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
+	Ecollider = App->collisions->AddCollider({ 400, 120, 50, 60 }, Collider::Type::RANGE, (Module*)App->enemies);
 	CodeN = 4;
 
-	//rangeCollider = App->collisions->AddCollider({0,0,50,73}, Collider::Type::ATTACK_XplosionTrigger, (Module*)this);
+	//rangeCollider = App->collisions->AddCollider({0,0,50,73}, Collider::Type::RANGE, (Module*)App->enemies);
 	
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
@@ -35,16 +35,24 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 void Neff::Update() {
 	
 	currentAnim = &CapeAnimation;
-	//rangeCollider->SetPos(position.x - 50, position.y);
 	
+	//rangeCollider->SetPos(position.x - 50, position.y);
+
+	if (run) {
+		runCnt--;
+		Neff::HeadOut();
+	}
 
 	
+	
 	Enemy::Update();
+
+	Ecollider->SetPos(position.x - 30, position.y + 10);
 }
 
 void Neff::OnCollision(Collider* collider) {
 
-	if (collider->type == Collider::Type::PLAYER_SHOT) {
+	/*if (collider->type == Collider::Type::PLAYER_SHOT) {
 
 		destroyedCountdown--;
 		hp -= App->player->attack;
@@ -66,17 +74,18 @@ void Neff::OnCollision(Collider* collider) {
 
 		App->scene2->killedBoss = true;
 		App->player->KilledBoss = true;
+	}*/
+
+	if (collider->type == Collider::Type::PLAYER) {
+		if (App->player->tranSt != Transform::WOLF) {
+			run = true;
+
+		}
 	}
-
-	//if (collider->type == Collider::Type::PLAYER) {
-	//	if (App->player->tranSt != Transform::WOLF) {
-	//		position.x += 3;
-
-	//	}
-	//}
-	//else {
-	//	//App->bossfight->Enable();
-	//}
+	else {
+		//App->bossfight->Enable();
+	}
+	
 	
 	
 }
@@ -84,5 +93,14 @@ void Neff::OnCollision(Collider* collider) {
 void Neff::Attack() {
 
 	
+
+}
+
+void Neff::HeadOut() {
+
+	if (run && runCnt <= 0) {
+		position.x += 2;
+	}
+
 
 }

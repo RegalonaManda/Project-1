@@ -22,6 +22,7 @@ struct Collider
 		ATTACK_XplosionTrigger,
 		ENEMY_SELF_DESTRUCT,
 		BORDER,
+		RANGE,
 
 		MAX
 	};

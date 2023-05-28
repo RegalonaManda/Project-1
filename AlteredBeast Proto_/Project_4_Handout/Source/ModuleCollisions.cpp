@@ -58,6 +58,7 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::PLAYER][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::PLAYER][Collider::Type::PLATFORM] = true;
 	matrix[Collider::Type::PLAYER][Collider::Type::BORDER] = true;
+	matrix[Collider::Type::PLAYER][Collider::Type::RANGE] = true;
 
 
 	matrix[Collider::Type::ENEMY][Collider::Type::WALL] = true;
@@ -138,6 +139,19 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::ATTACK_XplosionTrigger][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::ATTACK_XplosionTrigger][Collider::Type::PLATFORM] = false;
 	matrix[Collider::Type::ATTACK_XplosionTrigger][Collider::Type::BORDER] = false;
+
+	matrix[Collider::Type::RANGE][Collider::Type::WALL] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::WALL_RIGHT] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::PLAYER] = true;
+	matrix[Collider::Type::RANGE][Collider::Type::ENEMY] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::PLAYER_SHOT] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::ENEMY_SHOT] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::CAMLIMIT] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::POWER_UP] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::PLATFORM] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::BORDER] = false;
+	matrix[Collider::Type::RANGE][Collider::Type::ATTACK_XplosionTrigger] = false;
 
 	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::WALL] = false;
 	matrix[Collider::Type::ENEMY_SELF_DESTRUCT][Collider::Type::WALL_RIGHT] = false;
@@ -271,6 +285,9 @@ void ModuleCollisions::DebugDraw()
 
 		case Collider::Type::ATTACK_XplosionTrigger: //orange
 			App->render->DrawQuad(colliders[i]->rect, 255, 165, 0, alpha);
+			break;
+		case Collider::Type::RANGE: //orange
+			App->render->DrawQuad(colliders[i]->rect, 255, 180, 0, alpha);
 			break;
 
 		case Collider::Type::ENEMY_SELF_DESTRUCT: //white
