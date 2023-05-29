@@ -150,7 +150,7 @@ update_status ModuleBoss::Update()
 
 		if (transform.HasFinished()) {
 			App->grey_scene->Grey = true;
-			position.x -= 60;
+			position.x -= 40;
 			currentAnim = &idleAnim;
 			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
 			transform.loopCount = 0;
