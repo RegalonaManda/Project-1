@@ -491,108 +491,110 @@ public:
 
 		//power2---------------------------------------------------------------------------------------------------------------
 
-		powerUp2.PushBack({ 542, 1104, 54, 75 });//NEED CHANGE
-		powerUp2.PushBack({ 542, 1104, 54, 75 });//NEED CHANGE
-		powerUp2.PushBack({ 597, 1104, 54, 75 });//NEED CHANGE
-		powerUp2.PushBack({ 652, 1104, 54, 75 });//NEED CHANGE
-		powerUp2.PushBack({ 652, 1104, 54, 75 });//NEED CHANGE
+		powerUp2.PushBack({ 813, 2558, 54, 75 });
+		powerUp2.PushBack({ 813, 2558, 54, 75 });
+		powerUp2.PushBack({ 868, 2558, 54, 75 });
+		powerUp2.PushBack({ 923, 2558, 54, 75 });
+		powerUp2.PushBack({ 923, 2558, 54, 75 });
 		powerUp2.loop = false;
 		powerUp2.totalFrames = 5;
 		powerUp2.speed = 0.07;
 
-		P2IdleRight.PushBack({ 402,1253,88,69 });//NEED CHANGE
+		P2IdleRight.PushBack({ 1,2123,99,72 });
 
-		P2IdleLeft.PushBack({ 491,1253,88,69 });//NEED CHANGE
+		P2IdleLeft.PushBack({ 401,2123,99,72 });
 
-		P2walkRight.PushBack({ 135,1253,88,69 });//NEED CHANGE
-		P2walkRight.PushBack({ 224,1253,88,69 });//NEED CHANGE
-		P2walkRight.PushBack({ 313,1253,88,69 });//NEED CHANGE
+		P2walkRight.PushBack({ 101, 2123, 99, 72});
+		P2walkRight.PushBack({ 201, 2123, 99, 72});
+		P2walkRight.PushBack({ 301, 2123, 99, 72});
 		P2walkRight.speed = WALKANIMSPEED;
 
-		P2walkLeft.PushBack({ 313,1329,88,69 });//NEED CHANGE
-		P2walkLeft.PushBack({ 224,1329,88,69 });//NEED CHANGE
-		P2walkLeft.PushBack({ 135,1329,88,69 });//NEED CHANGE
+		P2walkLeft.PushBack({ 501, 2123, 99, 72 });
+		P2walkLeft.PushBack({ 601, 2123, 99, 72 });
+		P2walkLeft.PushBack({ 701, 2123, 99, 72 });
 		P2walkLeft.speed = WALKANIMSPEED;
 
-		P2punchRight.PushBack({ 135,1473,88,69 });//NEED CHANGE
-		P2punchRight.PushBack({ 224,1473,88,69 });//NEED CHANGE
-		P2punchRight.PushBack({ 313,1473,88,69 });//NEED CHANGE
+		P2punchRight.PushBack({ 101, 2195, 99, 72 });
+		P2punchRight.PushBack({ 201, 2195, 99, 72 });
+		P2punchRight.PushBack({ 301, 2195, 99, 72 });
 		P2punchRight.totalFrames = 3;
 		P2punchRight.speed = PUNCHANIMSPEED;
 		P2punchRight.loop = false;
 
-		P2punchLeft.PushBack({ 313,1543,88,69 });//NEED CHANGE
-		P2punchLeft.PushBack({ 224,1543,88,69 });//NEED CHANGE
-		P2punchLeft.PushBack({ 135,1543,88,69 });//NEED CHANGE
+		P2punchLeft.PushBack({ 501, 2195, 99, 72 });
+		P2punchLeft.PushBack({ 601, 2195, 99, 72 });
+		P2punchLeft.PushBack({ 701, 2195, 99, 72 });
 		P2punchLeft.totalFrames = 3;
 		P2punchLeft.speed = PUNCHANIMSPEED;
 		P2punchLeft.loop = false;
 
-		P2KickRight.PushBack({ 135,1403,88,69 });//NEED CHANGE
-		P2KickRight.PushBack({ 224,1403,88,69 });//NEED CHANGE
-		P2KickRight.PushBack({ 313,1403,88,69 });//NEED CHANGE
+		P2KickRight.PushBack({ 101, 2269, 99, 72 });
+		P2KickRight.PushBack({ 201, 2269, 99, 72 });
+		P2KickRight.PushBack({ 301, 2269, 99, 72 });
 		P2KickRight.totalFrames = 3;
 		P2KickRight.speed = KICKANIMSPEED;
 		P2KickRight.loop = false;
 
-		P2KickLeft.PushBack({ 322,1613,88,69 });//NEED CHANGE
-		P2KickLeft.PushBack({ 233,1613,88,69 });//NEED CHANGE
-		P2KickLeft.PushBack({ 144,1613,88,69 });//NEED CHANGE
+		P2KickLeft.PushBack({ 501, 2269, 99, 72 });
+		P2KickLeft.PushBack({ 601, 2269, 99, 72 });
+		P2KickLeft.PushBack({ 701, 2269, 99, 72 });
 		P2KickLeft.totalFrames = 3;
 		P2KickLeft.speed = KICKANIMSPEED;
 		P2KickLeft.loop = false;
 
-		P2CrouchRight.PushBack({ 144,1683,88,69 });//NEED CHANGE
+		P2CrouchRight.PushBack({ 001, 2342, 99, 72 });
 
-		P2CrouchLeft.PushBack({ 313,1753, 88,69 });//NEED CHANGE
+		P2CrouchLeft.PushBack({ 401, 2342, 99, 72 });
 
-		P2CrouchPunchR.PushBack({ 233,1683,88,69 });//NEED CHANGE
-		P2CrouchPunchR.PushBack({ 322,1683,88,69 });//NEED CHANGE
-		P2CrouchPunchR.totalFrames = 2;
+		P2CrouchPunchR.PushBack({ 101, 2342, 99, 72 });
+		P2CrouchPunchR.PushBack({ 201, 2342, 99, 72 });
+		P2CrouchPunchR.PushBack({ 301, 2342, 99, 72 });
+		P2CrouchPunchR.totalFrames = 3;
 		P2CrouchPunchR.speed = CROUCHPUNCHSPEED;
 		P2CrouchPunchR.loop = false;
 
-		P2CrouchPunchL.PushBack({ 233,1753,88,69 });//NEED CHANGE
-		P2CrouchPunchL.PushBack({ 144,1753,88,69 });//NEED CHANGE
-		P2CrouchPunchL.totalFrames = 2;
+		P2CrouchPunchL.PushBack({ 501, 2342, 99, 72 });
+		P2CrouchPunchL.PushBack({ 601, 2342, 99, 72 });
+		P2CrouchPunchL.PushBack({ 701, 2342, 99, 72 });
+		P2CrouchPunchL.totalFrames = 3;
 		P2CrouchPunchL.speed = CROUCHPUNCHSPEED;
 		P2CrouchPunchL.loop = false;
 
-		P2CrouchKickR.PushBack({ 411, 1683,88,69 });//NEED CHANGE
-		P2CrouchKickR.PushBack({ 500, 1683, 88 , 69 });//NEED CHANGE
+		P2CrouchKickR.PushBack({ 201, 2415, 99, 72 });
+		P2CrouchKickR.PushBack({ 301, 2415, 99, 72 });
 		P2CrouchKickR.totalFrames = 2;
 		P2CrouchKickR.speed = CROUCHKICKSPEED;
 		P2CrouchKickR.loop = false;
 
-		P2CrouchKickL.PushBack({ 500,1753 ,88,69 });//NEED CHANGE
-		P2CrouchKickL.PushBack({ 411,1753 , 88 , 69 });//NEED CHANGE
+		P2CrouchKickL.PushBack({ 601, 2415, 99, 72 });
+		P2CrouchKickL.PushBack({ 701, 2415, 99, 72 });
 		P2CrouchKickL.totalFrames = 2;
 		P2CrouchKickL.speed = CROUCHKICKSPEED;
 		P2CrouchKickL.loop = false;
 
-		P2JumpR.PushBack({ 144, 1823, 88, 69 });//NEED CHANGE
-		P2JumpR.PushBack({ 233, 1823, 88, 69 });//NEED CHANGE
+		P2JumpR.PushBack({ 001, 2269, 99, 72 });
+		P2JumpR.PushBack({ 101, 2415, 99, 72 });
 		P2JumpR.speed = JUMPANIMSPEED;
 
-		P2JumpL.PushBack({ 322, 1893, 88, 69 });//NEED CHANGE
-		P2JumpL.PushBack({ 233, 1893, 88, 69 });//NEED CHANGE
+		P2JumpL.PushBack({ 401, 2269, 99, 72});
+		P2JumpL.PushBack({ 501, 2415, 99, 72});
 		P2JumpL.speed = JUMPANIMSPEED;
 
-		P2JumpPunchR.PushBack({ 144, 1963, 91, 70 });//NEED CHANGE
+		P2JumpPunchR.PushBack({ 301, 2488, 99, 72 });
 		P2JumpPunchR.loop = true;
 
-		P2JumpPunchL.PushBack({ 317,2033, 91, 70 });//NEED CHANGE
+		P2JumpPunchL.PushBack({ 701, 2488, 99, 72});
 		P2JumpPunchL.loop = true;
 
 
-		P2JumpKickR.PushBack({ 322,1963, 91,69 });//NEED CHANGE
+		P2JumpKickR.PushBack({ 201, 2488, 99, 72});
 
 
-		P2JumpKickL.PushBack({ 140,2033,94,69 });//NEED CHANGE
+		P2JumpKickL.PushBack({ 601, 2488, 99, 72 });
 
-		P2LandingR.PushBack({ 322, 1823, 88, 69 });//NEED CHANGE
+		P2LandingR.PushBack({ 001, 2415, 99, 72});//NEED CHANGE
 
-		P2LandingL.PushBack({ 144,1893,88,69 });//NEED CHANGE
+		P2LandingL.PushBack({ 401, 2415, 99, 72});//NEED CHANGE
 
 		//----WereWolf--PushBack------------------------------------------------------------------------------------------------------------------
 
