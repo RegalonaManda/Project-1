@@ -58,7 +58,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
-	tranSt = Transform::POWER1;
+	tranSt = Transform::DEFAULT;
 	//default attack 
 	attack = 1;
 	
@@ -277,7 +277,13 @@ update_status ModulePlayer::Update()
 	if (airSt == AirState::AIRBORN && jumped == true && transforming == false) {
 		position.y -= impulse;
 	}
-	if (airSt == AirState::AIRBORN && jumped == false) {
+	// KNOCKBACK NEW
+	else if (airSt == AirState::AIRBORN && knock == true && transforming == false) {
+		position.y -= knockImpulse;
+		position.x -= 0.5f;
+	}
+	// knocked stuff
+	if (airSt == AirState::AIRBORN && jumped == false && knock == false) {
 		position.y += 3;
 	}
 
@@ -328,10 +334,11 @@ update_status ModulePlayer::Update()
 		if (iFrames == true)
 		{
 			
-			airSt == AirState::AIRBORN;
+			airSt = AirState::AIRBORN;
 			knockImpulse -= Gravity;
 			position.y -= knockImpulse;
 
+			//CHANGE
 			position.x--;
 
 			iTimer--;
@@ -459,7 +466,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 		{
 
-			PlayerBump();
+			//PlayerBump();
 			/*knockImpulse = 1.0f;
 			up to change */
 
@@ -484,26 +491,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			knockImpulse = 1.0f;
 			iFrames = true;
 			hp--;
+			knock = true;
 
-
-			position.y -= 0.1f;
-			if (position.y < 190) {
-				//shoudl call a different knockbackfunction
-				if (c2 != Deathcollider) {
-					//KnockBack(25);
-					playerKnocked = true;
+			position.y -= 20.0f;
+			
 					if (hp > 0) { App->audio->PlayFx(loseHP, 6); }
-					if (dir == Direction::LEFT) {
-						idle = false;
-						currentAnimation = &AllAnimations.knockBackLeft;
-					}
-					if (dir == Direction::RIGHT) {
-						currentAnimation = &AllAnimations.knockBackRight;
-						idle = false;
-					}
-				}
-			}
-
+					//This updates life ui
 			playerDamaged();
 		}
 
@@ -586,6 +579,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		airSt = AirState::GROUND;
 		idle = true;
 		jumped = false;
+		knock = false;
+		
 		
 	}
 	else {
@@ -754,9 +749,11 @@ void ModulePlayer::Gravity_() {
 	// Gravity_ Function
 	if (airSt == AirState::AIRBORN) {
 		impulse -= Gravity;
+		knockImpulse -= Gravity;
 	}
 	else {
 		impulse = 3.5f;
+		knockImpulse = 2;
 	}
 }
 

@@ -164,6 +164,8 @@ public:
 	int landing = 30;
 	bool landed = false;
 
+	bool knock = false;
+
 	void OnCollision(Collider* c1, Collider* c2) override;
 
 	void KnockBack(float x);

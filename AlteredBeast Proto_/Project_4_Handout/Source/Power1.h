@@ -145,15 +145,21 @@ void ModulePlayer::Power1Movement() {
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
 			currentAnimation = &AllAnimations.P1CrouchLeft;
 		}
-		if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN) {
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN && knock == false) {
 			currentAnimation = &AllAnimations.P1JumpR;
 		}
-		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN && knock == false) {
 			currentAnimation = &AllAnimations.P1JumpL;
+		}
+		if (dir == Direction::RIGHT && airSt == AirState::AIRBORN && knock == true) {
+			currentAnimation = &AllAnimations.knockBackRight;
+		}
+		if (dir == Direction::LEFT && airSt == AirState::AIRBORN && knock == true) {
+			currentAnimation = &AllAnimations.knockBackRight;
 		}
 		if (idle == true && airSt != AirState::CROUCH && App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT || App->input->pads[0].l_x > 0.5f) 
 		{
-			if (!destroyed && knockImpulse == 0) {
+			if (!destroyed ) {
 
 				if (idle && airSt == AirState::GROUND)/* Can't move if punching */ {
 					//change direction
@@ -162,7 +168,7 @@ void ModulePlayer::Power1Movement() {
 					position.x += speed;
 				}
 				//Air
-				if (airSt == AirState::AIRBORN) {
+				if (airSt == AirState::AIRBORN && knock == false) {
 					position.x += AirSpeed;
 				}
 			}
@@ -171,7 +177,7 @@ void ModulePlayer::Power1Movement() {
 		if (crouched == true) { airSt = AirState::CROUCH; }
 
 		if (idle == true && airSt != AirState::CROUCH && App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT || App->input->pads[0].l_x < -0.5f) {
-			if (!destroyed && knockImpulse == 0) {
+			if (!destroyed) {
 				if (idle && airSt == AirState::GROUND)/* Can't move if punching */ {
 					//change direction
 					dir = Direction::LEFT;
@@ -180,7 +186,7 @@ void ModulePlayer::Power1Movement() {
 					position.x -= speed;
 				}
 				//Air
-				if (airSt == AirState::AIRBORN) {
+				if (airSt == AirState::AIRBORN && knock == false) {
 					position.x -= AirSpeed;
 				}
 			}

@@ -167,9 +167,15 @@ void ModulePlayer::DefaultMovement() {
 	if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
 		currentAnimation = &AllAnimations.jumpLeft;
 	}
+	if (dir == Direction::RIGHT && airSt == AirState::AIRBORN && knock == true) {
+		currentAnimation = &AllAnimations.knockBackRight;
+	}
+	if (dir == Direction::LEFT && airSt == AirState::AIRBORN && knock == true) {
+		currentAnimation = &AllAnimations.knockBackRight;
+	}
 	if (App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT || App->input->pads[0].l_x > 0.5f)
 	{
-		if (!destroyed && knockImpulse == 0) {
+		if (!destroyed) {
 			if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
 				//change direction
 				dir = Direction::RIGHT;
@@ -177,7 +183,7 @@ void ModulePlayer::DefaultMovement() {
 				position.x += speed;
 			}
 			//Air
-			if (airSt == AirState::AIRBORN) {
+			if (airSt == AirState::AIRBORN && knock == false) {
 				position.x += AirSpeed;
 			}
 		}
@@ -188,7 +194,7 @@ void ModulePlayer::DefaultMovement() {
 
 	if (App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT || App->input->pads[0].l_x < -0.5f) {
 
-		if (!destroyed && knockImpulse == 0) {
+		if (!destroyed) {
 			if (idle == true && airSt == AirState::GROUND)/* Can't move if punching */ {
 				//change direction
 				dir = Direction::LEFT;
@@ -197,7 +203,7 @@ void ModulePlayer::DefaultMovement() {
 				position.x -= speed;
 			}
 			//Air
-			if (airSt == AirState::AIRBORN) {
+			if (airSt == AirState::AIRBORN && knock == false) {
 				position.x -= AirSpeed;
 			}
 		}
