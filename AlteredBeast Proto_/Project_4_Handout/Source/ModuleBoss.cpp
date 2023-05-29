@@ -173,13 +173,23 @@ void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 	for (int i = 0; i < pattern[0].activeHeads; ++i) {
 		if (c1 == pattern[currentPattern_].headAttack[i].headCollider && c2->type == Collider::Type::PLATFORM) {
 
-			// make head explode
+			
 			pattern[currentPattern_].headAttack[i].fallen = true;
-			/*pattern[currentPattern_].headAttack[i].positionY-= 100;*/
+			// Make head Explode
 			c1->SetPos(-7500, -7500);
+			pattern[currentPattern_].headAttack[i].hurtCollider->SetPos(-7500, -7500);
 			pattern[currentPattern_].headAttack[i].current = &pattern[currentPattern_].headAttack[i].XplodeAnim;
 			currentHead++;
 			
+
+		}
+		if (c1 == pattern[currentPattern_].headAttack[i].hurtCollider && c2->type == Collider::Type::PLAYER_SHOT) {
+			pattern[currentPattern_].headAttack[i].fallen = true;
+			pattern[currentPattern_].headAttack[i].headCollider->SetPos(-7500, -7500);
+			c1->SetPos(-7500, -7500);
+			pattern[currentPattern_].headAttack[i].current = &pattern[currentPattern_].headAttack[i].XplodeAnim;
+			currentHead++;
+
 
 		}
 	}

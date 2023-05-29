@@ -187,6 +187,9 @@ public:
 	Animation W_jump_punchR;
 	Animation W_jump_punchL;
 
+	Animation W_knockedR;
+	Animation W_knockedL;
+
 	PlayerAnim::PlayerAnim() {
 
 
@@ -686,6 +689,10 @@ public:
 		W_jump_punchR.PushBack({ 959,660,148,92 });
 
 		W_jump_punchL.PushBack({ 660,752,148,92 });
+
+		W_knockedR.PushBack({ 809,1031,148,92 });
+
+		W_knockedL.PushBack({ 511,1124,148,92 });
 	}
 };
 
