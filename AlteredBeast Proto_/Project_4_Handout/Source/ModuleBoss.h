@@ -26,8 +26,11 @@ class Head {
 public:
 	
 
-	int positionX;
-	int positionY;
+	float positionX;
+	float positionY;
+
+	float acceleration = 0.1f;
+	float deacceleration = 1.5f;
 
 	Collider* headCollider;
 	Collider* hurtCollider;
@@ -70,7 +73,7 @@ public:
 		XplodeAnim.loop = false;
 		XplodeAnim.speed = 0.2f;
 
-		current = &travelAnim;
+		
 
 	};
 
@@ -78,13 +81,19 @@ public:
 
 	void Trajectory() {
 		if (positionX >= FinalX) { 
-			positionX -= 2;
+			current = &travelAnim;
+			if (deacceleration >= 1.0f) {
+				deacceleration -= 0.02f;
+			}
+			
+			positionX -= 3 * deacceleration;
 			if (positionX == FinalX) {
 				current = &turnAnim;
 			}
 		}
 		else if (!fallen) {
-			positionY += 2;
+			acceleration += 0.05f;
+			positionY += 2 * acceleration;
 			current = &fallAnim;
 		}
 		
@@ -139,13 +148,15 @@ public:
 
 	void OnCollision(Collider* c1, Collider* c2) override;
 
-	void Attack(AttackPattern& currentPattern);
+	bool Attack(AttackPattern& currentPattern);
 
+	bool attackFinished;
+	int auxCnt = 40;
 public:
 
 	fPoint position;
 
-	int cooldown = 60;
+	int cooldown = 40;
 
 	int speed;
 
@@ -173,6 +184,7 @@ public:
 	bool beaten = false;
 	bool transformed = false;
 	int RandID;
+	bool selected = false;
 
 	AttackPattern* currentPattern;
 
@@ -181,6 +193,8 @@ public:
 	int attackCnt = 40;
 	int currentHead = 0;
 	int currentPattern_ = 0;
+
+	
 
 	// Sound effects indices
 	uint welcomeDoom = 0;

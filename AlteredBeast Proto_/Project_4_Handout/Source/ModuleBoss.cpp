@@ -1,5 +1,6 @@
 #include "ModuleBoss.h"
-
+#include <time.h>
+#include <stdlib.h>
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
@@ -105,6 +106,31 @@ bool ModuleBoss::Initialize() {
 	pattern[0].headAttack[4].FinalX = position.x - 70;
 	pattern[0].headAttack[5].FinalX = position.x - 220;
 
+
+	pattern[1].headAttack[0].FinalX = position.x - 81;
+	pattern[1].headAttack[1].FinalX = position.x - 14;
+	pattern[1].headAttack[2].FinalX = position.x - 163;
+	pattern[1].headAttack[3].FinalX = position.x - 56;
+	pattern[1].headAttack[4].FinalX = position.x - 211;
+	pattern[1].headAttack[5].FinalX = position.x - 121;
+
+	pattern[2].headAttack[0].FinalX = position.x - 9;
+	pattern[2].headAttack[1].FinalX = position.x - 109;
+	pattern[2].headAttack[2].FinalX = position.x - 204;
+	pattern[2].headAttack[3].FinalX = position.x - 31;
+	pattern[2].headAttack[4].FinalX = position.x - 148;
+	pattern[2].headAttack[5].FinalX = position.x - 60;
+
+
+	pattern[3].headAttack[0].FinalX = position.x - 52;
+	pattern[3].headAttack[1].FinalX = position.x - 8;
+	pattern[3].headAttack[2].FinalX = position.x - 142;
+	pattern[3].headAttack[3].FinalX = position.x - 60;
+	pattern[3].headAttack[4].FinalX = position.x - 200;
+	pattern[3].headAttack[5].FinalX = position.x - 98;
+
+	srand(time(NULL));
+
 	return true;
 
 }
@@ -140,8 +166,34 @@ update_status ModuleBoss::Update()
 
 
 		if (attackCnt <= 0) {
+			if (selected == false) {
+				RandID = rand() % 4;
+				selected = true;
+			}
+			attackFinished = ModuleBoss::Attack(pattern[RandID]);
+			if (attackFinished == true) {
+				attackCnt = 1;
 
-			ModuleBoss::Attack(pattern[0]);
+				//Reset Heads
+				for (int i = 0; i < 6; ++i) {
+					pattern[RandID].headAttack[i].positionX = position.x;
+					pattern[RandID].headAttack[i].positionY = position.y;
+					pattern[RandID].headAttack[i].hurtCollider->SetPos(-7500, -7500);
+					pattern[RandID].headAttack[i].headCollider->SetPos(-7500, -7500);
+							
+					pattern[RandID].headAttack[i].current->Reset();
+					pattern[RandID].headAttack[i].current->loopCount = 0;
+					pattern[RandID].headAttack[i].fallen = false;
+							
+					pattern[RandID].headAttack[i].acceleration = 0.1f;
+					pattern[RandID].headAttack[i].deacceleration = 1.5f;
+					
+				}
+
+				pattern[RandID].activeHeads = 0;
+				attackFinished = false;
+				selected = false;
+			}
 		}
 
 	}
@@ -160,9 +212,9 @@ update_status ModuleBoss::PostUpdate()
 
 	/*SDL_Rect Head = pattern[currentPattern_].headAttack[currentHead].current->GetCurrentFrame();
 	App->render->Blit(texture, pattern[currentPattern_].headAttack[currentHead].positionX, pattern[currentPattern_].headAttack[currentHead].positionY, &Head);*/
-	for (int i = 0; i < pattern[0].activeHeads; ++i) {
-		SDL_Rect Head = pattern[currentPattern_].headAttack[i].current->GetCurrentFrame();
-		App->render->Blit(texture, pattern[currentPattern_].headAttack[i].positionX, pattern[currentPattern_].headAttack[i].positionY, &Head);
+	for (int i = 0; i < pattern[RandID].activeHeads; ++i) {
+		SDL_Rect Head = pattern[RandID].headAttack[i].current->GetCurrentFrame();
+		App->render->Blit(texture, pattern[RandID].headAttack[i].positionX, pattern[RandID].headAttack[i].positionY, &Head);
 	}
 
 	return update_status::UPDATE_CONTINUE;
@@ -170,24 +222,24 @@ update_status ModuleBoss::PostUpdate()
 
 void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 {
-	for (int i = 0; i < pattern[0].activeHeads; ++i) {
-		if (c1 == pattern[currentPattern_].headAttack[i].headCollider && c2->type == Collider::Type::PLATFORM) {
+	for (int i = 0; i < pattern[RandID].activeHeads; ++i) {
+		if (c1 == pattern[RandID].headAttack[i].headCollider && c2->type == Collider::Type::PLATFORM) {
 
-			
-			pattern[currentPattern_].headAttack[i].fallen = true;
-			// Make head Explode
-			c1->SetPos(-7500, -7500);
-			pattern[currentPattern_].headAttack[i].hurtCollider->SetPos(-7500, -7500);
-			pattern[currentPattern_].headAttack[i].current = &pattern[currentPattern_].headAttack[i].XplodeAnim;
-			currentHead++;
-			
+			if (pattern[RandID].headAttack[i].fallen == false) {
+				pattern[RandID].headAttack[i].fallen = true;
+				// Make head Explode
+				c1->SetPos(-7500, -7500);
+				pattern[RandID].headAttack[i].hurtCollider->SetPos(-7500, -7500);
+				pattern[RandID].headAttack[i].current = &pattern[RandID].headAttack[i].XplodeAnim;
+				currentHead++;
+			}
 
 		}
-		if (c1 == pattern[currentPattern_].headAttack[i].hurtCollider && c2->type == Collider::Type::PLAYER_SHOT) {
-			pattern[currentPattern_].headAttack[i].fallen = true;
-			pattern[currentPattern_].headAttack[i].headCollider->SetPos(-7500, -7500);
+		if (c1 == pattern[RandID].headAttack[i].hurtCollider && c2->type == Collider::Type::PLAYER_SHOT) {
+			pattern[RandID].headAttack[i].fallen = true;
+			pattern[RandID].headAttack[i].headCollider->SetPos(-7500, -7500);
 			c1->SetPos(-7500, -7500);
-			pattern[currentPattern_].headAttack[i].current = &pattern[currentPattern_].headAttack[i].XplodeAnim;
+			pattern[RandID].headAttack[i].current = &pattern[RandID].headAttack[i].XplodeAnim;
 			currentHead++;
 
 
@@ -196,7 +248,7 @@ void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 
 }
 
-void ModuleBoss::Attack(AttackPattern& Pattern) {
+bool ModuleBoss::Attack(AttackPattern& Pattern) {
 
 	
 	if (Pattern.activeHeads < 6) {
@@ -205,11 +257,17 @@ void ModuleBoss::Attack(AttackPattern& Pattern) {
 			currentAnim = &attackAnim;
 		}
 		if (cooldown <= 0) {
-			cooldown = 60;
+			cooldown = 40;
 			// throw new head
 			LOG("Spawning Head");
 			Pattern.activeHeads++;
 		}
+	}
+	
+	else if (Pattern.headAttack[5].fallen == true && Pattern.headAttack[5].XplodeAnim.HasFinished()) {
+		/*Pattern.headAttack[5].XplodeAnim.Reset();
+		Pattern.headAttack[5].XplodeAnim.loopCount = 0;*/
+		return true;
 	}
 	
 		for (int i = 0; i < Pattern.activeHeads; ++i) {
@@ -223,5 +281,5 @@ void ModuleBoss::Attack(AttackPattern& Pattern) {
 			currentHead++;
 			attackCnt = 40;
 		}*/
-	
+		return false;
 }
