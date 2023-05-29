@@ -55,10 +55,14 @@ void Neff::Update() {
 		bossCountdown--;
 	}
 	
+	Enemy::Update();
 
 	if (scroll <= 0) {
 		App->scene->ScreenScroll = false;
-		
+		Ecollider->SetPos(position.x + 10, position.y + 15);
+	}
+	else {
+		Ecollider->SetPos(-200, -2000);
 	}
 	
 	if (run) {
@@ -69,8 +73,8 @@ void Neff::Update() {
 
 	
 	
-	Enemy::Update();
-	Ecollider->SetPos(position.x +10 , position.y + 15);
+	
+	
 	ActivateBoss();
 	
 }

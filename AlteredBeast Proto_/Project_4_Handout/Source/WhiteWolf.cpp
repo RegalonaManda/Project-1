@@ -117,7 +117,7 @@ void WhiteWolf::Update() {
 			}
 
 			if (idle == false) {
-				AttackCollider->SetPos(position.x + 5, position.y + 2);
+				AttackCollider->SetPos(position.x + 35, position.y + 10);
 				currentAnim = &jumpAnimLeft;
 				position.x += 1.2f;
 				wolfImpulse -= Gravity;
