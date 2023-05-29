@@ -125,7 +125,7 @@ void ModulePlayer::Power2Movement() {
 		}
 		if (idle == true && airSt != AirState::CROUCH && App->input->keys[SDL_SCANCODE_D] == KEY_REPEAT || App->input->pads[0].l_x > 0.5f)
 		{
-			if (!destroyed && knockImpulse == 0) {
+			if (!destroyed ) {
 
 				if (idle && airSt == AirState::GROUND)/* Can't move if punching */ {
 					//change direction
@@ -134,7 +134,7 @@ void ModulePlayer::Power2Movement() {
 					position.x += speed;
 				}
 				//Air
-				if (airSt == AirState::AIRBORN) {
+				if (airSt == AirState::AIRBORN && knock == false) {
 					position.x += AirSpeed;
 				}
 			}
@@ -143,7 +143,7 @@ void ModulePlayer::Power2Movement() {
 		if (crouched == true) { airSt = AirState::CROUCH; }
 
 		if (idle == true && airSt != AirState::CROUCH && App->input->keys[SDL_SCANCODE_A] == KEY_REPEAT || App->input->pads[0].l_x < -0.5f) {
-			if (!destroyed && knockImpulse == 0) {
+			if (!destroyed) {
 				if (idle && airSt == AirState::GROUND)/* Can't move if punching */ {
 					//change direction
 					dir = Direction::LEFT;
@@ -152,7 +152,7 @@ void ModulePlayer::Power2Movement() {
 					position.x -= speed;
 				}
 				//Air
-				if (airSt == AirState::AIRBORN) {
+				if (airSt == AirState::AIRBORN && knock == false) {
 					position.x -= AirSpeed;
 				}
 			}

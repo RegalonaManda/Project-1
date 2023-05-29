@@ -101,35 +101,35 @@ bool ModuleBoss::Initialize() {
 	}
 
 
-	pattern[0].headAttack[0].FinalX = position.x - 85;
-	pattern[0].headAttack[1].FinalX = position.x - 196;
-	pattern[0].headAttack[2].FinalX = position.x - 19;
-	pattern[0].headAttack[3].FinalX = position.x - 148;
-	pattern[0].headAttack[4].FinalX = position.x - 70;
-	pattern[0].headAttack[5].FinalX = position.x - 220;
-
-
-	pattern[1].headAttack[0].FinalX = position.x - 81;
-	pattern[1].headAttack[1].FinalX = position.x - 14;
-	pattern[1].headAttack[2].FinalX = position.x - 163;
-	pattern[1].headAttack[3].FinalX = position.x - 56;
-	pattern[1].headAttack[4].FinalX = position.x - 211;
-	pattern[1].headAttack[5].FinalX = position.x - 121;
-
-	pattern[2].headAttack[0].FinalX = position.x - 9;
-	pattern[2].headAttack[1].FinalX = position.x - 109;
-	pattern[2].headAttack[2].FinalX = position.x - 204;
-	pattern[2].headAttack[3].FinalX = position.x - 31;
-	pattern[2].headAttack[4].FinalX = position.x - 148;
-	pattern[2].headAttack[5].FinalX = position.x - 60;
-
-
-	pattern[3].headAttack[0].FinalX = position.x - 52;
-	pattern[3].headAttack[1].FinalX = position.x - 8;
-	pattern[3].headAttack[2].FinalX = position.x - 142;
-	pattern[3].headAttack[3].FinalX = position.x - 60;
-	pattern[3].headAttack[4].FinalX = position.x - 200;
-	pattern[3].headAttack[5].FinalX = position.x - 98;
+	pattern[0].headAttack[0].FinalX = position.x - 85  - 40;
+	pattern[0].headAttack[1].FinalX = position.x - 196 - 40;
+	pattern[0].headAttack[2].FinalX = position.x - 19  - 40;
+	pattern[0].headAttack[3].FinalX = position.x - 148 - 40;
+	pattern[0].headAttack[4].FinalX = position.x - 70  - 40;
+	pattern[0].headAttack[5].FinalX = position.x - 220 - 40;
+														 
+														 
+	pattern[1].headAttack[0].FinalX = position.x - 81  - 40;
+	pattern[1].headAttack[1].FinalX = position.x - 14  - 40;
+	pattern[1].headAttack[2].FinalX = position.x - 163 - 40;
+	pattern[1].headAttack[3].FinalX = position.x - 56  - 40;
+	pattern[1].headAttack[4].FinalX = position.x - 211 - 40;
+	pattern[1].headAttack[5].FinalX = position.x - 121 - 40;
+														 
+	pattern[2].headAttack[0].FinalX = position.x - 9   - 40;
+	pattern[2].headAttack[1].FinalX = position.x - 109 - 40;
+	pattern[2].headAttack[2].FinalX = position.x - 204 - 40;
+	pattern[2].headAttack[3].FinalX = position.x - 31  - 40;
+	pattern[2].headAttack[4].FinalX = position.x - 148 - 40;
+	pattern[2].headAttack[5].FinalX = position.x - 60  - 40;
+														 
+														 
+	pattern[3].headAttack[0].FinalX = position.x - 52  - 40;
+	pattern[3].headAttack[1].FinalX = position.x - 8   - 40;
+	pattern[3].headAttack[2].FinalX = position.x - 142 - 40;
+	pattern[3].headAttack[3].FinalX = position.x - 60  - 40;
+	pattern[3].headAttack[4].FinalX = position.x - 200 - 40;
+	pattern[3].headAttack[5].FinalX = position.x - 98  - 40;
 
 	srand(time(NULL));
 
@@ -150,6 +150,7 @@ update_status ModuleBoss::Update()
 
 		if (transform.HasFinished()) {
 			App->grey_scene->Grey = true;
+			position.x -= 60;
 			currentAnim = &idleAnim;
 			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
 			transform.loopCount = 0;

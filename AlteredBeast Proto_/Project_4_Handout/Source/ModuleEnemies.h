@@ -22,7 +22,7 @@ enum class ENEMY_TYPE
 struct EnemySpawnpoint
 {
 	ENEMY_TYPE type = ENEMY_TYPE::NO_TYPE;
-	int x, y;
+	float x, y;
 	bool spawnalignment;
 
 	bool borderL = false;

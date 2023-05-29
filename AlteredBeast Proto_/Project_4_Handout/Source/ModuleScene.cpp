@@ -13,6 +13,7 @@
 #include "BrownWolf.h"
 #include "ModuleGreyScene.h"
 #include "ModulePlayer.h"
+#include "ModuleBoss.h"
 
 
 ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
@@ -122,13 +123,19 @@ bool ModuleScene::Start()
 
 	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
 
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 300, 140, false);
+	/*App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 300, 140, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 400, 140, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 500, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 500, 140, false);*/
 
 
 
 	//App->enemies->AddNeff(400, 100, false);
+
+
+	
+
+	/*App->enemies->AddNeff(500, 100, true);
+	App->enemies->AddNeff(600 + 200, 100, false);*/
 
 	// border L ,  border R
 	//App->enemies->AddGrave( 150, 130, true, false,false);
@@ -138,12 +145,12 @@ bool ModuleScene::Start()
 	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
 	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, false);
 	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 450, 200, true);
-	/*App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);*/
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 500, 200,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 350, 200, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 525, 200,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 550, 200, true);
 	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 300, 120, true);
-	
+	//
 
 
 	//App->enemies->AddGrave( 380, 130, true, false, true);
@@ -154,19 +161,19 @@ bool ModuleScene::Start()
 
 
 
-	/*App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140, true);*/
-	/*App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 650, 200, false);*/
-	/*App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 705, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 740, 200,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 800, 140, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 900, 200,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 905, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 910, 140, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1000, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 1100, 140,false);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);*/
-	//App->enemies->AddEnemy(ENEMY_TYPE::NEFF, 1161 + 250, 110,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 600, 140, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 650, 200, false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 700, 140,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 705, 200, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 740, 200,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 800, 140, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 900, 200,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 905, 200, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 910, 140, false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1000, 200, true);
+	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 1100, 140,false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1105, 140, true);
+	App->enemies->AddNeff (500, 110,true);
 	
 	
 	
@@ -181,7 +188,8 @@ bool ModuleScene::Start()
 	App->grey_scene->Enable();
 	App->collisions->Enable();
 	App->audio->Enable();
-	App->render->camera.dynamicSpeed = 0.5;
+	
+	//App->render->camera.dynamicSpeed = 0.5;
 
 
 	//App->powers->Enable();
@@ -202,8 +210,8 @@ update_status ModuleScene::Update()
 	//SCREEN SCROLL
 
 	if (ScreenScroll == true) {
-		App->render->camera.x += App->render->camera.dynamicSpeed;
-
+		//App->render->camera.x += App->render->camera.dynamicSpeed;
+		App->render->camera.x += 0.3;
 		//aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE );
 
 		aux = (App->render->camera.x + (SCREEN_WIDTH - 10));
@@ -396,6 +404,7 @@ bool ModuleScene::CleanUp() {
 	App->scene2->Disable();
 	App->powers->Disable();
 	App->collisions->Disable();
+	App->bossfight->Disable();
 	/*App->audio->Disable();*/
 
 	return true;

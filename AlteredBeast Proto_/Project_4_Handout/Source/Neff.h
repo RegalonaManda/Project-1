@@ -23,7 +23,7 @@ public:
 
 	bool exploded = false;
 
-	int scroll = 30;
+	int scroll = 1200;
 
 	int bossCountdown = 200;
 
