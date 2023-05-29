@@ -58,7 +58,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
-	tranSt = Transform::POWER2;
+	tranSt = Transform::POWER1;
 	//default attack 
 	attack = 1;
 	
@@ -127,7 +127,7 @@ bool ModulePlayer::Start()
 	FireBall.ExplodeAnim.PushBack({ 445,115,73,65 });
 	FireBall.ExplodeAnim.PushBack({ 519,115,73,65 });
 	FireBall.ExplodeAnim.PushBack({ 593,115,73,65 });
-	FireBall.ExplodeAnim.speed = 0.06f;
+	FireBall.ExplodeAnim.speed = 0.14f;
 	FireBall.ExplodeAnim.loop = false;
 
 	FireBall.GrowAnimL.PushBack({ 593,201,73,65 });
@@ -179,6 +179,12 @@ update_status ModulePlayer::Update()
 	if (transforming == true && tranSt == Transform::POWER1 && !destroyed) {
 
 		currentAnimation = &AllAnimations.powerUp2;
+
+	}
+	if (transforming == true && tranSt == Transform::POWER2 && !destroyed) {
+
+		tranSt = Transform::WOLF;
+		transforming = false;
 
 	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
@@ -295,19 +301,19 @@ update_status ModulePlayer::Update()
 
 	
 	//Power1
-	if (tranSt == Transform::POWER1) {
+	if (tranSt == Transform::POWER1 && transforming == false) {
 
 		ModulePlayer::Power1Movement();
 
 	}
-	if (tranSt == Transform::POWER2) {
+	if (tranSt == Transform::POWER2 && transforming == false) {
 
 		ModulePlayer::Power2Movement();
 
 	}
 
 	//WereWolf
-	if (tranSt == Transform::WOLF) {
+	if (tranSt == Transform::WOLF && transforming == false) {
 		ModulePlayer::WereWolfMovement();
 	}
 
@@ -1088,6 +1094,7 @@ void ModulePlayer::WereWolfMovement() {
 
 		if (FireBall.ExplodeAnim.HasFinished() == true) {
 			FireBall.ExplodeAnim.loopCount = 0;
+			FireBall.ExplodeAnim.Reset();
 			FireBall.destroyed = true;
 			FireBall.exploded = true;
 			FireBall.CurrentShot = &FireBall.despawned;

@@ -122,8 +122,13 @@ bool ModuleScene::Start()
 
 	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
 
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 300, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 400, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 500, 140, false);
 
-	App->enemies->AddNeff(400, 100, false);
+
+
+	//App->enemies->AddNeff(400, 100, false);
 
 	// border L ,  border R
 	//App->enemies->AddGrave( 150, 130, true, false,false);
