@@ -174,6 +174,7 @@ public:
 	Animation* currentAnim;
 
 	Animation transform; //grow + cloud (?)
+	Animation cloud;
 	Animation idleAnim;
 	Animation attackAnim;
 	Animation hitAnim;
