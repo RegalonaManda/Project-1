@@ -184,6 +184,7 @@ update_status ModulePlayer::Update()
 	if (transforming == true && tranSt == Transform::POWER2 && !destroyed) {
 
 		tranSt = Transform::WOLF;
+		idle = true;
 		transforming = false;
 
 	}
