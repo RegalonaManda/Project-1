@@ -58,7 +58,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
-	tranSt = Transform::WOLF;
+	tranSt = Transform::POWER2;
 	//default attack 
 	attack = 1;
 	
