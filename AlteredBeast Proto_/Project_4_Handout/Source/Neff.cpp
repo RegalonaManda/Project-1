@@ -59,15 +59,16 @@ void Neff::Update() {
 
 	if (scroll <= 0) {
 		App->scene->ScreenScroll = false;
+
 		Ecollider->SetPos(position.x + 10, position.y + 15);
 	}
 	else {
 		Ecollider->SetPos(-200, -2000);
+
 	}
 	
 	if (run) {
 		runCnt--;
-		
 		Neff::HeadOut();
 	}
 
@@ -137,6 +138,7 @@ void Neff::HeadOut() {
 	App->scene->ScreenScroll = true;
 	
 	if (run && runCnt <= 0) {
+		
 		position.x += 2;
 	}
 
@@ -150,7 +152,7 @@ void Neff::ActivateBoss(){
 
 
 
-		App->bossfight->position.x = position.x + 85;
+		App->bossfight->position.x = position.x;
 		App->bossfight->position.y = position.y - 60;
 		App->enemies->Disable();
 		hp = 0;

@@ -56,13 +56,33 @@ bool ModuleBoss::Start()
 	transform.speed = 0.12f;
 	transform.loop = false;
 
+	cloud.PushBack({ 36,326,171,193 });
+	cloud.PushBack({ 36,132,171,193 });
+	cloud.PushBack({ 208,132,171,193 });
+	cloud.PushBack({ 380,132,171,193 });
+	cloud.PushBack({ 552,132,171,193 });
+	cloud.PushBack({ 724,132,171,193 });
+	cloud.PushBack({ 552,132,171,193 });
+	cloud.PushBack({ 724,132,171,193 });
+	cloud.PushBack({ 552,132,171,193 });
+	cloud.PushBack({ 724,132,171,193 });
+	cloud.PushBack({ 552,132,171,193 });
+	cloud.PushBack({ 724,132,171,193 });
+	cloud.PushBack({ 552,132,171,193 });
+	cloud.PushBack({ 724,132,171,193 });
+	cloud.PushBack({ 896,132,171,193 });
+	cloud.PushBack({ 1068,132,171,193 });
+	cloud.speed = 0.07f;
+	cloud.loop = false;
+
+
 	idleAnim.PushBack({ 19,1190, 131,156 });
 	idleAnim.PushBack({ 151,1190, 131,156 });
 	idleAnim.speed = 0.035f;
 
 	idleAnim.loop = true;
 
-	attackAnim.PushBack({307,1190, 131, 156});
+	attackAnim.PushBack({ 307,1190, 131, 156});
 	attackAnim.PushBack({ 439,1190, 131,156 });
 	attackAnim.PushBack({ 571,1190, 131,156 });
 	attackAnim.PushBack({ 703,1190, 131,156 });
@@ -149,18 +169,28 @@ update_status ModuleBoss::Update()
 		}
 
 		if (transform.HasFinished()) {
-			App->grey_scene->Grey = true;
-			position.x -= 40;
-			currentAnim = &idleAnim;
-			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
+			currentAnim = &cloud;
+			position.x -= 64;
+			position.y -= 20;
 			transform.loopCount = 0;
+			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
+		}
+
+		if (cloud.HasFinished()) {
+			cloud.loopCount = 0;
+			position.x += 22;
+			position.y += 22;
+			currentAnim = &idleAnim;
+			App->grey_scene->Grey = true;
+		
+			
 			transformed = true;
 		}
 		colliderBoss->SetPos(position.x + 20, position.y);
 
 		if (attackAnim.HasFinished()) {
-			currentAnim->Reset();
-			currentAnim->loopCount = 0;
+			attackAnim.loopCount = 0;
+			attackAnim.Reset();
 			currentAnim = &idleAnim;
 		}
 
