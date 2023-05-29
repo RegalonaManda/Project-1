@@ -9,6 +9,8 @@
 #include "ModuleAudio.h"
 #include "ModuleCollisions.h"
 #include "ModuleScene.h"
+#include "ModuleGreyScene.h"
+#include "ModulePlayer.h"
 
 ModuleBoss::ModuleBoss(bool startEnabled) : Module(startEnabled)
 {
@@ -141,60 +143,67 @@ update_status ModuleBoss::Update()
 		initilized = ModuleBoss::Initialize();
 	}
 	
-
-	if (transform.currentFrame == 0.0f) {
-		App->audio->PlayFx(welcomeDoom, -1);
-	}
-
-	if (transform.HasFinished()) {
-		currentAnim = &idleAnim;
-		App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
-		transform.loopCount = 0;
-		transformed = true;
-	}
-	colliderBoss->SetPos(position.x +20, position.y);
-
-	if (attackAnim.HasFinished()) {
-		currentAnim->Reset();
-		currentAnim->loopCount = 0;
-		currentAnim = &idleAnim;
-	}
-
-	if (transformed == true){
-
-		attackCnt--;
-
-
-		if (attackCnt <= 0) {
-			if (selected == false) {
-				RandID = rand() % 4;
-				selected = true;
-			}
-			attackFinished = ModuleBoss::Attack(pattern[RandID]);
-			if (attackFinished == true) {
-				attackCnt = 1;
-
-				//Reset Heads
-				for (int i = 0; i < 6; ++i) {
-					pattern[RandID].headAttack[i].positionX = position.x;
-					pattern[RandID].headAttack[i].positionY = position.y;
-					pattern[RandID].headAttack[i].hurtCollider->SetPos(-7500, -7500);
-					pattern[RandID].headAttack[i].headCollider->SetPos(-7500, -7500);
-							
-					pattern[RandID].headAttack[i].current->Reset();
-					pattern[RandID].headAttack[i].current->loopCount = 0;
-					pattern[RandID].headAttack[i].fallen = false;
-							
-					pattern[RandID].headAttack[i].acceleration = 0.1f;
-					pattern[RandID].headAttack[i].deacceleration = 1.5f;
-					
-				}
-
-				pattern[RandID].activeHeads = 0;
-				attackFinished = false;
-				selected = false;
-			}
+	if (!beaten) {
+		if (transform.currentFrame == 0.0f) {
+			App->audio->PlayFx(welcomeDoom, -1);
 		}
+
+		if (transform.HasFinished()) {
+			App->grey_scene->Grey = true;
+			currentAnim = &idleAnim;
+			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
+			transform.loopCount = 0;
+			transformed = true;
+		}
+		colliderBoss->SetPos(position.x + 20, position.y);
+
+		if (attackAnim.HasFinished()) {
+			currentAnim->Reset();
+			currentAnim->loopCount = 0;
+			currentAnim = &idleAnim;
+		}
+
+		if (transformed == true) {
+
+			attackCnt--;
+
+
+			if (attackCnt <= 0) {
+				if (selected == false) {
+					RandID = rand() % 4;
+					selected = true;
+				}
+				attackFinished = ModuleBoss::Attack(pattern[RandID]);
+				if (attackFinished == true) {
+					attackCnt = 1;
+
+					//Reset Heads
+					for (int i = 0; i < 6; ++i) {
+						pattern[RandID].headAttack[i].positionX = position.x;
+						pattern[RandID].headAttack[i].positionY = position.y;
+						pattern[RandID].headAttack[i].hurtCollider->SetPos(-7500, -7500);
+						pattern[RandID].headAttack[i].headCollider->SetPos(-7500, -7500);
+
+						pattern[RandID].headAttack[i].current->Reset();
+						pattern[RandID].headAttack[i].current->loopCount = 0;
+						pattern[RandID].headAttack[i].fallen = false;
+
+						pattern[RandID].headAttack[i].acceleration = 0.1f;
+						pattern[RandID].headAttack[i].deacceleration = 1.5f;
+
+					}
+
+					pattern[RandID].activeHeads = 0;
+					attackFinished = false;
+					selected = false;
+				}
+			}
+
+		}
+	}
+
+	else if (beaten) {
+
 
 	}
 
@@ -246,6 +255,20 @@ void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
+	if (c1 == colliderBoss && c2->type == Collider::Type::PLAYER_SHOT) {
+		if (destroyedCountdown == 20) { 
+			hp -= App->player->attack;
+			if (hp <= 0) { beaten = true; }
+		}
+		destroyedCountdown--;
+		if (destroyedCountdown <= 0) {
+
+			// play sound effect
+			destroyedCountdown = 20;
+
+		}
+	}
+
 }
 
 bool ModuleBoss::Attack(AttackPattern& Pattern) {
@@ -253,11 +276,11 @@ bool ModuleBoss::Attack(AttackPattern& Pattern) {
 	
 	if (Pattern.activeHeads < 6) {
 		cooldown--;
-		if (cooldown <= 20) {
+		if (cooldown <= 10) {
 			currentAnim = &attackAnim;
 		}
 		if (cooldown <= 0) {
-			cooldown = 40;
+			cooldown = 20;
 			// throw new head
 			LOG("Spawning Head");
 			Pattern.activeHeads++;

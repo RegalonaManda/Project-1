@@ -26,7 +26,7 @@ public:
 	uint lethalAtt;
 
 
-	int followCnt = 600;
+	int followCnt = 400;
 	int checkPos = 50;
 
 	int attackCnt = 30;

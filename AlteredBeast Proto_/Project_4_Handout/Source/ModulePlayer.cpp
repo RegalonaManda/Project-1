@@ -1340,7 +1340,7 @@ void ModulePlayer::WolfKick() {
 void ModulePlayer::FireBallMovement() {
 
 	if (FireBall.dir == Direction::RIGHT && FireBall.CurrentShot != &FireBall.ExplodeAnim && FireBall.exploded == false) {
-		FireBall.ShotPosition.x += 4;
+		FireBall.ShotPosition.x += 6;
 
 		// Detroy when out of bounds
 		// CHANGE TO CAMERA BORDER
@@ -1351,7 +1351,7 @@ void ModulePlayer::FireBallMovement() {
 	}
 
 	if (FireBall.dir == Direction::LEFT && FireBall.CurrentShot != &FireBall.ExplodeAnim && FireBall.exploded == false) {
-		FireBall.ShotPosition.x -= 4;
+		FireBall.ShotPosition.x -= 6;
 		FireBall.collider->SetPos(FireBall.ShotPosition.x + 20, FireBall.ShotPosition.y + 17);
 	}
 

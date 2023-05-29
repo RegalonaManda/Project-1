@@ -68,7 +68,7 @@ void Neff::Update() {
 	
 	
 	Enemy::Update();
-	Ecollider->SetPos(position.x - 30, position.y + 10);
+	Ecollider->SetPos(position.x +10 , position.y + 15);
 	ActivateBoss();
 	
 }

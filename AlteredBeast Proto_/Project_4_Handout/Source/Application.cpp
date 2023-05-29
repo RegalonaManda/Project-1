@@ -18,7 +18,7 @@
 #include "ModulePower.h"
 #include "ScenePreIntro.h"
 #include "ModuleBoss.h"
-
+#include "ModuleGreyScene.h"
 
 
 
@@ -34,23 +34,25 @@ Application::Application()
 	modules[1] =	input =			new ModuleInput(true);
 	modules[2] =	textures =		new ModuleTextures(true);
 	modules[3] =	audio =			new ModuleAudio(true);
-
-	modules[6] =	scenePreIntro =	new ScenePreIntro(true);
-	modules[7] =	sceneIntro =	new SceneIntro(false);
-	modules[4] =	scene =			new ModuleScene(false);
-	modules[5] =	player =		new ModulePlayer(false);
-	modules[8] =	enemies =		new ModuleEnemies(false);
+	modules[4] = scene = new ModuleScene(false);
+	modules[5] = grey_scene = new ModuleGreyScene(false);
+	modules[6] = player = new ModulePlayer(false);
+	modules[7] =	scenePreIntro =	new ScenePreIntro(true);
+	modules[8] =	sceneIntro =	new SceneIntro(false);
 	
-	modules[9] =	bossfight =		new ModuleBoss(false);
-	modules[10] =	particles =		new ModuleParticles(true);
-	modules[11] =	scene2 =		new ModuleScene2(false);
-	modules[12] =	collisions =	new ModuleCollisions(false);
-	modules[13] =	fade =			new ModuleFadeToBlack(true);
-	modules[14] =	powers =		new ModulePower(false);
-	modules[15] =	fonts =			new ModuleFonts(true);
+	modules[9] =	player =		new ModulePlayer(false);
+	modules[10] =	enemies =		new ModuleEnemies(false);
+
+	modules[11] =	bossfight =		new ModuleBoss(false);
+	modules[12] =	particles =		new ModuleParticles(true);
+	modules[13] =	scene2 =		new ModuleScene2(false);
+	modules[14] =	collisions =	new ModuleCollisions(false);
+	modules[15] =	fade =			new ModuleFadeToBlack(true);
+	modules[16] =	powers =		new ModulePower(false);
+	modules[17] =	fonts =			new ModuleFonts(true);
 
 	// render should always be the last module
-	modules[16] =	render =		new ModuleRender(true);
+	modules[18] =	render =		new ModuleRender(true);
 }
 
 Application::~Application()

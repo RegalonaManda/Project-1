@@ -35,9 +35,11 @@ public:
 	SDL_Texture* gameOverTexture = nullptr;
 
 	SDL_Texture* layer2 = nullptr;
+	SDL_Texture* grey_layer = nullptr;
 
 	// The sprite section for the background
 	SDL_Rect background;
+	SDL_Rect grey_background;
 
 	// The different sprite sections for the flag
 

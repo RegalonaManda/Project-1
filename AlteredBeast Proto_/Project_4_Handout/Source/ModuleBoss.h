@@ -87,6 +87,7 @@ public:
 			}
 			
 			positionX -= 3 * deacceleration;
+			positionY -= 0.7;
 			if (positionX == FinalX) {
 				current = &turnAnim;
 			}
@@ -156,10 +157,12 @@ public:
 
 	fPoint position;
 
-	int cooldown = 40;
+	int cooldown = 20;
 
 	int speed;
 
+	int hp = 100;
+	int destroyedCountdown = 20;
 	
 	SDL_Texture* texture = nullptr;
 

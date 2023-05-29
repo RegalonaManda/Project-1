@@ -1,11 +1,12 @@
 #include "ModuleScene2.h"
-
+#include "ModuleBoss.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleFonts.h"
+#include "ModuleGreyScene.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
@@ -18,6 +19,11 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 	background.w = 4283;
 	background.h = 84;
 
+	grey_background.x = 0;
+	grey_background.y = 191;
+	grey_background.w = 4283;
+	grey_background.h = 84;
+	
 	hpAnim.PushBack({ 1,10,46,8 });
 	hpAnim.PushBack({ 48,10,46,8 });
 	hpAnim.PushBack({ 95,10,46,8 });
@@ -53,6 +59,7 @@ bool ModuleScene2::Start()
 	bool ret = true;
 
 	layer1 = App->textures->Load("Assets/Layer1.png");
+	grey_layer = App->textures->Load("Assets/grey_Layer1.png");
 	uiTexture = App->textures->Load("Assets/UiElements.png");
 	gameOverTexture = App->textures->Load("Assets/gameOver.png");
 
@@ -110,6 +117,10 @@ update_status ModuleScene2::PostUpdate()
 	
 	App->render->Blit(layer1, 0, 145, &background, 1.2);
 
+	if (App->grey_scene->Grey == true) {
+		App->render->Blit(grey_layer, 0, 145, &grey_background, 1.2);
+	}
+
 	App->render->Blit(uiTexture, 30, 200, &rec, 0); // blue hp dots
 	App->render->Blit(uiTexture, 40, 10, &rac, 0);// golden lives
 	App->render->Blit(uiTexture, 10, 10, &ric, 0);//human-wolf icon
@@ -117,11 +128,11 @@ update_status ModuleScene2::PostUpdate()
 		App->render->Blit(gameOverTexture, SCREEN_WIDTH/2-70 , SCREEN_HEIGHT/2-10, &reckt, 0);//Game over text
 	}
 	
-	//if (killedBoss == true) {
-	//	SDL_Rect ClearRec = { 0,0,225,10 };
-	//	App->render->Blit(uiTexture, 48, 72, &ClearRec, 0);
-	//	
-	//}
+	if (App->bossfight->beaten == true) {
+		SDL_Rect ClearRec = { 0,0,225,10 };
+		App->render->Blit(uiTexture, 48, 72, &ClearRec, 0);
+		
+	}
 	
 
 	

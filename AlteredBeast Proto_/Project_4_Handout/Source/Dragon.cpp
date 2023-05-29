@@ -140,7 +140,7 @@ void Dragon::Update() {
 			position.y--;
 			if (position.y <= initialY) {
 				attackCnt = 30;
-				followCnt = 600;
+				followCnt = 400;
 			}
 		}
 	}

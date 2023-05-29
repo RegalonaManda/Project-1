@@ -11,6 +11,7 @@
 #include "EnemyDeath.h"
 #include "WhiteWolf.h"
 #include "BrownWolf.h"
+#include "ModuleGreyScene.h"
 #include "ModulePlayer.h"
 
 
@@ -172,6 +173,7 @@ bool ModuleScene::Start()
 	App->player->Enable();
 	App->enemies->Enable();
 	App->scene2->Enable();
+	App->grey_scene->Enable();
 	App->collisions->Enable();
 	App->audio->Enable();
 	App->render->camera.dynamicSpeed = 0.5;

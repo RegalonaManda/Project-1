@@ -1,5 +1,5 @@
-#ifndef __MODULE_SCENE_H__
-#define __MODULE_SCENE_H__
+#ifndef __MODULE_GREY_SCENE_H__
+#define __MODULE_GREY_SCENE_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -8,14 +8,14 @@
 
 struct SDL_Texture;
 
-class ModuleScene : public Module
+class ModuleGreyScene : public Module
 {
 public:
 	//Constructor
-	ModuleScene(bool startEnabled);
+	ModuleGreyScene(bool startEnabled);
 
 	//Destructor
-	~ModuleScene() {}
+	~ModuleGreyScene() {}
 
 	// Called when the module is activated
 	// Loads the necessary textures for the map background
@@ -32,19 +32,17 @@ public:
 	bool CleanUp() override;
 
 public:
-	
+
 	// The scene sprite sheet loaded into an SDL_Texture
 	SDL_Texture* stone = nullptr;
-	
+
 	SDL_Texture* layer2 = nullptr;
 
 	SDL_Texture* trees = nullptr;
-	
+
 	SDL_Texture* sky = nullptr;
 
-	SDL_Texture* EnemyTexture = nullptr;
-
-	SDL_Texture* ExplosionText = nullptr;
+	
 
 
 	// The sprite section for the background
@@ -52,18 +50,16 @@ public:
 	SDL_Rect background;
 	SDL_Rect TreeLayer;
 	SDL_Rect SkyLayer;
-	SDL_Rect Enemy;
-	SDL_Rect explosion;
-	Collider* backCamLimit = nullptr;
-	Collider* frontCamLimit = nullptr;
+	
+	/*Collider* backCamLimit = nullptr;
+	Collider* frontCamLimit = nullptr;*/
 
 	float aux;
-	// The different sprite sections for the flag
-	Animation flag;
+	
 
 	//ACTIVATE CAMERASCROLL
 	bool ScreenScroll = true;
-	
+
 	int ScrollSpeed;
 
 	bool HasEnemyDied = false;
@@ -74,7 +70,7 @@ public:
 	int explosionCnt = 40;
 
 	int EnemyCN = 0;
-	
+
 	Animation deathAnim;
 	Animation explode;
 	Animation* Ecurrent;
@@ -90,17 +86,16 @@ public:
 	Animation* Wcurrent;
 	Animation WDeathRight;
 	Animation WDeathLeft;
-	
+
 
 	float waveRatio = 0.0f;
 	float waveRatioSpeed = 0.1f;
 	int waveHeight = 15;
 
 	int spawn_y = 0;
-	
 
-	
 
+	bool Grey = false;
 };
 
 #endif
