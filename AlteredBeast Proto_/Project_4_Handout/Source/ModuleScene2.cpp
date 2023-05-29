@@ -9,6 +9,8 @@
 #include "ModuleGreyScene.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
+int play = 0;
+
 ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 {
 	/*startEnabled = true;*/
@@ -131,6 +133,11 @@ update_status ModuleScene2::PostUpdate()
 	if (App->bossfight->beaten == true) {
 		SDL_Rect ClearRec = { 0,0,225,10 };
 		App->render->Blit(uiTexture, 48, 72, &ClearRec, 0);
+		if (play == 0) {
+			App->audio->PlayMusic("Assets/Music/Win.ogg");
+			play++;
+		}
+		
 		
 	}
 	

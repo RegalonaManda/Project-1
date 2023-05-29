@@ -152,7 +152,7 @@ void Neff::ActivateBoss(){
 
 
 
-		App->bossfight->position.x = position.x;
+		App->bossfight->position.x = position.x + 85;
 		App->bossfight->position.y = position.y - 60;
 		App->enemies->Disable();
 		hp = 0;
