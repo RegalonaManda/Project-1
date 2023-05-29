@@ -172,6 +172,7 @@ public:
 	SDL_Rect initialframe = { 1185,744,62,144 };
 
 	Animation* currentAnim;
+	Animation* currentRedAnim;
 
 	Animation transform; //grow + cloud (?)
 	Animation idleAnim;
