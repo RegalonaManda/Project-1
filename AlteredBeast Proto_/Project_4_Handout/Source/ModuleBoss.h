@@ -47,6 +47,7 @@ public:
 	Animation turnAnim;
 	Animation fallAnim;
 	Animation XplodeAnim;
+	Animation notActive;
 
 	void Start() {
 		
@@ -78,6 +79,8 @@ public:
 		XplodeAnim.PushBack({ 0,0,1,1 });
 		XplodeAnim.loop = false;
 		XplodeAnim.speed = 0.2f;
+
+		notActive.PushBack({ 0,0,1,1 });
 	}
 
 	int FinalX;
@@ -186,6 +189,7 @@ public:
 	Animation* currentAnim;
 	Animation* currentRedAnim;
 
+	Animation notActive;
 	Animation transform; //grow + cloud (?)
 	Animation cloud;
 	Animation idleAnim;

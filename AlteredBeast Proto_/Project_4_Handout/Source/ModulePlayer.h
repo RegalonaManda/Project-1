@@ -136,7 +136,7 @@ public:
 	fPoint position;
 
 	// The speed in which we move the player (pixels per frame)
-	int speed = 2;
+	float speed = 2;
 
 	float AirSpeed = 1.3f;
 

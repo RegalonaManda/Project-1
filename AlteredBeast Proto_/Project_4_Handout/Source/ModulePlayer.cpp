@@ -193,6 +193,8 @@ update_status ModulePlayer::Update()
 	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;
+		AllAnimations.powerUp1.Reset();
+		AllAnimations.powerUp1.loopCount = 0;
 		
 		
 		attack += 1;
@@ -203,7 +205,8 @@ update_status ModulePlayer::Update()
 	}
 	if (AllAnimations.powerUp2.HasFinished() == true) {
 		tranSt = Transform::POWER2;
-
+		AllAnimations.powerUp2.Reset();
+		AllAnimations.powerUp2.loopCount = 0;
 
 		attack += 1;
 		idle = true;
@@ -306,6 +309,7 @@ update_status ModulePlayer::Update()
 
 	//---------------Default--Movement---Function------------
  	if (tranSt == Transform::DEFAULT && transforming == false) {
+		speed = 2;
 		ModulePlayer::DefaultMovement();
 	}
 
@@ -318,6 +322,7 @@ update_status ModulePlayer::Update()
 	}
 	if (tranSt == Transform::POWER2 && transforming == false) {
 
+		speed = 2.5f;
 		ModulePlayer::Power2Movement();
 
 	}

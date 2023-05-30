@@ -40,6 +40,7 @@ bool ModuleBoss::Start()
 	welcomeDoom = App->audio->LoadFx("Assets/FX/Welcome_To_Your_Doom.wav");
 
 	//SDL_Rect initialframe = { 1185,744,62,144 };
+	notActive.PushBack({ 0,0,1,1 });
 
 	transform.PushBack({1185,744,62,144});
 	transform.PushBack({ 996,744,62,144 });
@@ -298,6 +299,14 @@ update_status ModuleBoss::Update()
 		}
 
 		currentAnim->Update();
+	}
+	else if (Neff_activ == false) {
+	    currentAnim = &notActive;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 6; j++) {
+				pattern[i].headAttack[j].current = &notActive;
+			}
+		}
 	}
 	return update_status::UPDATE_CONTINUE;
 }
