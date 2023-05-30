@@ -192,7 +192,7 @@ void ModulePlayer::Power1Movement() {
 			}
 		}
 
-		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT/* || App->input->pads[0].l_y > 0.5f*/) {
+		if (App->input->keys[SDL_SCANCODE_S] == KEY_REPEAT || App->input->pads[0].l_y > 0.5f) {
 
 			if (idle && airSt == AirState::GROUND) {
 

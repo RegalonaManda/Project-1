@@ -79,7 +79,7 @@ bool ModuleBoss::Start()
 	idleAnim.PushBack({ 19,1190, 131,156 });
 	idleAnim.PushBack({ 151,1190, 131,156 });
 	idleAnim.speed = 0.035f;
-
+	idleAnim.totalFrames = 2;
 	idleAnim.loop = true;
 
 	attackAnim.PushBack({ 307,1190, 131, 156});
@@ -207,15 +207,12 @@ update_status ModuleBoss::Update()
 			position.x -= 64;
 			position.y -= 20;
 			transform.loopCount = 0;
-			transform.Reset();
-			
 		}
 
 		if (cloud.HasFinished()) {
-			cloud.loopCount = 0;
-			cloud.Reset();
 			position.x += 22;
 			position.y += 22;
+			cloud.loopCount = 0;
 			currentAnim = &idleAnim;
 			App->grey_scene->Grey = true;
 		
@@ -373,4 +370,16 @@ bool ModuleBoss::Attack(AttackPattern& Pattern) {
 			attackCnt = 40;
 		}*/
 		return false;
+}
+
+bool ModuleBoss::CleanUp() {
+	App->textures->Unload(texture);
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 6; j++) {
+			App->textures->Unload(pattern[i].headAttack[j].text);
+		}
+	}
+	
+	return true;
 }

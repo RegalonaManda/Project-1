@@ -153,6 +153,8 @@ public:
 
 	bool Attack(AttackPattern& currentPattern);
 
+	bool CleanUp() override;
+
 	bool attackFinished;
 	int auxCnt = 40;
 	bool initilized;
