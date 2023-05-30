@@ -136,12 +136,13 @@ update_status ModuleScene2::PostUpdate()
 		App->render->Blit(uiTexture, 48, 72, &ClearRec, 0);
 
 		FadeCnt--;
-		
+		App->grey_scene->Grey = false;
+		/*
 		if (App->bossfight->IsEnabled()) {
 			App->audio->PlayMusic("Assets/Music/Win.ogg", 1.0f);
 			App->bossfight->Disable();
 			App->grey_scene->Grey = false;
-		}
+		}*/
 
 		if (FadeCnt <= 0) {
 			FadeCnt = 120;

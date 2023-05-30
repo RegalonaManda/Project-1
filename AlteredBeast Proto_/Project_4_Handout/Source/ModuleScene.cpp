@@ -404,7 +404,7 @@ bool ModuleScene::CleanUp() {
 	App->scene2->Disable();
 	App->powers->Disable();
 	App->collisions->Disable();
-	App->bossfight->Disable();
+	//App->bossfight->Disable();
 	/*App->audio->Disable();*/
 
 	return true;

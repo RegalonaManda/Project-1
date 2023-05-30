@@ -101,7 +101,7 @@ bool ModuleBoss::Start()
 	currentAnim = &transform;
 
 	beaten = false;
-	initilized = false;
+	//initilized = false;
 
 
 
@@ -190,90 +190,106 @@ bool ModuleBoss::Initialize() {
 
 update_status ModuleBoss::Update()
 {
-	if (initilized == false) {
-		initilized = ModuleBoss::Initialize();
-		initilized = true;
-	}
-	
-	if (!beaten) {
-		if (transform.currentFrame == 0.0f && playOnce == 0) {
-			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
-			App->audio->PlayFx(welcomeDoom, -1);
-			playOnce++;
+ 	if (Neff_activ == true) {
+		if (initilized == false) {
+			initilized = ModuleBoss::Initialize();
+			// Reset heads in initialization just in case
+			for (int i = 0; i < 6; ++i) {
+				pattern[RandID].headAttack[i].positionX = position.x;
+				pattern[RandID].headAttack[i].positionY = position.y;
+				pattern[RandID].headAttack[i].hurtCollider->SetPos(-7500, -7500);
+				pattern[RandID].headAttack[i].headCollider->SetPos(-7500, -7500);
+
+				
+				pattern[RandID].headAttack[i].fallen = false;
+
+				pattern[RandID].headAttack[i].acceleration = 0.1f;
+				pattern[RandID].headAttack[i].deacceleration = 1.5f;
+
+			}
+			initilized = true;
 		}
 
-		if (transform.HasFinished()) {
-			currentAnim = &cloud;
-			position.x -= 64;
-			position.y -= 20;
-			transform.loopCount = 0;
-		}
-
-		if (cloud.HasFinished()) {
-			position.x += 22;
-			position.y += 22;
-			cloud.loopCount = 0;
-			currentAnim = &idleAnim;
-			App->grey_scene->Grey = true;
-		
-			
-			transformed = true;
-		}
-		colliderBoss->SetPos(position.x + 20, position.y);
-
-		if (attackAnim.HasFinished()) {
-			attackAnim.loopCount = 0;
-			attackAnim.Reset();
-			currentAnim = &idleAnim;
-		}
-
-		if (transformed == true) {
-
-			attackCnt--;
-
-
-			if (attackCnt <= 0) {
-				if (selected == false) {
-					RandID = rand() % 4;
-					selected = true;
-				}
-				attackFinished = ModuleBoss::Attack(pattern[RandID]);
-				if (attackFinished == true) {
-					attackCnt = 1;
-
-					//Reset Heads
-					for (int i = 0; i < 6; ++i) {
-						pattern[RandID].headAttack[i].positionX = position.x;
-						pattern[RandID].headAttack[i].positionY = position.y;
-						pattern[RandID].headAttack[i].hurtCollider->SetPos(-7500, -7500);
-						pattern[RandID].headAttack[i].headCollider->SetPos(-7500, -7500);
-
-						pattern[RandID].headAttack[i].current->Reset();
-						pattern[RandID].headAttack[i].current->loopCount = 0;
-						pattern[RandID].headAttack[i].fallen = false;
-
-						pattern[RandID].headAttack[i].acceleration = 0.1f;
-						pattern[RandID].headAttack[i].deacceleration = 1.5f;
-
-					}
-
-					pattern[RandID].activeHeads = 0;
-					attackFinished = false;
-					selected = false;
-				}
+		if (!beaten) {
+			if (transform.currentFrame == 0.0f && playOnce == 0) {
+				App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
+				App->audio->PlayFx(welcomeDoom, -1);
+				playOnce++;
 			}
 
+			if (transform.HasFinished()) {
+				currentAnim = &cloud;
+				position.x -= 64;
+				position.y -= 20;
+				transform.loopCount = 0;
+			}
+
+			if (cloud.HasFinished()) {
+				position.x += 22;
+				position.y += 22;
+				cloud.loopCount = 0;
+				currentAnim = &idleAnim;
+				App->grey_scene->Grey = true;
+
+
+				transformed = true;
+			}
+			colliderBoss->SetPos(position.x + 20, position.y);
+
+			if (attackAnim.HasFinished()) {
+				attackAnim.loopCount = 0;
+				attackAnim.Reset();
+				currentAnim = &idleAnim;
+			}
+
+			if (transformed == true) {
+
+				attackCnt--;
+
+
+				if (attackCnt <= 0) {
+					if (selected == false) {
+						RandID = rand() % 4;
+						selected = true;
+					}
+					attackFinished = ModuleBoss::Attack(pattern[RandID]);
+					if (attackFinished == true) {
+						attackCnt = 1;
+
+						//Reset Heads
+						for (int i = 0; i < 6; ++i) {
+							pattern[RandID].headAttack[i].positionX = position.x;
+							pattern[RandID].headAttack[i].positionY = position.y;
+							pattern[RandID].headAttack[i].hurtCollider->SetPos(-7500, -7500);
+							pattern[RandID].headAttack[i].headCollider->SetPos(-7500, -7500);
+
+							pattern[RandID].headAttack[i].current->Reset();
+							pattern[RandID].headAttack[i].current->loopCount = 0;
+							pattern[RandID].headAttack[i].fallen = false;
+
+							pattern[RandID].headAttack[i].acceleration = 0.1f;
+							pattern[RandID].headAttack[i].deacceleration = 1.5f;
+
+						}
+
+						pattern[RandID].activeHeads = 0;
+						attackFinished = false;
+						selected = false;
+					}
+				}
+
+			}
 		}
+
+		else if (beaten) {
+			//explosion anim
+			//disable module
+			//Neff_activ = false;
+
+		}
+
+		currentAnim->Update();
 	}
-
-	else if (beaten) {
-		//explosion anim
-		//disable module
-
-	}
-
-	currentAnim->Update();
-
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -323,7 +339,11 @@ void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 	if (c1 == colliderBoss && c2->type == Collider::Type::PLAYER_SHOT) {
 		if (destroyedCountdown == 20) { 
 			hp -= App->player->attack;
-			if (hp <= 0) { beaten = true; }
+			if (hp <= 0) { 
+				beaten = true;
+				Neff_activ = false;
+			
+			}
 		}
 		destroyedCountdown--;
 		if (destroyedCountdown <= 0) {

@@ -43,7 +43,7 @@ Application::Application()
 	modules[9] =	player =		new ModulePlayer(false);
 	modules[10] =	enemies =		new ModuleEnemies(false);
 
-	modules[11] =	bossfight =		new ModuleBoss(false);
+	modules[11] =	bossfight =		new ModuleBoss(true);
 	modules[12] =	particles =		new ModuleParticles(true);
 	modules[13] =	scene2 =		new ModuleScene2(false);
 	modules[14] =	collisions =	new ModuleCollisions(false);

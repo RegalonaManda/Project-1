@@ -167,6 +167,8 @@ public:
 
 	int cooldown = 20;
 
+	bool Neff_activ = false;
+
 	int speed;
 
 	int hp = 100;

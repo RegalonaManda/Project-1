@@ -148,8 +148,13 @@ void Neff::HeadOut() {
 void Neff::ActivateBoss(){
 	
 	if (bossCountdown <= 0) {
-		App->bossfight->Enable();
+		/*App->bossfight->Enable();*/
 
+		App->bossfight->Neff_activ = true;
+		App->bossfight->hp = 100;
+		App->bossfight->beaten = false;
+		App->bossfight->initilized = false;
+		//App->bossfight->selected = false;
 		App->bossfight->position.x = position.x + 70;
 
 		App->bossfight->position.y = position.y - 60;
