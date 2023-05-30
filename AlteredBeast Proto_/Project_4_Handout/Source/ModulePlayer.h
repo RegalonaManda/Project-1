@@ -164,6 +164,17 @@ public:
 	int landing = 30;
 	bool landed = false;
 
+	enum class knock {
+
+		BUMP,
+		KNOCK,
+		NOT
+	};
+
+
+
+	knock CollideState;
+
 	bool knock = false;
 
 	void OnCollision(Collider* c1, Collider* c2) override;

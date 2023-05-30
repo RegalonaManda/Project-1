@@ -168,7 +168,7 @@ void ModulePlayer::Power1Movement() {
 					position.x += speed;
 				}
 				//Air
-				if (airSt == AirState::AIRBORN && knock == false) {
+				if (airSt == AirState::AIRBORN && CollideState == knock::NOT) {
 					position.x += AirSpeed;
 				}
 			}
@@ -186,7 +186,7 @@ void ModulePlayer::Power1Movement() {
 					position.x -= speed;
 				}
 				//Air
-				if (airSt == AirState::AIRBORN && knock == false) {
+				if (airSt == AirState::AIRBORN && CollideState == knock::NOT) {
 					position.x -= AirSpeed;
 				}
 			}

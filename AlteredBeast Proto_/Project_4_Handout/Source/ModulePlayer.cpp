@@ -58,7 +58,7 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	//Default airstate
 	airSt = AirState::GROUND;
 	//Default transformation
-	tranSt = Transform::DEFAULT;
+	tranSt = Transform::WOLF;
 	//default attack 
 	attack = 1;
 
@@ -161,6 +161,7 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::Update()
 {
+	
 	// calculate the max h for the current ground lvl
   	if (airSt == AirState::GROUND) {
 		MAX_HEIGHT = position.y - 52   ;
@@ -285,12 +286,24 @@ update_status ModulePlayer::Update()
 		position.y -= impulse;
 	}
 	// KNOCKBACK NEW
-	else if (airSt == AirState::AIRBORN && knock == true && transforming == false) {
+	else if (airSt == AirState::AIRBORN && CollideState != knock::NOT && transforming == false) {
 		position.y -= knockImpulse;
-		position.x -= 0.5f;
+		if (CollideState == knock::BUMP) { position.x -= 0.5f; }
+		else if (CollideState == knock::KNOCK) { position.x -= 1; }
+		knockImpulse -= Gravity;
+		if (tranSt == Transform::DEFAULT) {
+			if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.knockBackRight; }
+			if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.knockBackLeft; }
+		}
+		else if (tranSt == Transform::WOLF) {
+			if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.W_knockedR; }
+			if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.W_knockedR; }
+		}
 	}
-	// knocked stuff
-	if (airSt == AirState::AIRBORN && jumped == false && knock == false) {
+	
+
+	// Falling from platform
+	if (airSt == AirState::AIRBORN && jumped == false && CollideState == knock::NOT) {
 		position.y += 3;
 	}
 
@@ -351,11 +364,8 @@ update_status ModulePlayer::Update()
 		{
 			
 			airSt = AirState::AIRBORN;
-			knockImpulse -= Gravity;
-			position.y -= knockImpulse;
-
-			//CHANGE
-			position.x--;
+			
+		
 
 			iTimer--;
 			if (iTimer <= 0) {
@@ -481,7 +491,10 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		//-------------------------------------Bumping into enemy----------------------------
 		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 		{
-
+			CollideState = knock::BUMP;
+			knockImpulse = 1.0f;
+			iFrames = true;
+			position.y -= 20.0f;
 			//PlayerBump();
 			/*knockImpulse = 1.0f;
 			up to change */
@@ -502,6 +515,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
 		{
 			Deathcollider->SetPos(1300, 1200);
+			CollideState = knock::KNOCK;
 			firstHit = true;
 
 			knockImpulse = 1.0f;
@@ -595,6 +609,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		airSt = AirState::GROUND;
 		idle = true;
 		jumped = false;
+		CollideState = knock::NOT;
 		knock = false;
 		
 		
@@ -886,7 +901,7 @@ void ModulePlayer::WereWolfMovement() {
 					position.x += speed;
 				}
 				//Air
-				if (airSt == AirState::AIRBORN && knock == false) {
+				if (airSt == AirState::AIRBORN && CollideState == knock::NOT) {
 					position.x += AirSpeed;
 				}
 			}
@@ -905,7 +920,7 @@ void ModulePlayer::WereWolfMovement() {
 				}
 			}
 			//Air
-			if (airSt == AirState::AIRBORN && knock == false) {
+			if (airSt == AirState::AIRBORN && CollideState == knock::NOT) {
 				position.x -= AirSpeed;
 			}
 		}
