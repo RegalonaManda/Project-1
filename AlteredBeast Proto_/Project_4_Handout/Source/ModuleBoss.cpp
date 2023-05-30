@@ -192,7 +192,7 @@ bool ModuleBoss::Initialize() {
 
 	srand(time(NULL));
 	colliderBoss = App->collisions->AddCollider({ 0,0,85,150 }, Collider::Type::ENEMY, (Module*)App->bossfight);
-
+	transformed = false;
 	return true;
 
 }

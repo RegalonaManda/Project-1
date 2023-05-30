@@ -99,12 +99,13 @@ public:
 			acceleration += 0.05f;
 			positionY += 2 * acceleration;
 			current = &fallAnim;
+			headCollider->SetPos(positionX, positionY);
+			hurtCollider->SetPos(positionX, positionY);
 		}
 		
 
 		if (!fallen) {
-			headCollider->SetPos(positionX, positionY);
-			hurtCollider->SetPos(positionX, positionY);
+			
 		}
 		
 		
