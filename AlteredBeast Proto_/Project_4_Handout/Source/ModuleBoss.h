@@ -54,8 +54,12 @@ public:
 		headCollider = App->collisions->AddCollider({ 0,0,48,40 }, Collider::Type::ENEMY_SHOT, (Module*)App->bossfight);
 		hurtCollider = App->collisions->AddCollider({ 1,1,47,39 }, Collider::Type::ENEMY, (Module*)App->bossfight);
 
-		travelAnim.PushBack({1139, 1422, 48, 48});
-		travelAnim.PushBack({1090, 1422, 48, 48});
+		
+	};
+
+	void Anims() {
+		travelAnim.PushBack({ 1139, 1422, 48, 48 });
+		travelAnim.PushBack({ 1090, 1422, 48, 48 });
 		travelAnim.loop = false;
 		travelAnim.speed = 0.08f;
 
@@ -63,9 +67,9 @@ public:
 		turnAnim.loop = true;
 
 		fallAnim.PushBack({ 992,1422,48,48 });
-		fallAnim.loop = true; 
+		fallAnim.loop = true;
 
-		XplodeAnim.PushBack({ 1186,1512,61,45});
+		XplodeAnim.PushBack({ 1186,1512,61,45 });
 		XplodeAnim.PushBack({ 1124,1512,61,45 });
 		XplodeAnim.PushBack({ 1062,1512,61,45 });
 		XplodeAnim.PushBack({ 1000,1512,61,45 });
@@ -74,10 +78,7 @@ public:
 		XplodeAnim.PushBack({ 0,0,1,1 });
 		XplodeAnim.loop = false;
 		XplodeAnim.speed = 0.2f;
-
-		
-
-	};
+	}
 
 	int FinalX;
 

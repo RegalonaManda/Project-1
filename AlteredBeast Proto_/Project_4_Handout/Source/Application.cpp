@@ -40,19 +40,19 @@ Application::Application()
 	modules[7] =	scenePreIntro =	new ScenePreIntro(true);
 	modules[8] =	sceneIntro =	new SceneIntro(false);
 	
-	modules[9] =	player =		new ModulePlayer(false);
-	modules[10] =	enemies =		new ModuleEnemies(false);
+	
+	modules[9] =	enemies =		new ModuleEnemies(false);
 
-	modules[11] =	bossfight =		new ModuleBoss(true);
-	modules[12] =	particles =		new ModuleParticles(true);
-	modules[13] =	scene2 =		new ModuleScene2(false);
-	modules[14] =	collisions =	new ModuleCollisions(false);
-	modules[15] =	fade =			new ModuleFadeToBlack(true);
-	modules[16] =	powers =		new ModulePower(false);
-	modules[17] =	fonts =			new ModuleFonts(true);
+	modules[10] =	bossfight =		new ModuleBoss(true);
+	modules[11] =	particles =		new ModuleParticles(true);
+	modules[12] =	scene2 =		new ModuleScene2(false);
+	modules[13] =	collisions =	new ModuleCollisions(false);
+	modules[14] =	fade =			new ModuleFadeToBlack(true);
+	modules[15] =	powers =		new ModulePower(false);
+	modules[16] =	fonts =			new ModuleFonts(true);
 
 	// render should always be the last module
-	modules[18] =	render =		new ModuleRender(true);
+	modules[17] =	render =		new ModuleRender(true);
 }
 
 Application::~Application()

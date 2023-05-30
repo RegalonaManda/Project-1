@@ -92,9 +92,18 @@ bool ModuleBoss::Start()
 	attackAnim.speed = 0.3f;
 	attackAnim.loop = false;
 
+
+
+	for (int i = 0; i < 4; ++i) {
+		for (int j = 0; j < 6; ++j) {
+			pattern[i].headAttack[j].Anims();
+		}
+	}
+
+
 	App->scene->ScreenScroll = false;
 
-	colliderBoss = App->collisions->AddCollider({ 0,0,85,150 }, Collider::Type::ENEMY, (Module*)App->bossfight);
+	
 
 	//pattern[0].headAttack[0].finalX = 
 
@@ -182,7 +191,7 @@ bool ModuleBoss::Initialize() {
 	pattern[3].headAttack[5].FinalX = position.x - 98  - 40;
 
 	srand(time(NULL));
-	
+	colliderBoss = App->collisions->AddCollider({ 0,0,85,150 }, Collider::Type::ENEMY, (Module*)App->bossfight);
 
 	return true;
 

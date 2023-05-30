@@ -4,7 +4,7 @@
 #include "Globals.h"
 
 
-#define NUM_MODULES 19 // 1 less than actual amount, to be used as arr index
+#define NUM_MODULES 18 // 1 less than actual amount, to be used as arr index
 
 //ALL NEW MODULES DEFINED HERE                                                                                                                                                              
 class Module;
