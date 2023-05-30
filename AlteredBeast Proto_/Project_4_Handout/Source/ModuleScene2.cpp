@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleFonts.h"
+#include "ModuleAudio.h"
 #include "ModuleGreyScene.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -132,6 +133,10 @@ update_status ModuleScene2::PostUpdate()
 		SDL_Rect ClearRec = { 0,0,225,10 };
 		App->render->Blit(uiTexture, 48, 72, &ClearRec, 0);
 		
+		if (App->bossfight->IsEnabled()) {
+			App->audio->PlayMusic("Assets/Music/Win.ogg", 1.0f);
+			App->bossfight->Disable();
+		}
 	}
 	
 

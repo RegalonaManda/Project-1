@@ -128,6 +128,11 @@ update_status SceneIntro::Update()
 		currentAnim->Update();
 	}
 
+	if (App->input->keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN || App->input->pads[0].guide) {
+
+		return update_status::UPDATE_STOP;
+	}
+
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || App->input->pads[0].start)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->scene, 60.0f);

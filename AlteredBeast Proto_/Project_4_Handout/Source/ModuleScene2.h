@@ -52,6 +52,8 @@ public:
 
 	bool killedBoss = false;
 	int FadeCnt = 120;
+
+
 };
 
 #endif

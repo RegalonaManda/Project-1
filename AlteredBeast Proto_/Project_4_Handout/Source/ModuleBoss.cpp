@@ -165,6 +165,7 @@ update_status ModuleBoss::Update()
 	
 	if (!beaten) {
 		if (transform.currentFrame == 0.0f) {
+			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
 			App->audio->PlayFx(welcomeDoom, -1);
 		}
 
@@ -173,7 +174,7 @@ update_status ModuleBoss::Update()
 			position.x -= 64;
 			position.y -= 20;
 			transform.loopCount = 0;
-			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
+			
 		}
 
 		if (cloud.HasFinished()) {
@@ -234,7 +235,8 @@ update_status ModuleBoss::Update()
 	}
 
 	else if (beaten) {
-
+		//explosion anim
+		//disable module
 
 	}
 
