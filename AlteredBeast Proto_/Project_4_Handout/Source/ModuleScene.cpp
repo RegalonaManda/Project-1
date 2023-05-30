@@ -119,7 +119,7 @@ bool ModuleScene::Start()
 	EnemyTexture = App->textures->Load("Assets/EnemiesProto.png");
 	ExplosionText = App->textures->Load("Assets/Particle.png");
 
-
+	App->player->tranSt = Transform::DEFAULT;
 
 	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
 

@@ -24,7 +24,7 @@ ModuleBoss::~ModuleBoss()
 }
 
 int  i = 0;
-bool initilized = false;
+
 
 bool ModuleBoss::Start()
 {
@@ -100,7 +100,8 @@ bool ModuleBoss::Start()
 
 	currentAnim = &transform;
 
-
+	beaten = false;
+	initilized = false;
 
 
 
@@ -111,12 +112,41 @@ bool ModuleBoss::Start()
 
 bool ModuleBoss::Initialize() {
 
+	currentAnim = &transform;
+	hp = 100;
+	attackCnt = 40;
+	idleAnim.Reset();
+	idleAnim.loopCount = 0;
+	attackAnim.Reset();
+	attackAnim.loopCount = 0;
+	cloud.Reset();
+	cloud.loopCount = 0;
+	transform.Reset();
+	transform.loopCount = 0;
+	//transformed = false;
+	playOnce = 0;
+
 	// Define attack Patterns
 	for (int i = 0; i < 4; ++i) {
+		pattern[i].activeHeads = 0;
  		for (int j = 0; j < 6; ++j) {
 			pattern[i].headAttack[j].Start();
 			pattern[i].headAttack[j].positionX = position.x;
 			pattern[i].headAttack[j].positionY = position.y;
+
+			pattern[i].headAttack[j].travelAnim.Reset();
+			pattern[i].headAttack[j].travelAnim.loopCount = 0;
+			pattern[i].headAttack[j].turnAnim.Reset();
+			pattern[i].headAttack[j].turnAnim.loopCount = 0;
+			pattern[i].headAttack[j].fallAnim.Reset();
+			pattern[i].headAttack[j].fallAnim.loopCount = 0;
+			pattern[i].headAttack[j].XplodeAnim.Reset();
+			pattern[i].headAttack[j].XplodeAnim.loopCount = 0;
+			pattern[i].headAttack[j].fallen = false;
+
+			pattern[i].headAttack[j].acceleration = 0.1f;
+			pattern[i].headAttack[j].deacceleration = 1.5f;
+			
 		}
 	}
 
@@ -152,6 +182,7 @@ bool ModuleBoss::Initialize() {
 	pattern[3].headAttack[5].FinalX = position.x - 98  - 40;
 
 	srand(time(NULL));
+	
 
 	return true;
 
@@ -161,12 +192,14 @@ update_status ModuleBoss::Update()
 {
 	if (initilized == false) {
 		initilized = ModuleBoss::Initialize();
+		initilized = true;
 	}
 	
 	if (!beaten) {
-		if (transform.currentFrame == 0.0f) {
+		if (transform.currentFrame == 0.0f && playOnce == 0) {
 			App->audio->PlayMusic("Assets/Music/Gaum_Boss.ogg", 0.0f);
 			App->audio->PlayFx(welcomeDoom, -1);
+			playOnce++;
 		}
 
 		if (transform.HasFinished()) {
@@ -174,11 +207,13 @@ update_status ModuleBoss::Update()
 			position.x -= 64;
 			position.y -= 20;
 			transform.loopCount = 0;
+			transform.Reset();
 			
 		}
 
 		if (cloud.HasFinished()) {
 			cloud.loopCount = 0;
+			cloud.Reset();
 			position.x += 22;
 			position.y += 22;
 			currentAnim = &idleAnim;

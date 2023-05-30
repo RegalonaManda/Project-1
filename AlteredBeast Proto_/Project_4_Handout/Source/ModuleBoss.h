@@ -41,6 +41,8 @@ public:
 
 	bool fallen = false;
 
+	
+
 	Animation travelAnim;
 	Animation turnAnim;
 	Animation fallAnim;
@@ -153,6 +155,10 @@ public:
 
 	bool attackFinished;
 	int auxCnt = 40;
+	bool initilized;
+	int playOnce = 0;
+
+
 public:
 
 	fPoint position;
