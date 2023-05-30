@@ -150,9 +150,8 @@ void Neff::ActivateBoss(){
 	if (bossCountdown <= 0) {
 		App->bossfight->Enable();
 
+		App->bossfight->position.x = position.x + 70;
 
-
-		App->bossfight->position.x = position.x + 85;
 		App->bossfight->position.y = position.y - 60;
 		App->enemies->Disable();
 		hp = 0;

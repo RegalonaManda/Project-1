@@ -325,7 +325,9 @@ update_status ModulePlayer::Update()
 	if (tranSt == Transform::WOLF && transforming == false) {
 		ModulePlayer::WereWolfMovement();
 		if (playOnce == 0) {
-			App->audio->PlayMusic("Assets/Music/Altered_Beast.ogg");
+
+			App->audio->PlayMusic("Assets/Music/Altered_Beast.ogg", 1.0f);
+
 			playOnce++;
 		}
 		

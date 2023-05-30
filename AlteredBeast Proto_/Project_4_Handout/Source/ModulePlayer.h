@@ -218,7 +218,7 @@ public:
 
 	bool Platform = false;
 
-
+	int playOnce = 0;
 
 	int Neff_pushBack = 20;
 	int delay = 0;

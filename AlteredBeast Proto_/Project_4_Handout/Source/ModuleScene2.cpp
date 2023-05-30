@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleFonts.h"
+#include "ModuleAudio.h"
 #include "ModuleGreyScene.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -139,6 +140,10 @@ update_status ModuleScene2::PostUpdate()
 		}
 		
 		
+		if (App->bossfight->IsEnabled()) {
+			App->audio->PlayMusic("Assets/Music/Win.ogg", 1.0f);
+			App->bossfight->Disable();
+		}
 	}
 	
 
