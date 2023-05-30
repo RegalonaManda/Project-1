@@ -46,7 +46,7 @@
 class PlayerAnim {
 public:
 	
-	
+	friend class ModulePlayer;
 
 
 
@@ -695,6 +695,10 @@ public:
 		W_knockedR.PushBack({ 809,1031,148,92 });
 
 		W_knockedL.PushBack({ 511,1124,148,92 });
+
+
+		
+
 	}
 };
 

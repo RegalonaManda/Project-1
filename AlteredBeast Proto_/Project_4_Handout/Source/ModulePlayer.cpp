@@ -61,12 +61,47 @@ ModulePlayer::ModulePlayer(bool startEnabled) : Module(startEnabled)
 	tranSt = Transform::DEFAULT;
 	//default attack 
 	attack = 1;
+
+	//-------Fire Ball Animations-----------//
+
+	FireBall.despawned.PushBack({ 2,2,1,1 });
+	FireBall.despawned.loop = true;
+
+	FireBall.GrowAnim.PushBack({ 1,115,73,65 });
+	FireBall.GrowAnim.PushBack({ 75,115,73,65 });
+	FireBall.GrowAnim.PushBack({ 149,115,73,65 });
+	FireBall.GrowAnim.PushBack({ 223,115,73,65 });
+	FireBall.GrowAnim.speed = 0.1f;
+	FireBall.GrowAnim.loop = false;
+
+	FireBall.TravelAnim.PushBack({ 297,115, 73,65 });
+	FireBall.TravelAnim.PushBack({ 371,115,73,65 });
+	FireBall.TravelAnim.speed = 0.07f;
+	FireBall.TravelAnim.loop = true;
+
+	FireBall.ExplodeAnim.PushBack({ 445,115,73,65 });
+	FireBall.ExplodeAnim.PushBack({ 519,115,73,65 });
+	FireBall.ExplodeAnim.PushBack({ 593,115,73,65 });
+	FireBall.ExplodeAnim.speed = 0.14f;
+	FireBall.ExplodeAnim.loop = false;
+
+	FireBall.GrowAnimL.PushBack({ 593,201,73,65 });
+	FireBall.GrowAnimL.PushBack({ 519,201,73,65 });
+	FireBall.GrowAnimL.PushBack({ 445,201,73,65 });
+	FireBall.GrowAnimL.PushBack({ 371,201,73,65 });
+	FireBall.GrowAnimL.speed = 0.1f;
+	FireBall.GrowAnimL.loop = false;
+
+	FireBall.TravelAnimL.PushBack({ 297,201,73,65 });
+	FireBall.TravelAnimL.PushBack({ 223,201,73,65 });
+	FireBall.TravelAnimL.speed = 0.07f;
+	FireBall.TravelAnimL.loop = true;
 	
 }
 
 
 int playOnce = 0;
-WolfShot FireBall;
+
 ModulePlayer::~ModulePlayer()
 {
 
@@ -110,40 +145,6 @@ bool ModulePlayer::Start()
 	FireBall.wolfRec = { 0,0,31,31 };
 	FireBall.collider = App->collisions->AddCollider(FireBall.wolfRec, Collider::Type::PLAYER_SHOT, this);
 	FireBall.ShotPosition = position;
-
-	FireBall.despawned.PushBack({ 2,2,1,1 });
-	FireBall.despawned.loop = true;
-
-	FireBall.GrowAnim.PushBack({ 1,115,73,65 });
-	FireBall.GrowAnim.PushBack({ 75,115,73,65 });
-	FireBall.GrowAnim.PushBack({ 149,115,73,65 });
-	FireBall.GrowAnim.PushBack({ 223,115,73,65 });
-	FireBall.GrowAnim.speed = 0.1f;
-	FireBall.GrowAnim.loop = false;
-
-	FireBall.TravelAnim.PushBack({ 297,115, 73,65 });
-	FireBall.TravelAnim.PushBack({ 371,115,73,65 });
-	FireBall.TravelAnim.speed = 0.07f;
-	FireBall.TravelAnim.loop = true;
-
-	FireBall.ExplodeAnim.PushBack({ 445,115,73,65 });
-	FireBall.ExplodeAnim.PushBack({ 519,115,73,65 });
-	FireBall.ExplodeAnim.PushBack({ 593,115,73,65 });
-	FireBall.ExplodeAnim.speed = 0.14f;
-	FireBall.ExplodeAnim.loop = false;
-
-	FireBall.GrowAnimL.PushBack({ 593,201,73,65 });
-	FireBall.GrowAnimL.PushBack({ 519,201,73,65 });
-	FireBall.GrowAnimL.PushBack({ 445,201,73,65 });
-	FireBall.GrowAnimL.PushBack({ 371,201,73,65 });
-	FireBall.GrowAnimL.speed = 0.1f;
-	FireBall.GrowAnimL.loop = false;
-
-	FireBall.TravelAnimL.PushBack({ 297,201,73,65 });
-	FireBall.TravelAnimL.PushBack({ 223,201,73,65 });
-	FireBall.TravelAnimL.speed = 0.07f;
-	FireBall.TravelAnimL.loop = true;
-
 
 	FireBall.CurrentShot = &FireBall.despawned;
 

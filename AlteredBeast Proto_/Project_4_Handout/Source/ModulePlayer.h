@@ -96,7 +96,7 @@ public:
 
 	void FireBallMovement();
 
-	WolfShot FBall;
+	WolfShot FireBall;
 
 	Direction dir;
 	AirState airSt;
