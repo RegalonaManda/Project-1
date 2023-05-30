@@ -83,6 +83,23 @@ bool ModuleBoss::Start()
 	idleAnim.totalFrames = 2;
 	idleAnim.loop = true;
 
+	red_idleAnim.PushBack({ 37, 1686, 131,156 });
+	red_idleAnim.PushBack({ 169,1686, 131,156 });
+	red_idleAnim.speed = 0.035f;
+	red_idleAnim.totalFrames = 2;
+	red_idleAnim.loop = true;
+
+
+	red_attackAnim.PushBack({ 32 ,1897, 131, 156 });
+	red_attackAnim.PushBack({ 164,1897, 131,156 });
+	red_attackAnim.PushBack({ 296,1897, 131,156 });
+	red_attackAnim.PushBack({ 428,1897, 131,156 });
+	red_attackAnim.PushBack({ 560,1897, 131,156 });
+	red_attackAnim.PushBack({ 692,1897, 131,156 });
+	red_attackAnim.PushBack({ 824,1897, 131,156 });
+	red_attackAnim.speed = 0.3f;
+	red_attackAnim.loop = false;
+
 	attackAnim.PushBack({ 307,1190, 131, 156});
 	attackAnim.PushBack({ 439,1190, 131,156 });
 	attackAnim.PushBack({ 571,1190, 131,156 });
@@ -127,8 +144,14 @@ bool ModuleBoss::Initialize() {
 	attackCnt = 40;
 	idleAnim.Reset();
 	idleAnim.loopCount = 0;
+	red_idleAnim.Reset();
+	red_idleAnim.loopCount = 0;
+
 	attackAnim.Reset();
 	attackAnim.loopCount = 0;
+	red_attackAnim.Reset();
+	red_attackAnim.loopCount = 0;
+
 	cloud.Reset();
 	cloud.loopCount = 0;
 	transform.Reset();
@@ -227,6 +250,8 @@ update_status ModuleBoss::Update()
 				playOnce++;
 			}
 
+			Redcnt--;
+
 			if (transform.HasFinished()) {
 				currentAnim = &cloud;
 				position.x -= 64;
@@ -239,6 +264,7 @@ update_status ModuleBoss::Update()
 				position.y += 22;
 				cloud.loopCount = 0;
 				currentAnim = &idleAnim;
+				currentRedAnim = &red_idleAnim;
 				App->grey_scene->Grey = true;
 
 
@@ -246,10 +272,14 @@ update_status ModuleBoss::Update()
 			}
 			colliderBoss->SetPos(position.x + 20, position.y);
 
-			if (attackAnim.HasFinished()) {
+			if (attackAnim.HasFinished() || red_attackAnim.HasFinished()) {
 				attackAnim.loopCount = 0;
 				attackAnim.Reset();
+				red_attackAnim.loopCount = 0;
+				red_attackAnim.Reset();
+
 				currentAnim = &idleAnim;
+				currentRedAnim = &red_idleAnim;
 			}
 
 			if (transformed == true) {
@@ -313,9 +343,14 @@ update_status ModuleBoss::Update()
 
 update_status ModuleBoss::PostUpdate()
 {
-	
-	SDL_Rect BossRec = currentAnim->GetCurrentFrame();
-	App->render->Blit(texture, position.x, position.y, &BossRec);
+	if(Redcnt <= 0){
+		SDL_Rect BossRec = currentAnim->GetCurrentFrame();
+		App->render->Blit(texture, position.x, position.y, &BossRec);
+	}
+	else{
+		SDL_Rect RedBossRec = currentRedAnim->GetCurrentFrame();
+		App->render->Blit(texture, position.x, position.y, &RedBossRec);
+	}
 
 
 	/*SDL_Rect Head = pattern[currentPattern_].headAttack[currentHead].current->GetCurrentFrame();
@@ -350,12 +385,12 @@ void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 			pattern[RandID].headAttack[i].current = &pattern[RandID].headAttack[i].XplodeAnim;
 			currentHead++;
 
-
 		}
 	}
 
 	if (c1 == colliderBoss && c2->type == Collider::Type::PLAYER_SHOT) {
 		if (destroyedCountdown == 20) { 
+			Redcnt = 20;
 			hp -= App->player->attack;
 			if (hp <= 0) { 
 				beaten = true;
@@ -381,6 +416,7 @@ bool ModuleBoss::Attack(AttackPattern& Pattern) {
 		cooldown--;
 		if (cooldown <= 10) {
 			currentAnim = &attackAnim;
+			currentRedAnim = &attackAnim;
 		}
 		if (cooldown <= 0) {
 			cooldown = 20;

@@ -18,6 +18,7 @@
 #include "ModuleFadeToBlack.h"
 #include <stdio.h>
 #include "SceneIntro.h"
+#include "ModuleBoss.h"
 
 
 #include "SDL/include/SDL.h"
@@ -155,6 +156,8 @@ bool ModulePlayer::Start()
 	start = false;
 	attack = 1;
 	
+	App->bossfight->Neff_activ = false;
+
 	
 	return ret;
 }

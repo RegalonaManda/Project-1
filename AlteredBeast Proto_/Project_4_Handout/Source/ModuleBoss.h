@@ -193,8 +193,10 @@ public:
 	Animation transform; //grow + cloud (?)
 	Animation cloud;
 	Animation idleAnim;
+	Animation red_idleAnim;
 	Animation attackAnim;
-	Animation hitAnim;
+	Animation red_attackAnim;
+	
 	Animation deathAnim;
 
 	fPoint spawnPos;
@@ -215,7 +217,8 @@ public:
 	int currentHead = 0;
 	int currentPattern_ = 0;
 
-	
+	bool Red = false;
+	int Redcnt = 0;
 
 	// Sound effects indices
 	uint welcomeDoom = 0;
