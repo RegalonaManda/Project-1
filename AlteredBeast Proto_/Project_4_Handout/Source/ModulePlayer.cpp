@@ -297,7 +297,7 @@ update_status ModulePlayer::Update()
 		}
 		else if (tranSt == Transform::WOLF) {
 			if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.W_knockedR; }
-			if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.W_knockedR; }
+			if (dir == Direction::LEFT) { currentAnimation =  &AllAnimations.W_knockedL; }
 		}
 	}
 	
@@ -883,10 +883,10 @@ void ModulePlayer::WereWolfMovement() {
 			currentAnimation = &AllAnimations.W_crouchL;
 			Pcollider->SetPos(-5612, -5612);
 		}
-		if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN) {
+		if (idle == true && dir == Direction::RIGHT && airSt == AirState::AIRBORN && CollideState == knock::NOT) {
 			currentAnimation = &AllAnimations.W_jumpR;
 		}
-		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN) {
+		if (idle == true && dir == Direction::LEFT && airSt == AirState::AIRBORN && CollideState == knock::NOT) {
 			currentAnimation = &AllAnimations.W_jumpL;
 		}
 

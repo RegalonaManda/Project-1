@@ -692,9 +692,9 @@ public:
 
 		W_jump_punchL.PushBack({ 660,752,148,92 });
 
-		W_knockedR.PushBack({ 809,1031,148,92 });
-
-		W_knockedL.PushBack({ 511,1124,148,92 });
+		W_knockedR.PushBack({ 942,1215,148,92 });
+		
+		W_knockedL.PushBack({ 644,1308,148,92 });
 
 
 		

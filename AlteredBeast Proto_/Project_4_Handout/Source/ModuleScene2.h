@@ -53,6 +53,7 @@ public:
 	bool killedBoss = false;
 	int FadeCnt = 120;
 
+	int playOnce = 0;
 
 };
 
