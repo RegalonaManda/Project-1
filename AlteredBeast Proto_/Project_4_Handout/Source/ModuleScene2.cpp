@@ -164,3 +164,15 @@ update_status ModuleScene2::PostUpdate()
 
 	return update_status::UPDATE_CONTINUE;
 }
+
+
+bool ModuleScene2::CleanUp() {
+
+	LOG("Freeing Scene2 textures")
+	App->textures->Unload(layer1);
+	App->textures->Unload(grey_layer);
+	App->textures->Unload(uiTexture);
+	App->textures->Unload(gameOverTexture);
+
+	return true;
+}

@@ -1398,3 +1398,13 @@ void ModulePlayer::FireBallMovement() {
 
 	
 }
+
+bool ModulePlayer::CleanUp() {
+
+	LOG("Freeing Player textures");
+	App->textures->Unload(texture);
+	App->textures->Unload(FireBall.ShotText);
+
+	return true;
+
+}
