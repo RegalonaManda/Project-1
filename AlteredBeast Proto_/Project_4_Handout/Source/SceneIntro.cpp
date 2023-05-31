@@ -165,3 +165,12 @@ update_status SceneIntro::PostUpdate()
 
 	return update_status::UPDATE_CONTINUE;
 }
+
+
+bool SceneIntro::CleanUp() {
+
+	LOG("Unloading SceneIntro assets");
+	App->textures->Unload(assetsTex);
+
+	return true;
+}

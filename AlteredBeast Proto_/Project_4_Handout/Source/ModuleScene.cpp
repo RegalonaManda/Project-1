@@ -111,6 +111,7 @@ bool ModuleScene::Start()
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 0.0f);
 	App->grey_scene->Grey = false;
 	bool ret = true;
+	
 
 	layer2 = App->textures->Load("Assets/Layer2.png");
 	stone = App->textures->Load("Assets/stone.png");
@@ -404,8 +405,8 @@ bool ModuleScene::CleanUp() {
 	App->scene2->Disable();
 	App->powers->Disable();
 	App->collisions->Disable();
-	//App->bossfight->Disable();
-	/*App->audio->Disable();*/
+
+	//App->audio->Disable();
 
 	return true;
 }

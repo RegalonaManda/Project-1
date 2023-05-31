@@ -1405,6 +1405,8 @@ bool ModulePlayer::CleanUp() {
 	App->textures->Unload(texture);
 	App->textures->Unload(FireBall.ShotText);
 
+
+
 	return true;
 
 }

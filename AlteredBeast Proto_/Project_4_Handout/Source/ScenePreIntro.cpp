@@ -65,3 +65,10 @@ update_status ScenePreIntro::PostUpdate()
 
 	return update_status::UPDATE_CONTINUE;
 }
+
+bool ScenePreIntro::CleanUp() {
+
+	LOG("Unloading Scene PreIntro texture");
+	App->textures->Unload(bgTexture);
+	return true;
+}
