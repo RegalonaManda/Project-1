@@ -51,7 +51,7 @@ public:
 
 	void Start() {
 		
-		text = App->textures->Load("Assets/Boss spsheet Proto.png");
+		
 		headCollider = App->collisions->AddCollider({ 0,0,48,40 }, Collider::Type::ENEMY_SHOT, (Module*)App->bossfight);
 		hurtCollider = App->collisions->AddCollider({ 1,1,47,39 }, Collider::Type::ENEMY, (Module*)App->bossfight);
 
@@ -59,6 +59,7 @@ public:
 	};
 
 	void Anims() {
+		text = App->textures->Load("Assets/Boss spsheet Proto.png");
 		travelAnim.PushBack({ 1139, 1422, 48, 48 });
 		travelAnim.PushBack({ 1090, 1422, 48, 48 });
 		travelAnim.loop = false;

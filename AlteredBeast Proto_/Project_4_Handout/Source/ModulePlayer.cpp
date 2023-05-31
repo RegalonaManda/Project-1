@@ -157,6 +157,7 @@ bool ModulePlayer::Start()
 	attack = 1;
 	
 	App->bossfight->Neff_activ = false;
+	
 
 	
 	return ret;

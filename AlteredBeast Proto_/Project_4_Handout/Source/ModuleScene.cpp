@@ -109,7 +109,7 @@ bool ModuleScene::Start()
 	LOG("Loading background assets");
 
 	App->audio->PlayMusic("Assets/Music/rise-from-your-grave.ogg", 0.0f);
-
+	App->grey_scene->Grey = false;
 	bool ret = true;
 
 	layer2 = App->textures->Load("Assets/Layer2.png");

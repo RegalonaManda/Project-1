@@ -270,7 +270,7 @@ update_status ModuleBoss::Update()
 
 				transformed = true;
 			}
-			colliderBoss->SetPos(position.x + 20, position.y);
+			
 
 			if (attackAnim.HasFinished() || red_attackAnim.HasFinished()) {
 				attackAnim.loopCount = 0;
@@ -283,7 +283,7 @@ update_status ModuleBoss::Update()
 			}
 
 			if (transformed == true) {
-
+				colliderBoss->SetPos(position.x + 20, position.y);
 				attackCnt--;
 
 
@@ -332,6 +332,7 @@ update_status ModuleBoss::Update()
 	}
 	else if (Neff_activ == false) {
 	    currentAnim = &notActive;
+		position.y += 3000;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 6; j++) {
 				pattern[i].headAttack[j].current = &notActive;
