@@ -131,16 +131,16 @@ void ModulePlayer::DefaultMovement() {
 
 	// Landing isn't used yet... i'm dreading having to implement it 
 
-	if (airSt == AirState::LANDING) {
-		if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.LandingLeft; }
-		if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.LandingRight; }
-		landing--;
-	}
-	// 5 frame counter for landing animation
-	if (landing <= 0) {
-		airSt = AirState::GROUND;
-		landing = 5;
-	}
+	//if (airSt == AirState::LANDING) {
+	//	if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.LandingLeft; }
+	//	if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.LandingRight; }
+	//	landing--;
+	//}
+	//// 5 frame counter for landing animation
+	//if (landing <= 0) {
+	//	airSt = AirState::GROUND;
+	//	landing = 5;
+	//}
 
 
 

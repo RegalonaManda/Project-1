@@ -115,6 +115,8 @@ bool ModuleBoss::Start()
 	for (int i = 0; i < 4; ++i) {
 		for (int j = 0; j < 6; ++j) {
 			pattern[i].headAttack[j].Anims();
+			// All heads use same texture, this saved like 300MB in memory
+			pattern[i].headAttack[j].text = texture;
 		}
 	}
 

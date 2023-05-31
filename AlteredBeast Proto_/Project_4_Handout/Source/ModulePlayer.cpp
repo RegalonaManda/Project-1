@@ -318,7 +318,7 @@ update_status ModulePlayer::Update()
 		position.y = MAX_HEIGHT + 2;
 	}
 
-	if (airSt == AirState::CROUCH && (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP|| App->input->pads[0].l_y <= 0.0f))) {
+	if (airSt == AirState::CROUCH && (idle && (App->input->keys[SDL_SCANCODE_S] == KEY_UP||(App->input->pads[0].enabled ==  true && App->input->pads[0].l_y <= 0.1f)))) {
  
   		idle = true;
 		airSt = AirState::GROUND;
@@ -464,7 +464,8 @@ update_status ModulePlayer::PostUpdate()
 	return update_status::UPDATE_CONTINUE;
 }
 
-
+bool kickR = false;
+bool kickL = false;
 
 
 void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
@@ -615,6 +616,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		jumped = false;
 		CollideState = knock::NOT;
 		knock = false;
+		kickL = false;
+		kickR = false;
 		
 		
 	}
@@ -792,8 +795,7 @@ void ModulePlayer::Gravity_() {
 	}
 }
 
-bool kickR = false;
-bool kickL = false;
+
 
 
 void ModulePlayer::WereWolfMovement() {

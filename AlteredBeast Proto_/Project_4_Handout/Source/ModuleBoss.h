@@ -21,6 +21,7 @@ struct SDL_Texture;
 struct Collider;
 
 
+
 class Head {
 
 public:
@@ -59,7 +60,7 @@ public:
 	};
 
 	void Anims() {
-		text = App->textures->Load("Assets/Boss spsheet Proto.png");
+		 
 		travelAnim.PushBack({ 1139, 1422, 48, 48 });
 		travelAnim.PushBack({ 1090, 1422, 48, 48 });
 		travelAnim.loop = false;
