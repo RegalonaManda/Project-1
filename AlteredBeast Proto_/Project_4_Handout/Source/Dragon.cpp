@@ -19,7 +19,7 @@ Dragon::Dragon(int x, int y) : Enemy(x, y) {
 	
 	AttackCollider = App->collisions->AddCollider({ 0,0, 17,21 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 
-
+	destroyedCountdown = 20;
 
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
@@ -158,11 +158,15 @@ void Dragon::OnCollision(Collider* collider) {
 
 	if (collider->type == Collider::Type::PLAYER_SHOT) {
 
-		destroyedCountdown--;
-		hp -= App->player->attack;
-		App->audio->PlayFx(lethalAtt, 5);
+		if (destroyedCountdown <= 0) {
+			destroyedCountdown--;
+			
+			App->audio->PlayFx(lethalAtt, 5);
+			
+			
+		}
 		hitByPlayer = true;
-		destroyedCountdown = 20;
+		hp -= App->player->attack;
 
 	}
 	if (hp <= 0) {
