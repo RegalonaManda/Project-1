@@ -124,9 +124,13 @@ bool ModuleScene::Start()
 
 	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 200, 0, false);
 
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 300, 140, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 250, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 500, 200, true);
+
+	/*App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 300, 140, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 400, 140, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 500, 140, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 500, 140, false);*/
 
 
 

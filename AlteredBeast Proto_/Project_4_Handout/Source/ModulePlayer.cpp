@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include "SceneIntro.h"
 #include "ModuleBoss.h"
+#include "Neff.h"
 
 
 #include "SDL/include/SDL.h"
@@ -647,7 +648,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::RANGE) {
 
-		Neff_pushBack--;
+		
 		if (Neff_pushBack <= 0) {
 			Neff_pushBack = 12 - delay;
 			position.x -= 8;

@@ -22,7 +22,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	texture = App->textures->Load("Assets/Particle.png");
+	texture = App->textures->Load("Assets/EnemiesProto.png");
 
 	// Explosion particle
 	/*zombieExpl.anim.PushBack({ 274, 296, 33, 30 });
@@ -34,10 +34,32 @@ bool ModuleParticles::Start()
 	zombieExpl.anim.loop = false;
 	zombieExpl.anim.speed = 0.3f;*/
 
-	wolfShot.anim.PushBack({ 1,115, 73, 65 });
+	/*wolfShot.anim.PushBack({ 1,115, 73, 65 });
 	wolfShot.anim.PushBack({ 75,115, 73, 65 });
 	wolfShot.anim.PushBack({ 149,115, 73, 65 });
-	wolfShot.anim.PushBack({ 223,115, 73, 65 });
+	wolfShot.anim.PushBack({ 223,115, 73, 65 });*/
+
+	zombie.anim.PushBack({ 212,1,63,68 });
+	zombie.anim.PushBack({ 276,1,63,68 });
+	zombie.anim.PushBack({ 340,1,63,68 });
+
+	zombie.anim.PushBack({ 212,70,95,68 });
+	zombie.anim.PushBack({ 308,70,95,68 });
+	zombie.anim.PushBack({ 212,139,95,68 });
+	zombie.anim.PushBack({ 308,139,95,68 });
+	zombie.anim.loop = false;
+	zombie.anim.speed = 0.18f;
+
+	Skull.anim.PushBack({ 340,247,63,68 });
+	Skull.anim.PushBack({ 404,247,63,68 });
+	Skull.anim.PushBack({ 468,247,63,68 });
+	Skull.anim.PushBack({ 340,316,95,68 });
+	Skull.anim.PushBack({ 436,316,95,68 });
+	Skull.anim.PushBack({ 340,385,95,68 });
+	Skull.anim.PushBack({ 436,385,95,68 });
+	Skull.anim.loop = false;
+	Skull.anim.speed = 0.18f;
+
 
 	return true;
 }

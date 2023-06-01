@@ -5,7 +5,7 @@
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
 #include "EnemyDeath.h"
-
+#include "ModuleParticles.h"
 
 
 //Calls the constructor of enemy class to save spawn position
@@ -133,7 +133,7 @@ Zombie::Zombie(int x, int y, bool alignment) : Enemy(x, y) {
 	
 	SelfDestruct->SetPos(-1000, -1000);
 
-	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
+	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch.wav");
 	//default anim walk left
 	currentAnim = &walkAnimL;
 
@@ -215,7 +215,7 @@ void Zombie::Update() {
 				else if (dir == Direction::RIGHT) {
 					currentAnim = &headXplodeR;
 				}
-				App->audio->PlayFx(lethalAtt, 3);
+				
 			}
 			if (dir == Direction::LEFT) {
 				if (headXplodeL.HasFinished()) {
@@ -281,11 +281,12 @@ void Zombie::OnCollision(Collider* collider) {
 		destroyedCountdown--;
 		if (destroyedCountdown <= 0) {
 			hp-= App->player->attack;
-			App->audio->PlayFx(lethalAtt, 5);
+			App->audio->PlayFx(lethalAtt, 3);
 			hitByPlayer = true;
 			destroyedCountdown = 20;
 			if (hp <= 0) {
 				App->player->score += 100;
+				App->particles->AddParticle(App->particles->zombie, position.x, position.y-20);
 			}
 
 		}
@@ -295,7 +296,7 @@ void Zombie::OnCollision(Collider* collider) {
 		Ecollider->SetPos(-1000, -1000);
 		alive = false;
 
-
+		
 		App->scene->EnemyCN = 1;
 		App->scene->HasEnemyDied = true; 
 		App->scene->enemyX = position.x;

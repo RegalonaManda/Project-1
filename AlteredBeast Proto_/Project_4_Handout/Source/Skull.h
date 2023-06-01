@@ -73,6 +73,7 @@ public:
 
 	uint lethalAtt;
 
+	Collider* Range = nullptr;
 
 	
 	//-------------------------------------------- Left Dir Animations ------------------------------------------------------//

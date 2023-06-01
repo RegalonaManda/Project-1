@@ -5,6 +5,7 @@
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
 #include "EnemyDeath.h"
+#include "ModuleParticles.h"
 
 
 
@@ -118,125 +119,141 @@ Skull::Skull(int x, int y) : Enemy(x, y) {
 
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	
-	AttackCollider = App->collisions->AddCollider({ 412,140,50,0 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
+	
 	
 	//change name to range
-	XplosionTrigger = App->collisions->AddCollider({0,0, 84, 68}, Collider::Type::ATTACK_XplosionTrigger, (Module*)App->enemies);
+	Range = App->collisions->AddCollider({0,0, 84, 68}, Collider::Type::RANGE, (Module*)App->enemies);
 	
 	AttackCollider = App->collisions->AddCollider({ 0,0,30,15 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 
 	//attack starts oob
 	AttackCollider->SetPos(-1000, -1000);
-	XplosionTrigger->SetPos(position.x, position.y);
+	Range->SetPos(position.x, position.y);
 	AttackCollider->SetPos(-1200, -1200);
 
-	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
+	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch.wav");
 	//default anim walk left
 	currentAnim = &walkAnimL;
+	destroyed = false;
+	position.y -= 50;
 
 }
 
 void Skull::Update() {
 
-	if (XplosionTrigger->Intersects(App->player->Pcollider->rect) == false) {
-		stillCountdown--;
-		if (SkSt == STILL && stillCountdown <= 0) {
-			SkSt = ADVANCE;
-			if (dir == Direction::LEFT)
-			{
-				currentAnim = &walkAnimL;
-				position.x -= 10.0f;
+
+	if (!destroyed) {
+		if (SkSt != ATTACK) {
+			AttackCollider->SetPos(-1500, 1200);
+		}
+
+
+		if (Range->Intersects(App->player->Pcollider->rect) == false) {
+			stillCountdown--;
+			if (SkSt == STILL && stillCountdown <= 0) {
+				SkSt = ADVANCE;
+				if (dir == Direction::LEFT)
+				{
+					currentAnim = &walkAnimL;
+					position.x -= 10.0f;
+				}
+				else if (dir == Direction::RIGHT)
+				{
+					currentAnim = &walkAnimR;
+					position.x += 10.0f;
+				}
+				walkCountdown = 30;
+
 			}
-			else if (dir == Direction::RIGHT)
-			{
-				currentAnim = &walkAnimR;
-				position.x += 10.0f;
+
+			walkCountdown--;
+			if (SkSt == ADVANCE && walkCountdown <= 0) {
+				SkSt = STILL;
+				if (dir == Direction::LEFT) { currentAnim = &idleAnimL; }
+				else { currentAnim = &idleAnimR; }
+				stillCountdown = 20;
 			}
-			walkCountdown = 30;
+
+
+		}
+		else {
+			SkSt = ATTACK;
+			if (dir == Direction::LEFT) {
+				currentAnim = &punchAnimL;
+				AttackCollider->SetPos(position.x, position.y + 6);
+
+			}
+			else if (dir == Direction::RIGHT) {
+				currentAnim = &punchAnimR;
+				AttackCollider->SetPos(position.x + 58, position.y + 6);
+			}
 
 		}
 
-		walkCountdown--;
-		if (SkSt == ADVANCE && walkCountdown <= 0) {
-			SkSt = STILL;
-			if (dir == Direction::LEFT) { currentAnim = &idleAnimL; }
-			else { currentAnim = &idleAnimR; }
+		if (punchAnimL.HasFinished() || punchAnimR.HasFinished()) {
+			SkSt = BACKTRACK;
 			stillCountdown = 20;
+			currentAnim->Reset();
+			currentAnim->loopCount = 0;
+			backtrackCnt = 30;
+			AttackCollider->SetPos(-1500, 1200);
+
+			if (dir == Direction::LEFT) {
+				backTrackDist = position.x + 30;
+			}
+			else if (dir == Direction::RIGHT) {
+				backTrackDist = position.x - 30;
+			}
 		}
 
-
-	}
-	else {
-		SkSt = ATTACK;
-		if (dir == Direction::LEFT) {
-			currentAnim = &punchAnimL;
-			AttackCollider->SetPos(position.x, position.y + 6);
-
-		}
-		else if (dir == Direction::RIGHT) {
-			currentAnim = &punchAnimR;
-			AttackCollider->SetPos(position.x+58, position.y + 6);
+		if (SkSt == BACKTRACK) {
+			BackTrack();
 		}
 
-	}
+		if (hp == 1 && hitByPlayer) {
+			punchAnimL.Reset();
+			punchAnimL.loopCount = 0;
+			punchAnimR.Reset();
+			punchAnimR.loopCount = 0;
 
-	if (punchAnimL.HasFinished() || punchAnimR.HasFinished()) {
-		SkSt = BACKTRACK;
-		stillCountdown = 20;
-		currentAnim->Reset();
-		currentAnim->loopCount = 0;
-		backtrackCnt = 30;
-		AttackCollider->SetPos(-1200, -1200);
+			SkSt = HIT;
+			if (dir == Direction::LEFT) {
+				currentAnim = &crouchAnimL;
 
-		if (dir == Direction::LEFT) {
-			backTrackDist = position.x + 30;
+			}
+			else if (dir == Direction::RIGHT) {
+				currentAnim = &crouchAnimR;
+			}
 		}
-		else if (dir == Direction::RIGHT) {
-			backTrackDist = position.x - 30;
+
+		if (SkSt == HIT && (crouchAnimL.HasFinished() || crouchAnimR.HasFinished())) {
+			currentAnim->Reset();
+			currentAnim->loopCount = 0;
+			hitByPlayer = false;
+			SkSt = BACKTRACK;
 		}
-	}
 
-	if (SkSt == BACKTRACK) {
-		BackTrack();
-	}
+		//if skull is behind the player change the direction
 
-	if (hp == 1 && hitByPlayer) {
-		punchAnimL.Reset();
-		punchAnimL.loopCount = 0;
-		punchAnimR.Reset();
-		punchAnimR.loopCount = 0;
-
-		SkSt = HIT;
-		if (dir == Direction::LEFT) {
-			currentAnim = &crouchAnimL;
-			
+		if (position.x <= App->player->position.x)
+		{
+			dir = Direction::RIGHT;
 		}
-		else if (dir == Direction::RIGHT) {
-			currentAnim = &crouchAnimR;
-		}
+		else { dir = Direction::LEFT; }
+
+		currentAnim->Update();
+
+		Enemy::Update();
+
+		Ecollider->SetPos(position.x + 30, position.y);
+		Range->SetPos(position.x, position.y);
 	}
+	else if (destroyed) {
 
-	if (SkSt == HIT && (crouchAnimL.HasFinished() || crouchAnimR.HasFinished())) {
-		currentAnim->Reset();
-		currentAnim->loopCount = 0;
-		hitByPlayer = false;
-		SkSt = BACKTRACK;
+	   AttackCollider->SetPos(-1500, 1200);
+	   Range->SetPos(-1500, 1200);
+
 	}
-
-	//if skull is behind the player change the direction
-
-	if (position.x <= App->player->position.x)
-	{
-		dir = Direction::RIGHT;
-	}
-	else { dir = Direction::LEFT; }
-
-	currentAnim->Update();
-
-	Enemy::Update();
-
-	Ecollider->SetPos(position.x + 30, position.y);
-	XplosionTrigger->SetPos(position.x, position.y);
 }
 
 void Skull::BackTrack() {
@@ -281,6 +298,7 @@ void Skull::OnCollision(Collider* collider) {
 		if (destroyedCountdown <= 0) {
 
 			App->audio->PlayFx(lethalAtt, 5);
+			App->particles->AddParticle(App->particles->Skull, position.x, position.y - 20);
 			destroyedCountdown = 20;
 
 		}
@@ -294,5 +312,34 @@ void Skull::OnCollision(Collider* collider) {
 		App->scene->HasEnemyDied = true;
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
+     	destroyed = true;
+		AttackCollider->SetPos(-1500, 1200);
+		AttackCollider->SetFloatPos(-1500, 1200);
+		Range->SetPos(-1500, 1200);
 	}
+
+	//rise above paltform
+	if (collider->type == Collider::Type::PLATFORM) {
+		if (collider != App->scene2->Ground) {
+			position.y -= 1.8f;
+		}
+		falling = false;
+		idle = true;
+	}
+
+	// stop againts wall
+	if (collider->type == Collider::Type::WALL) {
+		position.x -= 1.1f;
+		// we could also stop their movement behaviour
+	}
+	if (collider->type == Collider::Type::WALL_RIGHT) {
+		position.x += 1.1f;
+	}
+
+	// fall on border
+	if (collider->type == Collider::Type::BORDER) {
+		falling = true;
+		idle = false;
+	}
+
 }

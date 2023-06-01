@@ -107,6 +107,11 @@ void Neff::OnCollision(Collider* collider) {
 	}*/
 
 	if (collider->type == Collider::Type::PLAYER) {
+
+		App->player->Neff_pushBack--;
+		
+
+
 		if (last == false) {
 			if (App->player->tranSt != Transform::WOLF) {
 				run = true;

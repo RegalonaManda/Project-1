@@ -22,7 +22,7 @@ Dragon::Dragon(int x, int y) : Enemy(x, y) {
 	destroyedCountdown = 20;
 
 
-	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
+	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch.wav");
 
 	FlyL.PushBack({ 399, 545, 73,90 });
 	FlyL.PushBack({ 473, 545, 73,90 });

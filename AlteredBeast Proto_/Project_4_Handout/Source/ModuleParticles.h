@@ -58,6 +58,10 @@ public:
 
 	Particle wolfShot;
 
+	Particle zombie;
+
+	Particle Skull;
+
 private:
 	// Particles spritesheet loaded into an SDL Texture
 	SDL_Texture* texture = nullptr;
