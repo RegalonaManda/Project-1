@@ -371,8 +371,11 @@ void ModuleScene::PlaceEnemies() {
 	// In front of player
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 260, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 303, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 246, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 389, 200, true);
 
-
+	// Should stand still
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 395, 200, false);
 
 
 
