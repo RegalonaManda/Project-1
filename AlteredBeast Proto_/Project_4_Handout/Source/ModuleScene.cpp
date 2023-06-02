@@ -366,16 +366,27 @@ bool ModuleScene::CleanUp() {
 void ModuleScene::PlaceEnemies() {
 
 	// Behind Player
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 128, 200, false);
+	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 128, 200, false);
 
 	// In front of player
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 260, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 303, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 246, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 389, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 320, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, true);
 
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 580, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 620, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 680, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 720, 200, true);
+
+	// Graves
+	App->enemies->AddGrave(400, 120, false, false, true);
+	App->enemies->AddGrave(440, 120, false, false, false);
+	App->enemies->AddGrave(480, 120, false, false, false);
+	App->enemies->AddGrave(520, 120, false, true, true);
+	
 	// Should stand still
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 395, 200, false);
+	
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 550, 200, false);
 
 
 
