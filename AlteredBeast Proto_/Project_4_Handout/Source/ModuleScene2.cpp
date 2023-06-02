@@ -24,7 +24,7 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 
 	grey_background.x = 0;
 	grey_background.y = 191;
-	grey_background.w = 4283;
+	grey_background.w = 7177;
 	grey_background.h = 84;
 
 	W_background.x = 3;
@@ -99,7 +99,7 @@ bool ModuleScene2::Start()
 	Transf_Fire = App->textures->Load("Assets/Fire.png");
 	Tranf_Portrait = App->textures->Load("Assets/TransformationPortrait.png");
 
-	Ground = App->collisions->AddCollider({ 0,189,4283,84 }, Collider::Type::PLATFORM, (Module*)App->player);
+	Ground = App->collisions->AddCollider({ 0,189,7177,84 }, Collider::Type::PLATFORM, (Module*)App->player);
 	playOnce = 0;
 	return ret;
 }

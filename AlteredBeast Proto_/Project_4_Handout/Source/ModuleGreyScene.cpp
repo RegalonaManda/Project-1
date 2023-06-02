@@ -17,26 +17,26 @@ ModuleGreyScene::ModuleGreyScene(bool startEnabled) : Module(startEnabled)
 	//Background
 	background.x = 0;
 	background.y = 17;
-	background.w = 2868;
+	background.w = 4662;
 	background.h = 273;
 
 
 	//Stone wal
 	StoneWall.x = 0;
 	StoneWall.y = 75;
-	StoneWall.w = 2868;
+	StoneWall.w = 5484;
 	StoneWall.h = 93;
 
 	// Tree layer
 	TreeLayer.x = 0;
 	TreeLayer.y = 53;
-	TreeLayer.w = 1743;
+	TreeLayer.w = 2977;
 	TreeLayer.h = 75;
 
 	//sky
 	SkyLayer.x = 0;
 	SkyLayer.y = 0;
-	SkyLayer.w = 1743;
+	SkyLayer.w = 3016;
 	SkyLayer.h = 273;
 
 	
