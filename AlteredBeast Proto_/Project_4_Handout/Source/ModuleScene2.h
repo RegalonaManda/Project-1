@@ -39,9 +39,18 @@ public:
 	SDL_Texture* layer2 = nullptr;
 	SDL_Texture* grey_layer = nullptr;
 
+
+	SDL_Texture* Transf_background;
+	SDL_Texture* Transf_Fire;
+	SDL_Texture* Tranf_Portrait;
+
+
 	// The sprite section for the background
 	SDL_Rect background;
 	SDL_Rect grey_background;
+
+	SDL_Rect W_background;
+	SDL_Rect Fire;
 
 	// The different sprite sections for the flag
 
@@ -50,6 +59,9 @@ public:
 	Animation iconAnim;
 	Animation gameOverAnim;
 
+	Animation TranformationAnim;
+	Animation* current;
+
 	Collider* Ground = nullptr;
 
 	bool killedBoss = false;
@@ -57,6 +69,8 @@ public:
 
 	int playOnce = 0;
 
+	bool wolfTransform = false;
+	int wolfTransformY = 0;
 };
 
 #endif

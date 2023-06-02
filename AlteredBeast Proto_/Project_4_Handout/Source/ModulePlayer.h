@@ -235,6 +235,8 @@ public:
 
 	int Neff_pushBack = 20;
 	int delay = 0;
+
+	int wolfTransformCnt = 160;
 };
 
 

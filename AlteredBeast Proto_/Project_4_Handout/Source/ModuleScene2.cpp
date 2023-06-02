@@ -26,6 +26,16 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 	grey_background.y = 191;
 	grey_background.w = 4283;
 	grey_background.h = 84;
+
+	W_background.x = 3;
+	W_background.y = 636;
+	W_background.w = 320;
+	W_background.h = 636;
+
+	Fire.x = 3;
+	Fire.y = 0;
+	Fire.w = 320;
+	Fire.h = 224;
 	
 	hpAnim.PushBack({ 1,10,46,8 });
 	hpAnim.PushBack({ 48,10,46,8 });
@@ -46,6 +56,20 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 
 	gameOverAnim.PushBack({ 0,0,140,20 });
 
+
+	TranformationAnim.PushBack({ 4,0,122,117 });
+	TranformationAnim.PushBack({ 127,0,122,117 });
+	TranformationAnim.PushBack({ 250,0,122,117 });
+	TranformationAnim.PushBack({ 373,0,122,117 });
+	TranformationAnim.PushBack({ 496,0,122,117 });
+	TranformationAnim.PushBack({ 6,128,122,117 });
+	TranformationAnim.PushBack({ 129,128,122,117 });
+	TranformationAnim.PushBack({ 252,128,122,117 });
+	TranformationAnim.PushBack({ 375,128,122,117 });
+	TranformationAnim.PushBack({ 498,128,122,117 });
+	TranformationAnim.PushBack({ 621,128,122,117 });
+	TranformationAnim.loop = false;
+	TranformationAnim.speed = 0.11f;
 	
 }
 
@@ -65,6 +89,10 @@ bool ModuleScene2::Start()
 	grey_layer = App->textures->Load("Assets/grey_Layer1.png");
 	uiTexture = App->textures->Load("Assets/UiElements.png");
 	gameOverTexture = App->textures->Load("Assets/gameOver.png");
+
+	Transf_background = App->textures->Load("Assets/transitionBackground.png");
+	Transf_Fire = App->textures->Load("Assets/Fire-export.png");
+	Tranf_Portrait = App->textures->Load("Assets/TransformationPortrait.png");
 
 	Ground = App->collisions->AddCollider({ 0,189,4283,84 }, Collider::Type::PLATFORM, (Module*)App->player);
 
@@ -159,7 +187,22 @@ update_status ModuleScene2::PostUpdate()
 
 	}
 	
+	if (wolfTransform == true) {
+		current = &TranformationAnim;
+		wolfTransformY--;
+		App->render->Blit(Transf_background, 0, wolfTransformY--, &W_background, 0);
+		
 
+		App->render->Blit(Tranf_Portrait, SCREEN_WIDTH/2 -60, 105, &current->GetCurrentFrame(), 0);
+		App->render->Blit(Transf_Fire, 0, 0, &Fire, 0);
+
+		if (TranformationAnim.HasFinished() == true) {
+			wolfTransform = false;
+			App->player->wolfTransformCnt = 0;
+		}
+
+		current->Update();
+	}
 	
 
 	return update_status::UPDATE_CONTINUE;

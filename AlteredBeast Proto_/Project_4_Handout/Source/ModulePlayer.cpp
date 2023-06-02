@@ -119,6 +119,8 @@ bool ModulePlayer::Start()
 	
 	texture = App->textures->Load("Assets/ABfullspritesProto.png"); // arcade version
 
+
+
 	//Initialize collider
 	Pcollider = App->collisions->AddCollider({ 100,300,20,64 }, Collider::Type::PLAYER, this);
 	Crouchcollider = App->collisions->AddCollider({ 100,300,29,34 }, Collider::Type::PLAYER, this);
@@ -191,10 +193,14 @@ update_status ModulePlayer::Update()
 
 	}
 	if (transforming == true && tranSt == Transform::POWER2 && !destroyed) {
-
-		tranSt = Transform::WOLF;
-		idle = true;
-		transforming = false;
+		GodMode = true;
+		App->scene2->wolfTransform = true;
+		if (wolfTransformCnt <= 0) {
+			GodMode = false;
+			tranSt = Transform::WOLF;
+			idle = true;
+			transforming = false;
+		}
 
 	}
 	if (AllAnimations.powerUp1.HasFinished() == true) {
@@ -234,7 +240,7 @@ update_status ModulePlayer::Update()
 		if (!GodMode) 
 		{ 
 			GodMode = true; 
-			lives++;
+			
 		}
 		else {
 			GodMode = false;

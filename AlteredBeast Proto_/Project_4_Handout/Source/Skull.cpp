@@ -298,7 +298,7 @@ void Skull::OnCollision(Collider* collider) {
 		if (destroyedCountdown <= 0) {
 
 			App->audio->PlayFx(lethalAtt, 5);
-			App->particles->AddParticle(App->particles->Skull, position.x, position.y - 20);
+			
 			destroyedCountdown = 20;
 
 		}
@@ -307,7 +307,7 @@ void Skull::OnCollision(Collider* collider) {
 	if (hp <= 0) {
 		Ecollider->SetPos(-1000, -1000);
 		alive = false;
-
+		App->particles->AddParticle(App->particles->Skull, position.x, position.y - 20);
 		App->scene->EnemyCN = 6;
 		App->scene->HasEnemyDied = true;
 		App->scene->enemyX = position.x;

@@ -46,7 +46,7 @@ public:
 
 	SDL_Texture* ExplosionText = nullptr;
 
-
+	
 	// The sprite section for the background
 	SDL_Rect StoneWall;
 	SDL_Rect background;
