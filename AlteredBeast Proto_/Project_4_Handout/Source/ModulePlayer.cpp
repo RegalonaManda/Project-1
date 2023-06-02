@@ -158,11 +158,11 @@ bool ModulePlayer::Start()
 	dir = Direction::RIGHT;
 	start = false;
 	attack = 1;
-	
+	score = 0;
 	App->bossfight->Neff_activ = false;
 	
 
-	
+	playOnce = 0;
 	return ret;
 }
 
@@ -192,17 +192,20 @@ update_status ModulePlayer::Update()
 		currentAnimation = &AllAnimations.powerUp2;
 
 	}
+
+	if (wolfTransformCnt <= 0 && transforming == true && tranSt == Transform::POWER2) {
+		GodMode = false;
+		tranSt = Transform::WOLF;
+		idle = true;
+		transforming = false;
+		wolfTransformCnt = 160;
+	}
 	if (transforming == true && tranSt == Transform::POWER2 && !destroyed) {
 		GodMode = true;
 		App->scene2->wolfTransform = true;
-		if (wolfTransformCnt <= 0) {
-			GodMode = false;
-			tranSt = Transform::WOLF;
-			idle = true;
-			transforming = false;
-		}
 
 	}
+	
 	if (AllAnimations.powerUp1.HasFinished() == true) {
 		tranSt = Transform::POWER1;
 		AllAnimations.powerUp1.Reset();
@@ -501,7 +504,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			hitEnemy = false;
 		}
 		//-------------------------------------Bumping into enemy----------------------------
-		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ENEMY && !destroyed && iFrames == false)
 		{
 			CollideState = knock::BUMP;
 			knockImpulse = 1.0f;
@@ -524,7 +527,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		//	/*App->scene->ScreenScroll = false;*/
 		//}
 
-		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
 		{
 			Deathcollider->SetPos(1300, 1200);
 			CollideState = knock::KNOCK;
@@ -543,7 +546,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		}
 
 		//Getting hit by enemy attack
-		if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
+		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
 		{
 			PlayerHit(c2);
 
@@ -598,7 +601,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	//-------------------------------------------PowerUp Collisions----------------------------------------
 	
-	if (c1 == Pcollider && c2->type == Collider::Type::POWER_UP && transforming == false) {
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::POWER_UP && transforming == false) {
 
 		transforming = true;
 		App->audio->PlayFx(powerUp, -1);
@@ -613,7 +616,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	// -------------------------------------------Ground Collisions-------------------------------
 
-	if (c1 == Pcollider && c2->type == Collider::Type::PLATFORM) {
+	if (c1->type==Collider::Type::PLAYER && c2->type == Collider::Type::PLATFORM) {
 		
 		//Change to landing later
 		currentAnimation->Reset();
@@ -632,13 +635,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		//airSt = AirState::AIRBORN;
 	}
 
-	if (c1 == Pcollider && c2->type == Collider::Type::WALL) {
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL) {
 		position.x-=2;
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
 
 	}
-	if (c1 == Pcollider && c2->type == Collider::Type::WALL_RIGHT) {
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL_RIGHT) {
 		position.x += 2;
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
@@ -646,7 +649,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	// -------------------------------------------Border Collisions-------------------------------
 
-	if (c1 == Pcollider && c2->type == Collider::Type::BORDER && airSt != AirState::AIRBORN) {
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::BORDER && airSt != AirState::AIRBORN) {
 		airSt = AirState::AIRBORN;
 	}
 

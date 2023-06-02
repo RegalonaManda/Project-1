@@ -32,7 +32,7 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 	W_background.w = 320;
 	W_background.h = 636;
 
-	Fire.x = 3;
+	Fire.x = 0;
 	Fire.y = 0;
 	Fire.w = 320;
 	Fire.h = 224;
@@ -71,6 +71,10 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 	TranformationAnim.loop = false;
 	TranformationAnim.speed = 0.11f;
 	
+	FireAnim.PushBack({ 0,0,320,224 });
+	FireAnim.PushBack({ 320,0,320,224 });
+	FireAnim.loop = true;
+	FireAnim.speed = 0.1f;
 }
 
 ModuleScene2::~ModuleScene2()
@@ -92,11 +96,11 @@ bool ModuleScene2::Start()
 
 	Transf_background = App->textures->Load("Assets/transitionBackground.png");
 	// looking for better quality fire
-	Transf_Fire = App->textures->Load("Assets/Fire-export.png");
+	Transf_Fire = App->textures->Load("Assets/Fire.png");
 	Tranf_Portrait = App->textures->Load("Assets/TransformationPortrait.png");
 
 	Ground = App->collisions->AddCollider({ 0,189,4283,84 }, Collider::Type::PLATFORM, (Module*)App->player);
-
+	playOnce = 0;
 	return ret;
 }
 
@@ -190,20 +194,25 @@ update_status ModuleScene2::PostUpdate()
 	
 	if (wolfTransform == true) {
 		current = &TranformationAnim;
+		fireCurrent = &FireAnim;
 		wolfTransformY--;
 		App->render->Blit(Transf_background, 0, wolfTransformY--, &W_background, 0);
 		
 
 		App->render->Blit(Tranf_Portrait, SCREEN_WIDTH/2 -60, 105, &current->GetCurrentFrame(), 0);
-		App->render->Blit(Transf_Fire, 0, 0, &Fire, 0);
+		App->render->Blit(Transf_Fire, 0, 1, &fireCurrent->GetCurrentFrame(), 0);
 
 		if (TranformationAnim.HasFinished() == true) {
 			TranformationAnim.Reset();
+			TranformationAnim.loopCount = 0;
 			wolfTransform = false;
 			App->player->wolfTransformCnt = 0;
+			wolfTransformY = 0;
+			
 		}
 
 		current->Update();
+		fireCurrent->Update();
 	}
 	
 

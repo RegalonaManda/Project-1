@@ -53,8 +53,8 @@ public:
 	void Start() {
 		
 		
-		headCollider = App->collisions->AddCollider({ 0,0,48,40 }, Collider::Type::ENEMY_SHOT, (Module*)App->bossfight);
-		hurtCollider = App->collisions->AddCollider({ 1,1,47,39 }, Collider::Type::ENEMY, (Module*)App->bossfight);
+		headCollider = App->collisions->AddCollider({ 0,0,44,40 }, Collider::Type::ENEMY_SHOT, (Module*)App->bossfight);
+		hurtCollider = App->collisions->AddCollider({ 1,1,42,39 }, Collider::Type::ENEMY, (Module*)App->bossfight);
 
 		
 	};
@@ -104,8 +104,8 @@ public:
 			acceleration += 0.05f;
 			positionY += 2 * acceleration;
 			current = &fallAnim;
-			headCollider->SetPos(positionX, positionY);
-			hurtCollider->SetPos(positionX, positionY);
+			headCollider->SetPos(positionX+2, positionY);
+			hurtCollider->SetPos(positionX+3, positionY);
 		}
 		
 

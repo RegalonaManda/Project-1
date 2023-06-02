@@ -60,7 +60,9 @@ public:
 	Animation gameOverAnim;
 
 	Animation TranformationAnim;
+	Animation FireAnim;
 	Animation* current;
+	Animation* fireCurrent;
 
 	Collider* Ground = nullptr;
 

@@ -398,6 +398,17 @@ void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 			if (hp <= 0) { 
 				beaten = true;
 				Neff_activ = false;
+
+				// Hide all head colliders
+				for (int i = 0; i < 4; ++i) {
+					for (int j = 0; j < 6; ++j) {
+
+						pattern[i].headAttack[j].hurtCollider->SetPos(-7500, -7500);
+						pattern[i].headAttack[j].headCollider->SetPos(-7500, -7500);
+						
+					}
+				}
+				colliderBoss->SetPos(-7500, -7500);
 			
 			}
 		}
