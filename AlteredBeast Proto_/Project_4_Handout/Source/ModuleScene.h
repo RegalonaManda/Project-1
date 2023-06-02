@@ -17,6 +17,9 @@ public:
 	//Destructor
 	~ModuleScene() {}
 
+
+	void PlaceEnemies();
+
 	// Called when the module is activated
 	// Loads the necessary textures for the map background
 	bool Start() override;
