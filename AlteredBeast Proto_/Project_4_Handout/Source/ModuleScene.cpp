@@ -125,11 +125,11 @@ bool ModuleScene::Start()
 	
 
 	
-	ModuleScene::PlaceEnemies();
+	//ModuleScene::PlaceEnemies();
 	
 	
 	
-	
+	ModuleScene::TestEnemies();
 
 	backCamLimit = App->collisions->AddCollider({ (int)App->render->camera.x, (int)App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 	frontCamLimit = App->collisions->AddCollider({ (int)App->render->camera.x + SCREEN_WIDTH-10, (int)App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
@@ -373,6 +373,32 @@ void ModuleScene::PlaceEnemies() {
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 303, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 246, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 389, 200, true);
+
+	// Should stand still
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 395, 200, false);
+
+
+
+
+
+}
+
+void ModuleScene::TestEnemies() {
+
+	// Behind Player
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 128, 200, false);
+
+	// In front of player
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 260, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 303, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 246, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 389, 200, true);
+
+	App->enemies->AddGrave(150, 130, true, false, false);
+	App->enemies->AddGrave(185, 130, false,false ,true);
+	App->enemies->AddGrave( 220, 130, false,false,true);
+	App->enemies->AddGrave( 255, 130, false, true,true);
+
 
 	// Should stand still
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 395, 200, false);

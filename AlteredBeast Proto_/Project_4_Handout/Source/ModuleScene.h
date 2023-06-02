@@ -20,6 +20,8 @@ public:
 
 	void PlaceEnemies();
 
+	void TestEnemies();
+
 	// Called when the module is activated
 	// Loads the necessary textures for the map background
 	bool Start() override;

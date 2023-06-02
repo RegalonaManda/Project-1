@@ -29,17 +29,17 @@ Tomb::Tomb(int x, int y, bool borderL, bool borderR, bool Zombie) : Enemy(x, y) 
 
 	CodeN = 5;
 
-	if (borderL == true) {
+	
 		LBorder = App->collisions->AddCollider({ 100,700,5,5 }, Collider::Type::BORDER, (Module*)App->player);
-	}
-	if (borderR == true) {
+	
+	
 		RBorder = App->collisions->AddCollider({ 100,700,5,5 }, Collider::Type::BORDER, (Module*)App->player);
-	}
+	
 
 
 	position.y += 70;
 
-	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
+	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch.wav");
 
 	idle.PushBack({ 202,272,32,61 });
 
@@ -135,6 +135,11 @@ void Tomb::OnCollision(Collider* collider) {
 		if (Zombie == true) {
 			App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, position.x, position.y, true);
 			Zombie = false;
+		}
+
+
+		if (hp <= 0) {
+			LBorder->SetPos(position.x + 20, position.y - 40);
 		}
 	}
 
