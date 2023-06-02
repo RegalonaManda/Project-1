@@ -30,10 +30,10 @@ Tomb::Tomb(int x, int y, bool borderL, bool borderR, bool Zombie) : Enemy(x, y) 
 	CodeN = 5;
 
 	
-		LBorder = App->collisions->AddCollider({ 100,700,5,5 }, Collider::Type::BORDER, (Module*)App->player);
+	LBorder = App->collisions->AddCollider({ 100,700,5,5 }, Collider::Type::BORDER, (Module*)App->player);
 	
 	
-		RBorder = App->collisions->AddCollider({ 100,700,5,5 }, Collider::Type::BORDER, (Module*)App->player);
+	RBorder = App->collisions->AddCollider({ 100,700,5,5 }, Collider::Type::BORDER, (Module*)App->player);
 	
 
 

@@ -310,8 +310,8 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		}
 		// If enemy self destructs (Zombie)
 		if (enemies[i] != nullptr && enemies[i]->GetDestructCollider() == c1 && c2 == enemies[i]->GetCollider()) {
-			enemies[i]->SelfDestruct->SetPos(-2000, -2000);
-			enemies[i]->XplosionTrigger->SetPos(-2000, -2000);
+			if (enemies[i]->SelfDestruct != nullptr) { enemies[i]->SelfDestruct->SetPos(-2000, -2000); }
+			if (enemies[i]->XplosionTrigger != nullptr) { enemies[i]->XplosionTrigger->SetPos(-2000, -2000); }
 			enemies[i]->hp = 0;
 
 		}
