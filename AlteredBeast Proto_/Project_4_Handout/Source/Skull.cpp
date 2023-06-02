@@ -313,6 +313,7 @@ void Skull::OnCollision(Collider* collider) {
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
      	destroyed = true;
+		App->player->score += 100;
 		AttackCollider->SetPos(-1500, 1200);
 		AttackCollider->SetFloatPos(-1500, 1200);
 		Range->SetPos(-1500, 1200);

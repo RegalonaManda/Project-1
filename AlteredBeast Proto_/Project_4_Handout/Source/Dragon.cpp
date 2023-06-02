@@ -177,7 +177,7 @@ void Dragon::OnCollision(Collider* collider) {
 		App->scene->HasEnemyDied = true;
 		App->scene->enemyX = position.x;
 		App->scene->enemyY = position.y;
-
+		App->player->score += 500;
 		
 	}
 

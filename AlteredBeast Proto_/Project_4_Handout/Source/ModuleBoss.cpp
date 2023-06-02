@@ -397,6 +397,7 @@ void ModuleBoss::OnCollision(Collider* c1, Collider* c2)
 			hp -= App->player->attack;
 			if (hp <= 0) { 
 				beaten = true;
+				App->player->score += 2000;
 				Neff_activ = false;
 
 				// Hide all head colliders

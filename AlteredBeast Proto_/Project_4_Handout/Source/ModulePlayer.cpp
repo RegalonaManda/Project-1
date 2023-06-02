@@ -1188,14 +1188,14 @@ void ModulePlayer::WereWolfMovement() {
 			if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
 				AllAnimations.W_KickR.Reset();
 				currentAnimation = &AllAnimations.W_KickR;
-				position.y += 15;
+				airSt = AirState::GROUND;
 				idle = false;
 				kickR = true;
 			}
 			if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
 				AllAnimations.W_KickL.Reset();
 				currentAnimation = &AllAnimations.W_KickL;
-				position.y += 15;
+				airSt = AirState::GROUND;
 				idle = false;
 				kickL = true;
 			}
@@ -1384,7 +1384,7 @@ void ModulePlayer::WolfKick() {
 	if (airSt == AirState::AIRBORN) {
 		position.y-=2;
 	}
-
+	
 	 
 }
 
