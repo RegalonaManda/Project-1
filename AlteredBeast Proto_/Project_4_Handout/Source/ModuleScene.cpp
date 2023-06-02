@@ -231,6 +231,9 @@ update_status ModuleScene::Update()
 		}
 	}
 
+	if (EnemyCoolDown != 30) {
+		EnemyCoolDown++;
+	}
 
 	return update_status::UPDATE_CONTINUE;
 
@@ -323,29 +326,31 @@ update_status ModuleScene::PostUpdate()
 
 
 	}
-	if (App->input->keys[SDL_SCANCODE_1] == KEY_DOWN || App->input->pads[0].up) {
+	if (App->bossfight->Neff_activ == false) {
+		if (EnemyCoolDown == 30 && (App->input->keys[SDL_SCANCODE_5] == KEY_DOWN || App->input->pads[0].up)) {
 
-		App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, App->player->position.x + 150, 200, true);
+			App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, App->player->position.x + 150, 0, true);
+			EnemyCoolDown = 0;
+		}
+		else if (EnemyCoolDown == 30 && (App->input->keys[SDL_SCANCODE_4] == KEY_DOWN || App->input->pads[0].down)) {
 
+			App->enemies->AddEnemy(ENEMY_TYPE::SKULL, App->player->position.x + 150, 170, true);
+			EnemyCoolDown = 0;
+		}
+		else if (EnemyCoolDown == 30 && (App->input->keys[SDL_SCANCODE_3] == KEY_DOWN || App->input->pads[0].right)) {
+			App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, App->player->position.x + 150, 200, true);
+			EnemyCoolDown = 0;
+		}
+		else if (EnemyCoolDown == 30 && (App->input->keys[SDL_SCANCODE_1] == KEY_DOWN || App->input->pads[0].left)) {
+			App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, App->player->position.x + 150, 200, true);
+			EnemyCoolDown = 0;
+		}
+		else if (EnemyCoolDown == 30 && (App->input->keys[SDL_SCANCODE_2] == KEY_DOWN))
+		{
+			App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, App->player->position.x + 150, 200, true);
+			EnemyCoolDown = 0;
+		}
 	}
-	else if (App->input->keys[SDL_SCANCODE_2] == KEY_DOWN || App->input->pads[0].down) {
-
-		App->enemies->AddEnemy(ENEMY_TYPE::SKULL, App->player->position.x + 150, 200, true);
-
-	}
-	else if (App->input->keys[SDL_SCANCODE_3] == KEY_DOWN || App->input->pads[0].right) {
-		App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, App->player->position.x + 150, 200, true);
-
-	}
-	else if (App->input->keys[SDL_SCANCODE_4] == KEY_DOWN || App->input->pads[0].left) {
-		App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, App->player->position.x + 150, 200, true);
-
-	}
-	else if (App->input->keys[SDL_SCANCODE_5] == KEY_DOWN)
-	{
-		App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, App->player->position.x + 150, 200, true);
-	}
-
 	// including more enemies could only be done through keyboard input only
 	
 

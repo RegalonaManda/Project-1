@@ -79,6 +79,8 @@ public:
 	int explosionCnt = 40;
 
 	int EnemyCN = 0;
+
+	int EnemyCoolDown = 30;
 	
 	Animation deathAnim;
 	Animation explode;

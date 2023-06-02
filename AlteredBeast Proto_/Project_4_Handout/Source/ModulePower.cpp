@@ -99,8 +99,8 @@ void ModulePower::OnCollision(Collider* c1, Collider* c2)
 
 bool ModulePower::CleanUp() {
 
-	/*LOG("Freeing power up texture");
-	App->textures->Unload(texture);*/
+	LOG("Freeing power up texture");
+	App->textures->Unload(texture);
 
 	collider->SetPos(-300, 4000);
 

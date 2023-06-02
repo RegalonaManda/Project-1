@@ -217,7 +217,9 @@ bool ModuleBoss::Initialize() {
 	pattern[3].headAttack[5].FinalX = position.x - 98  - 40;
 
 	srand(time(NULL));
+	
 	colliderBoss = App->collisions->AddCollider({ 0,0,85,150 }, Collider::Type::ENEMY, (Module*)App->bossfight);
+	
 	transformed = false;
 	return true;
 
@@ -348,7 +350,7 @@ update_status ModuleBoss::PostUpdate()
 {
 	if(Redcnt <= 0){
 		SDL_Rect BossRec = currentAnim->GetCurrentFrame();
-		App->render->Blit(texture, position.x, position.y, &BossRec);
+  		App->render->Blit(texture, position.x, position.y, &BossRec);
 	}
 	else{
 		SDL_Rect RedBossRec = currentRedAnim->GetCurrentFrame();

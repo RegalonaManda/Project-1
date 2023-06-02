@@ -42,7 +42,7 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 	RayAtt.loop = true;
 
 	reachedBoss = false;
-
+	scroll = 1200;
 	
 }
 
