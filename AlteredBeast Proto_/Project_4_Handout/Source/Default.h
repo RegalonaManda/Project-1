@@ -276,9 +276,9 @@ void ModulePlayer::DefaultMovement() {
 			}
 		}
 		if (currentAnimation == &AllAnimations.airPunchLeft) { attackCollider->SetPos(position.x + 0, position.y - 60); }
-		if (currentAnimation == &AllAnimations.airPunchRight) { attackCollider->SetPos(position.x + 26, position.y - 60); }
+		if (currentAnimation == &AllAnimations.airPunchRight) { attackCollider->SetPos(position.x + 49, position.y - 60); }
 		if (currentAnimation == &AllAnimations.airKickLeft) { attackCollider->SetPos(position.x + 0, position.y - 40); }
-		if (currentAnimation == &AllAnimations.airKickRight) { attackCollider->SetPos(position.x + 33, position.y - 40); }
+		if (currentAnimation == &AllAnimations.airKickRight) { attackCollider->SetPos(position.x + 56, position.y - 40); }
 
 		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN || App->input->pads[0].a) {
 

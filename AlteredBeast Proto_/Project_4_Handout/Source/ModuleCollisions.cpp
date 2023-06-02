@@ -87,6 +87,7 @@ ModuleCollisions::ModuleCollisions(bool startEnabled) : Module(startEnabled)
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::ENEMY_SELF_DESTRUCT] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::PLATFORM] = false;
 	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::BORDER] = false;
+	matrix[Collider::Type::PLAYER_SHOT][Collider::Type::RANGE] = false;
 
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WALL] = true;
 	matrix[Collider::Type::ENEMY_SHOT][Collider::Type::WALL_RIGHT] = true;
