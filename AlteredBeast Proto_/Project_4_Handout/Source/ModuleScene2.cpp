@@ -91,6 +91,7 @@ bool ModuleScene2::Start()
 	gameOverTexture = App->textures->Load("Assets/gameOver.png");
 
 	Transf_background = App->textures->Load("Assets/transitionBackground.png");
+	// looking for better quality fire
 	Transf_Fire = App->textures->Load("Assets/Fire-export.png");
 	Tranf_Portrait = App->textures->Load("Assets/TransformationPortrait.png");
 
@@ -197,6 +198,7 @@ update_status ModuleScene2::PostUpdate()
 		App->render->Blit(Transf_Fire, 0, 0, &Fire, 0);
 
 		if (TranformationAnim.HasFinished() == true) {
+			TranformationAnim.Reset();
 			wolfTransform = false;
 			App->player->wolfTransformCnt = 0;
 		}
@@ -216,6 +218,9 @@ bool ModuleScene2::CleanUp() {
 	App->textures->Unload(grey_layer);
 	App->textures->Unload(uiTexture);
 	App->textures->Unload(gameOverTexture);
+	App->textures->Unload(Tranf_Portrait);
+	App->textures->Unload(Transf_background);
+	App->textures->Unload(Transf_Fire);
 
 	return true;
 }
