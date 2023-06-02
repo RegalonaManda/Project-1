@@ -19,7 +19,7 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 	// Background / sky
 	background.x = 0;
 	background.y = 191;
-	background.w = 4283;
+	background.w = 7177;
 	background.h = 84;
 
 	grey_background.x = 0;
