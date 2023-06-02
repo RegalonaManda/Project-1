@@ -125,11 +125,11 @@ bool ModuleScene::Start()
 	
 
 	
-	//ModuleScene::PlaceEnemies();
+	ModuleScene::PlaceEnemies();
 	
 	
 	
-	ModuleScene::TestEnemies();
+	//ModuleScene::TestEnemies();
 
 	backCamLimit = App->collisions->AddCollider({ (int)App->render->camera.x, (int)App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 	frontCamLimit = App->collisions->AddCollider({ (int)App->render->camera.x + SCREEN_WIDTH-10, (int)App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
@@ -376,28 +376,52 @@ bool ModuleScene::CleanUp() {
 void ModuleScene::PlaceEnemies() {
 
 	// Behind Player
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 128, 200, false);
-
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 800, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 810, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1600, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1720, 200, false);
 	// In front of player
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 260, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 320, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, true);
 
-	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 580, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 620, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 680, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 720, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 700, 165, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 750, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 800, 165, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 850, 200, true);
+
+	App->enemies->AddNeff(875, 100, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1100, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1150, 150, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1400, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1450, 165, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1600, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1650, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1670, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1690, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1720, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1740, 200, true);
+
+	App->enemies->AddNeff(1900, 100, true);
 
 	// Graves
-	App->enemies->AddGrave(400, 120, false, false, true);
-	App->enemies->AddGrave(440, 120, false, false, false);
-	App->enemies->AddGrave(480, 120, false, false, false);
+	App->enemies->AddGrave(400, 120, true, false, true);
+	App->enemies->AddGrave(440, 120, false, false, true);
+	App->enemies->AddGrave(480, 120, false, false, true);
 	App->enemies->AddGrave(520, 120, false, true, true);
+
+	App->enemies->AddGrave(1200, 120, true, false, true);
+	App->enemies->AddGrave(1240, 120, false, false, false);
+	App->enemies->AddGrave(1280, 120, false, true, true);
 	
 	// Should stand still
 	
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 550, 200, false);
-
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 900, -20, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 1480, -20, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 1520, -20, true);
 
 
 
