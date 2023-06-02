@@ -13,8 +13,9 @@ Enemy::Enemy(int x, int y) : position(x, y)
 
 Enemy::~Enemy()
 {
-	if (Ecollider != nullptr)
+	if (Ecollider != nullptr) {
 		Ecollider->pendingToDelete = true;
+	}
 }
 
 const Collider* Enemy::GetCollider() const

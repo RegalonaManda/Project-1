@@ -219,7 +219,17 @@ update_status ModuleScene::Update()
 		}
 	}
 
-
+	if (App->input->keys[SDL_SCANCODE_P] == KEY_DOWN) {
+		if (App->powers->IsEnabled() == false) {
+			App->powers->Enable();
+			App->powers->position.x = App->player->position.x+129;
+			App->powers->spawnPos.x = App->player->position.x + 129;
+			App->powers->position.y = 150;
+		}
+		else {
+			App->powers->Disable();
+		}
+	}
 
 
 	return update_status::UPDATE_CONTINUE;

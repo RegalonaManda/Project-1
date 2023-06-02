@@ -33,11 +33,11 @@ bool ModulePower::Start()
 	texture = App->textures->Load("Assets/PowerUpGrid.png");
 	//currentAnimation = &idleAnim;
 
-	spawnPos.x = 400;
+	/*spawnPos.x = 400;
 	spawnPos.y = 110;
 
 	position.x = 400;
-	position.y = 110;
+	position.y = 110;*/
 	
 
 	// Add collider
@@ -95,4 +95,14 @@ void ModulePower::OnCollision(Collider* c1, Collider* c2)
 
 		//destroyed = true;
 	}
+}
+
+bool ModulePower::CleanUp() {
+
+	/*LOG("Freeing power up texture");
+	App->textures->Unload(texture);*/
+
+	collider->SetPos(-300, 4000);
+
+	return true;
 }

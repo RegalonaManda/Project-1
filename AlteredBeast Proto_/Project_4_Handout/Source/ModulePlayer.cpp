@@ -183,12 +183,12 @@ update_status ModulePlayer::Update()
 
 	//Transforming Animations, middleground between two Power stages
 	if (transforming == true && tranSt == Transform::DEFAULT && !destroyed) {
-		
+		GodMode = true;
 		currentAnimation = &AllAnimations.powerUp1;
 		
 	}
 	if (transforming == true && tranSt == Transform::POWER1 && !destroyed) {
-
+		GodMode = true;
 		currentAnimation = &AllAnimations.powerUp2;
 
 	}
@@ -210,6 +210,7 @@ update_status ModulePlayer::Update()
 		tranSt = Transform::POWER1;
 		AllAnimations.powerUp1.Reset();
 		AllAnimations.powerUp1.loopCount = 0;
+		GodMode = false;
 		
 		
 		attack += 1;
@@ -222,7 +223,7 @@ update_status ModulePlayer::Update()
 		tranSt = Transform::POWER2;
 		AllAnimations.powerUp2.Reset();
 		AllAnimations.powerUp2.loopCount = 0;
-
+		GodMode = false;
 		attack += 1;
 		idle = true;
 		AllAnimations.powerUp2.loopCount = 0;
@@ -603,10 +604,12 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	
 	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::POWER_UP && transforming == false) {
 
-		transforming = true;
+		
 		App->audio->PlayFx(powerUp, -1);
 
 		//El disable no funciona de momento, voy a esconderlo
+		if(tranSt != Transform::WOLF){ transforming = true; }
+	
 		App->powers->gotten = true;
 		App->powers->collider->SetPos(-3000, -3000);
 		App->powers->Disable();
@@ -616,7 +619,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	// -------------------------------------------Ground Collisions-------------------------------
 
-	if (c1->type==Collider::Type::PLAYER && c2->type == Collider::Type::PLATFORM) {
+	if (c1->type==Collider::Type::PLAYER && c2->type == Collider::Type::PLATFORM  && transforming == false) {
 		
 		//Change to landing later
 		currentAnimation->Reset();
@@ -635,13 +638,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		//airSt = AirState::AIRBORN;
 	}
 
-	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL) {
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL && transforming == false) {
 		position.x-=2;
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
 
 	}
-	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL_RIGHT) {
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL_RIGHT && transforming == false) {
 		position.x += 2;
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
@@ -649,7 +652,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 	// -------------------------------------------Border Collisions-------------------------------
 
-	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::BORDER && airSt != AirState::AIRBORN) {
+	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::BORDER && airSt != AirState::AIRBORN && transforming == false) {
 		airSt = AirState::AIRBORN;
 	}
 
