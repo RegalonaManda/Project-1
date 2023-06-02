@@ -35,6 +35,7 @@ public:
 	};
 
 	Collider* rangeCollider = nullptr;
+	
 
 	uint hitCountdown = 10;
 	uint destroyedCountdown = 10;
@@ -46,7 +47,7 @@ public:
 	
 	Animation RayAtt;
 
-
+	Animation escaped;
 
 	void Attack() override;
 

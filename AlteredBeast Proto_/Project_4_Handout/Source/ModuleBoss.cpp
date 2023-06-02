@@ -329,7 +329,7 @@ update_status ModuleBoss::Update()
 			//explosion anim
 			//disable module
 			//Neff_activ = false;
-
+			Redcnt = 0;
 		}
 
 		currentAnim->Update();
@@ -348,11 +348,11 @@ update_status ModuleBoss::Update()
 
 update_status ModuleBoss::PostUpdate()
 {
-	if(Redcnt <= 0){
+	if(Redcnt <= 0 || transformed == false){
 		SDL_Rect BossRec = currentAnim->GetCurrentFrame();
   		App->render->Blit(texture, position.x, position.y, &BossRec);
 	}
-	else{
+	else if (currentRedAnim != nullptr){
 		SDL_Rect RedBossRec = currentRedAnim->GetCurrentFrame();
 		App->render->Blit(texture, position.x, position.y, &RedBossRec);
 	}

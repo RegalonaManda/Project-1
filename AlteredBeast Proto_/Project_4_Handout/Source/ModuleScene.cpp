@@ -161,7 +161,7 @@ update_status ModuleScene::Update()
 	//}
 	//SCREEN SCROLL
 
-	if (ScreenScroll == true) {
+ 	if (ScreenScroll == true) {
 		//App->render->camera.x += App->render->camera.dynamicSpeed;
 		App->render->camera.x += 0.3;
 		//aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE );

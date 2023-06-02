@@ -19,6 +19,7 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 
 
 	Ecollider = App->collisions->AddCollider({ 400, 120, 50, 60 }, Collider::Type::RANGE, (Module*)App->enemies);
+	SelfDestruct = App->collisions->AddCollider({ -4678,1000,5,5 }, Collider::Type::PLAYER_SHOT, (Module*)App->enemies);
 	CodeN = 4;
 
 	//rangeCollider = App->collisions->AddCollider({0,0,50,73}, Collider::Type::RANGE, (Module*)App->enemies);
@@ -38,9 +39,12 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 	RayAtt.PushBack({ 701,906,114,87 });
 	RayAtt.PushBack({ 701,906,114,87 });
 		
+	escaped.PushBack({ 0,0,1,1 });
+
 	RayAtt.speed = 0.05f;
 	RayAtt.loop = true;
 
+	run = false;
 	reachedBoss = false;
 	scroll = 1200;
 	
@@ -48,36 +52,45 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 
 void Neff::Update() {
 	
-	currentAnim = &RayAtt;
-	scroll--;
+	if (hp != 0) {
+		currentAnim = &RayAtt;
+		scroll--;
 
-	if (reachedBoss) {
-		bossCountdown--;
-	}
-	
-	Enemy::Update();
+		if (reachedBoss) {
+			bossCountdown--;
+		}
 
-	if (scroll <= 0) {
-		App->scene->ScreenScroll = false;
+		Enemy::Update();
 
-		Ecollider->SetPos(position.x + 10, position.y + 15);
+		if (scroll <= 0) {
+			App->scene->ScreenScroll = false;
+
+			Ecollider->SetPos(position.x + 10, position.y + 15);
+		}
+		else {
+			Ecollider->SetPos(-200, -2000);
+
+		}
+
+		if (run == true) {
+			runCnt--;
+			Neff::HeadOut();
+			if (position.x > App->player->position.x + 400) {
+
+				SelfDestruct->SetPos(position.x + 10, position.y + 15);
+				Neff::OnCollision(SelfDestruct);
+			}
+		}
+
+
+
+
+
+		ActivateBoss();
 	}
 	else {
-		Ecollider->SetPos(-200, -2000);
-
+		currentAnim = &escaped;
 	}
-	
-	if (run) {
-		runCnt--;
-		Neff::HeadOut();
-	}
-
-	
-	
-	
-	
-	ActivateBoss();
-	
 }
 
 void Neff::OnCollision(Collider* collider) {
@@ -127,6 +140,9 @@ void Neff::OnCollision(Collider* collider) {
 		}
 	}
 	
+	if (collider == SelfDestruct) {
+		hp = 0;
+	}
 	
 	
 	
