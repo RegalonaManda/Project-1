@@ -5,7 +5,7 @@
 
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
-#define MAX_FX 200
+#define MAX_FX 600
 #define MIX_MAX_VOLUME 128
 
 struct _Mix_Music;

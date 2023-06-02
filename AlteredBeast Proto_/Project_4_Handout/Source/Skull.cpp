@@ -247,6 +247,9 @@ void Skull::Update() {
 
 		Ecollider->SetPos(position.x + 30, position.y);
 		Range->SetPos(position.x, position.y);
+		if (falling == true) {
+			position.y += 3;
+		}
 	}
 	else if (destroyed) {
 
