@@ -92,6 +92,7 @@ bool ModuleEnemies::CleanUp()
 			enemies[i] = nullptr;
 			numEnemies--;
 		}
+		spawnQueue[i].type = ENEMY_TYPE::NO_TYPE;
 	}
 
 	return true;
@@ -99,10 +100,6 @@ bool ModuleEnemies::CleanUp()
 
 bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment)
 {
-	if (numEnemies > 250) {
-		LOG("WARNING NUM ENEMIES CLOSE TO MAX\nWARNING NUM ENEMIES CLOSE TO MAX\nWARNING NUM ENEMIES CLOSE TO MAX\nWARNING NUM ENEMIES CLOSE TO MAX\nWARNING NUM ENEMIES CLOSE TO MAX\n");
-	}
-
 
 	bool ret = false;
 	

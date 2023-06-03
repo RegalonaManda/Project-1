@@ -1,7 +1,6 @@
 #ifndef __MODULE_COLLISIONS_H__
 #define __MODULE_COLLISIONS_H__
 
-#define MAX_COLLIDERS 500
 
 #include "Module.h"
 #include "Colliders.h"
@@ -15,6 +14,9 @@ public:
 
 	// Destructor
 	~ModuleCollisions() {}
+
+	int MAX_COLLIDERS = 500;
+
 
 	// Called at the beginning of the application loop
 	// Removes all colliders pending to delete
@@ -42,7 +44,7 @@ public:
 
 private:
 	// All existing colliders in the scene
-	Collider* colliders[MAX_COLLIDERS] = { nullptr };
+	Collider* colliders[10000] = { nullptr };
 
 	// The collision matrix. Defines the interaction for two collider types
 	// If set two false, collider 1 will ignore collider 2

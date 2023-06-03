@@ -336,9 +336,10 @@ Collider* ModuleCollisions::AddCollider(SDL_Rect rect, Collider::Type type, Modu
 		{
 			ret = colliders[i] = new Collider(rect, type, listener);
 			numColliders = i;
-			if (numColliders > 400) {
+			if (numColliders > MAX_COLLIDERS - 100) {
 				LOG("WARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\n");
-				if (numColliders > 480) {
+				if (numColliders > MAX_COLLIDERS-30) {
+					MAX_COLLIDERS += 100;
 					LOG("I'm gonna crash now :(");
 				}
 			}
