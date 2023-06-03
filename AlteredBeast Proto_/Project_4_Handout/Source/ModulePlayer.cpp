@@ -492,7 +492,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 				PlayerHit(c2);
 				startExTimer = false;
-				exTimer = 40;
+				exTimer = 60;
 			}
 			
 
@@ -572,6 +572,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		}*/
 
 		position.x += 1.2*speed;
+		if (CollideState != knock::NOT) {
+			position.x += 5;
+		}
 
 	}
 
@@ -585,7 +588,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			position.x = App->scene->aux - 33.3333333333f;
 		}*/
 		position.x -= 1.2 * speed;
-
+		if (CollideState != knock::NOT) {
+			position.x -= 5;
+		}
 	}
 
 	if (c1 == FireBall.collider && (c2 == App->scene->frontCamLimit || c2 == App->scene->backCamLimit)) {

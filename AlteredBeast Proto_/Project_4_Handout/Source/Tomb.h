@@ -19,7 +19,7 @@ public:
 	int Risecnt = 900;
 	int Risecnt2 = 60;
 
-	int zombieTimer = 900;
+	int zombieTimer = 600;
 	int shaketimer = 20;
 	bool shakeB = false;
 

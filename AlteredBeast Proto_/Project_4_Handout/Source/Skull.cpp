@@ -329,9 +329,9 @@ void Skull::OnCollision(Collider* collider) {
 
 	//rise above paltform
 	if (collider->type == Collider::Type::PLATFORM) {
-		if (collider != App->scene2->Ground) {
+		
 			position.y -= 1.8f;
-		}
+		
 		falling = false;
 		idle = true;
 	}

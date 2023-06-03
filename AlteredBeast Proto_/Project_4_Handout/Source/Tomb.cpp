@@ -91,7 +91,7 @@ void Tomb::Update() {
 	if (Zombie == true && Risen == true) {
 		zombieTimer--;
 
-		if (zombieTimer <= 200) {
+		if (zombieTimer <= 180) {
 			currentAnim = &shake;
 		}
 		if (zombieTimer <= 0) {

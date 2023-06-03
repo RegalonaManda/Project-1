@@ -160,7 +160,7 @@ void Zombie::Update() {
 
 		}
 	}else {
-			if (position.x <= App->player->position.x + 120 && position.y > 120)
+			if (position.x <= App->player->position.x + 140 && position.y > 120)
 			{
 
 				isRising = true;

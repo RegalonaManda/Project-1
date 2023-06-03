@@ -30,7 +30,7 @@ bool ModulePower::Start()
 
 	bool ret = true;
 	gotten = false;
-	texture = App->textures->Load("Assets/PowerUpGrid.png");
+	texture = App->textures->Load("Assets/PowerUp.png");
 	//currentAnimation = &idleAnim;
 
 	/*spawnPos.x = 400;

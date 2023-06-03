@@ -121,7 +121,7 @@ public:
 	int lives = 3;
 	bool iFrames = false;
 	int iTimer = 80;
-	int exTimer = 40;
+	int exTimer = 60;
 
 	bool startExTimer = false;
 	bool GodMode = false;

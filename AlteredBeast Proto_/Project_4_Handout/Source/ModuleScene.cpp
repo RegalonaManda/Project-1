@@ -125,7 +125,7 @@ bool ModuleScene::Start()
 	
 	
 	
-	//ModuleScene::PlaceEnemies();
+	ModuleScene::PlaceEnemies();
 	
 	
 	
