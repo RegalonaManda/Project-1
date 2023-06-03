@@ -35,7 +35,7 @@ ModuleEnemies::~ModuleEnemies()
 
 bool ModuleEnemies::Start()
 {
-	//CHANGE load enemy texture
+	LOG("Starting Enemies \nStarting Enemies \nStarting Enemies \nStarting Enemies \nStarting Enemies \nStarting Enemies \n");
 	texture = App->textures->Load("Assets/EnemiesProto.png");
 	//BossText = App->textures->Load("Assets/BossGrid.png");
 	//Load Enemy Death Sound FX
@@ -43,12 +43,18 @@ bool ModuleEnemies::Start()
 	
 	GraveText = App->textures->Load("Assets/toomb.png");
 
-
+	
 	return true;
 }
 
 update_status ModuleEnemies::Update()
 {
+
+	if (numEnemies > 250) {
+		LOG("WARNING CLOSE TO SUPRASSING ENEMY MAX\nWARNING CLOSE TO SUPRASSING ENEMY MAX\nWARNING CLOSE TO SUPRASSING ENEMY MAX\nWARNING CLOSE TO SUPRASSING ENEMY MAX\n");
+	}
+
+
 	HandleEnemiesSpawn();
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
@@ -76,7 +82,7 @@ update_status ModuleEnemies::PostUpdate()
 // Called before quitting
 bool ModuleEnemies::CleanUp()
 {
-	LOG("Freeing all enemies");
+	LOG("Freeing all enemies\nFreeing all enemies\nFreeing all enemies\nFreeing all enemies\nFreeing all enemies\nFreeing all enemies\n");
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -84,6 +90,7 @@ bool ModuleEnemies::CleanUp()
 		{
 			delete enemies[i];
 			enemies[i] = nullptr;
+			numEnemies--;
 		}
 	}
 
@@ -92,8 +99,13 @@ bool ModuleEnemies::CleanUp()
 
 bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment)
 {
-	bool ret = false;
+	if (numEnemies > 250) {
+		LOG("WARNING NUM ENEMIES CLOSE TO MAX\nWARNING NUM ENEMIES CLOSE TO MAX\nWARNING NUM ENEMIES CLOSE TO MAX\nWARNING NUM ENEMIES CLOSE TO MAX\nWARNING NUM ENEMIES CLOSE TO MAX\n");
+	}
 
+
+	bool ret = false;
+	
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (spawnQueue[i].type == ENEMY_TYPE::NO_TYPE)
@@ -103,6 +115,8 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment)
 			spawnQueue[i].y = y;
 			spawnQueue[i].spawnalignment = spawnalignment;
 			ret = true;
+
+			
 			break;
 		}
 	}
@@ -110,10 +124,10 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment)
 	return ret;
 }
 
-bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR, bool Zombie)
+bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR, bool Zombie, float RiseTimer)
 {
 	bool ret = false;
-
+	numEnemies++;
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (spawnQueue[i].type == ENEMY_TYPE::NO_TYPE){
@@ -123,6 +137,7 @@ bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR, bool Zomb
 			spawnQueue[i].borderL = borderL;
 			spawnQueue[i].borderR = borderR;  
 			spawnQueue[i].SpawnZombie = Zombie;
+			spawnQueue[i].RiseTimer = RiseTimer;
 			ret = true;
 			break;
 		}
@@ -135,7 +150,7 @@ bool ModuleEnemies::AddGrave(int x, int y, bool borderL, bool borderR, bool Zomb
 bool ModuleEnemies::AddNeff(int x, int y, bool last)
 {
 	bool ret = false;
-
+	numEnemies++;
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (spawnQueue[i].type == ENEMY_TYPE::NO_TYPE) {
@@ -163,7 +178,7 @@ void ModuleEnemies::HandleEnemiesSpawn()
 			if ((spawnQueue[i].x * SCREEN_SIZE) < App->render->camera.x * SCREEN_SIZE + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
 			{
 				LOG("Spawning enemy at %g", spawnQueue[i].x * SCREEN_SIZE);
-
+				numEnemies++;
 				SpawnEnemy(spawnQueue[i]);
 				spawnQueue[i].type = ENEMY_TYPE::NO_TYPE; // Removing the newly spawned enemy from the queue
 			
@@ -195,9 +210,20 @@ void ModuleEnemies::HandleEnemiesDespawn()
 			if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x)*SCREEN_SIZE - SPAWN_MARGIN)
 			{
 				LOG("DeSpawning enemy at %g", enemies[i]->position.x * SCREEN_SIZE);
+				if (enemies[i]->AttackCollider != nullptr) { enemies[i]->AttackCollider->SetPos(1000, 1000); }
+				if (enemies[i]->SelfDestruct != nullptr) { enemies[i]->SelfDestruct->SetPos(-2000, -2000); }
+				if (enemies[i]->XplosionTrigger != nullptr) { enemies[i]->XplosionTrigger->SetPos(-2000, -2000); }
+				if (enemies[i]->Range != nullptr) { enemies[i]->Range->SetPos(-2000, -2000); }
+				if (enemies[i]->WallLCollider != nullptr) { enemies[i]->WallLCollider->SetPos(-650, -650); }
+				if (enemies[i]->WallRCollider != nullptr) { enemies[i]->WallRCollider->SetPos(-650, -650); }
+				if (enemies[i]->PlatformCollider != nullptr) { enemies[i]->PlatformCollider->SetPos(-650, -650); }
+				if (enemies[i]->deathCollider != nullptr) { enemies[i]->deathCollider->SetPos(-650, -650); }
+				if (enemies[i]->LBorder != nullptr) { enemies[i]->LBorder->SetPos(-650, -650); }
+				if (enemies[i]->RBorder != nullptr) { enemies[i]->RBorder->pendingToDelete = true;}
 
 				delete enemies[i];
 				enemies[i] = nullptr;
+				numEnemies--;
 			}
 		}
 	}
@@ -247,7 +273,7 @@ void ModuleEnemies::SpawnEnemy(const EnemySpawnpoint& info)
 
 			case ENEMY_TYPE::GRAVE:
 
-				enemies[i] = new Tomb(info.x, info.y,info.borderL,info.borderR, info.SpawnZombie);
+				enemies[i] = new Tomb(info.x, info.y,info.borderL,info.borderR, info.SpawnZombie, info.RiseTimer);
 
 				enemies[i]->texture = texture;
 
@@ -281,25 +307,26 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2); //Notify the enemy of a collision to subtract it's health
-			
+
 			if (enemies[i]->CodeN == 2) {
 
 			}
-				
-			if(enemies[i]->hp <= 0){
+
+			if (enemies[i]->hp <= 0) {
 
 				if (enemies[i]->AttackCollider != nullptr) { enemies[i]->AttackCollider->SetPos(1000, 1000); }
 				if (enemies[i]->SelfDestruct != nullptr) { enemies[i]->SelfDestruct->SetPos(-2000, -2000); }
 				if (enemies[i]->XplosionTrigger != nullptr) { enemies[i]->XplosionTrigger->SetPos(-2000, -2000); }
 				if (enemies[i]->Range != nullptr) { enemies[i]->Range->SetPos(-2000, -2000); }
 				App->audio->PlayFx(enemyDeath, 1);
+				LOG("Deleting enemy");
 				delete enemies[i];
 				enemies[i] = nullptr;
-				
+				numEnemies--;
 				break;
-				
+
 			}
-			
+
 		}
 		//In case player steps into attack XplosionTrigger
 		if (enemies[i] != nullptr && enemies[i]->GetXplosionTriggerCollider() == c1 && c2->type == Collider::Type::PLAYER) {
@@ -315,6 +342,6 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			enemies[i]->hp = 0;
 
 		}
-		
+
 	}
 }

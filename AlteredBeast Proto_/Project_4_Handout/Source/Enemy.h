@@ -76,6 +76,16 @@ public:
 	Collider* XplosionTrigger = nullptr;
 	Collider* Xplosion = nullptr;
 	Collider* SelfDestruct = nullptr;
+
+	// Grave colliders
+	Collider* WallLCollider;
+	Collider* WallRCollider;
+	Collider* PlatformCollider;
+	Collider* deathCollider;
+
+	Collider* LBorder = nullptr;
+	Collider* RBorder = nullptr;
+
 	// Original spawn position. Stored for movement calculations
 	fPoint spawnPos;
 	

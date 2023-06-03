@@ -190,6 +190,7 @@ update_status ModuleCollisions::PreUpdate()
 	{
 		if (colliders[i] != nullptr && colliders[i]->pendingToDelete == true)
 		{
+			LOG("deleting collider");
 			delete colliders[i];
 			colliders[i] = nullptr;
 		}
@@ -328,12 +329,19 @@ bool ModuleCollisions::CleanUp()
 Collider* ModuleCollisions::AddCollider(SDL_Rect rect, Collider::Type type, Module* listener)
 {
 	Collider* ret = nullptr;
-
+	
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (colliders[i] == nullptr)
 		{
 			ret = colliders[i] = new Collider(rect, type, listener);
+			numColliders = i;
+			if (numColliders > 400) {
+				LOG("WARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\nWARNIGNG COLLIDER LIMIT CLOSE\n");
+				if (numColliders > 480) {
+					LOG("I'm gonna crash now :(");
+				}
+			}
 			break;
 		}
 	}

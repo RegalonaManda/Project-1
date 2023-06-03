@@ -90,6 +90,7 @@ void Neff::Update() {
 	}
 	else {
 		currentAnim = &escaped;
+		Ecollider->SetPos(position.x + 1700, position.y + 15);
 	}
 }
 

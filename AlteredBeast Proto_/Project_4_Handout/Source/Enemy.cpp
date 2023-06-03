@@ -16,6 +16,19 @@ Enemy::~Enemy()
 	if (Ecollider != nullptr) {
 		Ecollider->pendingToDelete = true;
 	}
+	if (Range != nullptr) {
+		Range->pendingToDelete = true;
+	}
+	if (XplosionTrigger != nullptr) {
+		XplosionTrigger->pendingToDelete = true;
+	}
+	if (WallLCollider != nullptr) {
+		WallLCollider->pendingToDelete = true;
+	}
+	if (WallRCollider != nullptr) {
+		WallRCollider->pendingToDelete = true;
+	}
+	
 }
 
 const Collider* Enemy::GetCollider() const

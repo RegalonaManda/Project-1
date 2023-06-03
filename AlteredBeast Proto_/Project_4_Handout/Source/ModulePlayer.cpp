@@ -274,11 +274,13 @@ update_status ModulePlayer::Update()
 	else if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN || App->input->pads[0].l1) {
 
 		App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
-		/*App->enemies->Disable();*/
+		App->enemies->Disable();
 		App->collisions->Disable();
-
+		
 		App->player->KilledBoss = true;
 		App->scene2->killedBoss = true;
+		
+
 
 	}
 
@@ -644,13 +646,13 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 	}
 
 	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL && transforming == false) {
-		position.x-=2;
+		position.x-= speed;
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
 
 	}
 	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL_RIGHT && transforming == false) {
-		position.x += 2;
+		position.x += speed;
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
 	}

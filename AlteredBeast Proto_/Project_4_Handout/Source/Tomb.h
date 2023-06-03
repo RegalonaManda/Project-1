@@ -9,7 +9,7 @@
 class Tomb : public Enemy {
 public:
 
-	Tomb(int x, int y, bool borderL , bool borderR, bool Zombie);
+	Tomb(int x, int y, bool borderL , bool borderR, bool Zombie, float RiseTimer);
 
 	void Update() override;
 
@@ -44,14 +44,7 @@ public:
 	Animation shake;
 
 
-	Collider* WallLCollider;
-	Collider* WallRCollider;
-	Collider* PlatformCollider;
-	Collider* deathCollider;
-
-	Collider* LBorder = nullptr;
-	Collider* RBorder = nullptr;
-
+	
 
 
 

@@ -3,7 +3,7 @@
 
 #include "Module.h"
 
-#define MAX_ENEMIES 300
+#define MAX_ENEMIES 500
 
 
 
@@ -29,7 +29,7 @@ struct EnemySpawnpoint
 	bool borderR = false;
 
 	bool last = false;
-
+	float RiseTimer;
 	bool SpawnZombie = false;
 };
 
@@ -68,7 +68,7 @@ public:
 	// Add an enemy into the queue to be spawned later
 	bool AddEnemy(ENEMY_TYPE type, int x, int y, bool spawnalignment);
 
-	bool AddGrave( int x, int y, bool borderL, bool borderR, bool Zombie);
+	bool AddGrave( int x, int y, bool borderL, bool borderR, bool Zombie, float RiseTimer);
 
 	bool AddNeff(int x, int y, bool last);
 
@@ -103,7 +103,7 @@ public:
 
 	uint enemyDeath;
 
-
+	int numEnemies = 0;
 };
 
 #endif // __MODULE_ENEMIES_H__

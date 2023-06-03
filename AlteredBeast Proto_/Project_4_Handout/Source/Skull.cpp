@@ -127,7 +127,7 @@ Skull::Skull(int x, int y) : Enemy(x, y) {
 	AttackCollider = App->collisions->AddCollider({ 0,0,30,15 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 
 	//attack starts oob
-	AttackCollider->SetPos(-1000, -1000);
+	
 	Range->SetPos(position.x, position.y);
 	AttackCollider->SetPos(-1200, -1200);
 

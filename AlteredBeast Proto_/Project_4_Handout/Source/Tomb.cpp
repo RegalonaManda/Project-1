@@ -10,9 +10,10 @@
 //Calls the constructor of enemy class to save spawn position
 
 // the border boolean marks if the toomb is the last, if it needs a border
-Tomb::Tomb(int x, int y, bool borderL, bool borderR, bool Zombie) : Enemy(x, y) {
+Tomb::Tomb(int x, int y, bool borderL, bool borderR, bool Zombie, float RiseTimer) : Enemy(x, y) {
 
-
+	Risecnt = Risecnt - (60 * RiseTimer);
+	
 
 	TombBorderL = borderL;
 	TombBorderR = borderR;

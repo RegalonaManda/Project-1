@@ -125,9 +125,210 @@ bool ModuleScene::Start()
 	
 	
 	
-	ModuleScene::PlaceEnemies();
+	//----------------First Part ( 200 - 700 )
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 260, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 280, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 180, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 310, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 320, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 340, 200, true);
+
+	// Graves
+
+	App->enemies->AddGrave(340, 120, true, false, true, 0);
+	App->enemies->AddGrave(375, 120, false, false, false, 2.5);
+	App->enemies->AddGrave(410, 120, false, false, false, 5);
+	App->enemies->AddGrave(445, 120, false, false, false, 7.5);
+	App->enemies->AddGrave(480, 120, false, false, false, 10);
+	App->enemies->AddGrave(515, 120, false, false, true, 12.5);
+	/*App->enemies->AddGrave(550, 120, false, false, true,15);
+	App->enemies->AddGrave(585, 120, false, true, true,17.5);*/
+
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 380, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 400, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 430, 165, false);
+
+	//-------------------Second Part ( 700 - 900  )
+
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 700, 200, false);
+
+	// Graves
+
+	App->enemies->AddGrave(710, 120, true, false, true, 0);
+	App->enemies->AddGrave(750, 120, false, true, true, 2.5);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 790, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 800, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 820, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 850, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 860, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 860, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 870, 200, false);
+
+	//-------------------Last Part ( 900 - 1100 )
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 950, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 990, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 970, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1000, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1020, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1010, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1030, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1020, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 1090, 0, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 1092, 0, true);
+
+	//---------------------------------------------------------------------First Neff 
+
+	App->enemies->AddNeff(1100, 100, false);
+
+	//----------------First Part ( 1300 - 1800 )
+
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1300, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1360, 165, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1500, 165, false);
+
+	// Graves
+
+	App->enemies->AddGrave(1350, 120, true, false, true, 0);
+	App->enemies->AddGrave(1390, 120, false, false, false, 2.5);
+	App->enemies->AddGrave(1430, 120, false, false, false, 5);
+	App->enemies->AddGrave(1470, 120, false, false, false, 7.5);
+	App->enemies->AddGrave(1510, 120, false, false, false, 10);
+	App->enemies->AddGrave(1550, 120, false, true, true, 12.5);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1600, 200, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1760, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1800, 165, false);
+
+	//-----------------Second Part ( 1800 - 2400 )
+
+	// Graves
+
+	App->enemies->AddGrave(1900, 120, true, false, false, 0);
+	App->enemies->AddGrave(1940, 120, false, true, false, 0);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1960, 200, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2100, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2130, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2160, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2090, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2110, 200, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2200, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2230, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2260, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2200, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2210, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2230, 200, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2300, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2330, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2360, 200, true);
+
+	//-----------------Last Part ( 2400 - 2700 )
+
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 2420, 0, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2500, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2530, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 2600, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2650, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 2680, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 2720, 0, true);
+
+	//----------------------------------------------------------------------Second Neff 
+
+	App->enemies->AddNeff(2700, 100, false);
+
+	//---------------First Part ( 2900 - 3400 )
+
+	//Graves
+
+	App->enemies->AddGrave(2800, 120, true, false, false, 0);
+	App->enemies->AddGrave(2840, 120, false, false, false, 2.5);
+	App->enemies->AddGrave(2880, 120, false, false, false, 5);
+	App->enemies->AddGrave(2920, 120, false, true, true, 7.5);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 2910, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 2970, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 3020, 200, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 3100, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 3150, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 3200, 165, false);
+
+	//--------------Second Part ( 3400 - 4200 )
+
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 3300, 200, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3400, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3450, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3600, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3650, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3800, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3850, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 3900, 200, false);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4100, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4150, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4300, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4350, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4500, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4550, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 4650, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 4700, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 4750, 165, false);
+
+	//--------------Third Part ( 4900 - 6000 )
+
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 4900, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 4950, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 5000, 200, false);
+
+	//Graves
+
+	App->enemies->AddGrave(5100, 120, true, false, true, 0);
+	App->enemies->AddGrave(5120, 120, false, false, true, 2.5);
+	App->enemies->AddGrave(5140, 120, false, true, true, 5);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5250, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5300, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5500, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5530, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5560, 200, true);
+
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5610, 200, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5630, 200, true);
+	/*App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 5700, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 5750, 165, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 5800, 0, true);
+	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 5820, 0, true);*/
+
+
+	//----------------------------------------------------------------------Last Neff 
+
+	App->enemies->AddNeff(5500, 100, true);
 	
-	
+	/*App->enemies->AddGrave(150, 130, true, false, false);
+	App->enemies->AddGrave(185, 130, false,false ,true);
+	App->enemies->AddGrave( 220, 130, false,false,false);
+	App->enemies->AddGrave( 255, 130, false, true,false);*/
 	
 	//ModuleScene::TestEnemies();
 
@@ -390,14 +591,14 @@ void ModuleScene::PlaceEnemies() {
 
 	// Graves
 
-	App->enemies->AddGrave(340, 120, true, false, true);
-	App->enemies->AddGrave(380, 120, false, false, false);
-	App->enemies->AddGrave(420, 120, false, false, false);
-	App->enemies->AddGrave(460, 120, false, false, false);
-	App->enemies->AddGrave(500, 120, false, false, false);
-	App->enemies->AddGrave(540, 120, false, false, false);
-	App->enemies->AddGrave(580, 120, false, false, true);
-	App->enemies->AddGrave(620, 120, false, true, true);
+	App->enemies->AddGrave(340, 120, true, false, true,0);
+	App->enemies->AddGrave(375, 120, false, false, false,2.5);
+	App->enemies->AddGrave(410, 120, false, false, false,5);
+	App->enemies->AddGrave(445, 120, false, false, false,7.5);
+	App->enemies->AddGrave(480, 120, false, false, false,10);
+	App->enemies->AddGrave(515, 120, false, false, true,12.5);
+	/*App->enemies->AddGrave(550, 120, false, false, true,15);
+	App->enemies->AddGrave(585, 120, false, true, true,17.5);*/
 
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 380, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 400, 200, false);
@@ -409,8 +610,8 @@ void ModuleScene::PlaceEnemies() {
 
 	// Graves
 
-	App->enemies->AddGrave(710, 120, true, false, true);
-	App->enemies->AddGrave(750, 120, false, true, true);
+	App->enemies->AddGrave(710, 120, true, false, true,0);
+	App->enemies->AddGrave(750, 120, false, true, true,2.5);
 
 	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 790, 165, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 800, 165, false);
@@ -446,12 +647,12 @@ void ModuleScene::PlaceEnemies() {
 
 	// Graves
 
-	App->enemies->AddGrave(1350, 120, true, false, true);
-	App->enemies->AddGrave(1390, 120, false, false, false);
-	App->enemies->AddGrave(1430, 120, false, false, false);
-	App->enemies->AddGrave(1470, 120, false, false, false);
-	App->enemies->AddGrave(1510, 120, false, false, false);
-	App->enemies->AddGrave(1550, 120, false, true, true);
+	App->enemies->AddGrave(1350, 120, true, false, true,  0);
+	App->enemies->AddGrave(1390, 120, false, false, false,2.5);
+	App->enemies->AddGrave(1430, 120, false, false, false,5);
+	App->enemies->AddGrave(1470, 120, false, false, false,7.5);
+	App->enemies->AddGrave(1510, 120, false, false, false,10);
+	App->enemies->AddGrave(1550, 120, false, true, true,  12.5);
 
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1600, 200, false);
 
@@ -462,8 +663,8 @@ void ModuleScene::PlaceEnemies() {
 	
 	// Graves
 
-	App->enemies->AddGrave(1900, 120, true, false, false);
-	App->enemies->AddGrave(1940, 120, false, true, false);
+	App->enemies->AddGrave(1900, 120, true, false, false,0);
+	App->enemies->AddGrave(1940, 120, false, true, false,0);
 
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1960, 200, false);
 
@@ -507,10 +708,10 @@ void ModuleScene::PlaceEnemies() {
 	
 	//Graves
 
-	App->enemies->AddGrave(2800, 120, true, false, false);
-	App->enemies->AddGrave(2840, 120, false, false, false);
-	App->enemies->AddGrave(2880, 120, false, false, false);
-	App->enemies->AddGrave(2920, 120, false, true, true);
+	App->enemies->AddGrave(2800, 120, true, false, false ,0);
+	App->enemies->AddGrave(2840, 120, false, false, false,2.5);
+	App->enemies->AddGrave(2880, 120, false, false, false,5);
+	App->enemies->AddGrave(2920, 120, false, true, true  ,7.5);
 
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 2910, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 2970, 200, false);
@@ -556,9 +757,9 @@ void ModuleScene::PlaceEnemies() {
 
 	//Graves
 
-	App->enemies->AddGrave(5100, 120, true, false, true);
-	App->enemies->AddGrave(5120, 120, false, false, true);
-	App->enemies->AddGrave(5140, 120, false, true, true);
+	App->enemies->AddGrave(5100, 120, true, false, true ,0);
+	App->enemies->AddGrave(5120, 120, false, false, true,2.5);
+	App->enemies->AddGrave(5140, 120, false, true, true ,5);
 
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5250, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5300, 200, true);
@@ -719,10 +920,10 @@ void ModuleScene::TestEnemies() {
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 246, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 389, 200, true);
 
-	App->enemies->AddGrave(150, 130, true, false, false);
-	App->enemies->AddGrave(185, 130, false,false ,true);
-	App->enemies->AddGrave( 220, 130, false,false,true);
-	App->enemies->AddGrave( 255, 130, false, true,true);
+	App->enemies->AddGrave(150, 130, true, false, false,0);
+	App->enemies->AddGrave(185, 130, false,false ,true ,0);
+	App->enemies->AddGrave( 220, 130, false,false,true ,0);
+	App->enemies->AddGrave( 255, 130, false, true,true ,0);
 
 
 	// Should stand still
