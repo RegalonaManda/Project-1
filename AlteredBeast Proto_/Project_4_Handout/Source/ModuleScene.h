@@ -62,6 +62,11 @@ public:
 	Collider* backCamLimit = nullptr;
 	Collider* frontCamLimit = nullptr;
 
+	Collider* GravityCollider1;
+	Collider* GravityCollider2;
+	Collider* GravityCollider3;
+	Collider* GravityCollider4;
+
 	float aux;
 	// The different sprite sections for the flag
 	Animation flag;

@@ -128,6 +128,7 @@ public:
 	bool start = false;
 	float knockImpulse = 2;
 
+	int wolfKickTimer = 0;
 
 	float impulse = 3.5f;
 	float MAX_HEIGHT;

@@ -169,6 +169,7 @@ bool ModulePlayer::Start()
 update_status ModulePlayer::Update()
 {
 	
+
 	// calculate the max h for the current ground lvl
   	if (airSt == AirState::GROUND) {
 		MAX_HEIGHT = position.y - 52   ;
@@ -566,6 +567,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
 		idle = true;
+		kickL = false;
+		kickR = false;
 		//Kai revisa esto cuando puedas, de momento lo he harcodeado
 
 		/*while (position.x < (App->render->camera.x * 0.3333333333f - 13.3333333333f)) {
@@ -577,7 +580,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (CollideState != knock::NOT) {
 			position.x += 5;
 		}
-
+		/*if (tranSt == Transform::WOLF) {
+			position.x += 5;
+		}*/
 	}
 
 
@@ -585,7 +590,8 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
 		idle = true;
-
+		kickL = false;
+		kickR = false;
 		/*while (position.x > App->scene->aux - 33.3333333333f) {
 			position.x = App->scene->aux - 33.3333333333f;
 		}*/
@@ -593,6 +599,23 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		if (CollideState != knock::NOT) {
 			position.x -= 5;
 		}
+	}
+	// wolf kick on camera limit
+	if ((c1 == WolfKickCollider || c1 == Pcollider) && c2 == App->scene->frontCamLimit) {
+		position.x -= 10;
+		idle = true;
+		currentAnimation = &AllAnimations.W_IdleR;
+		dir = Direction::RIGHT;
+		wolfKickTimer = 30;
+		WolfKickCollider->SetPos(-9000, 9000);
+	}
+	if ((c1 == WolfKickCollider || c1 == Pcollider )&& c2 == App->scene->backCamLimit) {
+		position.x += 10;
+		idle = true;
+		currentAnimation = &AllAnimations.W_IdleL;
+		dir = Direction::LEFT;
+		wolfKickTimer = 30;
+		WolfKickCollider->SetPos(-9000, 9000);
 	}
 
 	if (c1 == FireBall.collider && (c2 == App->scene->frontCamLimit || c2 == App->scene->backCamLimit)) {
@@ -649,12 +672,18 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		position.x-= speed;
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
+		if (tranSt == Transform::WOLF) {
+			position.x -= 3;
+		}
 
 	}
 	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL_RIGHT && transforming == false) {
 		position.x += speed;
 		AllAnimations.W_KickR.loopCount = 0;
 		AllAnimations.W_KickL.loopCount = 0;
+		if (tranSt == Transform::WOLF) {
+			position.x += 3;
+		}
 	}
 
 	// -------------------------------------------Border Collisions-------------------------------
@@ -827,6 +856,8 @@ void ModulePlayer::WereWolfMovement() {
 
 
 	if (tranSt == Transform::WOLF) {
+
+		wolfKickTimer--;
 
 		if (idle == true && airSt == AirState::GROUND && iFrames == false) {
 			AllAnimations.W_KickR.loopCount = 0;
@@ -1071,7 +1102,6 @@ void ModulePlayer::WereWolfMovement() {
 		// Punch without fireball
 		else if ((App->input->keys[SDL_SCANCODE_Z] == KEY_DOWN || App->input->pads[0].b) && FireBall.destroyed == false) {
 
-			
 
 			if (hitEnemy == false) {
 				App->audio->PlayFx(nonLethalAtt, 3);
@@ -1174,7 +1204,7 @@ void ModulePlayer::WereWolfMovement() {
 		if (currentAnimation == &AllAnimations.P1JumpKickR) { attackCollider->SetPos(position.x + 55, position.y - 40); }
 
 
-		if (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN || App->input->pads[0].a) {
+		if (wolfKickTimer <= 0 && (App->input->keys[SDL_SCANCODE_X] == KEY_DOWN || App->input->pads[0].a)) {
 
 			if (hitEnemy == false) {
 				App->audio->PlayFx(nonLethalAtt, 3);
@@ -1388,7 +1418,7 @@ void ModulePlayer::WolfKick() {
 
 	if (dir == Direction::LEFT) {
 		position.x -= 4;
-		WolfKickCollider->SetPos(position.x + 5, position.y - 70);
+		WolfKickCollider->SetPos(position.x +10, position.y - 70);
 		FireBall.destroyed = true;
 		// may have to reset stuff
 	}
