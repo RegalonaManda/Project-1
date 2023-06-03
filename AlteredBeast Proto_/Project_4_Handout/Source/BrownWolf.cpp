@@ -56,7 +56,7 @@ BrownWolf::BrownWolf(int x, int y) : Enemy(x, y) {
 	deathAnimLeft.loop = false;
 	deathAnimLeft.totalFrames = 2;
 
-	Ecollider = App->collisions->AddCollider({ 600, 190, 55, 22 }, Collider::Type::ENEMY, (Module*)App->enemies);
+	Ecollider = App->collisions->AddCollider({ 600, 190, 55, 32 }, Collider::Type::ENEMY, (Module*)App->enemies);
 	AttackCollider = App->collisions->AddCollider({ 600, 200, 34, 30 }, Collider::Type::ENEMY_SHOT, (Module*)App->player);
 
 	position.y = 210;

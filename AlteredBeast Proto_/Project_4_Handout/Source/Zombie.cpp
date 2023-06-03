@@ -160,8 +160,8 @@ void Zombie::Update() {
 
 		}
 	}else {
-			if (position.x <= App->player->position.x + 140 && position.y > 120)
-			{
+			if (position.x <= App->player->position.x + 190 && position.y > 120)
+			{// higher the sum the more further away they spawn
 
 				isRising = true;
 
