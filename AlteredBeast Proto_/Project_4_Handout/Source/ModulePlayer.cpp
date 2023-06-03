@@ -377,15 +377,15 @@ update_status ModulePlayer::Update()
 	
 		if (iFrames == true)
 		{
-			
-			airSt = AirState::AIRBORN;
-			
+			if (CollideState != knock::NOT) {
+				airSt = AirState::AIRBORN;
+			}
 		
 
 			iTimer--;
 			if (iTimer <= 0) {
 				iFrames = false;
-				iTimer = 30;
+				iTimer = 80;
 			}
 			
 		}
@@ -1375,17 +1375,20 @@ void ModulePlayer::WolfKick() {
 		position.x += 4;
 
 		WolfKickCollider->SetPos(position.x + 78, position.y - 70);
-
+		FireBall.destroyed = true;
 
 	}
 
 	if (dir == Direction::LEFT) {
 		position.x -= 4;
 		WolfKickCollider->SetPos(position.x + 5, position.y - 70);
+		FireBall.destroyed = true;
+		// may have to reset stuff
 	}
 
 	if (airSt == AirState::AIRBORN) {
 		position.y-=2;
+		FireBall.destroyed = true;
 	}
 	
 	 

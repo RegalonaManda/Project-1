@@ -16,7 +16,7 @@ public:
 	void OnCollision(Collider* collider) override;
 
 	void Rise();
-	int Risecnt = 400;
+	int Risecnt = 900;
 	int Risecnt2 = 60;
 
 	int zombieTimer = 900;

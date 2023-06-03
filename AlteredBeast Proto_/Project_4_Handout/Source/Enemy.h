@@ -71,7 +71,8 @@ public:
 	// A ptr to the current animation
 	Animation* currentAnim = nullptr;
 	Collider* Ecollider = nullptr;
-	
+	Collider* Range = nullptr;
+
 	Collider* XplosionTrigger = nullptr;
 	Collider* Xplosion = nullptr;
 	Collider* SelfDestruct = nullptr;

@@ -123,9 +123,9 @@ bool ModuleScene::Start()
 	App->player->tranSt = Transform::DEFAULT;
 
 	
-
 	
-	ModuleScene::PlaceEnemies();
+	
+	//ModuleScene::PlaceEnemies();
 	
 	
 	
@@ -383,7 +383,7 @@ void ModuleScene::PlaceEnemies() {
 
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 260, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 280, 200, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 310, 200, false);
+	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 180, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 310, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 320, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 340, 200, true);

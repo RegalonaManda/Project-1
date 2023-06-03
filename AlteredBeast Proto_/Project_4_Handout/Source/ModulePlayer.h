@@ -120,7 +120,7 @@ public:
 	int hp = 3;
 	int lives = 3;
 	bool iFrames = false;
-	int iTimer = 30;
+	int iTimer = 80;
 	int exTimer = 40;
 
 	bool startExTimer = false;

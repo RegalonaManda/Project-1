@@ -112,7 +112,7 @@ Skull::Skull(int x, int y) : Enemy(x, y) {
 
 
 	//Default Direction
-	dir = Direction::LEFT;
+	//dir = Direction::LEFT;
 	SkSt = SkullState::STILL;
 
 	
@@ -198,16 +198,19 @@ void Skull::Update() {
 			backtrackCnt = 30;
 			AttackCollider->SetPos(-1500, 1200);
 
+			
+		}
+
+		if (SkSt == BACKTRACK) {
+			BackTrack();
+		}
+		else {
 			if (dir == Direction::LEFT) {
 				backTrackDist = position.x + 30;
 			}
 			else if (dir == Direction::RIGHT) {
 				backTrackDist = position.x - 30;
 			}
-		}
-
-		if (SkSt == BACKTRACK) {
-			BackTrack();
 		}
 
 		if (hp == 1 && hitByPlayer) {
@@ -239,13 +242,15 @@ void Skull::Update() {
 		{
 			dir = Direction::RIGHT;
 		}
-		else { dir = Direction::LEFT; }
+		else {
+			dir = Direction::LEFT;
+		}
 
 		currentAnim->Update();
 
 		Enemy::Update();
 
-		Ecollider->SetPos(position.x + 30, position.y);
+		Ecollider->SetPos(position.x + 30, position.y+10);
 		Range->SetPos(position.x, position.y);
 		if (falling == true) {
 			position.y += 3;
