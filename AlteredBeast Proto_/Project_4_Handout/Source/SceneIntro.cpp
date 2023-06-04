@@ -9,12 +9,8 @@
 #include "SDL/include/SDL.h"
 #include "ModulePlayer.h"
 
-//video reference: https://www.youtube.com/watch?v=NVrWoPUSW6E&ab_channel=ArcadeGameClips (first 7 seconds)
-
 SceneIntro::SceneIntro(bool startEnabled) : Module(startEnabled)
 {
-	
-
 	//Rects
 	mural = { 1,1126,320,224 };
 	blueScreen = { 1285,226,320,224 };
@@ -136,9 +132,7 @@ update_status SceneIntro::Update()
 	if (App->input->keys[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN || App->input->pads[0].start)
 	{
 		App->fade->FadeToBlack(this, (Module*)App->scene, 60.0f);
-		//App->player->Enable();
 	}
-	
 
 	return update_status::UPDATE_CONTINUE;
 }

@@ -23,8 +23,6 @@
 #pragma comment( lib, "SDL/libx86/SDL2main.lib")
 
 #include "SDL/include/SDL_scancode.h"
-//the lower the higher
-//#define MAX_HEIGHT 147
 //------- Animation Speeds ----------- //
 #define WALKANIMSPEED 0.08f
 #define PUNCHANIMSPEED 0.13f
@@ -49,19 +47,9 @@
 
 void ModulePlayer::Power1Movement() {
 
-	//Power1
-
-
-
-
-
-
-
 	if (idle == true && airSt != AirState::CROUCH) {
 		crouched = false;
 	}
-
-
 
 	attack = 2;
 	if (tranSt == Transform::POWER1) {
@@ -105,31 +93,7 @@ void ModulePlayer::Power1Movement() {
 			attackCollider->SetPos(1000, 1000);
 			kickCollider->SetPos(1000, 1000);
 		}
-		//Jump function
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		/*if (airSt == AirState::LANDING) {
-			if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.P1LandingL; }
-			if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.P1LandingR; }
-			landing--;
-		}
-		if (landing <= 0) {
-			airSt = AirState::GROUND;
-			landing = 5;
-		}*/
-
+		
 		//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::GROUND)
 		{
@@ -381,9 +345,6 @@ void ModulePlayer::Power1Movement() {
 			idle = true;
 		}
 
-
-
-	
 		//Player gets killed
 		if (destroyed) {
 
@@ -411,7 +372,6 @@ void ModulePlayer::Power1Movement() {
 
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
-					//return update_status::UPDATE_STOP;
 
 					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
 					idle = true;
@@ -419,21 +379,7 @@ void ModulePlayer::Power1Movement() {
 					tranSt = Transform::DEFAULT;
 					this->CleanUp();
 				}
-
 			}
-			//if (position.y >= 190) {
-			//	position.x += 0;
-			//	position.y = 190;
-			//	destroyedCountdown -= 0.5f;
-			//	if (destroyedCountdown <= 0) {
-			//		//return update_status::UPDATE_STOP;
-
-			//		App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
-			//		this->CleanUp();
-			//	}
-
-			//}
-
 		}
 	}
 }

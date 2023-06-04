@@ -3,7 +3,6 @@
 #include "Enemy.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
-#include "EnemyDeath.h"
 #include "Dragon.h"
 #include "ModuleScene2.h"
 #include "ModulePlayer.h"

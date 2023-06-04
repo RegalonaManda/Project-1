@@ -91,9 +91,6 @@
     <ClInclude Include="PlayerAnimations.h">
       <Filter>Source Files\Modules\Gameplay\Player</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyDeath.h">
-      <Filter>Source Files\Modules\Gameplay</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleFadeToBlack.h">
       <Filter>Source Files\Modules</Filter>
     </ClInclude>

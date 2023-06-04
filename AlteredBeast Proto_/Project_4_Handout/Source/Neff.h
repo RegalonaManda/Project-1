@@ -3,7 +3,6 @@
 
 #include "Enemy.h"
 #include "Path.h"
-#include "EnemyDeath.h"
 #include "ModuleScene.h"
 
 class Neff : public Enemy {

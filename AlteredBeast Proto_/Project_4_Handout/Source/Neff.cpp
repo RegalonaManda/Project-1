@@ -3,7 +3,6 @@
 #include "Enemy.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
-#include "EnemyDeath.h"
 #include "Neff.h"
 #include "ModuleScene2.h"
 #include "ModuleBoss.h"
@@ -21,9 +20,6 @@ Neff::Neff(int x, int y, bool last) : Enemy(x, y) {
 	Ecollider = App->collisions->AddCollider({ 400, 120, 50, 60 }, Collider::Type::RANGE, (Module*)App->enemies);
 	SelfDestruct = App->collisions->AddCollider({ -4678,1000,5,5 }, Collider::Type::PLAYER_SHOT, (Module*)App->enemies);
 	CodeN = 4;
-
-	//rangeCollider = App->collisions->AddCollider({0,0,50,73}, Collider::Type::RANGE, (Module*)App->enemies);
-	
 
 	lethalAtt = App->audio->LoadFx("Assets/FX/Lethal_Punch");
 
@@ -170,13 +166,11 @@ void Neff::HeadOut() {
 void Neff::ActivateBoss(){
 	
 	if (bossCountdown <= 0) {
-		/*App->bossfight->Enable();*/
 
 		App->bossfight->Neff_activ = true;
 		App->bossfight->hp = 100;
 		App->bossfight->beaten = false;
 		App->bossfight->initilized = false;
-		//App->bossfight->selected = false;
 		App->bossfight->position.x = position.x + 70;
 
 		App->bossfight->position.y = position.y - 60;

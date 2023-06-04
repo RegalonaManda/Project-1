@@ -157,19 +157,6 @@ void BrownWolf::Update() {
 			MAX_HEIGHT = position.y - 56;
 		}
 	}
-	//if (!alive) {
-	//	
-
-	//	if (dir == Direction::RIGHT) { currentAnim = &deathAnimRight; }
-	//	if (dir == Direction::LEFT) { currentAnim = &deathAnimLeft; }
-
-	//	if (currentAnim->HasFinished() == false) {
-	//		destroyed = false;
-	//	}
-	//}
-
-
-
 }
 
 void BrownWolf::OnCollision(Collider* collider) {

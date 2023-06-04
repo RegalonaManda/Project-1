@@ -4,7 +4,6 @@
 #include "Enemy.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
-#include "EnemyDeath.h"
 #include "ModuleParticles.h"
 
 
@@ -53,17 +52,6 @@ Skull::Skull(int x, int y) : Enemy(x, y) {
 	punchAnimL.PushBack({ 1, 343, 84, 68 });
 	punchAnimL.speed = 0.04f;
 	punchAnimL.loop = false;
-	
-
-	//------ DeathAnim -------//
-
-	//deathAnimL.PushBack({ 127,1,41,68 });
-	//deathAnimL.PushBack({ 132,1,41,68 });
-	//deathAnimL.PushBack({ 127,1,41,68 });
-	//deathAnimL.PushBack({ 132,1,41,68 });
-	//deathAnimL.loop = false;
-	//deathAnimL.totalFrames = 4;
-	//deathAnimL.speed = 0.03f;
 
 	//------------------------------------------- Right Dir Animations ------------------------------------------------------//
 
@@ -99,28 +87,10 @@ Skull::Skull(int x, int y) : Enemy(x, y) {
 	crouchAnimR.speed = 0.05f;
 	crouchAnimR.loop = false;
 
-	//------ DeathAnim -------//
-
-	//deathAnimR.PushBack({ 127,1,41,68 });
-	//deathAnimR.PushBack({ 132,1,41,68 });
-	//deathAnimR.PushBack({ 127,1,41,68 });
-	//deathAnimR.PushBack({ 132,1,41,68 });
-	//deathAnimR.loop = false;
-	//deathAnimR.totalFrames = 4;
-	//deathAnimR.speed = 0.03f;
-
-
-
-	//Default Direction
-	//dir = Direction::LEFT;
 	SkSt = SkullState::STILL;
 
-	
-
 	Ecollider = App->collisions->AddCollider({ 400, 120, 24, 60 }, Collider::Type::ENEMY, (Module*)App->enemies);
-	
-	
-	
+
 	//change name to range
 	Range = App->collisions->AddCollider({0,0, 84, 68}, Collider::Type::RANGE, (Module*)App->enemies);
 	

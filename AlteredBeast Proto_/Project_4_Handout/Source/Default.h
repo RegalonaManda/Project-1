@@ -41,46 +41,7 @@
 void ModulePlayer::DefaultMovement() {
 
 	attack = 1;
-	//if (playerKnocked == true) {
-	//	if (dir == Direction::RIGHT) {
-	//		Pcollider->SetPos(position.x + 20, position.y - 60);
-	//		if (position.y >= 190) {
-	//			currentAnimation = &AllAnimations.RiseR;
-	//			
-	//		}
-	//		
-	//		//KnockBack(0.8);
-	//		if (position.y >= 190) {
-	//			if (AllAnimations.RiseR.HasFinished() == true) {
-	//				AllAnimations.RiseR.Reset();
-	//				AllAnimations.RiseR.loopCount = 0;
-	//				airSt = AirState::GROUND;
-	//				position.y = 190;
-	//				idle = true;
-	//				playerKnocked = false;
 
-	//			}
-	//		}
-	//		
-	//	}
-	//	if (dir == Direction::LEFT) {
-	//		Pcollider->SetPos(position.x + 20, position.y - 60);
-	//		if (position.y >= 190) {
-	//			currentAnimation = &AllAnimations.RiseL;
-	//			
-	//		}
-
-	//		if (AllAnimations.RiseL.HasFinished() == true) {
-	//			AllAnimations.RiseL.Reset();
-	//			AllAnimations.RiseL.loopCount = 0;
-	//			airSt = AirState::GROUND;
-	//			position.y = 190;
-	//			idle = true;
-	//			playerKnocked = false;
-
-	//		}
-	//	}
-	//}
 	if (destroyed == false) {
 		if (idle == true && airSt == AirState::GROUND && iFrames == false) {
 			//position.y = 190;
@@ -126,24 +87,6 @@ void ModulePlayer::DefaultMovement() {
 	if (idle == true) {
 		attackCollider->SetPos(1000, 1000);
 	}
-
-
-
-	// Landing isn't used yet... i'm dreading having to implement it 
-
-	//if (airSt == AirState::LANDING) {
-	//	if (dir == Direction::LEFT) { currentAnimation = &AllAnimations.LandingLeft; }
-	//	if (dir == Direction::RIGHT) { currentAnimation = &AllAnimations.LandingRight; }
-	//	landing--;
-	//}
-	//// 5 frame counter for landing animation
-	//if (landing <= 0) {
-	//	airSt = AirState::GROUND;
-	//	landing = 5;
-	//}
-
-
-
 
 	//Reset the currentAnimation back to idle, either left/right, ground/crouch before updating the logic
 	//Could be a switch
@@ -341,18 +284,6 @@ void ModulePlayer::DefaultMovement() {
 			//deactivate punch collider
 			attackCollider->SetPos(1000, 1000);
 		}
-
-	/*	if (AllAnimations.jumpLeft.HasFinished()) {
-			idle = true;
-			AllAnimations.jumpLeft.loopCount--;
-			airSt = AirState::GROUND; 
-		}
-
-		if (AllAnimations.jumpLeft.HasFinished()) {
-			idle = true;
-			AllAnimations.jumpLeft.loopCount--;
-			airSt = AirState::GROUND;
-		}*/
 
 		if (AllAnimations.crouchPunchRight.HasFinished() == true) {
 			AllAnimations.crouchPunchRight.loopCount--;

@@ -8,7 +8,6 @@
 #include "ModuleAudio.h"
 #include "Enemy.h"
 #include "Zombie.h"
-#include "EnemyDeath.h"
 #include "WhiteWolf.h"
 #include "BrownWolf.h"
 #include "ModuleGreyScene.h"
@@ -25,7 +24,6 @@ ModuleScene::ModuleScene(bool startEnabled) : Module(startEnabled)
 	background.y = 17;
 	background.w = 4662;
 	background.h = 273;
-
 
 	//Stone wal
 	StoneWall.x = 0;
@@ -121,10 +119,6 @@ bool ModuleScene::Start()
 	ExplosionText = App->textures->Load("Assets/Particle.png");
 
 	App->player->tranSt = Transform::DEFAULT;
-
-	/*GravityCollider1 = App->collisions->AddCollider({ 550,0,150,100 }, Collider::Type::BORDER, (Module*)App->player);
-	GravityCollider2 = App->collisions->AddCollider({ 790,0,500,100 }, Collider::Type::BORDER, (Module*)App->player);
-	*/
 	
 	//----------------First Part ( 200 - 700 )
 
@@ -143,8 +137,6 @@ bool ModuleScene::Start()
 	App->enemies->AddGrave(445, 120, false, false, false, 7.5);
 	App->enemies->AddGrave(480, 120, false, false, false, 10);
 	App->enemies->AddGrave(515, 120, false, true, false, 14);
-	/*App->enemies->AddGrave(550, 120, false, false, true,15);
-	App->enemies->AddGrave(585, 120, false, true, true, 17.5);*/
 
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 380, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 480, 200, false);
@@ -325,13 +317,6 @@ bool ModuleScene::Start()
 	//----------------------------------------------------------------------Last Neff 
 
 	App->enemies->AddNeff(5500, 100, true);
-	
-	/*App->enemies->AddGrave(150, 130, true, false, false);
-	App->enemies->AddGrave(185, 130, false,false ,true);
-	App->enemies->AddGrave( 220, 130, false,false,false);
-	App->enemies->AddGrave( 255, 130, false, true,false);*/
-	
-	//ModuleScene::TestEnemies();
 
 	backCamLimit = App->collisions->AddCollider({ (int)App->render->camera.x, (int)App->render->camera.y, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
 	frontCamLimit = App->collisions->AddCollider({ (int)App->render->camera.x + SCREEN_WIDTH-10, (int)App->render->camera.y + SCREEN_WIDTH - 10, 10, SCREEN_HEIGHT }, Collider::Type::CAMLIMIT, (Module*)App->player);
@@ -343,10 +328,6 @@ bool ModuleScene::Start()
 	App->collisions->Enable();
 	App->audio->Enable();
 	
-	//App->render->camera.dynamicSpeed = 0.5;
-
-
-	//App->powers->Enable();
 	ScreenScroll = true;
 
 	return ret;
@@ -354,19 +335,8 @@ bool ModuleScene::Start()
 
 update_status ModuleScene::Update()
 {
-	
-	//This is so camera stops when reaching boss
-	//if (App->render->camera.x > 1161) { ScreenScroll = false; }
-	//if (ScreenScroll == false) {
-	//	App->render->camera.x = 1161;
-	//	//WHY does it slightly move backwards???
-	//}
-	//SCREEN SCROLL
-
  	if (ScreenScroll == true) {
-		//App->render->camera.x += App->render->camera.dynamicSpeed;
 		App->render->camera.x += 0.3;
-		//aux = (App->render->camera.x + (SCREEN_WIDTH - 10) * SCREEN_SIZE );
 
 		aux = (App->render->camera.x + (SCREEN_WIDTH - 10));
 
@@ -374,19 +344,15 @@ update_status ModuleScene::Update()
 		frontCamLimit->SetPos(aux, 0);
 	}
 
-	
-
 	App->enemies->Update();
 	if (App->player->tranSt == Transform::DEFAULT || App->player->tranSt == Transform::POWER1 || App->player->tranSt == Transform::POWER2 || App->player->tranSt == Transform::WOLF) {
 		if (EnemyCN == 1) {
 			if (HasEnemyDied == true && EnemyAttacking == false) {
-				//Death->KillZombie(enemyX, enemyY);
 				Ecurrent = &deathAnim;
 				Ecurrent->Update();
 			}
 
 			if (EnemyAttacking == true) {
-				//Kai Kaboom sound pls
 				Xcurrent = &explode;
 				Xcurrent->Update();
 			}
@@ -417,7 +383,6 @@ update_status ModuleScene::Update()
 				Dcurrent = &DDeath;
 				Dcurrent->Update();
 			}
-			
 		}
 	}
 
@@ -598,8 +563,6 @@ void ModuleScene::PlaceEnemies() {
 	App->enemies->AddGrave(445, 120, false, false, false,7.5);
 	App->enemies->AddGrave(480, 120, false, false, false,10);
 	App->enemies->AddGrave(515, 120, false, false, true,12.5);
-	/*App->enemies->AddGrave(550, 120, false, false, true,15);
-	App->enemies->AddGrave(585, 120, false, true, true,17.5);*/
 
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 380, 200, false);
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 400, 200, false);
@@ -771,143 +734,11 @@ void ModuleScene::PlaceEnemies() {
 
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5610, 200, true);
 	App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5630, 200, true);
-	/*App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 5700, 165, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 5750, 165, false);
-	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 5800, 0, true);
-	App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 5820, 0, true);*/
 
 
 	//----------------------------------------------------------------------Last Neff 
 
 	App->enemies->AddNeff(5500, 100, true);
-
-	// Original
-	
-	//App->enemies->AddGrave(2900, 120, true, false, false);
-	//App->enemies->AddGrave(2940, 120, false, false, false);
-	//App->enemies->AddGrave(2980, 120, false, false, false);
-	//App->enemies->AddGrave(3020, 120, false, true, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 3010, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 3070, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 3120, 200, false);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 3200, 165, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 3250, 165, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 3300, 165, false);
-
-	////--------------Second Part ( 3400 - 4200 )
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 3400, 200, false);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3500, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3550, 200, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3700, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3750, 200, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3900, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 3950, 200, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 4000, 200, false);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4200, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4250, 200, true);
-	//										   
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4400, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4450, 200, true);
-	//										   
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4600, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 4650, 200, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 4750, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 4800, 165, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 4850, 165, false);
-
-	////--------------Third Part ( 4900 - 6000 )
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 5000, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 5050, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 5100, 200, false);
-
-	////Graves
-	//
-	//App->enemies->AddGrave(5200, 120, true, false, true);
-	//App->enemies->AddGrave(5220, 120, false, false, true);
-	//App->enemies->AddGrave(5240, 120, false, true, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5350, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5400, 200, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5600, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5630, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5660, 200, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5710, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 5730, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 5800, 165, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 5850, 165, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 5900, 0, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 5920, 0, true);
-
-
-	////----------------------------------------------------------------------Last Neff 
-
-	//App->enemies->AddNeff(5875, 100, true);
-
-
-
-	//// Behind Player
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 800, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 810, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1600, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1720, 200, false);
-	//// In front of player
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 260, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 320, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 400, 200, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 700, 165, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::BROWNWOLF, 750, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 800, 165, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 850, 200, true);
-
-	//App->enemies->AddNeff(875, 100, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1100, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 1150, 150, true);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1400, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1450, 165, false);
-
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1600, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1650, 165, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::SKULL, 1670, 165, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1690, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1720, 200, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::ZOMBIE, 1740, 200, true);
-
-	//App->enemies->AddNeff(1900, 100, true);
-
-	//// Graves
-	//App->enemies->AddGrave(400, 120, true, false, true);
-	//App->enemies->AddGrave(440, 120, false, false, true);
-	//App->enemies->AddGrave(480, 120, false, false, true);
-	//App->enemies->AddGrave(520, 120, false, true, true);
-
-	//App->enemies->AddGrave(1200, 120, true, false, true);
-	//App->enemies->AddGrave(1240, 120, false, false, false);
-	//App->enemies->AddGrave(1280, 120, false, true, true);
-	//
-	//// Should stand still
-	//
-	//App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 550, 200, false);
-	//App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 900, 50, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 1480, 50, true);
-	//App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, 1520, 50, true);
-
-
-
-
 }
 
 void ModuleScene::TestEnemies() {
@@ -926,12 +757,6 @@ void ModuleScene::TestEnemies() {
 	App->enemies->AddGrave( 220, 130, false,false,true ,0);
 	App->enemies->AddGrave( 255, 130, false, true,true ,0);
 
-
 	// Should stand still
 	App->enemies->AddEnemy(ENEMY_TYPE::WHITEWOLF, 395, 200, false);
-
-
-
-
-
 }

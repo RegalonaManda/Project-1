@@ -31,14 +31,6 @@ bool ModulePower::Start()
 	bool ret = true;
 	gotten = false;
 	texture = App->textures->Load("Assets/PowerUp.png");
-	//currentAnimation = &idleAnim;
-
-	/*spawnPos.x = 400;
-	spawnPos.y = 110;
-
-	position.x = 400;
-	position.y = 110;*/
-	
 
 	// Add collider
 	SDL_Rect HitBox = { 1,1,20,20 };
@@ -64,7 +56,6 @@ update_status ModulePower::Update()
 	position.y -= 0.4;
 	
 	collider->SetPos(position.x +6, position.y+6);
-	//collider->SetPos(position.x, position.y);
 
 	currentAnim->Update();
 
@@ -73,14 +64,6 @@ update_status ModulePower::Update()
 
 update_status ModulePower::PostUpdate()
 {
-	/*if (!destroyed)
-	{
-		SDL_Rect rect = currentAnimation->GetCurrentFrame();
-		App->render->Blit(texture, position.x, position.y, &rect);
-	}*/
-
-
-
 	SDL_Rect PowerRec = currentAnim->GetCurrentFrame();
 	App->render->Blit(texture, position.x, position.y, &PowerRec);
 
@@ -89,12 +72,6 @@ update_status ModulePower::PostUpdate()
 
 void ModulePower::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c1 == collider && gotten == false || c2 == collider)
-	{
-		
-
-		//destroyed = true;
-	}
 }
 
 bool ModulePower::CleanUp() {

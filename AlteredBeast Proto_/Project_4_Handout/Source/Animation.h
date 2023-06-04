@@ -56,11 +56,6 @@ public:
 	//Changed to notconstant bc of the change in the blit function
 	SDL_Rect& GetCurrentFrame() 
 	{
-		/*int actualFrame = (int)currentFrame;
-		if (pingpongDirection == -1)
-			actualFrame = totalFrames - currentFrame;
-
-		return frames[actualFrame];*/
 		int actualFrame = currentFrame;
 		if (pingpongDirection == -1)
 			actualFrame = totalFrames - currentFrame;

@@ -4,7 +4,6 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Colliders.h"
-#include "EnemyDeath.h"
 
 struct SDL_Texture;
 

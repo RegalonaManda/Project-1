@@ -3,7 +3,6 @@
 
 #include "Enemy.h"
 #include "Path.h"
-#include "EnemyDeath.h"
 #include "ModuleScene.h"
 
 class Zombie : public Enemy {
@@ -36,14 +35,11 @@ public:
 		RIGHT
 	};
 
-	
-
 	uint hitCountdown = 10;
 	uint destroyedCountdown = 10;
 
 	uint lethalAtt;
 	
-
 	Direction dir;
 	//-------------------------------------------- Left Dir Animations ------------------------------------------------------//
 	
@@ -89,12 +85,7 @@ public:
 
 	Animation deathAnimR;
 	
-
-	
-
 	void Attack() override;
-
-	
 };
 
 

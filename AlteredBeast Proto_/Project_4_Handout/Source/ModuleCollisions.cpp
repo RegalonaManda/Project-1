@@ -274,7 +274,7 @@ void ModuleCollisions::DebugDraw()
 		case Collider::Type::PLAYER_SHOT: // yellow
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
-		case Collider::Type::ENEMY_SHOT: // magenta? this is fucking turquoise
+		case Collider::Type::ENEMY_SHOT: // magenta
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		case Collider::Type::CAMLIMIT: //black

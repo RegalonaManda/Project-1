@@ -9,14 +9,9 @@
 #include "ModuleAudio.h"
 #include "ModuleGreyScene.h"
 #include "ModuleScene.h"
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
-
-
 
 ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 {
-	/*startEnabled = true;*/
-
 	// Background / sky
 	background.x = 0;
 	background.y = 191;
@@ -149,8 +144,6 @@ update_status ModuleScene2::PostUpdate()
 	}//se necessita investigar mas como funcionan las vidas i la hp
 
 	ric = iconAnim.frames[0]; // 0 or 1
-
-
 
 	App->render->Blit(layer1, 0, 145, &background, 1.2);
 

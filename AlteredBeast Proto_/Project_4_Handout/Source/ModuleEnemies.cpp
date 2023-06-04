@@ -37,7 +37,6 @@ bool ModuleEnemies::Start()
 {
 	LOG("Starting Enemies \nStarting Enemies \nStarting Enemies \nStarting Enemies \nStarting Enemies \nStarting Enemies \n");
 	texture = App->textures->Load("Assets/EnemiesProto.png");
-	//BossText = App->textures->Load("Assets/BossGrid.png");
 	//Load Enemy Death Sound FX
 	enemyDeath = App->audio->LoadFx("Assets/FX/NPC_Death.wav");
 	
@@ -178,22 +177,9 @@ void ModuleEnemies::HandleEnemiesSpawn()
 				numEnemies++;
 				SpawnEnemy(spawnQueue[i]);
 				spawnQueue[i].type = ENEMY_TYPE::NO_TYPE; // Removing the newly spawned enemy from the queue
-			
 			}
 		}
 	}
-	//comprobacion 
-	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (enemies[i] == nullptr)
-		{
-			LOG("Enemy number %d does not spawn", i);
-		}
-		else {
-			LOG("Enemy number %d spawns", i);
-		}
-	}*/
-
 }
 
 void ModuleEnemies::HandleEnemiesDespawn()

@@ -4,7 +4,6 @@
 #include "Enemy.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
-#include "EnemyDeath.h"
 #include "ModuleParticles.h"
 
 
@@ -159,25 +158,23 @@ void Zombie::Update() {
 			isRising = true;
 
 		}
-	}else {
-			if (position.x <= App->player->position.x + 190 && position.y > 120)
-			{// higher the sum the more further away they spawn
+	}
+	else {
+		if (position.x <= App->player->position.x + 190 && position.y > 120)
+		{// higher the sum the more further away they spawn
 
-				isRising = true;
+			isRising = true;
 
-			}
 		}
-	
-
+	}
 
 	if (isRising == true) {
 		position.y -= 1;
 	}
 
-	if (position.y <= 120) { Spawning = false; isRising = false; Risen = true; }
-
-
-
+	if (position.y <= 120) {
+		Spawning = false; isRising = false; Risen = true;
+	}
 
 	//if zombie is behind the player change the direction
 

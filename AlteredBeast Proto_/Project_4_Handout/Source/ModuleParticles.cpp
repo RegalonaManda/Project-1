@@ -24,21 +24,6 @@ bool ModuleParticles::Start()
 	LOG("Loading particles");
 	texture = App->textures->Load("Assets/EnemiesProto.png");
 
-	// Explosion particle
-	/*zombieExpl.anim.PushBack({ 274, 296, 33, 30 });
-	zombieExpl.anim.PushBack({ 313, 296, 33, 30 });
-	zombieExpl.anim.PushBack({ 346, 296, 33, 30 });
-	zombieExpl.anim.PushBack({ 382, 296, 33, 30 });
-	zombieExpl.anim.PushBack({ 419, 296, 33, 30 });
-	zombieExpl.anim.PushBack({ 457, 296, 33, 30 });
-	zombieExpl.anim.loop = false;
-	zombieExpl.anim.speed = 0.3f;*/
-
-	/*wolfShot.anim.PushBack({ 1,115, 73, 65 });
-	wolfShot.anim.PushBack({ 75,115, 73, 65 });
-	wolfShot.anim.PushBack({ 149,115, 73, 65 });
-	wolfShot.anim.PushBack({ 223,115, 73, 65 });*/
-
 	zombie.anim.PushBack({ 212,1,63,68 });
 	zombie.anim.PushBack({ 276,1,63,68 });
 	zombie.anim.PushBack({ 340,1,63,68 });

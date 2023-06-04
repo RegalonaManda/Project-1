@@ -3,7 +3,6 @@
 #include "Enemy.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
-#include "EnemyDeath.h"
 #include "Tomb.h"
 #include "ModuleScene2.h"
 
@@ -75,8 +74,6 @@ void Tomb::Update() {
 	WallLCollider->SetPos(position.x, position.y+4);
 	WallRCollider->SetPos(position.x+22, position.y + 4);
 	PlatformCollider->SetPos(position.x+4, position.y);
-
-	//Ecollider->SetPos(position.x + 5, position.y-200);
 
 	if (TombBorderL == true && Rising == true || Risen == true && TombBorderL == true) {
 		LBorder->SetPos(position.x - 20, position.y -40);

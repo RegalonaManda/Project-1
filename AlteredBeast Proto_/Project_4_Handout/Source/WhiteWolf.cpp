@@ -154,9 +154,6 @@ void WhiteWolf::Update() {
 			MAX_HEIGHT_2 = position.y - 56;
 		}
 	}
-
-
-	
 }
 
 void WhiteWolf::OnCollision(Collider* collider) {

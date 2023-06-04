@@ -84,7 +84,6 @@
     <ClInclude Include="Colliders.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyDeath.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleCollisions.h" />
     <ClInclude Include="ModuleEnemies.h" />

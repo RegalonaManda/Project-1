@@ -23,8 +23,6 @@
 #pragma comment( lib, "SDL/libx86/SDL2main.lib")
 
 #include "SDL/include/SDL_scancode.h"
-//the lower the higher
-//#define MAX_HEIGHT 147
 //------- Animation Speeds ----------- //
 #define WALKANIMSPEED 0.08f
 #define PUNCHANIMSPEED 0.13f
@@ -369,8 +367,6 @@ void ModulePlayer::Power2Movement() {
 
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
-					//return update_status::UPDATE_STOP;
-
 					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
 					idle = true;
 					airSt = AirState::GROUND;

@@ -27,8 +27,6 @@
 #pragma comment( lib, "SDL/libx86/SDL2main.lib")
 
 #include "SDL/include/SDL_scancode.h"
-//the lower the higher
-//#define MAX_HEIGHT 147
 //------- Animation Speeds ----------- //
 #define WALKANIMSPEED 0.08f
 #define PUNCHANIMSPEED 0.13f
@@ -231,13 +229,6 @@ update_status ModulePlayer::Update()
 		transforming = false;
 		App->powers->Disable();
 	}
-	
-	/*if (airSt == AirState::GROUND && Pcollider->Intersects(Pcollider->rect) == false) {
-		airSt = AirState::AIRBORN;
-	}*/
-
-
-
 	//F1, F2, F3, F4 functionalities (keyboard & gamepad)
 
 	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN || App->input->pads[0].l2) {
@@ -393,47 +384,7 @@ update_status ModulePlayer::Update()
 			
 		}
 
-		//if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN || App->input->pads[0].l3) {
-		//	if (!GodMode) { GodMode = true; }
-		//	else if (GodMode) {
-		//		GodMode = false;
-		//		lives = 3;
-		//	}
-		//
-		//}
-
-
-		//if (App->input->keys[SDL_SCANCODE_F3] == KEY_DOWN || App->input->pads[0].l1) {
-
-		//	App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 0.0f);
-		//	
-		//	if (tranSt == Transform::DEFAULT) {
-		//		Deathcollider->SetPos(position.x+20, position.y-20);
-		//	} 
-		//	if (tranSt == Transform::POWER1) {
-		//		Deathcollider->SetPos(position.x + 36, position.y - 65);
-		//	}
-		//	lives = 0;
-		//	idle = true;
-		//	airSt = AirState::GROUND;
-		//	tranSt = Transform::DEFAULT;
-		//}
-		//
-		//if (App->input->keys[SDL_SCANCODE_F4] == KEY_DOWN || App->input->pads[0].l1) {
-
-		//	App->audio->PlayMusic("Assets/Music/Win.ogg", 0.0f);
-		//	/*App->enemies->Disable();*/
-		//	App->collisions->Disable();
-		//
-		//	App->player->KilledBoss = true;
-		//	App->scene2->killedBoss = true;
-		//	
-		//}
-
-
 		if (KilledBoss == true) {
-
-			
 
 			if (FadeCnt == 200) { App->player->score += 20000; }
 			FadeCnt--;
@@ -514,22 +465,9 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			knockImpulse = 1.0f;
 			iFrames = true;
 			position.y -= 20.0f;
-			//PlayerBump();
-			/*knockImpulse = 1.0f;
-			up to change */
-
-
-			/*App->scene->ScreenScroll = false;*/
 		}
 
 		//------------------------------------------------Getting hit by enemy attack-------------------------------------
-
-		//if (c1 == Pcollider && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
-		//{
-		//	PlayerHit(c2);
-
-		//	/*App->scene->ScreenScroll = false;*/
-		//}
 
 		if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::ENEMY_SHOT && !destroyed && iFrames == false)
 		{
@@ -555,10 +493,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 			PlayerHit(c2);
 
 			playerDamaged();
-
-			/*App->scene->ScreenScroll = false;*/
 		}
-
 	}
 	
 	// -------------------------------------------Camera Collisions-------------------------------
@@ -569,20 +504,11 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		idle = true;
 		kickL = false;
 		kickR = false;
-		//Kai revisa esto cuando puedas, de momento lo he harcodeado
-
-		/*while (position.x < (App->render->camera.x * 0.3333333333f - 13.3333333333f)) {
-			position.x += 20;
-
-		}*/
 
 		position.x += 1.2*speed;
 		if (CollideState != knock::NOT) {
 			position.x += 5;
 		}
-		/*if (tranSt == Transform::WOLF) {
-			position.x += 5;
-		}*/
 	}
 
 
@@ -592,9 +518,6 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		idle = true;
 		kickL = false;
 		kickR = false;
-		/*while (position.x > App->scene->aux - 33.3333333333f) {
-			position.x = App->scene->aux - 33.3333333333f;
-		}*/
 		position.x -= 1.2 * speed;
 		if (CollideState != knock::NOT) {
 			position.x -= 5;
@@ -664,9 +587,6 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 		
 		
 	}
-	else {
-		//airSt = AirState::AIRBORN;
-	}
 
 	if (c1->type == Collider::Type::PLAYER && c2->type == Collider::Type::WALL && transforming == false) {
 		position.x-= speed;
@@ -714,47 +634,15 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 
 void ModulePlayer:: KnockBack(float x) {
 	
-		//airSt == AirState::AIRBORN;
-		//knockImpulse -= Gravity;
-		//position.y -= knockImpulse;
-		//
-		//position.x -= x;
-		//if (position.y >= 190) {
-		//	airSt = AirState::GROUND;
-		//	position.y = 190;
-		//	idle = true;
-		//	//jumpRight.Reset();
-		///*	knockImpulse = 10;*/
-		//}
-	
 }
 
 void ModulePlayer::KnockBackL(float x) {
-
-	//airSt == AirState::AIRBORN;
-	//knockImpulse -= Gravity;
-	//position.y -= knockImpulse;
-	//
-	//position.x += x;
-	//if (position.y >= 190) {
-	//	airSt = AirState::GROUND;
-	//	position.y = 190;
-	//	idle = true;
-	//	//jumpRight.Reset();
-	//	/*knockImpulse = 1;*/
-	//}
 
 }
 void ModulePlayer::PlayerHit(Collider* c2) {
 
 	Deathcollider->SetPos(1300, 1200);
 	firstHit = true;
-	/*if ((c2->rect.x + c2->rect.w) >= Pcollider->rect.x) {
-		knockImpulse = -1.0f;
-	} else if (c2->rect.x < (Pcollider->rect.x+ Pcollider->rect.w) ) {
-		knockImpulse = 1.0f;
-
-	}*/
 	
 	knockImpulse = 1.0f;
 	iFrames = true;
@@ -765,7 +653,6 @@ void ModulePlayer::PlayerHit(Collider* c2) {
 	if (position.y < 190) {
 		//shoudl call a different knockbackfunction
 		if (c2 != Deathcollider) {
-			//KnockBack(25);
 			playerKnocked = true;
 			if (hp > 0) { App->audio->PlayFx(loseHP, 6); }
 			if (dir == Direction::LEFT) {
@@ -827,13 +714,10 @@ void ModulePlayer::playerDamaged() {
 		App->audio->PlayMusic("Assets/Music/Game_Over.ogg", 0.0f);
 		destroyed = true;
 		start = false;
-		
-		/*App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);*/
 	}
 }
 
 void ModulePlayer::Gravity_() {
-	// Gravity_ Function
 	if (airSt == AirState::AIRBORN) {
 		impulse -= Gravity;
 		knockImpulse -= Gravity;
@@ -934,7 +818,6 @@ void ModulePlayer::WereWolfMovement() {
 		}
 		if (idle == true && dir == Direction::RIGHT && airSt == AirState::CROUCH) {
 			currentAnimation = &AllAnimations.W_crouchR;
-			//Pcollider->SetPos(-5612, -5612);
 		}
 		if (idle == true && dir == Direction::LEFT && airSt == AirState::CROUCH) {
 			currentAnimation = &AllAnimations.W_crouchL;
@@ -1370,37 +1253,14 @@ void ModulePlayer::WereWolfMovement() {
 
 				destroyedCountdown -= 0.5f;
 				if (destroyedCountdown <= 0) {
-					//return update_status::UPDATE_STOP;
-
 					App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60);
 					idle = true;
 					airSt = AirState::GROUND;
 					tranSt = Transform::DEFAULT;
 					this->CleanUp();
 				}
-
 			}
-			//if (position.y >= 190) {
-			//	position.x += 0;
-			//	position.y = 190;
-			//	destroyedCountdown -= 0.5f;
-			//	if (destroyedCountdown <= 0) {
-			//		//return update_status::UPDATE_STOP;
-
-			//		App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
-			//		this->CleanUp();
-			//	}
-
-			//}
-
 		}
-
-		//FireBall.bugPatched--;
-		//if (FireBall.bugPatched <= 0) {
-		//	FireBall.destroyed = false;
-		//}
-
-
 	}
 }
 

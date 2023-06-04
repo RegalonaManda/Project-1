@@ -39,7 +39,6 @@ bool ModuleBoss::Start()
 	deathExpl = App->audio->LoadFx("Assets/FX/Boss_Death.wav");
 	welcomeDoom = App->audio->LoadFx("Assets/FX/Welcome_To_Your_Doom.wav");
 
-	//SDL_Rect initialframe = { 1185,744,62,144 };
 	notActive.PushBack({ 0,0,1,1 });
 
 	transform.PushBack({1185,744,62,144});
@@ -110,8 +109,6 @@ bool ModuleBoss::Start()
 	attackAnim.speed = 0.3f;
 	attackAnim.loop = false;
 
-
-
 	for (int i = 0; i < 4; ++i) {
 		for (int j = 0; j < 6; ++j) {
 			pattern[i].headAttack[j].Anims();
@@ -120,21 +117,12 @@ bool ModuleBoss::Start()
 		}
 	}
 
-
 	App->scene->ScreenScroll = false;
-
-	
-
-	//pattern[0].headAttack[0].finalX = 
 
 	currentAnim = &transform;
 
 	beaten = false;
-	//initilized = false;
-
-
-
-
+	
 	return ret;
 }
 
@@ -158,7 +146,6 @@ bool ModuleBoss::Initialize() {
 	cloud.loopCount = 0;
 	transform.Reset();
 	transform.loopCount = 0;
-	//transformed = false;
 	playOnce = 0;
 
 	// Define attack Patterns
@@ -326,9 +313,7 @@ update_status ModuleBoss::Update()
 		}
 
 		else if (beaten) {
-			//explosion anim
-			//disable module
-			//Neff_activ = false;
+
 			Redcnt = 0;
 		}
 
@@ -444,22 +429,14 @@ bool ModuleBoss::Attack(AttackPattern& Pattern) {
 	}
 	
 	else if (Pattern.headAttack[5].fallen == true && Pattern.headAttack[5].XplodeAnim.HasFinished()) {
-		/*Pattern.headAttack[5].XplodeAnim.Reset();
-		Pattern.headAttack[5].XplodeAnim.loopCount = 0;*/
 		return true;
 	}
 	
 		for (int i = 0; i < Pattern.activeHeads; ++i) {
 			Pattern.headAttack[i].Trajectory();
 			Pattern.headAttack[i].current->Update();
-			//Pattern.headAttack[i].Draw();
-			
 		}
 
-		/*if (Pattern.headAttack[currentHead].fallen == true) {
-			currentHead++;
-			attackCnt = 40;
-		}*/
 		return false;
 }
 

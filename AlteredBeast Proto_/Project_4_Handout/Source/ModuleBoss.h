@@ -192,7 +192,7 @@ public:
 	Animation* currentRedAnim;
 
 	Animation notActive;
-	Animation transform; //grow + cloud (?)
+	Animation transform;
 	Animation cloud;
 	Animation idleAnim;
 	Animation red_idleAnim;
