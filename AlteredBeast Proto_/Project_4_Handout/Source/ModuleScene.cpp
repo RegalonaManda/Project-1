@@ -529,7 +529,7 @@ update_status ModuleScene::PostUpdate()
 
 	}
 	if (App->bossfight->Neff_activ == false) {
-		if (EnemyCoolDown == 30 && (App->input->keys[SDL_SCANCODE_5] == KEY_DOWN || App->input->pads[0].up)) {
+		if (EnemyCoolDown == 30 && (App->input->keys[SDL_SCANCODE_5] == KEY_DOWN || App->input-> pads[0].up)) {
 
 			App->enemies->AddEnemy(ENEMY_TYPE::DRAGON, App->player->position.x + 150, 0, true);
 			EnemyCoolDown = 0;

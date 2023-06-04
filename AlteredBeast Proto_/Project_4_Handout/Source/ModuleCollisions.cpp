@@ -232,7 +232,7 @@ update_status ModuleCollisions::PreUpdate()
 
 update_status ModuleCollisions::Update()
 {
-	if (App->input->keys[SDL_SCANCODE_F2] == KEY_DOWN ||App->input->pads[0].r3)
+	if (App->input->keys[SDL_SCANCODE_F2] == KEY_DOWN ||App->input->pads[0].r2)
 		debug = !debug;
 
 	return update_status::UPDATE_CONTINUE;

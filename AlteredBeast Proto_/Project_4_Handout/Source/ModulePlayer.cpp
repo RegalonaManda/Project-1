@@ -240,7 +240,7 @@ update_status ModulePlayer::Update()
 
 	//F1, F2, F3, F4 functionalities (keyboard & gamepad)
 
-	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN || App->input->pads[0].l3) {
+	if (App->input->keys[SDL_SCANCODE_F1] == KEY_DOWN || App->input->pads[0].l2) {
 
 		if (!GodMode) 
 		{ 
@@ -828,7 +828,7 @@ void ModulePlayer::playerDamaged() {
 		destroyed = true;
 		start = false;
 		
-		App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
+		/*App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);*/
 	}
 }
 

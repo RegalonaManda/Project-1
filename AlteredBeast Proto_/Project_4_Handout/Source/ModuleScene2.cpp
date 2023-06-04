@@ -8,6 +8,7 @@
 #include "ModuleFonts.h"
 #include "ModuleAudio.h"
 #include "ModuleGreyScene.h"
+#include "ModuleScene.h"
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 
@@ -64,17 +65,17 @@ ModuleScene2::ModuleScene2(bool startEnabled) : Module(startEnabled)
 	TranformationAnim.PushBack({ 496,0,122,117 });
 	TranformationAnim.PushBack({ 6,128,122,117 });
 	TranformationAnim.PushBack({ 129,128,122,117 });
-	TranformationAnim.PushBack({ 252,128,122,117 });
-	TranformationAnim.PushBack({ 375,128,122,117 });
-	TranformationAnim.PushBack({ 498,128,122,117 });
-	TranformationAnim.PushBack({ 621,128,122,117 });
-	TranformationAnim.loop = false;
-	TranformationAnim.speed = 0.11f;
-	
-	FireAnim.PushBack({ 0,0,320,224 });
-	FireAnim.PushBack({ 320,0,320,224 });
-	FireAnim.loop = true;
-	FireAnim.speed = 0.1f;
+TranformationAnim.PushBack({ 252,128,122,117 });
+TranformationAnim.PushBack({ 375,128,122,117 });
+TranformationAnim.PushBack({ 498,128,122,117 });
+TranformationAnim.PushBack({ 621,128,122,117 });
+TranformationAnim.loop = false;
+TranformationAnim.speed = 0.11f;
+
+FireAnim.PushBack({ 0,0,320,224 });
+FireAnim.PushBack({ 320,0,320,224 });
+FireAnim.loop = true;
+FireAnim.speed = 0.1f;
 }
 
 ModuleScene2::~ModuleScene2()
@@ -107,10 +108,10 @@ bool ModuleScene2::Start()
 update_status ModuleScene2::Update()
 {
 
-	
-	
+
+
 	return update_status::UPDATE_CONTINUE;
-	
+
 }
 
 // Update: draw background
@@ -119,7 +120,7 @@ update_status ModuleScene2::PostUpdate()
 	SDL_Rect rec;
 	SDL_Rect rac;
 	SDL_Rect ric;
-	SDL_Rect reckt = {0,0,140,20};
+	SDL_Rect reckt = { 0,0,140,20 };
 
 	if (App->player->hp == 3)
 	{
@@ -149,8 +150,8 @@ update_status ModuleScene2::PostUpdate()
 
 	ric = iconAnim.frames[0]; // 0 or 1
 
-	
-	
+
+
 	App->render->Blit(layer1, 0, 145, &background, 1.2);
 
 	if (App->grey_scene->Grey == true) {
@@ -160,8 +161,14 @@ update_status ModuleScene2::PostUpdate()
 	App->render->Blit(uiTexture, 30, 200, &rec, 0); // blue hp dots
 	App->render->Blit(uiTexture, 40, 10, &rac, 0);// golden lives
 	App->render->Blit(uiTexture, 10, 10, &ric, 0);//human-wolf icon
-	if (App->player->lives == 0) {
-		App->render->Blit(gameOverTexture, SCREEN_WIDTH/2-70 , SCREEN_HEIGHT/2-10, &reckt, 0);//Game over text
+	if (App->player->lives <= 0) {
+		App->render->Blit(gameOverTexture, SCREEN_WIDTH / 2 - 70, SCREEN_HEIGHT / 2 - 10, &reckt, 0);//Game over text
+		FadeCnt--;
+		if (FadeCnt <= 0) {
+			FadeCnt = 120;
+			App->fade->FadeToBlack((Module*)App->scene, (Module*)App->sceneIntro, 60.0f);
+		}
+		
 	}
 	
 	if (App->bossfight->beaten == true) {
