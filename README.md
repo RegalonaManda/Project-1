@@ -1,4 +1,4 @@
-Altered Beast (1988) recreation by MidnightCoffee Studios
+Altered Beast (1988) recreation by MidnightCoffee Studios /  
 Check video demostration on Youtube : https://youtu.be/U7Qq7CH00FI
 
 https://github.com/RegalonaManda/Project-1/wiki
