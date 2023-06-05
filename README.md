@@ -4,7 +4,7 @@ https://github.com/RegalonaManda/Project-1/wiki
 
 Gameplay: https://youtu.be/U7Qq7CH00FI
 
-[[https://github.com/RegalonaManda/Project-1/blob/main/ExamplePhotos/0.%20Home/TeamPhoto_cropped.jpg | width = 500px]] 
+https://github.com/RegalonaManda/Project-1/blob/main/ExamplePhotos/0.%20Home/TeamPhoto_cropped.jpg
 
 MidnightCoffee Studios is composed by
 -Marco Baldan (MarcoBaldanPardoPotage)
