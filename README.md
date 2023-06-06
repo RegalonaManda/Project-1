@@ -1,9 +1,13 @@
-Altered Beast (1988) recreation by MidnightCoffee Studios
+# Altered Beast (1988) recreation by MidnightCoffee Studios
 
+## Github link: 
 https://github.com/RegalonaManda/Project-1/wiki
 
-Gameplay: https://youtu.be/U7Qq7CH00FI
+## Gameplay:
+https://youtu.be/U7Qq7CH00FI
 
+## Download link:
+https://github.com/RegalonaManda/Project-1/releases/tag/Alpha
 https://github.com/RegalonaManda/Project-1/blob/main/ExamplePhotos/0.%20Home/TeamPhoto_cropped.jpg
 
 MidnightCoffee Studios is composed by
