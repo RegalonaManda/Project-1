@@ -8,6 +8,8 @@ https://youtu.be/U7Qq7CH00FI
 
 ## Download link:
 https://github.com/RegalonaManda/Project-1/releases/tag/Alpha
+
+## Team Photo:
 https://github.com/RegalonaManda/Project-1/blob/main/ExamplePhotos/0.%20Home/TeamPhoto_cropped.jpg
 
 MidnightCoffee Studios is composed by
